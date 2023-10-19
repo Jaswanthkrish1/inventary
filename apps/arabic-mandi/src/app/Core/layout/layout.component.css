@@ -1,0 +1,11 @@
+.navbar {
+    background-color: transparent;
+    transition: background-color 0.10s;
+   
+  }
+  
+  /* Navbar style when scrolled */
+  .scrolled {
+    background-color: #ffffffe0; /* Set the background color you want */
+    
+  }

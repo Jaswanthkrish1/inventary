@@ -1,7 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 
 body{
-    background-color: #ebedef;
+    background-color: #d8deddf1;
+    backface-visibility: hidden;
 }
 a{
     text-decoration: none !important;
@@ -20,7 +21,6 @@ a{
 }
 .navbar{
     background-color: #ffff;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 .footer{
     background-color: #f8f9fa;

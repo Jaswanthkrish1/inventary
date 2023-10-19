@@ -1,38 +1,30 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CategoriesComponent } from './Core/pages/categories/categories.component';
-
-import { LoginComponent } from './Core/login/login.component';
-import { FoodviewComponent } from './Core/pages/foodview/foodview.component';
+import { CategoryComponent } from './Core/pages/category/category.component';
+import { LayoutComponent } from './Core/layout/layout.component';
+import { AuthenticationGuard } from './Core/authentication/authentication.guard';
 const appRoutes: Routes = [
   {
     path: '',
-    component: CategoriesComponent,
+    component: LayoutComponent,
+    canActivate: [AuthenticationGuard],
     children: [
-      {
-        path: 'categories',
+      {   
+        path: 'home',
         loadChildren: () =>
-          import('../app/Core/pages/categories/categories.module').then(
-            (m) => m.CategoriesModule
+          import('./Core/pages/category/category.module').then(
+            (m) => m.CategoryModule
           ),
       },
-      
+      { path: '', pathMatch: 'full', redirectTo: '/home', },
     ],
+    
   },
-  { path: 'foodView', component: FoodviewComponent },
- 
 
-  // {
-  //   path:'login',
-  //   canActivate: [AuthGuard],
-  //   component:LoginComponent,children:[
-  //   {
-  // //forgot,register,all this comes under this
-  //   }
-  // ]}
+
 ];
 @NgModule({
   imports: [RouterModule.forRoot(appRoutes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

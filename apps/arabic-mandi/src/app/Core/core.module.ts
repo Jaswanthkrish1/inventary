@@ -2,11 +2,13 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { RouterModule } from '@angular/router';
-import { CategoriesModule } from './pages/categories/categories.module';
+import { CategoryComponent } from './pages/category/category.component';
 
+const MODULES = [CommonModule, RouterModule];
+const COMPONENT = []
 @NgModule({
   declarations: [ ],
-  imports: [CommonModule, RouterModule],
-  exports: [RouterModule],
+  imports: [...MODULES,],
+  exports: [...MODULES],
 })
 export class CoreModule {}
