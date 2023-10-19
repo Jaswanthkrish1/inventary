@@ -9,10 +9,9 @@ const routes: Routes = [
     component: CategoryComponent,
     children: [],
   },
-  { path: 'food', component: FoodComponent },
-  
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'food/:category', component: FoodComponent },
 
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
 ];
 @NgModule({
   imports: [RouterModule.forChild(routes)],

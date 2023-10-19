@@ -31,14 +31,14 @@ export class CategoryComponent implements OnInit, AfterViewInit {
       id: 3,
       name: 'Juices',
       imgUrl: '../../../../assets/dynamicimg/mandi.jpeg',
-      avilable: false,
+      avilable: true,
       price: 500,
     },
     {
       id: 4,
       name: 'MockTails',
       imgUrl: '../../../../assets/dynamicimg/mandi.jpeg',
-      avilable: false,
+      avilable: true,
       price: 500,
     },
   ];
@@ -46,7 +46,7 @@ export class CategoryComponent implements OnInit, AfterViewInit {
   ngOnInit() { }
   /* Navigate to foodview*/
   navigateToDetail(categoryName: any) {
-    this.router.navigate(['food'], { relativeTo: this.route });
+    this.router.navigate(['food', categoryName], { relativeTo: this.route });
   }
   initMap() {
     this.map = L.map('map').setView([13.7496064, 79.689494], 20);

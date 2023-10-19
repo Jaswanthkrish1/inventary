@@ -22,4 +22,14 @@ export interface Categories {
    avilable:boolean,
 }
 
+export interface FoodItem {
+    category:string,
+    type: string;
+    name: string;
+    url: string;
+    price: number;
+  }
+
+
+
 
