@@ -1,0 +1,5 @@
+.disabled-card {
+    opacity: 0.6; /* Reduce opacity to make the card appear disabled */
+    pointer-events: none; /* Disable mouse interactions on the card */
+    /* Add any other styling to indicate it's disabled */
+  }

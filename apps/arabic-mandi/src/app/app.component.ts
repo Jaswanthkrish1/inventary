@@ -1,14 +1,18 @@
-import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { NxWelcomeComponent } from './nx-welcome.component';
+import { Component ,AfterViewInit} from '@angular/core';
+import { ElementRef, QueryList, ViewChildren } from '@angular/core';
+
 
 @Component({
-  standalone: true,
-  imports: [NxWelcomeComponent, RouterModule],
+ 
   selector: 'food-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
+ templateUrl: 'app.component.html',
 })
-export class AppComponent {
+export class AppComponent implements AfterViewInit{
   title = 'arabic-mandi';
+  @ViewChildren ('tooltipButton') tooltipButtons!: QueryList<ElementRef> ;
+  ngAfterViewInit(): void {
+    // Access the DOM elements using QueryList and ElementRef
+    this.tooltipButtons.forEach((tooltipButton: ElementRef) => {
+    });
+  }
 }

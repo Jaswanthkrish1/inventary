@@ -19,7 +19,7 @@
           "apps/arabic-mandi/src/favicon.ico",
           "apps/arabic-mandi/src/assets"
         ],
-        "styles": ["apps/arabic-mandi/src/styles.css"],
+        "styles": ["./node_modules/leaflet/dist/leaflet.css","apps/arabic-mandi/src/styles.css"],
         "scripts": []
       },
       "configurations": {
