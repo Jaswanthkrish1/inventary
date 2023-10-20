@@ -1,25 +1,43 @@
 <br>
 <br><br>
-<br>
-<div class="GSlider">
-    <div class="col">
-        <div class="col-md-12" *ngFor="let foodType of foodTypes">
-            <div style="flex: 0 0 auto; "> <!-- This div controls horizontal layout -->
-                <h3>{{ foodType }}</h3>
-                <div style="display: flex; flex-wrap: nowrap; overflow-x: auto; padding: 20px;">
-                    <!-- This div enables horizontal scrolling -->
-                    <div class="card" *ngFor="let foodItem of structuredFoodType[foodType]"
-                        style="flex: 0 0 auto; padding: 20px;">
-                        <img [src]="foodItem.url" alt="img" class="card-img-top GImg" alt="item" />
-                        <div class="card-body">
-                            <h5 class="card-title">{{ foodItem.name }}</h5>
-                            <p>Price: ${{ foodItem.price }}</p>
+
+<body>
+
+    <body class="img" style="
+background-image: url(&quot;../../../../../assets/background/bg2.jpeg&quot;); 
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center; 
+  " class="container-fluid">
+        <br>
+        <div class="">
+
+            <div class="col ">
+
+                <div class="col-sm-12 col-md-6 col-md-12" *ngFor="let foodType of foodTypes">
+                    <div style="flex: 0 0 auto; ">
+                        <h3>{{ foodType }}</h3>
+                        <div style="overflow-x: auto; position: relative;">
+                            <div
+                                style="display: flex; flex-wrap: nowrap; padding: 20px; justify-content: space-between; position: relative;">
+
+                                <div class="card" *ngFor="let foodItem of structuredFoodType[foodType]"
+                                    style="flex: 0 0 auto; padding: 20px; background: #edefe95e; ">
+                                    <img [src]="foodItem.url" alt="img" class="card-img-top GImg" alt="item" />
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ foodItem.name }}</h5>
+                                        <p>Price: ${{ foodItem.price }}</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
 
-<router-outlet></router-outlet>
+
+
+
+    </body>
+    <router-outlet></router-outlet>

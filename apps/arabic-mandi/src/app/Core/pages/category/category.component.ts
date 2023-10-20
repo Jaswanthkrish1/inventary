@@ -2,6 +2,7 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import * as L from 'leaflet';
 import { Categories } from '../../structures/structure';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'food-category',
   templateUrl: './category.component.html',
@@ -9,9 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class CategoryComponent implements OnInit, AfterViewInit {
   private map!: L.Map;
-  constructor(private router: Router
-    , private route: ActivatedRoute) { }
-
+  sub: Subscription;
   data: Categories[] = [
     {
       id: 1,
@@ -43,6 +42,11 @@ export class CategoryComponent implements OnInit, AfterViewInit {
     },
   ];
 
+  constructor(private router: Router
+    , private route: ActivatedRoute) { 
+    this.sub = new Subscription();
+    }
+    
   ngOnInit() { }
   /* Navigate to foodview*/
   navigateToDetail(categoryName: any) {

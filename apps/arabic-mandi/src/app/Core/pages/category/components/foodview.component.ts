@@ -5,11 +5,13 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'food-foodview',
   templateUrl: './foodview.component.html',
+  styles: [
+    `
+    
+    `,
+  ],
 })
 export class FoodComponent implements OnInit, OnDestroy {
-  constructor(private route: ActivatedRoute) {
-    this.sub = new Subscription();
-  }
   public sub: Subscription;
   foodTypes: string[] = [];
   structuredFoodType: { [key: string]: FoodItem[] } = {};
@@ -184,6 +186,10 @@ export class FoodComponent implements OnInit, OnDestroy {
     },
   ];
 
+  constructor(private route: ActivatedRoute) {
+    this.sub = new Subscription();
+  }
+
   ngOnInit(): void {
     this.sub.add(
       this.route.paramMap.subscribe((params) => {
@@ -207,6 +213,17 @@ export class FoodComponent implements OnInit, OnDestroy {
       acc[item.type].push(item);
       return acc;
     }, {} as { [key: string]: FoodItem[] });
+  }
+
+  selectedType: string = '';
+  // Toggle the selected food type
+  toggleFoodType(type: string) {
+    this.selectedType = type;
+  }
+
+  // Check if a food type is selected
+  isTypeVisible(type: string): boolean {
+    return this.selectedType === type;
   }
 
   ngOnDestroy(): void {
