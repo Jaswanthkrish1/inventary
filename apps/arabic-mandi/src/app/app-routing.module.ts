@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { CategoryComponent } from './Core/pages/category/category.component';
 import { LayoutComponent } from './Core/layout/layout.component';
 import { AuthenticationGuard } from './Core/authentication/authentication.guard';
+import { FoodComboComponent } from './Core/pages/category/components/combo.component';
 const appRoutes: Routes = [
   {
     path: '',
@@ -15,6 +16,9 @@ const appRoutes: Routes = [
           import('./Core/pages/category/category.module').then(
             (m) => m.CategoryModule
           ),
+      },{   
+        path: 'combo',
+        component: FoodComboComponent
       },
       { path: '', pathMatch: 'full', redirectTo: '/home', },
     ],

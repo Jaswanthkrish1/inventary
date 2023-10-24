@@ -13,6 +13,10 @@ import { Subscription } from 'rxjs';
 })
 export class FoodComponent implements OnInit, OnDestroy {
   public sub: Subscription;
+  
+  public isDropdownOpen: boolean = false;
+  public selectedFilter: string = '';
+
   foodTypes: string[] = [];
   structuredFoodType: { [key: string]: FoodItem[] } = {};
   foodType: FoodItem[] = [
@@ -190,6 +194,15 @@ export class FoodComponent implements OnInit, OnDestroy {
     this.sub = new Subscription();
   }
 
+  toggleDropdown() {
+    this.isDropdownOpen = !this.isDropdownOpen;
+  }
+
+  applyFilter() {
+    // Handle the selected filter here, e.g., emit an event or call a function with this.selectedFilter.
+    console.log('Selected Filter: ' + this.selectedFilter);
+    this.isDropdownOpen = false; // Close the dropdown after selection.
+  }
   ngOnInit(): void {
     this.sub.add(
       this.route.paramMap.subscribe((params) => {
@@ -200,6 +213,10 @@ export class FoodComponent implements OnInit, OnDestroy {
       })
     );
     this.foodTypes = Object.keys(this.structuredFoodType);
+  }
+
+  data(){
+    console.log("test");
   }
 
   getFoods(key: any) {

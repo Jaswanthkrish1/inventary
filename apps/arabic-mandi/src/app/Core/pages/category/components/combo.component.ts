@@ -43,10 +43,7 @@ export class FoodComboComponent implements OnInit, AfterViewInit {
     },
   ];
   ngAfterViewInit(): void {
-    setTimeout(() => {
-      const carouselElement = $('#myCarousel') as any;
-      carouselElement.carousel({ interval: 1000 });
-    }, 100);
+   
   }
   ngOnInit(): void {}
 }

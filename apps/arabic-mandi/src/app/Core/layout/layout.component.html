@@ -8,24 +8,76 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light  fixed-top" [ngClass]="{ 'scrolled': isScrolled }">
-        <div class="container">
-            <a class="navbar-brand">Arabic Mandi</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup">
-                <span class="navbar-toggler-icon"></span>
+    <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg bg-white navbar-light w-100 fixed-top shadow py-lg-0 px-4 px-lg-5 ">
+            <div class="navbar-collapse justify-content-between py-4 py-lg-0">
+                <div class="navbar-nav ms-auto py-0">
+                    <a routerLink="home" class="nav-item nav-link ">Home</a>
+                    <a href="#menu" class="nav-item nav-link">Menu</a>
+                    <a href="#service" class="nav-item nav-link">Services</a>
+                    <a routerLink="combo" class="nav-item nav-link">Combo</a>
+                </div>
+                <a href="home" class="navbar-brand py-3 px-4 mx-3 d-none d-lg-block">
+                    <h1 class=" fw-bold m-0">Arabic Mandi</h1>
+                </a>
+                <div class="navbar-nav me-auto py-0">
+                    <a href="#about" class="nav-item nav-link">About</a>
+                    <a href="#team" class="nav-item nav-link">Team</a>
+                    <a href="#booking" class="nav-item nav-link">Booking</a>
+                    <a href="#contact" class="nav-item nav-link">Contact</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="fixed-top" style="display: flex; justify-content: space-between;">
+        <div>
+            <button class=" disable navbar-toggler " type="button" data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">
+                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-list"
+                    viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
+                </svg>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav">
-                    <a class="nav-item nav-link active" routerLink="home">Home</a>
-                    <a class="nav-item nav-link" href="#">Login</a>
-                    <a class="nav-item nav-link disabled" href="#" tabindex="-1" aria-disabled="true"></a>
+        </div>
+        <div>
+            <a class="navbar-brand d-lg-none">
+                <h1 class=" fw-bold m-0">Arabic Mandi</h1>
+            </a>
+        </div>
+    </div>
+    <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
+        id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+        <div class="offcanvas-header">
+            <a class=" d-block d-lg-none">
+                <h1 class=" fw-bold m-0">Arabic Mandi</h1>
+            </a>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <div class="navbar-collapse justify-content-between py-4 py-lg-0" id="navbarCollapse">
+                <div class=" ms-auto py-0">
+                    <a routerLink="home" class="nav-item nav-link " data-bs-dismiss="offcanvas">Home</a>
+                    <a href="#menu" class="nav-item nav-link" data-bs-dismiss="offcanvas">Menu</a>
+                    <a href="#service" class="nav-item nav-link" data-bs-dismiss="offcanvas">Services</a>
+                    <a routerLink="combo" class="nav-item nav-link" data-bs-dismiss="offcanvas">Combo</a>
+                </div>
+
+                <div class="navbar-nav me-auto py-0">
+                    <a href="#about" class="nav-item nav-link" data-bs-dismiss="offcanvas">About</a>
+                    <a href="#team" class="nav-item nav-link" data-bs-dismiss="offcanvas">Team</a>
+                    <a href="#booking" class="nav-item nav-link" data-bs-dismiss="offcanvas">Booking</a>
+                    <a href="#contact" class="nav-item nav-link" data-bs-dismiss="offcanvas">Contact</a>
                 </div>
             </div>
         </div>
-    </nav>
-    
-    <router-outlet>
-    </router-outlet>
+    </div>
+
+    <div class="content" style="margin-top: 100px;">
+        <router-outlet></router-outlet>
+    </div>
+
+
 
 </body>
 <!-- Footer -->

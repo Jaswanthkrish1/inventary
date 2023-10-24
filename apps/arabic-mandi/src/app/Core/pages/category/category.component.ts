@@ -1,8 +1,10 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import * as L from 'leaflet';
-import { Categories } from '../../structures/structure';
+import { Categories, comboOffer } from '../../structures/structure';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+declare var $: any;
+
 @Component({
   selector: 'food-category',
   templateUrl: './category.component.html',
@@ -39,6 +41,40 @@ export class CategoryComponent implements OnInit, AfterViewInit {
       imgUrl: '../../../../assets/dynamicimg/mandi.jpeg',
       avilable: true,
       price: 500,
+    },
+  ];
+  dataCombo: comboOffer[] = [
+    {
+      id: 1,
+      name: 'Family',
+      price: 550,
+      imgUrl: '../../../../assets/Combo/combo1.jpeg',
+      discription:
+        'Special offer for family upto 10% discount.....................',
+    },
+    {
+      id: 2,
+      name: 'Friends',
+      price: 500,
+      imgUrl: '../../../../assets/Combo/Combo3.jpeg',
+      discription:
+        'Special offer for Friends upto 10% discount.....................',
+    },
+    {
+      id: 3,
+      name: 'Childran',
+      price: 450,
+      imgUrl: '../../../../assets/Combo/Combo2.gif',
+      discription:
+        'Special offer for Childran upto 10% discount.....................',
+    },
+    {
+      id: 3,
+      name: 'Childran',
+      price: 450,
+      imgUrl: '../../../../assets/Combo/Combo2.gif',
+      discription:
+        'Special offer for Childran upto 10% discount.....................',
     },
   ];
 
@@ -84,5 +120,11 @@ export class CategoryComponent implements OnInit, AfterViewInit {
   }
   ngAfterViewInit(): void {
     this.initMap();
+    setTimeout(() => {
+      const carouselElement = $('#myCarousel') as any;
+      carouselElement.carousel({ interval: 100 });
+    }, 100);
+    
   }
+ 
 }
