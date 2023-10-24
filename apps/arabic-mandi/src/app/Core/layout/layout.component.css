@@ -33,12 +33,19 @@ h1{
     display: none;
   }
 }
+.content{
+  margin-top: 100px;
+}
 @media (max-width: 991.98px) {
   /* .navbar .navbar-nav .nav-link  {
       padding: 10px 0;
   } */
   .navbar{
     display: none;
+  }
+
+  .content{
+    margin-top: 30px;
   }
   
 

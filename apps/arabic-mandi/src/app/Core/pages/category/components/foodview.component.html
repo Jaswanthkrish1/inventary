@@ -1,74 +1,45 @@
 <br>
 
-<body class="img" style="
-background-image: url(&quot;../../../../../assets/background/bg2.jpeg&quot;); 
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center; 
-  " class="container-fluid">
-    <br>
-    <!-- <div class="container-fluid" style="height: 30px; display: flex; background-color: antiquewhite; position: fixed;
-         justify-content: right;">
+<head>
+</head>
 
-        <div style="margin-right: 10px;" >
-            <a >
-           <svg  xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-filter"
-                viewBox="0 0 10 16">
-                <path
-                    d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z" />
-            </svg>
-            Filter</a>
-        </div>
-    </div> -->
-    <div class="filter-container">
-        <div class="filter-icon">
-          
+<body class="img"  class="container-fluid">
+
+    <ul class="list-group" *ngFor="let foodType of foodTypes">
+        <li class="card list-group-item d-flex justify-content-between align-items-center"
+            *ngFor="let foodItem of structuredFoodType[foodType]" >
+            <img [src]="foodItem.url" alt="img" class="card-img-top GImg" alt="item"
            
-            <div class="filter-dropdown" >
-                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-filter"
-              viewBox="0 0 10 16">
-              <path
-                d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5"></path>
-            </svg>
-                <select [(ngModel)]="selectedFilter" (change)="applyFilter()">
-                  <option value="type1">Type 1</option>
-                  <option value="type2">Type 2</option>
-                  <option value="type3">Type 3</option>
-                </select>
-              </div>
-          
-        </div>
-        
-      </div>
-      
-    <div class="">
-
-        <div class="col ">
-
-            <div class="col-sm-12 col-md-6 col-md-12" *ngFor="let foodType of foodTypes">
-                <div style="flex: 0 0 auto; ">
-                    <h3>{{ foodType }}</h3>
-                    <div style="overflow-x: auto; position: relative;">
-                        <div
-                            style="display: flex; flex-wrap: nowrap; padding: 20px; justify-content: space-between; position: relative;">
-
-                            <div class="card" *ngFor="let foodItem of structuredFoodType[foodType]"
-                                style="flex: 0 0 auto; padding: 20px; background: #edefe95e; ">
-                                <img [src]="foodItem.url" alt="img" class="card-img-top GImg" alt="item" />
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ foodItem.name }}</h5>
-                                    <p>Price: ${{ foodItem.price }}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+             />
+            <div class="card-body">
+                <h5 class="card-title">{{ foodItem.name }}</h5>
+                <p>Price: ${{ foodItem.price }}</p>
             </div>
+            <!-- <button (click)="showFoodItemDetails(foodItem)"  data-bs-toggle="modal" data-bs-target="#exampleModal" >show</button> -->
+           
+        </li>
+    </ul>
+    
+
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" *ngIf="selectedFoodItem">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">{{ selectedFoodItem.name }}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
+        <div class="modal-body">
+            Price: ${{ selectedFoodItem.price }}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
     </div>
-
-
-
+  </div>
+    
 
 </body>
 <router-outlet></router-outlet>

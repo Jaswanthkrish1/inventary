@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { CategoryComponent } from './category.component';
 import { FoodComponent } from './components/foodview.component';
 import { FoodComboComponent } from './components/combo.component';
+import { FoodDetails } from './pages/food-details.component';
 
 const routes: Routes = [
   {
