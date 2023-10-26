@@ -1,4 +1,5 @@
-import { Component } from "@angular/core";
+import { Component, Inject } from "@angular/core";
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
@@ -11,10 +12,15 @@ export class FoodDetails {
     
     selectedFoodItem: any;
 
-    constructor(private router: Router, private route: ActivatedRoute) {}
+    constructor( private route: ActivatedRoute,
+      
+      public dialogRef: MatDialogRef<FoodDetails>,
+      @Inject(MAT_DIALOG_DATA)
+      public data: { Item: any }) {
+        this.selectedFoodItem = data
+      }
   
     closeModal() {
-      // Use Angular router to navigate back to the previous route (food list)
-      this.router.navigate([{ outlets: { modal: null } }],{ relativeTo: this.route });
+     this.dialogRef.close();
     }
 }

@@ -4,8 +4,9 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { CategoryComponent } from './pages/category/category.component';
 import { FormsModule } from '@angular/forms';
+import { MaterialModule } from './angular-matirial.module';
 
-const MODULES = [CommonModule, RouterModule , FormsModule];
+const MODULES = [CommonModule, RouterModule , FormsModule,MaterialModule];
 const COMPONENT = []
 @NgModule({
   declarations: [ ],

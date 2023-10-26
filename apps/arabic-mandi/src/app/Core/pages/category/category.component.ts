@@ -3,12 +3,34 @@ import * as L from 'leaflet';
 import { Categories, comboOffer } from '../../structures/structure';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { trigger, transition, style, animate } from '@angular/animations';
 declare var $: any;
 
 @Component({
   selector: 'food-category',
   templateUrl: './category.component.html',
   styleUrls: ['./category.component.css'],
+  animations: [
+    trigger('slideIn', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('1000ms', style({ opacity: 1 })),
+      ]),
+    ]),
+    trigger('fadeIn', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('3000ms', style({ opacity: 1 })),
+      ]),
+    ]),
+    trigger('fadeIn1', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('4000ms', style({ opacity: 1 })),
+      ]),
+    ]),
+    
+  ],
 })
 export class CategoryComponent implements OnInit, AfterViewInit {
   private map!: L.Map;
@@ -31,6 +53,13 @@ export class CategoryComponent implements OnInit, AfterViewInit {
     {
       id: 3,
       name: 'Juices',
+      imgUrl: '../../../../assets/dynamicimg/mandi.jpeg',
+      avilable: true,
+      price: 500,
+    },
+    {
+      id: 4,
+      name: 'MockTails',
       imgUrl: '../../../../assets/dynamicimg/mandi.jpeg',
       avilable: true,
       price: 500,
@@ -76,14 +105,21 @@ export class CategoryComponent implements OnInit, AfterViewInit {
       discription:
         'Special offer for Childran upto 10% discount.....................',
     },
+    {
+      id: 3,
+      name: 'data',
+      price: 450,
+      imgUrl: '../../../../assets/Combo/Combo2.gif',
+      discription:
+        'Special offer for Childran upto 10% discount.....................',
+    },
   ];
 
-  constructor(private router: Router
-    , private route: ActivatedRoute) { 
+  constructor(private router: Router, private route: ActivatedRoute) {
     this.sub = new Subscription();
-    }
-    
-  ngOnInit() { }
+  }
+
+  ngOnInit() {}
   /* Navigate to foodview*/
   navigateToDetail(categoryName: any) {
     this.router.navigate(['food', categoryName], { relativeTo: this.route });
@@ -124,7 +160,5 @@ export class CategoryComponent implements OnInit, AfterViewInit {
       const carouselElement = $('#myCarousel') as any;
       carouselElement.carousel({ interval: 100 });
     }, 100);
-    
   }
- 
 }

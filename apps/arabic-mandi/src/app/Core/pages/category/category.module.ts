@@ -11,6 +11,6 @@ import { FoodDetails } from './pages/food-details.component';
   declarations: [FoodComboComponent, CategoryComponent, FoodComponent,FoodDetails],
   imports: [CommonModule, CoreModule, CategoryRoutingModule],
 
-  exports: [CategoryComponent, CoreModule],
+  exports: [CategoryComponent, ],
 })
 export class CategoryModule {}

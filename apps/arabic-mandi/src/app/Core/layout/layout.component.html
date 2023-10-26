@@ -14,17 +14,17 @@
                 <div class="navbar-nav ms-auto py-0">
                     <a routerLink="home" class="nav-item nav-link ">Home</a>
                     <a href="#menu" class="nav-item nav-link">Menu</a>
-                    <a href="#service" class="nav-item nav-link">Services</a>
+                    <!-- <a herf="https://www.google.com/search?sca_esv=570249222&hl=en-IN&gl=IN&sxsrf=AM9HkKkNj0QhtYkxZOzbd4y4JSLwuycE4Q:1696305904287&q=Arabic+Mandi+Multicuisine+Restaurent&ludocid=17657452288862018514&ibp=gwp;0,7&lsig=AB86z5XYk3dnQIsM2nhK_UEc0TrJ&kgs=a5b8c4b76716e17a&shndl=-1&shem=lbsc,lsp&source=sh/x/kp/local/m1/2" class="nav-item nav-link">Navigate</a> -->
                     <a routerLink="combo" class="nav-item nav-link">Combo</a>
                 </div>
                 <a href="home" class="navbar-brand py-3 px-4 mx-3 d-none d-lg-block">
                     <h1 class=" fw-bold m-0">Arabic Mandi</h1>
                 </a>
                 <div class="navbar-nav me-auto py-0">
-                    <a href="#about" class="nav-item nav-link">About</a>
-                    <a href="#team" class="nav-item nav-link">Team</a>
-                    <a href="#booking" class="nav-item nav-link">Booking</a>
-                    <a href="#contact" class="nav-item nav-link">Contact</a>
+                    <a class="nav-item nav-link">About</a>
+                    <!-- <a (click)="navigate('Booking')" class="nav-item nav-link">Team</a> -->
+                    <a routerLink="dd" class="nav-item nav-link">Booking</a>
+                    <a (click)="navigate('Contact')" class="nav-item nav-link">Contact</a>
                 </div>
             </div>
         </nav>
@@ -59,15 +59,15 @@
                 <div class=" ms-auto py-0">
                     <a routerLink="home" class="nav-item nav-link " data-bs-dismiss="offcanvas">Home</a>
                     <a href="#menu" class="nav-item nav-link" data-bs-dismiss="offcanvas">Menu</a>
-                    <a href="#service" class="nav-item nav-link" data-bs-dismiss="offcanvas">Services</a>
+                    <!-- <a href="#service" class="nav-item nav-link" data-bs-dismiss="offcanvas">Services</a> -->
                     <a routerLink="combo" class="nav-item nav-link" data-bs-dismiss="offcanvas">Combo</a>
                 </div>
 
                 <div class="navbar-nav me-auto py-0">
-                    <a href="#about" class="nav-item nav-link" data-bs-dismiss="offcanvas">About</a>
-                    <a href="#team" class="nav-item nav-link" data-bs-dismiss="offcanvas">Team</a>
-                    <a href="#booking" class="nav-item nav-link" data-bs-dismiss="offcanvas">Booking</a>
-                    <a href="#contact" class="nav-item nav-link" data-bs-dismiss="offcanvas">Contact</a>
+                    <a class="nav-item nav-link">About</a>
+                    <!-- <a (click)="navigate('Booking')" class="nav-item nav-link">Team</a> -->
+                    <a  routerLink="gg" class="nav-item nav-link">Booking</a>
+                    <a (click)="navigate('Contact')" class="nav-item nav-link">Contact</a>
                 </div>
             </div>
         </div>
@@ -81,40 +81,7 @@
 
 </body>
 <!-- Footer -->
-<footer class="text-center text-lg-start bg-white text-muted">
-    <!-- Section: Social media -->
-    <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
-        <!-- Left -->
-        <div class="me-5 d-none d-lg-block">
-            <span>Get connected with us on social networks:</span>
-        </div>
-        <!-- Left -->
-
-        <!-- Right -->
-        <div>
-            <a href="" class="me-4 link-secondary">
-                <i class="fab fa-facebook-f"></i>
-            </a>
-            <a href="" class="me-4 link-secondary">
-                <i class="fab fa-twitter"></i>
-            </a>
-            <a href="" class="me-4 link-secondary">
-                <i class="fab fa-google"></i>
-            </a>
-            <a href="" class="me-4 link-secondary">
-                <i class="fab fa-instagram"></i>
-            </a>
-            <a href="" class="me-4 link-secondary">
-                <i class="fab fa-linkedin"></i>
-            </a>
-            <a href="" class="me-4 link-secondary">
-                <i class="fab fa-github"></i>
-            </a>
-        </div>
-        <!-- Right -->
-    </section>
-    <!-- Section: Social media -->
-
+<footer id="Contact" class="text-center text-lg-start bg-white text-muted">
     <!-- Section: Links  -->
     <section class="">
         <div class="container text-center text-md-start mt-5">
@@ -123,54 +90,36 @@
                 <!-- Grid column -->
                 <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
                     <!-- Content -->
-                    <h6 class="text-uppercase fw-bold mb-4">
-                        <i class="fas fa-gem me-3 text-secondary"></i>Company name
+                    <h6 class=" fw-bold mb-4">
+                        <h1 class=""> Arabic Mandi </h1>
+                        <h4 style="color: rgb(134, 191, 240)"> Multicuisine </h4>
+                        <h6 class="text-secondary">Restaurent</h6>
                     </h6>
                     <p>
-                        Here you can use rows and columns to organize your footer content. Lorem ipsum
-                        dolor sit amet, consectetur adipisicing elit.
+
                     </p>
                 </div>
                 <!-- Grid column -->
 
                 <!-- Grid column -->
-                <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-                    <!-- Links -->
-                    <h6 class="text-uppercase fw-bold mb-4">
-                        Products
-                    </h6>
-                    <p>
-                        <a href="#!" class="text-reset">Angular</a>
-                    </p>
-                    <p>
-                        <a href="#!" class="text-reset">React</a>
-                    </p>
-                    <p>
-                        <a href="#!" class="text-reset">Vue</a>
-                    </p>
-                    <p>
-                        <a href="#!" class="text-reset">Laravel</a>
-                    </p>
-                </div>
+            
                 <!-- Grid column -->
 
                 <!-- Grid column -->
                 <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
                     <!-- Links -->
                     <h6 class="text-uppercase fw-bold mb-4">
-                        Useful links
+                        Follw Up
                     </h6>
                     <p>
-                        <a href="#!" class="text-reset">Pricing</a>
+                        <a href="https://jaswanthkrish1.github.io/QrMenuInventary/" class="text-reset">MenuCard</a>
+                    </p>
+                    
+                    <p>
+                        <a href="" class="text-reset"><i class="fa fa-instagram" aria-hidden="true">Instagram</i> </a>
                     </p>
                     <p>
-                        <a href="#!" class="text-reset">Settings</a>
-                    </p>
-                    <p>
-                        <a href="#!" class="text-reset">Orders</a>
-                    </p>
-                    <p>
-                        <a href="#!" class="text-reset">Help</a>
+                        <a routerLink="help" class="text-reset">Help</a>
                     </p>
                 </div>
                 <!-- Grid column -->
@@ -179,13 +128,13 @@
                 <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
                     <!-- Links -->
                     <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
-                    <p><i class="fas fa-home me-3 text-secondary"></i> New York, NY 10012, US</p>
-                    <p>
+                    <p><i class="fas fa-home me-3 text-secondary"></i>Sri kalahasti , Arabic mandi Multicuisine Restaurent</p>
+                    <!-- <p>
                         <i class="fas fa-envelope me-3 text-secondary"></i>
-                        info@example.com
-                    </p>
-                    <p><i class="fas fa-phone me-3 text-secondary"></i> + 01 234 567 88</p>
-                    <p><i class="fas fa-print me-3 text-secondary"></i> + 01 234 567 89</p>
+                        arabic@gmail.com
+                    </p> -->
+                    <p><i class="fas fa-phone me-3 text-secondary"></i> +91 9381531101</p>
+                    <p><i class="fas fa-print me-3 text-secondary"></i> +91 7013833764</p>
                 </div>
                 <!-- Grid column -->
             </div>
@@ -196,11 +145,13 @@
 
     <!-- Copyright -->
     <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.025);">
-        © 2021 Copyright:
-        <a class="text-reset fw-bold" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+        <!-- © 2021 Copyright: -->
+        <h3>Developed By</h3>
+        <a class="text-reset fw-bold" href="">Jaswanth Chowdary</a>
     </div>
     <!-- Copyright -->
 </footer>
 <!-- Footer -->
+
 
 </html>

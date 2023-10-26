@@ -13,9 +13,8 @@ const routes: Routes = [
   },
   { path: 'food/:category', component: FoodComponent },
   { path: 'combo', component: FoodComboComponent },
-
-
   { path: '', redirectTo: 'home', pathMatch: 'full' },
+  
 ];
 @NgModule({
   imports: [RouterModule.forChild(routes)],

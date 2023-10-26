@@ -1,45 +1,18 @@
-<br>
+<br />
 
-<head>
-</head>
+<head> </head>
 
-<body class="img"  class="container-fluid">
-
-    <ul class="list-group" *ngFor="let foodType of foodTypes">
-        <li class="card list-group-item d-flex justify-content-between align-items-center"
-            *ngFor="let foodItem of structuredFoodType[foodType]" >
-            <img [src]="foodItem.url" alt="img" class="card-img-top GImg" alt="item"
-           
-             />
-            <div class="card-body">
-                <h5 class="card-title">{{ foodItem.name }}</h5>
-                <p>Price: ${{ foodItem.price }}</p>
-            </div>
-            <!-- <button (click)="showFoodItemDetails(foodItem)"  data-bs-toggle="modal" data-bs-target="#exampleModal" >show</button> -->
-           
-        </li>
-    </ul>
-    
-
-  
-  <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" *ngIf="selectedFoodItem">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">{{ selectedFoodItem.name }}</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            Price: ${{ selectedFoodItem.price }}
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+<body>
+  <div class="grid" *ngFor="let foodType of foodTypes">
+    <div *ngFor="let data of structuredFoodType[foodType] ;let i = index" class="grid-item" [@slideIn]>
+      <div class="card-food" >
+        <img [src]="data.url" class="img">
+        <div class="card-content">
+          <div class="price">{{data.price}}</div>
+          <div class="description">{{data.category}}</div>
+          <a (click)="openDilog(data)" style="color: red; cursor: pointer;;">View</a>
         </div>
       </div>
     </div>
   </div>
-    
-
 </body>
-<router-outlet></router-outlet>
