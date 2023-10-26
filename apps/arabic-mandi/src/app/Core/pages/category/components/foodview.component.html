@@ -1,0 +1,18 @@
+<br />
+
+<head> </head>
+
+<body>
+  <div class="grid" *ngFor="let foodType of foodTypes">
+    <div *ngFor="let data of structuredFoodType[foodType] ;let i = index" class="grid-item" [@slideIn]>
+      <div class="card-food" >
+        <img [src]="data.url" class="img">
+        <div class="card-content">
+          <div class="price">{{data.price}}</div>
+          <div class="description">{{data.category}}</div>
+          <a (click)="openDilog(data)" style="color: red; cursor: pointer;;">View</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
