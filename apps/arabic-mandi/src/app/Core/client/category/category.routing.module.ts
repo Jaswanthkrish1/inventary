@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { CategoryComponent } from './category.component';
 import { FoodComponent } from './components/foodview.component';
 import { FoodComboComponent } from './components/combo.component';
-import { FoodDetails } from './pages/food-details.component';
+import { AboutComponent } from '../about/about.component';
 
 const routes: Routes = [
   {
@@ -12,7 +12,7 @@ const routes: Routes = [
     children: [],
   },
   { path: 'food/:category', component: FoodComponent },
-  { path: 'combo', component: FoodComboComponent },
+
   { path: '', redirectTo: 'home', pathMatch: 'full' },
 ];
 @NgModule({

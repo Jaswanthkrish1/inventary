@@ -18,9 +18,9 @@ declare var $: any;
   ],
 })
 export class FoodComboComponent implements OnInit, AfterViewInit {
-    constructor( 
-    private _dialog: MatDialog
-    ) {}
+  constructor(private _dialog: MatDialog) {}
+  structuredFoodType: { [key: string]: comboOffer[] } = {};
+  foodTypes: string[] = [];
   data: comboOffer[] = [
     {
       id: 1,
@@ -86,17 +86,28 @@ export class FoodComboComponent implements OnInit, AfterViewInit {
       discription:
         'Special offer for Friends upto 10% discount.....................',
     },
- 
+    
   ];
 
-  ngAfterViewInit(): void {
-   
-  }
-  openDilog(data: any){
+  ngAfterViewInit(): void {}
+  openDilog(data: any) {
     this._dialog.open(FoodDetails, {
       width: '500px',
       data: { Item: data },
     });
   }
-  ngOnInit(): void {}
+
+  getCombo() {
+    this.structuredFoodType = this.data.reduce((acc, item) => {
+      if (!acc[item.name]) {
+        acc[item.name] = [];
+      }
+      acc[item.name].push(item);
+      return acc;
+    }, {} as { [key: string]: comboOffer[] });
+  }
+  ngOnInit(): void {
+    this.getCombo();
+    this.foodTypes = Object.keys(this.structuredFoodType);
+  }
 }

@@ -1,3 +1,51 @@
+.img-container {
+  background-image: url('../../../../../assets/Combo/banner.webp');
+  background-position: 0px -269px;
+  background-size: cover;
+  width: 100%;
+  height: 400px;
+}
+.elements{
+  background-color: var(--e-global-color-51ddcf4);
+  background-image: url('../../../../../assets/foodView/single-banner.webp');
+  background-size: cover;
+  width: 100%;
+  height: 400px;
+}
+.glass {
+  height: 100%;
+  background: linear-gradient(
+      0deg,
+      rgba(26, 115, 209, 0.3) 50%,
+      transparent 70%
+    ),
+    #226fe25c;
+}
+
+.e-con-inner-inner {
+  justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  padding-top: 30px;
+}
+.inner-img {
+  position: relative;
+}
+.inner-img-text {
+  position: static;
+  padding: 30px;
+}
+.inner-text-two {
+  padding: 10px;
+}
+.text-color {
+  color: var(--text-color);
+  font-size: 20px;
+}
+.textTwo {
+  padding: 0px 250px 0px 290px;
+}
+
 .grid {
   display: grid;
   gap: 2rem;
@@ -42,9 +90,24 @@
   max-height: 100%;
   object-fit: cover; /* Maintain aspect ratio and cover the entire space */
 }
+@media (max-width: 992px) {
+  /* main */
 
-body {
-  margin: 2rem;
+  .img-container {
+    background-image: url('../../../../../assets/Combo/banner.webp');
+    background-position: 0px -269px;
+    background-size: cover;
+    width: 100%;
+    height: 250px;
+  }
+
+  .text-color {
+    color: var(--text-color);
+    font-size: 12px;
+  }
+  .textTwo {
+    padding: 0px 10px 0px 10px;
+  }
 }
 
 @media (max-width: 500px) {
@@ -76,6 +139,4 @@ body {
     margin: 0px;
     z-index: 2; /* Place the text above the overlay */
   }
-
-
 }

@@ -14,6 +14,44 @@ body{
   --secondary: #f8fdf9;
   --light: #fafafb;
   --dark: #12141d;
+  --text-color: #fff;
+  
+    --display: flex;
+    --flex-direction: row;
+    --container-widget-width: calc(
+      (1 - var(--container-widget-flex-grow)) * 100%
+    );
+    --container-widget-height: 100%;
+    --container-widget-flex-grow: 1;
+    --container-widget-align-self: stretch;
+    --align-items: stretch;
+    --gap: 10px 10px;
+    --background-transition: 0.3s;
+    --overlay-opacity: 0.56;
+    --margin-block-start: -130px;
+    --margin-block-end: 0px;
+    --margin-inline-start: 0px;
+    --margin-inline-end: 0px;
+    --padding-block-start: 250px;
+    --padding-block-end: 0100px;
+    --padding-inline-start: 0px;
+    --padding-inline-end: 0px;
+    --display: flex;
+    --flex-direction: column;
+    --container-widget-width: 100%;
+    --container-widget-height: initial;
+    --container-widget-flex-grow: 0;
+    --container-widget-align-self: initial;
+    --justify-content: center;
+    --background-transition: 0.3s;
+    --margin-block-start: 0px;
+    --margin-block-end: 0px;
+    --margin-inline-start: 0px;
+    --margin-inline-end: 0px;
+    --padding-block-start: 0px;
+    --padding-block-end: 0px;
+    --padding-inline-start: 0px;
+    --padding-inline-end: 0px;
   
 }
 
@@ -62,12 +100,16 @@ a {
 
 /* casuvals */
 .Gcarousel-image {
-  max-height: 300px; /* Set your desired maximum height */
+  max-height: 400px; /* Set your desired maximum height */
   width: auto; /* Allow the width to adjust automatically */
   margin: 0 auto; /* Center the image horizontally */
 }
 .carousel-caption h1 span {
-  color: #f6b93b; /* Highlight color for the "10% OFF" text */
+  color: #ef101fec; /* Highlight color for the "10% OFF" text */
+}
+.carousel-caption{
+  font-size: 30px;
+ 
 }
 .carousel-caption h1,
 .carousel-caption p {
@@ -79,11 +121,12 @@ a {
 }
 .glass-effect {
   position: relative;
-  background-color: rgb(
-    0,
-    0,
-    0
-  ); /* Adjust the alpha value for the desired transparency */
+  background: linear-gradient(
+    0deg,
+    rgb(0, 72, 148) 60%,
+    transparent 80%
+  ),
+  #010e21fd; /* Adjust the alpha value for the desired transparency */
   overflow: hidden;
 }
 
@@ -91,6 +134,7 @@ a {
   width: 100%;
   height: auto;
   opacity: 0.7; /* Adjust the opacity for the desired level of transparency */
+  
 }
 /* carsoal en */
 
@@ -110,6 +154,10 @@ a {
 
   .carousel-image {
     max-height: 500px; /* Set the maximum height for large screens */
+  }
+  .carousel-caption{
+    font-size: 15px;
+   
   }
   
 }

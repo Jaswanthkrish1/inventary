@@ -124,8 +124,10 @@ export class CategoryComponent implements OnInit, AfterViewInit {
   navigateToDetail(categoryName: any) {
     this.router.navigate(['food', categoryName], { relativeTo: this.route });
   }
+
+  /* Map */
   initMap() {
-    this.map = L.map('map').setView([13.7496064, 79.689494], 20);
+    this.map = L.map('map').setView([13.7496064, 79.689494], 40);
     // Add an OpenStreetMap tile layer
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: 'Arabic Mandi : 13.7496064 , 79.6894940',
@@ -146,7 +148,7 @@ export class CategoryComponent implements OnInit, AfterViewInit {
     // after Click PopUp
     const popupContent = `
       <div>
-        <img src="../../../../assets/Combo/wellcome.jpg" alt="Image Alt Text" width="200px">
+        <img src="../../../../assets/Combo/wellcome.jpg" alt="Image Alt Text" width="100%">
         <p>Location Name: Arabic Mandi</p>
        <a href="https://www.google.com/search?sca_esv=570249222&hl=en-IN&gl=IN&sxsrf=AM9HkKkNj0QhtYkxZOzbd4y4JSLwuycE4Q:1696305904287&q=Arabic+Mandi+Multicuisine+Restaurent&ludocid=17657452288862018514&ibp=gwp;0,7&lsig=AB86z5XYk3dnQIsM2nhK_UEc0TrJ&kgs=a5b8c4b76716e17a&shndl=-1&shem=lbsc,lsp&source=sh/x/kp/local/m1/2">Navigate</a>
       
