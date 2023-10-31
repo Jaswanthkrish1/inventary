@@ -8,11 +8,16 @@ export class AuthenticationGuard implements CanActivate {
   constructor(private readonly _router: Router) {}
 
   canActivate(next: ActivatedRouteSnapshot): boolean {
-    return this._check();
+    if(this._check()){
+      return true;    
+    }else{
+      this._router.navigate(['/auth']);
+      return false
+    }
   }
 
   _check() {
-    // this._router.navigate(['/auth']);
+   
     return true;
   }
 }

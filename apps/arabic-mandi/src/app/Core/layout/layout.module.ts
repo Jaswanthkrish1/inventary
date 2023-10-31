@@ -2,13 +2,14 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { CoreModule } from '../core.module';
-import { LayoutComponent } from './layout.component';
-import { LocationComponent } from './pages/location.component';
+import { MainLayout } from './flex-layout.component';
+import { CommonModule } from '@angular/common';
+import { MaterialModule } from '../angular-matirial.module';
 
 @NgModule({
-  declarations: [LayoutComponent,LocationComponent],
-  imports: [RouterModule,CoreModule],
-  exports: [LayoutComponent ],
+  declarations: [MainLayout],
+  imports: [CommonModule,RouterModule,CoreModule ,MaterialModule],
+  exports: [ CoreModule, MaterialModule ],
 })
 export class LayoutModule {
   

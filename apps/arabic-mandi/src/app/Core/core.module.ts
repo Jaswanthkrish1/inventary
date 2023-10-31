@@ -2,15 +2,14 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { RouterModule } from '@angular/router';
-import { CategoryComponent } from './pages/category/category.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from './angular-matirial.module';
 
-const MODULES = [CommonModule, RouterModule , FormsModule,MaterialModule];
-const COMPONENT = []
+const MODULES = [CommonModule, RouterModule, FormsModule,ReactiveFormsModule, MaterialModule];
+const COMPONENT = [];
 @NgModule({
-  declarations: [ ],
-  imports: [...MODULES,],
+  declarations: [],
+  imports: [...MODULES],
   exports: [...MODULES],
 })
 export class CoreModule {}

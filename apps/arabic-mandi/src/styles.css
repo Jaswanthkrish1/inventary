@@ -1,7 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
+
 body{
   font-family: "Sofia", sans-serif;
-  margin: 1px;
+  /* margin: 1px; */
 }
 
 *,
@@ -14,12 +15,14 @@ body{
   --secondary: #f8fdf9;
   --light: #fafafb;
   --dark: #12141d;
-  
+  --text-color: #fff;
 }
-
 
 a {
   text-decoration: none !important;
+}
+.pointer{
+  cursor: pointer;
 }
 
 /* Card  */
@@ -41,6 +44,7 @@ a {
   overflow: hidden;
   text-align: center;
 }
+
 .GSlider {
   max-width: auto;
   overflow: auto;
@@ -62,12 +66,16 @@ a {
 
 /* casuvals */
 .Gcarousel-image {
-  max-height: 300px; /* Set your desired maximum height */
+  max-height: 500px; /* Set your desired maximum height */
   width: auto; /* Allow the width to adjust automatically */
   margin: 0 auto; /* Center the image horizontally */
 }
 .carousel-caption h1 span {
-  color: #f6b93b; /* Highlight color for the "10% OFF" text */
+  color: #ef101fec; /* Highlight color for the "10% OFF" text */
+}
+.carousel-caption{
+  font-size: 30px;
+ 
 }
 .carousel-caption h1,
 .carousel-caption p {
@@ -79,11 +87,12 @@ a {
 }
 .glass-effect {
   position: relative;
-  background-color: rgb(
-    0,
-    0,
-    0
-  ); /* Adjust the alpha value for the desired transparency */
+  background: linear-gradient(
+    0deg,
+    rgb(0, 72, 148) 60%,
+    transparent 80%
+  ),
+  #010e21fd; /* Adjust the alpha value for the desired transparency */
   overflow: hidden;
 }
 
@@ -91,6 +100,7 @@ a {
   width: 100%;
   height: auto;
   opacity: 0.7; /* Adjust the opacity for the desired level of transparency */
+  
 }
 /* carsoal en */
 
@@ -110,6 +120,10 @@ a {
 
   .carousel-image {
     max-height: 500px; /* Set the maximum height for large screens */
+  }
+  .carousel-caption{
+    font-size: 10px;
+   
   }
   
 }
