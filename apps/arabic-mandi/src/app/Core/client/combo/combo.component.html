@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ComboOffer</title>
+  </head>
+
+  <body>
+    
+    <section>
+      <div class="img-container">
+        <div class="glass">
+          <div class="e-con-inner">
+            <div class="e-con-inner-inner">
+              <div class="inner-img">
+                <div class="inner-img-text text-color">
+                  <h1 class="">Our ComboOffers</h1>
+                </div>
+              </div>
+              <div class="textTwo">
+                <div class="">
+                  <div class="inner-text-two text-color">
+                    Arabic Mandi offers a diverse selection of dishes from
+                    traditional Arabic cuisine to contemporary fusion options,
+                    expertly prepared by our skilled chefs. From hearty biryanis
+                    to refreshing mocktails, our menu is designed to cater to a
+                    wide range of palates and preferences.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <br />
+    <section *ngIf="visible">
+      <ng-container *ngFor="let type of foodTypes">
+        <!-- Type as a heading -->
+        <h2>{{ type }}</h2>
+        <div class="grid">
+          <div
+            *ngFor="let data of structuredFoodType[type]; let i = index"
+            class="grid-item"
+            [@slideIn]
+          >
+            <div class="card1">
+              <img [src]="data.imgUrl" class="img" />
+              <div class="card-content">
+                <div class="price">{{ data.price }}</div>
+                <div class="description">{{ data.discription }}</div>
+                <a (click)="openDilog(data)" style="color: red; cursor: pointer"
+                  >View</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </section>
+    <section style="align-items: center">
+      <h1 style="display: grid; justify-content: center; padding: 40px">
+        Comming Soon....................
+      </h1>
+    </section>
+  </body>
+</html>

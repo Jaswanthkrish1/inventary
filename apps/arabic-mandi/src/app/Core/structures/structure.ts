@@ -3,7 +3,9 @@ export interface comboOffer {
    name : string,
    price: number,
    imgUrl:string,
-   discription:string
+   discription:string,
+   discount: string,
+   for:string
 }
 export interface CategoriesOrder {
     id: number,

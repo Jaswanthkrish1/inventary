@@ -1,0 +1,45 @@
+<div fxLayout="column" class="container">
+  <router-outlet></router-outlet>
+    <div class="header">
+      <h1>CONTACT US</h1>
+      <h3>Fill out the form below to learn more!</h3>
+    </div>
+    <div fxLayout="row" class="body">
+      <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" fxLayout="column">
+        <ul fxLayout="column">
+          <li fxLayout="row">
+            <p class="left" fxFlex="50">
+              <mat-form-field appearance="fill" class="full-width">
+                <mat-label>First Name</mat-label>
+                <input matInput formControlName="first_name" placeholder=""  required="true"/>
+              </mat-form-field>
+            </p>
+            <p class="pull-right" fxFlex="50">
+              <mat-form-field appearance="fill" class="full-width">
+                <mat-label>Last Name</mat-label>
+                <input matInput formControlName="last_name" placeholder="" />
+              </mat-form-field>
+            </p>
+          </li>
+          <li>
+            <mat-form-field appearance="fill" class="full-width">
+              <mat-label>Email <span class="req"></span></mat-label>
+              <input matInput formControlName="email" placeholder="example.krishna@gmail.com" required="true" />
+            </mat-form-field>
+          </li>
+          
+          <li>
+            <mat-label>Comments</mat-label>
+
+            <mat-form-field appearance="fill" class="full-width">
+              <textarea matInput formControlName="comments" rows="3" cols="46"></textarea>
+            </mat-form-field>
+          </li>
+          <li fxLayoutAlign="end">
+            <button mat-raised-button color="primary" class="btn btn-submit" type="submit">Submit</button>
+          </li>
+        </ul>
+      </form>
+    </div>
+  </div>
+  
