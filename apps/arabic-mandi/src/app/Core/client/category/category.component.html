@@ -1,45 +1,65 @@
 <head>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
 </head>
 
 <body>
-
-  <div class="container-fluid mt-5" [@slideIn]>
+  <div class="container-fluid " [@slideIn]>
     <div class="row">
-      <div id="myCarousel" class="carousel slide col-md-12" data-ride="carousel">
+      <div
+        id="myCarousel"
+        class="carousel slide col-md-12"
+        data-ride="carousel"
+      >
         <!-- Indicators -->
         <ol class="carousel-indicators">
-          <li data-target="#myCarousel" [attr.data-slide-to]="i" [class.active]="i === 0"
-            *ngFor="let combo of dataCombo; let i = index"></li>
+          <li
+            data-target="#myCarousel"
+            [attr.data-slide-to]="i"
+            [class.active]="i === 0"
+            *ngFor="let combo of dataCombo; let i = index"
+          ></li>
         </ol>
 
         <!-- Slides -->
         <div class="carousel-inner col-md-12">
-          <div class="carousel-item" *ngFor="let combo of dataCombo; let i = index" [class.active]="i === 0">
+          <div
+            class="carousel-item"
+            *ngFor="let combo of dataCombo; let i = index"
+            [class.active]="i === 0"
+          >
             <!-- Apply the glass effect to the image -->
             <div class="glass-effect">
-              <img [src]="combo.imgUrl" [alt]="combo.name" class="d-block w-100 img-fluid Gcarousel-image">
-              <div class="carousel-caption ">
-                <h3>Special Offer For {{ combo.name }}</h3>
-                <br>
-                <h1>Today <span>10% OFF</span></h1>
-                <br>
+              <img
+                [src]="combo.imgUrl"
+                [alt]="combo.name"
+                class="d-block w-100 img-fluid Gcarousel-image"
+              />
+              <div class="carousel-caption">
+                <h1>Special Offer</h1>
+                <br />
+                <h1>
+                  Today<span>{{ combo.discount }} OFF</span>
+                </h1>
+                <br />
                 <p>{{ combo.discription }}</p>
-                <p>Price: ${{ combo.price }}</p>
+                <p></p>
               </div>
             </div>
           </div>
         </div>
 
         <!-- Left and right controls -->
-        <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+        <!-- <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
           <span class="sr-only">Previous</span>
         </a>
         <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
           <span class="carousel-control-next-icon" aria-hidden="true"></span>
           <span class="sr-only">Next</span>
-        </a>
+        </a> -->
       </div>
     </div>
     &nbsp;
@@ -50,7 +70,7 @@
         <div class="section2-e-con-inner-inner">
           <div class=" ">
             <div class="">
-              <h2 class="">Teste the soul of Arabian Mandi </h2>
+              <h2 class="">Teste the soul of Arabian Mandi</h2>
             </div>
           </div>
         </div>
@@ -58,9 +78,10 @@
           <div class="">
             <div class="section2-inner-text">
               <div class="elementor-text-editor elementor-clearfix">
-                Mandi is a traditional Arabian rice dish known for its delicious flavors and aromatic spices. It's a
-                popular dish in many Middle Eastern and South Asian countries, particularly in the Arabian Peninsula,
-                Yemen, and parts of the Indian subcontinent.
+                Mandi is a traditional Arabian rice dish known for its delicious
+                flavors and aromatic spices. It's a popular dish in many Middle
+                Eastern and South Asian countries, particularly in the Arabian
+                Peninsula, Yemen, and parts of the Indian subcontinent.
               </div>
             </div>
           </div>
@@ -68,56 +89,23 @@
       </div>
     </div>
   </section>
-<section>
-  <div class="elements">
-    <div class="e-con-inner">
-      <div class="">
-        <div class="">
-          <div class="elementor-widget-container">
-            <h1 class="elementor-heading-title "></h1>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-  <section class="section2">
-    <div class="">
-      <div class="e-con-inner">
-
-        <div class="">
-          <div class="">
-            <div class="section2-inner-text">
-              <div class="elementor-text-editor elementor-clearfix">
-                Mandi, a rice dish that whispers stories of spice-laden caravans and culinary traditions, where each
-                grain tells tales of centuries past, and every bite is a cultural journey
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="section2-e-con-inner-inner">
-          <div class="">
-            <div class="">
-              <h2 class="">What is Arabic Mandi </h2>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-  </section>
-
-
   <!-- slider -->
   <div class="row container-fluid" [@fadeIn1]>
     <div class="GSlider">
-      <div class="col" style="display: flex; ">
+      <div class="col" style="display: flex">
         <div class="col-md-3" *ngFor="let category of data">
           <div [ngClass]="{ 'disabled-card': !category.avilable }">
-            <div class="card mb-2" (click)="navigateToDetail(category.name)" style="cursor: pointer">
-              <img [src]="category.imgUrl" alt="img" class="card-img-top GImg" alt="item" />
+            <div
+              class="card mb-2"
+              (click)="navigateToDetail(category.name)"
+              style="cursor: pointer"
+            >
+              <img
+                [src]="category.imgUrl"
+                alt="img"
+                class="card-img-top GImg"
+                alt="item"
+              />
               <div class="card-body">
                 <h5 class="card-title">{{ category.name }}</h5>
               </div>
@@ -127,27 +115,24 @@
       </div>
     </div>
   </div>
-
   <section class="section2">
     <div class="">
       <div class="e-con-inner">
-        <div class="section2-e-con-inner-inner">
-          <div class=" ">
-            <div class="">
-              <h2 class="">Where is Arabic Mandi </h2>
-            </div>
-          </div>
-        </div>
         <div class="">
           <div class="">
             <div class="section2-inner-text">
               <div class="elementor-text-editor elementor-clearfix">
-                "Mandi, a culinary gem of the Arabian Peninsula, is now at <h2>Arabic Mandi Multicuisine Restaurant</h2>. Our location offers you
-                the opportunity to savor the rich and aromatic flavors of Mandi, a dish celebrated for its fragrant
-                spices and tender, slow-cooked meat. With every bite, you'll experience a symphony of flavors that
-                transport you to the heart of Arabian hospitality. At [Your Hotel Name], we bring the essence of Mandi
-                to your table, where tradition and taste harmonize to create an unforgettable dining experience.
+                Mandi, a rice dish that whispers stories of spice-laden caravans
+                and culinary traditions, where each grain tells tales of
+                centuries past, and every bite is a cultural journey
               </div>
+            </div>
+          </div>
+        </div>
+        <div class="section2-e-con-inner-inner">
+          <div class="">
+            <div class="">
+              <h2 class="">What is Arabic Mandi</h2>
             </div>
           </div>
         </div>
@@ -155,39 +140,17 @@
     </div>
   </section>
 
-  <!-- location  -->
-
-  <div class="container " id="location" [@fadeIn1]>
-    <div class="row">
-      <div class="col-md-6 mb-4">
-        <!-- Photo grid -->
-        <div class="grid">
-          <div class="photo">
-            <img src="../../../../assets/Combo/firstRoom.jpg" alt="Photo 1">
+  <section>
+    <div class="elements">
+      <div class="e-con-inner">
+        <div class="">
+          <div class="">
+            <div class="elementor-widget-container">
+              <h1 class="elementor-heading-title"></h1>
+            </div>
           </div>
-          <div class="photo">
-            <img src="../../../../assets/Combo/Rooms.jpg" alt="Photo 2">
-          </div>
-          <div class="photo">
-            <img src="../../../../assets/Combo/Rooms.jpg" alt="Photo 2">
-          </div>
-          <div class="photo">
-            <img src="../../../../assets/Combo/Rooms.jpg" alt="Photo 2">
-          </div>
-          <div class="photo">
-            <img src="../../../../assets/Combo/Rooms.jpg" alt="Photo 2">
-          </div>
-          <!-- Add more photos as needed -->
         </div>
       </div>
-
-      <div class="col-md-6">
-        <!-- Map section -->
-        <div id="map" style="height: 300px;"></div>
-      </div>
-
     </div>
-  </div>
-
-
+  </section>
 </body>

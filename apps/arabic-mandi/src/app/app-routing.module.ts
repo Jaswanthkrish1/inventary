@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LayoutComponent } from './Core/layout/layout.component';
 import { AuthenticationGuard } from './Core/authentication/authentication.guard';
 import { PageNotFound } from './Core/Error/pagenotfound/notfound.component';
-import { FoodComboComponent } from './Core/client/category/components/combo.component';
+import { MenuDialogCompnent } from './Core/client/menu/components/menu-dialog.component';
+import {MainLayout} from './Core/layout/flex-layout.component'
+
 const appRoutes: Routes = [
   {
     path: 'auth',
@@ -12,9 +13,10 @@ const appRoutes: Routes = [
         (m) => m.AuthenticationModule
       ),
   },
+  
   {
     path: '',
-    component: LayoutComponent,
+    component: MainLayout,
     canActivate: [AuthenticationGuard],
     children: [
       {
@@ -25,8 +27,16 @@ const appRoutes: Routes = [
           ),
       },
       {
+        path: 'contact',
+        loadChildren: () =>
+          import('./Core/client/contact/contact.module').then(
+            (m) => m.ContactModule
+          ),
+      },
+      {
         path: 'combo',
-        component: FoodComboComponent,
+        loadChildren: () =>
+          import('./Core/client/combo/combo.module').then((m) => m.ComboModule),
       },
       {
         path: 'about',
@@ -34,10 +44,22 @@ const appRoutes: Routes = [
           import('./Core/client/about/about.module').then((m) => m.AboutModule),
       },
       {
+        path: 'location',
+        loadChildren: () =>
+          import('./Core/client/location/location.module').then(
+            (m) => m.locationModule
+          ),
+      },
+      {
+        path: 'menu',
+        component: MenuDialogCompnent,
+      },
+      { path: '', pathMatch: 'full', redirectTo: '/home' },
+      {
         path: 'not-found',
         component: PageNotFound,
       },
-      { path: '', pathMatch: 'full', redirectTo: '/home' },
+
       {
         path: '**', // Wildcard route
         redirectTo: '/not-found',

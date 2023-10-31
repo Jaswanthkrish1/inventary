@@ -2,8 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CategoryComponent } from './category.component';
 import { FoodComponent } from './components/foodview.component';
-import { FoodComboComponent } from './components/combo.component';
-import { AboutComponent } from '../about/about.component';
 
 const routes: Routes = [
   {

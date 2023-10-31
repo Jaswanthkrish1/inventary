@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Arabic Mandi</title>
+  </head>
+
+  <div style="padding-top:54px">
+    <mat-toolbar class="fixed-top shadow bg-white">
+      <div fxShow="true" fxHide.gt-sm="true">
+        <button mat-icon-button (click)="sidenav.toggle()">
+          <mat-icon>menu</mat-icon>
+          <mat-icon> list_alt</mat-icon>
+        </button>
+      </div>
+
+      <span class="example-spacer"></span>
+      <div fxShow="true" fxHide.lt-md="true">
+        <a *ngFor="let item of menuItems" mat-button [routerLink]="item.link">
+          <ng-container *ngIf="item.header != false; else regularLabel">
+            <h1 class="title">{{ item.label }}</h1>
+          </ng-container>
+          <ng-template #regularLabel> {{ item.label }} </ng-template>
+        </a>
+      </div>
+      <span class="example-spacer"></span>
+      <h1 class="title" fxShow="true" fxHide.gt-sm="true">Arabic Mandi</h1>
+    </mat-toolbar>
+   
+    <mat-sidenav-container  fxFlexFill class="example-container">
+      <mat-sidenav
+        color="primary fixed-top "
+        style="background-color: white; width: 200px"
+        #sidenav
+        fxLayout="column"
+        mode="over"
+        opened="false"
+        fxHide.gt-sm="true"
+      >
+        <h1 class="title" style="display: none">Arabic Mandi</h1>
+        <div fxLayout="column">
+          <ng-container *ngFor="let item of menuItems">
+            <ng-container *ngIf="item.header != true">
+              <a mat-button [routerLink]="item.link" (click)="navigate(item.label)">
+                {{ item.label }}
+              </a>
+            </ng-container>
+          </ng-container>
+        </div>
+      </mat-sidenav>
+      <mat-sidenav-content fxFlexFill>
+        <router-outlet> </router-outlet>
+      </mat-sidenav-content>
+    </mat-sidenav-container>
+  </div>
+
+
+  <footer id="contact" class="text-center text-lg-start bg-white text-muted">
+    <!-- Section: Links  -->
+    <section class="">
+      <div class="container text-center text-md-start mt-5">
+        <!-- Grid row -->
+        <div class="row mt-3">
+          <!-- Grid column -->
+          <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+            <!-- Content -->
+            <h6 class="fw-bold mb-4">
+              <h1 class="">Arabic Mandi</h1>
+              <h4 style="color: rgb(134, 191, 240)">Multicuisine</h4>
+              <h6 class="text-secondary">Restaurent</h6>
+            </h6>
+            <p></p>
+          </div>
+          <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+            <!-- Links -->
+            <h6 class="text-uppercase fw-bold mb-4">Follw Up</h6>
+            <p>
+              <a
+                href="https://jaswanthkrish1.github.io/QrMenuInventary/"
+                class="text-reset"
+                >MenuCard</a
+              >
+            </p>
+
+            <p>
+              <a href="" class="text-reset"
+                ><i class="fa fa-instagram" aria-hidden="true">Instagram</i>
+              </a>
+            </p>
+            <p>
+              <a routerLink="help" class="text-reset">Help</a>
+            </p>
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+            <!-- Links -->
+            <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
+            <p>
+              <i class="fas fa-home me-3 text-secondary"></i>Sri kalahasti ,
+              Arabic mandi Multicuisine Restaurent
+            </p>
+
+            <p>
+              <i class="fas fa-phone me-3 text-secondary"></i> +91 9381531101
+            </p>
+            <p>
+              <i class="fas fa-print me-3 text-secondary"></i> +91 7013833764
+            </p>
+          </div>
+          <!-- Grid column -->
+        </div>
+        <!-- Grid row -->
+      </div>
+    </section>
+    <!-- Section: Links  -->
+
+    <!-- Copyright -->
+    <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.025)">
+      <!-- © 2021 Copyright: -->
+      <h3>Developed By</h3>
+      <a class="text-reset fw-bold" href="">Jaswanth Chowdary</a>
+    </div>
+    <!-- Copyright -->
+  </footer>
+</html>
