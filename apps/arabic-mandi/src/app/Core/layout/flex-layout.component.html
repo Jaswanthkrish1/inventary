@@ -1,24 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Arabic Mandi</title>
-  </head>
-
-  <div style="padding-top:54px">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arabic Mandi</title>
+</head>
+<body>
+  <div style="padding-top: 54px">
     <mat-toolbar class="fixed-top shadow bg-white">
       <div fxShow="true" fxHide.gt-sm="true">
         <button mat-icon-button (click)="sidenav.toggle()">
           <mat-icon>menu</mat-icon>
-          <mat-icon> list_alt</mat-icon>
+          <mat-icon>list_alt</mat-icon>
         </button>
       </div>
 
       <span class="example-spacer"></span>
       <div fxShow="true" fxHide.lt-md="true">
         <a *ngFor="let item of menuItems" mat-button [routerLink]="item.link">
-          <ng-container *ngIf="item.header != false; else regularLabel">
+          <ng-container *ngIf="item.header !== false; else regularLabel">
             <h1 class="title">{{ item.label }}</h1>
           </ng-container>
           <ng-template #regularLabel> {{ item.label }} </ng-template>
@@ -28,9 +28,9 @@
       <h1 class="title" fxShow="true" fxHide.gt-sm="true">Arabic Mandi</h1>
     </mat-toolbar>
    
-    <mat-sidenav-container  fxFlexFill class="example-container">
+    <mat-sidenav-container fxFlexFill class="example-container">
       <mat-sidenav
-        color="primary fixed-top "
+        color="primary fixed-top"
         style="background-color: white; width: 200px"
         #sidenav
         fxLayout="column"
@@ -41,7 +41,7 @@
         <h1 class="title" style="display: none">Arabic Mandi</h1>
         <div fxLayout="column">
           <ng-container *ngFor="let item of menuItems">
-            <ng-container *ngIf="item.header != true">
+            <ng-container *ngIf="item.header !== true">
               <a mat-button [routerLink]="item.link" (click)="navigate(item.label)">
                 {{ item.label }}
               </a>
@@ -50,15 +50,14 @@
         </div>
       </mat-sidenav>
       <mat-sidenav-content fxFlexFill>
-        <router-outlet> </router-outlet>
+        <router-outlet></router-outlet>
       </mat-sidenav-content>
     </mat-sidenav-container>
   </div>
 
-
   <footer id="contact" class="text-center text-lg-start bg-white text-muted">
     <!-- Section: Links  -->
-    <section class="">
+    <section>
       <div class="container text-center text-md-start mt-5">
         <!-- Grid row -->
         <div class="row mt-3">
@@ -68,24 +67,20 @@
             <h6 class="fw-bold mb-4">
               <h1 class="">Arabic Mandi</h1>
               <h4 style="color: rgb(134, 191, 240)">Multicuisine</h4>
-              <h6 class="text-secondary">Restaurent</h6>
+              <h6 class="text-secondary">Restaurant</h6>
             </h6>
             <p></p>
           </div>
           <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
             <!-- Links -->
-            <h6 class="text-uppercase fw-bold mb-4">Follw Up</h6>
+            <h6 class="text-uppercase fw-bold mb-4">Follow Up</h6>
             <p>
-              <a
-                href="https://jaswanthkrish1.github.io/QrMenuInventary/"
-                class="text-reset"
-                >MenuCard</a
-              >
+              <a href="https://jaswanthkrish1.github.io/QrMenuInventory/" class="text-reset">Menu Card</a>
             </p>
 
             <p>
-              <a href="" class="text-reset"
-                ><i class="fa fa-instagram" aria-hidden="true">Instagram</i>
+              <a href="" class="text-reset">
+                <i class="fa fa-instagram" aria-hidden="true">Instagram</i>
               </a>
             </p>
             <p>
@@ -99,8 +94,7 @@
             <!-- Links -->
             <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
             <p>
-              <i class="fas fa-home me-3 text-secondary"></i>Sri kalahasti ,
-              Arabic mandi Multicuisine Restaurent
+              <i class="fas fa-home me-3 text-secondary"></i>Sri Kalahasti, Arabic Mandi Multicuisine Restaurant
             </p>
 
             <p>
@@ -125,4 +119,5 @@
     </div>
     <!-- Copyright -->
   </footer>
+</body>
 </html>

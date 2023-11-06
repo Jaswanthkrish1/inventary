@@ -6,21 +6,39 @@ import { AppComponent } from './app.component';
 import { LayoutModule } from './Core/layout/layout.module';
 import { RouterModule } from '@angular/router';
 import { AuthenticationModule } from './Core/authentication/authentication.module';
-import { MainLayout } from './Core/layout/flex-layout.component';
 
+import { APOLLO_OPTIONS }  from 'apollo-angular'
+import { HttpLink } from 'apollo-angular/http';
+import { InMemoryCache } from '@apollo/client/cache';
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-
+    HttpClientModule,
     LayoutModule,
     RouterModule,
     AuthenticationModule,
     
   ],
-  providers: [],
+  providers: [
+    {
+      provide:  APOLLO_OPTIONS,
+      useFactory: (httpLink: HttpLink) => {
+        return {
+          cache: new InMemoryCache(),
+          link: httpLink.create(
+            {
+              uri: 'api/graphql'
+            }
+          )
+        }
+      },
+      deps: [HttpLink],
+    }
+  ],
   exports: [RouterModule],
   bootstrap: [AppComponent],
 })

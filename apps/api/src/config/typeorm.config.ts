@@ -19,19 +19,4 @@ export const typeormOptions: TypeOrmModuleOptions = {
 
 export const typeormConfig = registerAs('typeorm', () => typeormOptions);
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const ormConfig: any = {
-  ...typeormOptions,
-  autoLoadEntities: undefined,
-  entities: [path.join(__dirname, '..', 'app/**/*.entity{.ts,.js}')],
-  migrations: [path.join(__dirname, '..', 'migrations/**/*{.ts,.js}')],
-  subscribers: [path.join(__dirname, '..', 'app/**/*.subscriber{.ts,.js}')],
-  cli: {
-    entitiesDir: path.join(__dirname, '..', 'entities'),
-    migrationsDir: path.join(__dirname, '..', 'migrations'),
-    subscribersDir: path.join(__dirname, '..', 'subscribers'),
-  },
-};
 
-// Required for migrations
-export default ormConfig;

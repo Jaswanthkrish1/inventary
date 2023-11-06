@@ -1,7 +1,8 @@
-import typeormConfig from "./typeorm.config";
+import { graphqlConfig } from "./graphql.config";
+import { jwtOptions } from "./jwt.config";
 
 export const config = {
     ignoreEnvFile: true,
     isGlobal: true,
-    load: [typeormConfig,],
+    load: [graphqlConfig, jwtOptions],
   };

@@ -53,10 +53,12 @@
       "executor": "@angular-devkit/build-angular:dev-server",
       "configurations": {
         "production": {
-          "browserTarget": "arabic-mandi:build:production"
+          "browserTarget": "arabic-mandi:build:production",
+          "proxyConfig": "apps/arabic-mandi/src/proxy.config.json"
         },
         "development": {
-          "browserTarget": "arabic-mandi:build:development"
+          "browserTarget": "arabic-mandi:build:development",
+          "proxyConfig": "apps/arabic-mandi/src/proxy.config.json"
         }
       },
       "defaultConfiguration": "development"
@@ -95,6 +97,16 @@
       "executor": "@nx/web:file-server",
       "options": {
         "buildTarget": "arabic-mandi:build"
+      }
+    },
+    "generate-types": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "yarn graphql-codegen --config apps/arabic-mandi/codegen.yml"
+          }
+        ]
       }
     }
   }

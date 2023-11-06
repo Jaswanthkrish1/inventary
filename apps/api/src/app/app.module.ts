@@ -1,18 +1,19 @@
 import { Module } from '@nestjs/common';
 
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { TypeOrmModule} from '@nestjs/typeorm';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { typeormOptions } from '../config/typeorm.config';
 import { CoreModule } from './core/core.module';
 
+import { GraphQLModule } from '@nestjs/graphql';
+import { graphqlOptions } from '../config/graphql.config';
 @Module({
   imports: [
     CoreModule,
     TypeOrmModule.forRoot(typeormOptions),
-   
+
+    GraphQLModule.forRoot(graphqlOptions),
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}
