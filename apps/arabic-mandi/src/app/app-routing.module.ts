@@ -66,10 +66,8 @@ const appRoutes: Routes = [
       },
     ],
   },
-  {
-    path: '**', // Wildcard route
-    redirectTo: '/auth',
-  },
+ 
+ 
 ];
 @NgModule({
   imports: [RouterModule.forRoot(appRoutes)],

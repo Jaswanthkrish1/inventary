@@ -56,7 +56,7 @@
   background-image: url('../../../../assets/mainpage/dazzle5.png');
   background-size: cover;
   width: 100%;
-  height: 400px;
+  height: 600px;
 }
 .elementor-heading-title{
   text-align: center;
@@ -65,11 +65,9 @@
 }
 @media (max-width: 992px) {
   .elements{
-    background-color: var(--e-global-color-51ddcf4);
-    background-image: url('../../../../assets/mainpage/dazzle5.png');
     background-size: cover;
     width: 100%;
-    height: 100px;
+    height: 300px;
 }
   .section2-e-con-inner-inner {
     width: 50%;

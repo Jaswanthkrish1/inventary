@@ -5,9 +5,15 @@ import { FoodCategoryModule } from './foodcategory/foodcategory.module';
 import { NestjsQueryGraphQLModule } from '@nestjs-query/query-graphql';
 import { NestjsQueryTypeOrmModule } from '@nestjs-query/query-typeorm';
 import { User } from './user/user.entity';
-import { JwtModule, JwtModuleOptions } from '@nestjs/jwt';
+import { JwtModule, JwtModuleOptions, JwtService } from '@nestjs/jwt';
+import { PassportModule} from '@nestjs/passport'
+
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { CreateUserInput, UpdateUserInput } from './user/user.input';
+import { config } from '../../config/config';
+import { AuthController } from './authentication/authenticate.controller';
+import { Authenticate } from './authentication/authenticate.entity';
+import { AuthenticateService } from './authentication/authenticate.service';
 
 @Module({
   imports: [
@@ -23,7 +29,7 @@ import { CreateUserInput, UpdateUserInput } from './user/user.input';
     }),
 
     NestjsQueryGraphQLModule.forFeature({
-      imports: [NestjsQueryTypeOrmModule.forFeature([User])],
+      imports: [NestjsQueryTypeOrmModule.forFeature([User, Authenticate])],
       resolvers: [
         {
            DTOClass: User, 
@@ -36,10 +42,13 @@ import { CreateUserInput, UpdateUserInput } from './user/user.input';
            delete: { many: { disabled: false }, one: { disabled: false } },
            read: { many: { disabled: false }, one: { disabled: false } },
         }
+        
       ],
     }),
   ],
-  controllers: [],
-  providers: [],
+  controllers: [ AuthController],
+  providers: [
+    AuthenticateService
+  ],
 })
 export class CoreModule {}

@@ -6,7 +6,7 @@ import { FoodCategoryService } from './foodcategory.service';
 
 
 @Module({
-  imports:[TypeOrmModule.forFeature([ FoodCategory ])],
+  imports:[TypeOrmModule.forFeature([ FoodCategory])],
   controllers: [FoodCategoryController],
   providers: [FoodCategoryService],
   exports:[FoodCategoryService]

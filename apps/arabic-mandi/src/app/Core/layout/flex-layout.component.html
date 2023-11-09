@@ -1,59 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <title>Arabic Mandi</title>
 </head>
-<body>
-  <div style="padding-top: 54px">
-    <mat-toolbar class="fixed-top shadow bg-white">
-      <div fxShow="true" fxHide.gt-sm="true">
-        <button mat-icon-button (click)="sidenav.toggle()">
-          <mat-icon>menu</mat-icon>
-          <mat-icon>list_alt</mat-icon>
-        </button>
-      </div>
 
-      <span class="example-spacer"></span>
-      <div fxShow="true" fxHide.lt-md="true">
-        <a *ngFor="let item of menuItems" mat-button [routerLink]="item.link">
-          <ng-container *ngIf="item.header !== false; else regularLabel">
-            <h1 class="title">{{ item.label }}</h1>
+<body>
+  <mat-toolbar class=" fixed-top shadow bg-white">
+    <div fxShow="true" fxHide.gt-sm="true">
+      <button class="icon-container" mat-icon-button (click)="sidenav.toggle()">
+        <img src="../../../assets/carousel/bg1.jpeg" alt="User Image" class="user-image">
+      </button>
+
+    </div>
+
+    <span class="example-spacer"></span>
+    <div fxShow="true" fxHide.lt-md="true">
+
+      <a *ngFor="let item of menuItems" mat-button [routerLink]="item.link">
+        <ng-container *ngIf="item.header !== false; else regularLabel">
+          <h1 class="title">{{ item.label }}</h1>
+        </ng-container>
+        <ng-template #regularLabel> {{ item.label }} </ng-template>
+      </a>
+    </div>
+    <span class="example-spacer"></span>
+    <h1 class="title" fxShow="true" fxHide.gt-sm="true">Arabic Mandi</h1>
+    <button mat-icon-button (click)="logOut()" *ngIf="isCurrentUserAvailable()">
+      <mat-icon>logout</mat-icon>
+    </button>
+  </mat-toolbar>
+
+  <mat-sidenav-container fxFlexFill class="example-container">
+    <mat-sidenav color="primary" #sidenav
+      fxLayout="column" mode="over" opened="false" fxHide.gt-sm="true">
+      <h1 class="title" style="display: none">Arabic Mandi</h1>
+      <div  class="sidebar-content" >
+        <ng-container *ngFor="let item of menuItems">
+          <ng-container *ngIf="item.header !== true">
+            <a mat-button [routerLink]="item.link" (click)="navigate(item.label, sidenav)">
+              {{ item.label }}
+            </a>
           </ng-container>
-          <ng-template #regularLabel> {{ item.label }} </ng-template>
-        </a>
+        </ng-container>
       </div>
-      <span class="example-spacer"></span>
-      <h1 class="title" fxShow="true" fxHide.gt-sm="true">Arabic Mandi</h1>
-    </mat-toolbar>
-   
-    <mat-sidenav-container fxFlexFill class="example-container">
-      <mat-sidenav
-        color="primary fixed-top"
-        style="background-color: white; width: 200px"
-        #sidenav
-        fxLayout="column"
-        mode="over"
-        opened="false"
-        fxHide.gt-sm="true"
-      >
-        <h1 class="title" style="display: none">Arabic Mandi</h1>
-        <div fxLayout="column">
-          <ng-container *ngFor="let item of menuItems">
-            <ng-container *ngIf="item.header !== true">
-              <a mat-button [routerLink]="item.link" (click)="navigate(item.label)">
-                {{ item.label }}
-              </a>
-            </ng-container>
-          </ng-container>
-        </div>
-      </mat-sidenav>
-      <mat-sidenav-content fxFlexFill>
+    </mat-sidenav>
+<div></div>
+    <mat-sidenav-content fxFlexFill>
+     
         <router-outlet></router-outlet>
-      </mat-sidenav-content>
-    </mat-sidenav-container>
-  </div>
+      
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</body>
+
 
   <footer id="contact" class="text-center text-lg-start bg-white text-muted">
     <!-- Section: Links  -->
@@ -119,5 +122,5 @@
     </div>
     <!-- Copyright -->
   </footer>
-</body>
+
 </html>
