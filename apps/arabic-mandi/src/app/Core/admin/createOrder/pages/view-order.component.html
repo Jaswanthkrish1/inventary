@@ -1,1 +1,64 @@
-<p>create-order works!</p>
+<section fxLayout="row" fxLayoutAlign="space-between">
+  <div>
+    <mat-form-field>
+      <mat-icon matPrefix class="icon">search</mat-icon>
+      <input
+        matInput
+        type="text"
+        placeholder="search"
+        [formControl]="searchItems"
+      />
+    </mat-form-field>
+  </div>
+</section>
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+  <!-- Position Column -->
+  <!-- <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> No. </th>
+      <td mat-cell *matCellDef="let element"> {{element.}} </td>
+    </ng-container> -->
+
+  <!-- Symbol Column -->
+
+  <ng-container matColumnDef="category">
+    <th mat-header-cell *matHeaderCellDef>Category</th>
+    <td mat-cell *matCellDef="let element">{{ element.category }}</td>
+  </ng-container>
+
+  <!-- Name Column -->
+
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef>Name</th>
+    <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+  </ng-container>
+
+  <!-- Weight Column -->
+  <ng-container matColumnDef="price">
+    <th mat-header-cell *matHeaderCellDef>Price</th>
+    <td mat-cell *matCellDef="let element">{{ element.price }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef>Actions</th>
+    <td mat-cell *matCellDef="let element">
+      <section  style="display: flex; flex-wrap: wrap-reverse; ">
+        <div>
+          <button mat-button (click)="deleteHandlar(element.id)" class="button_action">
+            <mat-icon class="material-icons-outlined">delete</mat-icon>
+          </button>
+        </div>
+        <div>
+          <button mat-button class="button_action">
+            <mat-icon class="material-icons-outlined">edit</mat-icon>
+          </button>
+        </div>
+      </section>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>

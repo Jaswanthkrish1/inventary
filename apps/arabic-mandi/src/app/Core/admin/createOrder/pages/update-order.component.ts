@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'food-create-order',
-  templateUrl: './create-order.component.html',
-  styleUrls: ['./create-order.component.css'],
+  selector: 'food-update-order',
+  templateUrl: './update-order.component.html',
+  
 })
-export class UpdateOrderComponent {}
+export class UpdateOrderComponent {
+  
+}

@@ -2,9 +2,13 @@ export interface IMenu {
     label?: string;
     icon?: string;
     link?: string;
-    header?:boolean;
+    header?: boolean;
     permissions?: string[];
+    child?: IMenu[];
+    isSelected?: boolean;
+
   }
+  
 
   export const MENUS: IMenu[] = [
     {
@@ -68,10 +72,12 @@ export interface IMenu {
       permissions:['user','admin']
     },
     {
-      label: 'Orders',
+      label: 'Items',
       icon: '',
-      link: '/Orders',
+      link: 'admin/add_item/view_item',
       header: false,
-      permissions:['server','admin']
+      permissions:['server','admin'],
+      child: []
+      
     },
   ];

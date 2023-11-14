@@ -1,5 +1,4 @@
-import { LayoutModule } from '@angular/cdk/layout';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { NgModule } from '@angular/core';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
@@ -44,7 +43,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const MODULES: any[] = [
   
-  LayoutModule,
   MatNativeDateModule,
   MatAutocompleteModule,
   MatButtonModule,
@@ -78,28 +76,27 @@ const MODULES: any[] = [
   MatStepperModule,
   MatDialogModule,
   MatTooltipModule,
-  FlexLayoutModule,
   ReactiveFormsModule,
 
 
 ];
 
 @NgModule({
-  imports: [...MODULES],
-  exports: [...MODULES],
+  imports: [...MODULES,MatIconModule,MatToolbarModule],
+  exports: [...MODULES,MatToolbarModule,MatIconModule],
   providers: [
     {
       provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
       useValue: { appearance: 'outline' },
     },
-    {
-      provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
-      useValue: {
-        duration: 5000,
-        horizontalPosition: 'center',
-        verticalPosition: 'top',
-      },
-    },
+    // {
+    //   provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
+    //   useValue: {
+    //     duration: 5000,
+    //     horizontalPosition: 'center',
+    //     verticalPosition: 'top',
+    //   },
+    // },
     { provide: MAT_DATE_LOCALE, useValue: 'en-IN' },
   ],
 })

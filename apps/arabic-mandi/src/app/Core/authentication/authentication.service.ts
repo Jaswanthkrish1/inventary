@@ -44,7 +44,8 @@ export class AuthenticateService {
     const payload = { token: token }
     this.http.post(`${environment.apiUrl}/auth/validateToken/`,payload).subscribe( ( responce: any) =>{
       if(responce){
-        this._router.navigate(['/home']);
+        //don't uncoment this. if did The application will reload every page and you will lose the data 
+        // this._router.navigate(['/']);
       }else{
         localStorage.clear();
         this._router.navigate(['/auth']);
@@ -52,5 +53,14 @@ export class AuthenticateService {
     },(error: any)=>{
       console.log(error)
     })
+  }
+  getCurrentUser(): boolean{
+    let user = localStorage.getItem(this.DEFAULT_CURRENT_USER_KEY);
+    if(user){
+        this._router.navigate(['/']);
+        return true
+    }else{
+      return true;
+    }
   }
 }

@@ -35,8 +35,8 @@ export class AuthController {
   }
 
   @Post('validateToken')
-  async validateLogin(@Body() token: any){
-   return await this.authService.validateToken(token.token)
+  async validateLogin(@Body() token: any): Promise<boolean>{
+   return await this.authService.isTokenValid(token.token)
   }
 }
 

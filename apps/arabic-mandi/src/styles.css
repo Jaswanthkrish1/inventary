@@ -125,6 +125,14 @@ a {
     font-size: 10px;
    
   }
+
+
+  
+}
+.mat-mdc-snack-bar-container {
+  margin: 8px;
+  --mdc-snackbar-container-shape: 4px;
+  /* position: absolute !important; */
   
 }
 

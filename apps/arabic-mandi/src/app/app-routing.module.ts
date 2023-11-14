@@ -51,6 +51,13 @@ const appRoutes: Routes = [
           ),
       },
       {
+         path: 'admin/add_item/view_item',
+         loadChildren: () => 
+         import('./Core/admin/admin.module').then(
+          (m) => m.AdminModule
+          ),
+      },
+      {
         path: 'menu',
         component: MenuDialogCompnent,
       },

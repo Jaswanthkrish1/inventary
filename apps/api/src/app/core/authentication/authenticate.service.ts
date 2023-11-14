@@ -54,13 +54,15 @@ export class AuthenticateService {
     return user;
   }
 
-  async validateToken(token: string){
-    if(await this.jwtService.verify(token,jwtOptions)){
-      return true
-    }else{
-      return false
+  
+  async isTokenValid(token: string): Promise<boolean> {
+    try {
+      await this.jwtService.verifyAsync(token);
+      return true;
+    } catch (error) {
+      return false;
     }
-  }
+ }
   
   
 }

@@ -1,19 +1,35 @@
-import { Component, HostListener, Renderer2, ViewChild } from '@angular/core';
+import { Component, Renderer2, ViewChild } from '@angular/core';
 import { IMenu, MENUS } from './menu';
 import { AuthenticateService } from '../authentication/authentication.service';
 import { MatSidenav } from '@angular/material/sidenav';
+import { Router, RouterModule } from '@angular/router';
+import {  MatMenuTrigger } from '@angular/material/menu';
+
+import { CommonModule } from '@angular/common';
+import { CoreModule } from '@angular/flex-layout';
+import { MaterialModule } from '../../angular-matirial.module';
+import { FlexLayout } from '../../flex-layout.module';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 @Component({
+  standalone: true,
   selector: 'main-layout',
   templateUrl: './flex-layout.component.html',
   styleUrls: ['./flex-layout.component.css'],
+  imports:[ MaterialModule, MatSnackBarModule, RouterModule, CommonModule, FlexLayout ]
 })
 export class MainLayout {
   constructor(
     private renderer: Renderer2,
-    private _auth: AuthenticateService
+    private _auth: AuthenticateService,
+    private _router: Router,
+    private _snakBar: MatSnackBar
+
   ) {}
+  sidenav: any;
   toolbarHidden = false;
   menuItems: IMenu[] = [];
+  isScreenLarge: boolean = window.innerWidth > 600;
 
   ngOnInit(): void {
     let token = localStorage.getItem(this._auth.ACCESS_TOKEN_KEY);
@@ -50,6 +66,13 @@ export class MainLayout {
     });
   }
 
+  public openMenuHandler(menu: IMenu) {
+    menu.isSelected = true;
+    if (menu.link) {
+      this._router.navigateByUrl(menu.link);
+    }
+  }
+
   isCurrentUserAvailable(): boolean {
     const user = JSON.parse(
       localStorage.getItem(this._auth.CURRENT_USER_KEY) || '{}'
@@ -60,10 +83,11 @@ export class MainLayout {
 
   logOut() {
     if (this.isCurrentUserAvailable()) {
-      localStorage.removeItem(this._auth.ACCESS_TOKEN_KEY);
-      localStorage.removeItem(this._auth.CURRENT_USER_KEY);
-      window.location.reload();
-      this.ngOnInit();
+      this._snakBar.open('im working')
+      // localStorage.removeItem(this._auth.ACCESS_TOKEN_KEY);
+      // localStorage.removeItem(this._auth.CURRENT_USER_KEY);
+      // window.location.reload();
+      // this.ngOnInit();
     }
   }
 
@@ -76,4 +100,5 @@ export class MainLayout {
       this.renderer.setProperty(document.documentElement, 'scrollTop', yOffset);
     }
   }
+
 }

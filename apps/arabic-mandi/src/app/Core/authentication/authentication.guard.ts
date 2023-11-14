@@ -8,7 +8,7 @@ import { AuthenticateService } from './authentication.service';
 export class AuthenticationGuard implements CanActivate {
   constructor( private readonly _auth:AuthenticateService) {}
 
-  canActivate(next: ActivatedRouteSnapshot): boolean {
+  canActivate(): boolean {
    const user = localStorage.getItem(this._auth.CURRENT_USER_KEY)
    if(!user){
      return true;  

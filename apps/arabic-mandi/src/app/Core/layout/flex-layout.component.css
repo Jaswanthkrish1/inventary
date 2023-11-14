@@ -67,7 +67,7 @@ mat-sidenav {
 mat-sidenav-content {
   min-height: 100vh;
   padding: 70px 2rem 2rem;
-  max-width: 50rem;
+  max-width: 100%;
   margin: 0 auto;
 }
 
@@ -123,4 +123,11 @@ mat-sidenav-content {
     justify-content: flex-start;
     margin-top: 7rem;
   }
+}
+.example-icon {
+  padding: 0 14px;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
 }

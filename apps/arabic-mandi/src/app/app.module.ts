@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LayoutModule } from './Core/layout/layout.module';
 import { RouterModule } from '@angular/router';
 import { AuthenticationModule } from './Core/authentication/authentication.module';
 
@@ -11,6 +10,7 @@ import { APOLLO_OPTIONS }  from 'apollo-angular'
 import { HttpLink } from 'apollo-angular/http';
 import { InMemoryCache } from '@apollo/client/cache';
 import { HttpClientModule } from '@angular/common/http';
+import { FlexRoutingModule } from './Core/layout/flex-routing.module';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -18,10 +18,9 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
-    LayoutModule,
     RouterModule,
+    FlexRoutingModule,
     AuthenticationModule,
-    
   ],
   providers: [
     {
