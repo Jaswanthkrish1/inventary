@@ -4,10 +4,11 @@ import { CreateOrderComponent } from './pages/create-order.component';
 import { OrderRoutingModule } from './create-route.module';
 import { ViewOrderComponent } from './pages/view-order.component';
 import { UpdateOrderComponent } from './pages/update-order.component';
-import { CoreModule } from '@angular/flex-layout';
-import { MaterialModule } from '../../../angular-matirial.module';
+import { CoreModule } from '../../core.module';
+import { MaterialModule } from '../../material.module';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-
+import {MatStepperModule} from '@angular/material/stepper';
+import { MatButtonModule } from '@angular/material/button';
 
 
 @NgModule({
@@ -17,7 +18,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     OrderRoutingModule,
     MaterialModule,
     CoreModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatStepperModule,
+    
   ]
   ,
   exports: [ MatSnackBarModule]

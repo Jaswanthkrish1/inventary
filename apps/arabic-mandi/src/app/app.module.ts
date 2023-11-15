@@ -11,6 +11,9 @@ import { HttpLink } from 'apollo-angular/http';
 import { InMemoryCache } from '@apollo/client/cache';
 import { HttpClientModule } from '@angular/common/http';
 import { FlexRoutingModule } from './Core/layout/flex-routing.module';
+import { MatIconModule } from '@angular/material/icon';
+import { MaterialModule } from './Core/material.module';
+import { LayoutFlexModule } from './Core/layout/layout.module';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -19,8 +22,10 @@ import { FlexRoutingModule } from './Core/layout/flex-routing.module';
     AppRoutingModule,
     HttpClientModule,
     RouterModule,
-    FlexRoutingModule,
+    MaterialModule,
+    LayoutFlexModule,
     AuthenticationModule,
+    
   ],
   providers: [
     {

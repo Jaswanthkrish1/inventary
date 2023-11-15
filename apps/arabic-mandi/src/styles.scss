@@ -1,0 +1,348 @@
+
+@use '@angular/material' as mat;
+
+@include mat.core();
+/* You can add global styles to this file, and also import other style files */
+ @import "~bootstrap/dist/css/bootstrap.min.css"; 
+// Generated from http://mcg.mbitson.com/
+$my-palette: (
+  50: #eef0fd,
+  100: #d6d9fa,
+  200: #babff7,
+  300: #9ea5f4,
+  400: #8a92f1,
+  500: #757fef,
+  600: #6d77ed,
+  700: #626ceb,
+  800: #5862e8,
+  900: #454fe4,
+  A100: #ffffff,
+  A200: #ffffff,
+  A400: #d2d5ff,
+  A700: #b8bdff,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #000000,
+    500: #000000,
+    600: #000000,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #000000,
+    A200: #000000,
+    A400: #000000,
+    A700: #000000,
+  ),
+);
+
+$my-primary: mat.define-palette($my-palette);
+$my-accent: mat.define-palette($my-palette);
+$my-warn: mat.define-palette(mat.$red-palette, 500);
+$my-typography: mat.define-typography-config(
+  $font-family: "'Sofia', sans-serif",
+);
+
+$my-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $my-primary,
+      accent: $my-accent,
+      warn: $my-warn,
+    ),
+    //  typography: $my-typography,
+    density: 0,
+  )
+);
+
+@include mat.all-component-themes($my-theme);
+// https://github.com/angular/components/issues/24370
+@include mat.all-component-typographies($my-typography);
+
+// // for npm roboto-fontface package (to load local files)
+// $roboto-font-path: '~roboto-fontface/fonts' !default;
+// @import '~roboto-fontface/css/roboto/roboto-fontface.css';
+
+// for npm material-icons package (to load local files)
+$material-icons-font-path: '~material-icons/iconfont/';
+@import '~material-icons/iconfont/material-icons.css';
+
+@import 'theme/vars.scss';
+
+@import '~quill/dist/quill.core.css';
+@import '~quill/dist/quill.bubble.css';
+@import '~quill/dist/quill.snow.css';
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: $font-family;
+  background: $white;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.3);
+  margin-right: 4px;
+  border-radius: 7px;
+}
+
+.condensed-menu {
+  .mat-mdc-menu-item:hover:not([disabled]),
+  .mat-mdc-menu-item.cdk-program-focused:not([disabled]),
+  .mat-mdc-menu-item.cdk-keyboard-focused:not([disabled]),
+  .mat-mdc-menu-item-highlighted:not([disabled]) {
+    background: #f8fafc;
+    color: $para-color;
+  }
+  button,
+  a {
+    padding: 0 13px;
+    min-height: 34px;
+    color: $para-color !important;
+
+    .mat-icon {
+      font-size: 15px;
+      height: 15px;
+      width: 15px;
+      color: $para-color;
+    }
+    span.mdc-list-item__primary-text {
+      font-size: 15px !important;
+      letter-spacing: normal !important;
+      color: $para-color !important;
+    }
+  }
+}
+
+.cdk-overlay-container mat-dialog-container {
+  .mdc-dialog__container .mat-mdc-dialog-surface.mdc-dialog__surface {
+    padding: 30px;
+    .mat-mdc-dialog-title.mdc-dialog__title {
+      padding: 0;
+      color: $dark-color;
+      font-family: $heading-font-family;
+      font-size: 26px;
+      line-height: 30px;
+      font-weight: 700;
+      margin-top: -20px;
+    }
+    .mat-mdc-dialog-content.mdc-dialog__content {
+      padding: 0;
+      color: $para-color;
+      font-size: $font-size;
+      line-height: 27px;
+    }
+    .mat-mdc-dialog-actions.mdc-dialog__actions {
+      padding: 0;
+    }
+  }
+
+  mat-label,
+  .mdc-form-field label,
+  .mat-tree-node {
+    color: $para-color;
+    font-size: $font-size;
+  }
+
+  mat-form-field.no-subscript {
+    .mat-mdc-form-field-subscript-wrapper {
+      display: none;
+    }
+  }
+
+  mat-form-field {
+    width: 280px;
+    // .mdc-text-field--outlined:not(.mdc-text-field--disabled):not(.mdc-text-field--focused):hover
+    //   .mdc-notched-outline
+    //   .mdc-notched-outline__leading,
+    // .mdc-text-field--outlined:not(.mdc-text-field--disabled):not(.mdc-text-field--focused):hover
+    //   .mdc-notched-outline
+    //   .mdc-notched-outline__notch,
+    // .mdc-text-field--outlined:not(.mdc-text-field--disabled):not(.mdc-text-field--focused):hover
+    //   .mdc-notched-outline
+    //   .mdc-notched-outline__trailing {
+    //   border-color: rgba(0, 0, 0, 0.38);
+    // }
+    // .mdc-text-field--outlined:not(.mdc-text-field--disabled).mdc-text-field--focused
+    //   .mdc-notched-outline__leading,
+    // .mdc-text-field--outlined:not(.mdc-text-field--disabled).mdc-text-field--focused
+    //   .mdc-notched-outline__notch,
+    // .mdc-text-field--outlined:not(.mdc-text-field--disabled).mdc-text-field--focused
+    //   .mdc-notched-outline__trailing {
+    //   border-color: rgba(0, 0, 0, 0.38);
+    // }
+    .mdc-text-field--outlined
+      .mdc-notched-outline
+      .mdc-notched-outline__leading {
+      border-top-left-radius: 10px;
+      border-bottom-left-radius: 10px;
+    }
+    .mdc-text-field--outlined
+      .mdc-notched-outline
+      .mdc-notched-outline__trailing {
+      border-top-right-radius: 10px;
+      border-bottom-right-radius: 10px;
+    }
+    // .mdc-text-field .mdc-floating-label {
+    //   color: #a9a9c8;
+    // }
+    .mat-icon {
+      color: #a9a9c8;
+    }
+  }
+
+  a.mdc-button,
+  button.mdc-button {
+    height: 48px;
+    padding: 0 25px;
+    border-radius: 5px;
+  }
+  .mat-mdc-unelevated-button:not(:disabled) {
+    color: $para-color;
+  }
+  .mat-mdc-unelevated-button:not(:disabled).mat-primary {
+    color: $white;
+  }
+}
+
+
+// *,
+// *::before,
+// *::after {
+//   box-sizing: border-box;
+// }
+:root {
+  --primary: #f05a0a;
+  --secondary: #f8fdf9;
+  --light: #fafafb;
+  --dark: #12141d;
+  --text-color: #fff;
+}
+
+  a {
+    text-decoration: none !important;
+  }
+.pointer{
+  cursor: pointer;
+}
+
+/* Card  */
+.card-title {
+  text-align: center;
+}
+.card:hover {
+  transform: translatex(-15px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.4s;
+}
+.card{
+  height: 200px;
+  width: 200px;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  text-align: center;
+}
+
+.GSlider {
+  max-width: auto;
+  overflow: auto;
+  white-space: nowrap;
+}
+.GImg {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+// /* card  -end */
+// .footer {
+//   background-color: #f8f9fa;
+//   border-color: 1px solid #dee2e6;
+// }
+
+
+/* casuvals */
+.Gcarousel-image {
+  max-height: 500px; /* Set your desired maximum height */
+  width: auto; /* Allow the width to adjust automatically */
+  margin: 0 auto; /* Center the image horizontally */
+}
+.carousel-caption h1 span {
+  color: #ef101fec; /* Highlight color for the "10% OFF" text */
+}
+.carousel-caption{
+  font-size: 30px;
+ 
+}
+.carousel-caption h1,
+.carousel-caption p {
+  margin: 0;
+  /* padding: 10px; */
+}
+.glass-effect .dark {
+  color: #fdfbfb; /* Text color on the dark glass background */
+}
+.glass-effect {
+  position: relative;
+  background: linear-gradient(
+    0deg,
+    rgb(0, 72, 148) 60%,
+    transparent 80%
+  ),
+  #010e21fd; /* Adjust the alpha value for the desired transparency */
+  overflow: hidden;
+}
+
+.glass-effect img {
+  width: 100%;
+  height: auto;
+  opacity: 0.7; /* Adjust the opacity for the desired level of transparency */
+  
+}
+/* carsoal en */
+
+/* more then 992 */
+@media (max-width: 992px) {
+  .GImg {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+  .Gcarousel-image {
+    max-height: 400px; /* Set your desired maximum height */
+    width: auto; /* Allow the width to adjust automatically */
+    margin: 0 auto; /* Center the image horizontally */
+  }
+
+  .carousel-image {
+    max-height: 500px; /* Set the maximum height for large screens */
+  }
+  .carousel-caption{
+    font-size: 10px;
+   
+  }
+}
+
+
+
+

@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'food-authentication',
   templateUrl: './authentication.component.html',
-  styleUrls: ['./authentication.component.css'],
+  styleUrls: ['./authentication.component.scss'],
 })
 export class AuthenticationComponent {
   private subs = new Subscription();

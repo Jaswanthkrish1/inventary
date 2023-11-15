@@ -1,9 +1,9 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { MainLayout } from "./flex-layout.component";
+import { FlexLayoutComponent } from "./flex-layout.component";
 
 const routes: Routes = [
-    { path: '', component: MainLayout},
+    { path: '', component: FlexLayoutComponent},
     // { path: 'auth/callback', component: MsalRedirectComponent }
   ];
 @NgModule({

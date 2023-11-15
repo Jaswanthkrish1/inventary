@@ -6,7 +6,7 @@ import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser";
 @Component({
     selector: 'food-menu',
     templateUrl: './menu-dailog.component.html',
-    styleUrls: ['./menu-dailog.component.css'],
+    styleUrls: ['./menu-dailog.component.scss'],
     animations: [
       trigger('slideIn', [
         transition(':enter', [

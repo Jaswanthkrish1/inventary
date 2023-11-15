@@ -1,9 +1,7 @@
-import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import { Component,OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatTableDataSource } from '@angular/material/table';
-import { Subscription, filter } from 'rxjs';
-import { UpdateOrderComponent } from './update-order.component';
+import { Subscription } from 'rxjs';
 
 
 interface FoodItem {
@@ -63,11 +61,8 @@ export class ViewOrderComponent implements OnInit, OnDestroy {
     );
   }
 
-  deleteHandlar(id:any):any{
-   return  this._snakbar.open('Cannonball!!', 'Splash', {
-    horizontalPosition: 'center',
-    verticalPosition: 'top',
-  });
+  onDeleteHandler(id:any):any{
+   return  this._snakbar.open('Cannonball!!');
   }
   ngOnDestroy(): void {
     this.subs.unsubscribe();

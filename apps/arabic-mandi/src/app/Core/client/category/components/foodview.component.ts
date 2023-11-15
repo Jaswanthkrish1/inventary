@@ -16,7 +16,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'food-foodview',
   templateUrl: './foodview.component.html',
-  styleUrls: ['./foodview.component.css'],
+  styleUrls: ['./foodview.component.scss'],
   animations: [
     trigger('slideIn', [
       transition(':enter', [

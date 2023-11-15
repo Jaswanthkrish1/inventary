@@ -8,7 +8,7 @@ declare var $: any;
 @Component({
   selector: 'food-category',
   templateUrl: './category.component.html',
-  styleUrls: ['./category.component.css'],
+  styleUrls: ['./category.component.scss'],
   animations: [
     trigger('slideIn', [
       transition(':enter', [
