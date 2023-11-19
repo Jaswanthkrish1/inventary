@@ -6,7 +6,7 @@ import { NestjsQueryGraphQLModule } from '@nestjs-query/query-graphql';
 import { NestjsQueryTypeOrmModule } from '@nestjs-query/query-typeorm';
 import { User } from './user/user.entity';
 import { JwtModule, JwtModuleOptions, JwtService } from '@nestjs/jwt';
-import { PassportModule} from '@nestjs/passport'
+import { PassportModule } from '@nestjs/passport';
 
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { CreateUserInput, UpdateUserInput } from './user/user.input';
@@ -14,6 +14,13 @@ import { config } from '../../config/config';
 import { AuthController } from './authentication/authenticate.controller';
 import { Authenticate } from './authentication/authenticate.entity';
 import { AuthenticateService } from './authentication/authenticate.service';
+import { ItemEntity } from './item/item.entity';
+import { FoodCategory } from './foodcategory/foodcategory.entity';
+import { CreateItemInput, UpdateItemInput } from './item/item.input';
+import {
+  CreateFoodCategoryInputInput,
+  UpdateFoodCategoryInputInput,
+} from './foodcategory/foodcategory.input';
 
 @Module({
   imports: [
@@ -29,26 +36,52 @@ import { AuthenticateService } from './authentication/authenticate.service';
     }),
 
     NestjsQueryGraphQLModule.forFeature({
-      imports: [NestjsQueryTypeOrmModule.forFeature([User, Authenticate])],
+      imports: [
+        NestjsQueryTypeOrmModule.forFeature([
+          User,
+          Authenticate,
+          ItemEntity,
+          FoodCategory,
+        ]),
+      ],
       resolvers: [
         {
-           DTOClass: User, 
-           EntityClass: User,
-           CreateDTOClass: CreateUserInput,
-           UpdateDTOClass: UpdateUserInput, 
-           enableTotalCount: true,
-           create: { many: { disabled: false }, one: { disabled: false } },
-           update: { many: { disabled: false }, one: { disabled: false } },
-           delete: { many: { disabled: false }, one: { disabled: false } },
-           read: { many: { disabled: false }, one: { disabled: false } },
-        }
-        
+          DTOClass: User,
+          EntityClass: User,
+          CreateDTOClass: CreateUserInput,
+          UpdateDTOClass: UpdateUserInput,
+          enableTotalCount: true,
+          create: { many: { disabled: false }, one: { disabled: false } },
+          update: { many: { disabled: false }, one: { disabled: false } },
+          delete: { many: { disabled: false }, one: { disabled: false } },
+          read: { many: { disabled: false }, one: { disabled: false } },
+        },
+        {
+          DTOClass: ItemEntity,
+          EntityClass: ItemEntity,
+          CreateDTOClass: CreateItemInput,
+          UpdateDTOClass: UpdateItemInput,
+          // enableTotalCount: true,
+          create: { many: { disabled: false }, one: { disabled: true } },
+          update: { many: { disabled: true }, one: { disabled: true } },
+          delete: { many: { disabled: true }, one: { disabled: true } },
+          read: { many: { disabled: true }, one: { disabled: true } },
+        },
+        {
+          DTOClass: FoodCategory,
+          EntityClass: FoodCategory,
+          CreateDTOClass: CreateFoodCategoryInputInput,
+          UpdateDTOClass: UpdateFoodCategoryInputInput,
+          // enableTotalCount: true,
+          create: { many: { disabled: true }, one: { disabled: false } },
+          update: { many: { disabled: true }, one: { disabled: false } },
+          delete: { many: { disabled: true }, one: { disabled: true } },
+          read: { many: { disabled: false }, one: { disabled: false } },
+        },
       ],
     }),
   ],
-  controllers: [ AuthController],
-  providers: [
-    AuthenticateService
-  ],
+  controllers: [AuthController],
+  providers: [AuthenticateService],
 })
 export class CoreModule {}

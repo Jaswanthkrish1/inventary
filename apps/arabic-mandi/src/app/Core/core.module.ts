@@ -5,8 +5,9 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from './material.module';
 import { NoScrollDirective } from './no-scroll/no-scroll.directive';
+import { ApolloModule } from 'apollo-angular';
 
-const MODULES = [CommonModule, RouterModule, FormsModule, ReactiveFormsModule, MaterialModule];
+const MODULES = [CommonModule, RouterModule, FormsModule, ReactiveFormsModule, MaterialModule, ApolloModule];
 const COMPONENT = [];
 @NgModule({
   declarations: [NoScrollDirective],

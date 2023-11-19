@@ -10,21 +10,19 @@ const appRoutes: Routes = [
     path: '',
     pathMatch: 'full',
     canActivate: [AdminGuard],
-
     component: ViewOrderComponent,
   },
 
   {
     path: 'create_item',
     component: CreateOrderComponent,
-    canActivate: [AdminGuard]
+    canActivate: [AdminGuard],
   },
   {
     path: 'update_item',
     component: UpdateOrderComponent,
-    canActivate: [AdminGuard]
+    canActivate: [AdminGuard],
   },
-  
 ];
 
 @NgModule({

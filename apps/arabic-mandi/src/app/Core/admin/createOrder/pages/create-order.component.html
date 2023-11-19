@@ -6,103 +6,147 @@
   ">
   <mat-spinner></mat-spinner>
 </div>
+<br />
 
-<!-- <div>
-<form *ngIf="!isLoading"   [formGroup]="form" (ngSubmit)="onSubmitHandler()">
-  
-  <mat-form-field>
-    <mat-label>Name</mat-label>
-    <input matInput formControlName="name" placeholder="Name" />
-    <mat-error *ngIf="form.get('name')?.hasError('required')">
-      This field is required.
-    </mat-error>
-  </mat-form-field>
- 
-  <br />
-  <mat-form-field>
-    <mat-label>Category</mat-label>
-    <input matInput formControlName="category" placeholder="Search category" [matAutocomplete]="function" />
-    <mat-autocomplete #function="matAutocomplete" >
-      <mat-option *ngFor="let function of category" [value]="function">{{
-        function
-        }}</mat-option>
-    </mat-autocomplete>
-    <mat-error *ngIf="form.get('function')?.hasError('required')">
-      This field is required.
-    </mat-error>
-  </mat-form-field>
- 
-  <br />
-   
- 
-  <button mat-flat-button color="primary" type="submit">Save</button>
-</form>
-</div> -->
+<div>
+  <h3>Create Item</h3>
+  <form [formGroup]="firstCategory">
+    <mat-form-field>
+      <mat-label>Category</mat-label>
+      <mat-select placeholder="Favorite food" formControlName="InitialCategory" required>
+        <mat-option *ngFor="let categoryType of dataSet.edges" [value]="categoryType.node.name"
+          (onSelectionChange)="onSelectCategory(categoryType.node)">
+          {{ categoryType.node.name }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="firstCategory.get('InitialCategory')?.hasError('required')">
+        Please Select Category.
+      </mat-error>
+    </mat-form-field>
+  </form>
 
-  <mat-stepper linear [orientation]="isHorizontal ? 'horizontal' : 'vertical'"   #stepper>
-    <mat-step [stepControl]="firstFormGroup">
-      <form [formGroup]="firstFormGroup">
-        <ng-template matStepLabel>Create Item</ng-template>
-        <br />
-        <mat-form-field>
-            <mat-label>Name</mat-label>
-            <input matInput formControlName="name" placeholder="Name" />
-            <mat-error *ngIf="form.get('name')?.hasError('required')">
-              This field is required.
-            </mat-error>
-          </mat-form-field>
-        <br />
-        <mat-form-field>
-            <mat-label>Category</mat-label>
-            <input matInput formControlName="category" placeholder="Search category" [matAutocomplete]="function" />
-            <mat-autocomplete #function="matAutocomplete" >
-              <mat-option *ngFor="let function of category" [value]="function">{{
-                function
-                }}</mat-option>
-            </mat-autocomplete>
-            <mat-error *ngIf="form.get('category')?.hasError('required')">
-              This field is required.
-            </mat-error>
-          </mat-form-field>
-          <br/>
-        
-        <div>
-          <button mat-button matStepperNext>Next</button>
-        </div>
-      </form>
-    </mat-step>
-    <mat-step [stepControl]="secondFormGroup">
-      <form [formGroup]="secondFormGroup"  >
-        <ng-template matStepLabel>Attach Image</ng-template>
-        <br />
-        <mat-form-field class="example-full-width">
-            <mat-label>Price</mat-label>
-            <input matInput formControlName="price"   maxlength="5" placeholder="Price" value="" required>
-            <!-- <mat-hint >{{postalCode.value.length}} / 5</mat-hint> -->
-            <mat-error *ngIf="form.get('price')?.hasError('required')">
-                This field is required.
-              </mat-error>  
-        </mat-form-field>
-        <br/>
-        <mat-label>Image</mat-label>
-        <input type="file" (change)="onFileSelected($event)">
-        <br/>
-        <br/>
+</div>
+<mat-stepper linear [orientation]="isHorizontal ? 'horizontal' : 'vertical'" #stepper>
+  <mat-step [stepControl]="firstFormGroup">
+    <form [formGroup]="firstFormGroup">
+      <ng-template matStepLabel>Create Item</ng-template>
+      <br />
+      <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" placeholder="Name" />
+        <!-- <mat-error *ngIf="firstFormGroup.get('name')?.hasError('required')">
+          This field is required.
+        </mat-error> -->
+      </mat-form-field>
+      <!-- <br /> -->
+      <!-- <mat-form-field>
+        <mat-label>Category</mat-label>
+        <input matInput formControlName="category" placeholder="Search category" [matAutocomplete]="function" />
+        <mat-autocomplete #function="matAutocomplete">
+          <mat-option *ngFor="let categoryType of dataSet.edges" [value]=" categoryType.node.name" (onSelectionChange)="onSelectCategory( categoryType.node.id)">{{
+            categoryType.node.name
+            }}</mat-option>
+        </mat-autocomplete> -->
+      <!-- <mat-error *ngIf="firstFormGroup.get('category')?.hasError('required')">
+          This field is required.
+        </mat-error> -->
+      <!-- </mat-form-field> -->
+      <br />
 
-        <div>
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button matStepperNext>Next</button>
-        </div>
-      </form>
-    </mat-step>
-    <mat-step>
-      <ng-template matStepLabel>Done</ng-template>
-      <p>You are now done.</p>
+      <div>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="secondFormGroup">
+    <form [formGroup]="secondFormGroup">
+      <ng-template matStepLabel>Attach Image</ng-template>
+      <br />
+      <mat-form-field>
+        <mat-label>Price</mat-label>
+        <input matInput type="number" formControlName="price" maxlength="5" placeholder="Price" value="" required>
+        <!-- <mat-hint >{{postalCode.value.length}} / 5</mat-hint> -->
+        <!-- <mat-error *ngIf="firstFormGroup.get('price')?.hasError('required')">
+          This field is required.
+        </mat-error> -->
+      </mat-form-field>
+      <br />
+      <mat-label>Image</mat-label>
+      <input type="file" (change)="onFileSelected($event)">
+      <br />
+      <br />
+
       <div>
         <button mat-button matStepperPrevious>Back</button>
-        <!-- <button mat-button (click)="stepper.reset()">Reset</button> -->
-        <button mat-button (click)="onSubmitHandler()">Submit</button>
+        <button mat-button matStepperNext>Next</button>
       </div>
-    </mat-step>
-  </mat-stepper>
-  
+    </form>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Draft</ng-template>
+    <div>
+      <br>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button *ngIf="updateStatus" (click)="onItemUpdateHandler()">Update</button>
+      <button mat-raised-button *ngIf="submitStatus" (click)="onSubmitHandler()">Add To Draft Table</button>
+    </div>
+  </mat-step>
+</mat-stepper>
+<br>
+<div>
+  <div style="display: flex; justify-content: space-between;">
+    <h3 *ngIf="draftItems?.length">Draft Table </h3>
+    <button class="flex-end" *ngIf="draftItems?.length" mat-raised-button (click)="onDraftHandler()" color="primary">
+      <mat-icon class="material-icons-outlined">save</mat-icon>
+      Save
+    </button>
+  </div>
+  <br>
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" *ngIf="draftItems?.length">
+
+    <!-- Category Column -->
+
+    <ng-container matColumnDef="category">
+      <th mat-header-cell *matHeaderCellDef>Category</th>
+      <td mat-cell *matCellDef="let element">{{ element.InitialCategory }}</td>
+    </ng-container>
+
+    <!-- Name Column -->
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>Name</th>
+      <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+    </ng-container>
+
+    <!-- Price Column -->
+
+    <ng-container matColumnDef="price">
+      <th mat-header-cell *matHeaderCellDef>Price</th>
+      <td mat-cell *matCellDef="let element">{{ element.price }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon class="material-icons-outlined">more_horiz</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu" class="condensed-menu">
+          <button mat-menu-item (click)="onSetFormUpdateHandler(element)">
+            <mat-icon class="material-icons-outlined">edit</mat-icon>
+            Update
+          </button>
+          <button mat-menu-item (click)="onDeleteHandler(element)" color="warn">
+            <mat-icon class="material-icons-outlined">delete</mat-icon>
+            Delete
+          </button>
+        </mat-menu>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+
+
+</div>

@@ -1,0 +1,39 @@
+mutation CreateManyItemEntities($input: CreateManyItemEntitiesInput!) {
+  createManyItemEntities(input: $input) {
+    id
+  }
+}
+
+# category Order
+
+query GetFoodCategory($id: ID!) {
+  foodCategory(id: $id) {
+    id
+    name
+  }
+}
+
+mutation CreateOneFoodCategory($input: CreateOneFoodCategoryInput!) {
+  createOneFoodCategory(input: $input) {
+    id
+    name
+  }
+}
+query GetFoodCategories(
+  $filter: FoodCategoryFilter,
+  $paging: CursorPaging,
+  $sorting: [FoodCategorySort!]
+) {
+  foodCategories(filter: $filter, paging: $paging, sorting: $sorting) {
+    edges {
+      node {
+        id
+        name
+      }
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
+}

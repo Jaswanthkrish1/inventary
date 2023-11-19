@@ -14,6 +14,7 @@ import { FlexRoutingModule } from './Core/layout/flex-routing.module';
 import { MatIconModule } from '@angular/material/icon';
 import { MaterialModule } from './Core/material.module';
 import { LayoutFlexModule } from './Core/layout/layout.module';
+const uri = 'http://localhost:3000/api/graphql'
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -27,21 +28,20 @@ import { LayoutFlexModule } from './Core/layout/layout.module';
     AuthenticationModule,
     
   ],
+  
   providers: [
     {
-      provide:  APOLLO_OPTIONS,
+      provide: APOLLO_OPTIONS, 
       useFactory: (httpLink: HttpLink) => {
         return {
           cache: new InMemoryCache(),
-          link: httpLink.create(
-            {
-              uri: 'api/graphql'
-            }
-          )
-        }
+          link: httpLink.create({
+            uri: uri,
+          }),
+        };
       },
       deps: [HttpLink],
-    }
+    },
   ],
   exports: [RouterModule],
   bootstrap: [AppComponent],

@@ -14,6 +14,8 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatExpansionModule } from '@angular/material/expansion';
 import {MatTabsModule} from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import {MatBadgeModule} from '@angular/material/badge';
+
 import {
   MAT_FORM_FIELD_DEFAULT_OPTIONS,
   MatFormFieldModule,
@@ -75,7 +77,8 @@ const MODULES: any[] = [
   MatDialogModule,
   MatStepperModule,
   MatDialogModule,
-  MatTooltipModule 
+  MatTooltipModule,
+  MatBadgeModule
 ];
 
 @NgModule({

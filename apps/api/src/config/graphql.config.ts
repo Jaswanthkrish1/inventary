@@ -6,7 +6,7 @@ import { environment } from '../environment/environment';
 import { registerAs } from '@nestjs/config';
 
 export const graphqlOptions: unknown = {
-  path: 'api',
+  path: 'api/graphql',
   debug: true,
   playground: true,
   installSubscriptionHandlers: true,

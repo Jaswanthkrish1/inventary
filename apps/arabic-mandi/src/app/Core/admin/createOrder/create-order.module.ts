@@ -7,12 +7,19 @@ import { UpdateOrderComponent } from './pages/update-order.component';
 import { CoreModule } from '../../core.module';
 import { MaterialModule } from '../../material.module';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import {MatStepperModule} from '@angular/material/stepper';
+import { MatStepperModule } from '@angular/material/stepper';
 import { MatButtonModule } from '@angular/material/button';
-
+import { DraftViewComponent } from './components/draft-view.component';
+import { ApolloModule } from 'apollo-angular';
+import { CreateOrderService } from './create-order.service';
 
 @NgModule({
-  declarations: [CreateOrderComponent, ViewOrderComponent, UpdateOrderComponent],
+  declarations: [
+    CreateOrderComponent,
+    ViewOrderComponent,
+    UpdateOrderComponent,
+    DraftViewComponent,
+  ],
   imports: [
     CommonModule,
     OrderRoutingModule,
@@ -20,9 +27,8 @@ import { MatButtonModule } from '@angular/material/button';
     CoreModule,
     MatSnackBarModule,
     MatStepperModule,
-    
-  ]
-  ,
-  exports: [ MatSnackBarModule]
+  ],
+  exports: [MatSnackBarModule],
+  providers: [CreateOrderService],
 })
-export class CreateOrderModule { }
+export class CreateOrderModule {}

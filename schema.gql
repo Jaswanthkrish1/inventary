@@ -10,9 +10,33 @@ input BooleanFieldComparison {
 """Cursor for paging through collections"""
 scalar ConnectionCursor
 
+input CreateFoodCategoryInputInput {
+  id: Float!
+  name: String
+}
+
+input CreateItemInput {
+  category: FoodCategoryInput!
+  createdby: UserInput
+  image_data: String
+  name: String
+  offer: String
+  price: Float
+}
+
+input CreateManyItemEntitiesInput {
+  """Array of records to create"""
+  itemEntities: [CreateItemInput!]!
+}
+
 input CreateManyUsersInput {
   """Array of records to create"""
   users: [CreateUserInput!]!
+}
+
+input CreateOneFoodCategoryInput {
+  """The record to create"""
+  foodCategory: CreateFoodCategoryInputInput!
 }
 
 input CreateOneUserInput {
@@ -22,6 +46,7 @@ input CreateOneUserInput {
 
 input CreateUserInput {
   createdBy: String
+  id: Float
   role: String
   status: Boolean! = true
   updatedBy: String
@@ -56,13 +81,152 @@ input DeleteOneUserInput {
   id: ID!
 }
 
+type FoodCategory {
+  id: Float!
+  name: String!
+}
+
+type FoodCategoryAggregateGroupBy {
+  id: Float
+  name: String
+}
+
+type FoodCategoryAvgAggregate {
+  id: Float
+}
+
+type FoodCategoryConnection {
+  """Array of edges."""
+  edges: [FoodCategoryEdge!]!
+
+  """Paging information"""
+  pageInfo: PageInfo!
+}
+
+type FoodCategoryCountAggregate {
+  id: Int
+  name: Int
+}
+
+type FoodCategoryEdge {
+  """Cursor for this node."""
+  cursor: ConnectionCursor!
+
+  """The node containing the FoodCategory"""
+  node: FoodCategory!
+}
+
+input FoodCategoryFilter {
+  and: [FoodCategoryFilter!]
+  id: NumberFieldComparison
+  name: StringFieldComparison
+  or: [FoodCategoryFilter!]
+}
+
+input FoodCategoryInput {
+  id: Float!
+  name: String
+}
+
+type FoodCategoryMaxAggregate {
+  id: Float
+  name: String
+}
+
+type FoodCategoryMinAggregate {
+  id: Float
+  name: String
+}
+
+input FoodCategorySort {
+  direction: SortDirection!
+  field: FoodCategorySortFields!
+  nulls: SortNulls
+}
+
+enum FoodCategorySortFields {
+  id
+  name
+}
+
+type FoodCategorySumAggregate {
+  id: Float
+}
+
+type ItemEntity {
+  category: FoodCategory!
+  id: Float!
+  status: Boolean!
+}
+
+type ItemEntityAggregateGroupBy {
+  category: FoodCategory
+  id: Float
+  status: Boolean
+}
+
+type ItemEntityAvgAggregate {
+  id: Float
+}
+
+type ItemEntityCountAggregate {
+  category: Int
+  id: Int
+  status: Int
+}
+
+type ItemEntityEdge {
+  """Cursor for this node."""
+  cursor: ConnectionCursor!
+
+  """The node containing the ItemEntity"""
+  node: ItemEntity!
+}
+
+type ItemEntityMaxAggregate {
+  category: FoodCategory
+  id: Float
+}
+
+type ItemEntityMinAggregate {
+  category: FoodCategory
+  id: Float
+}
+
+type ItemEntitySumAggregate {
+  id: Float
+}
+
 type Mutation {
+  createManyItemEntities(input: CreateManyItemEntitiesInput!): [ItemEntity!]!
   createManyUsers(input: CreateManyUsersInput!): [User!]!
+  createOneFoodCategory(input: CreateOneFoodCategoryInput!): FoodCategory!
   createOneUser(input: CreateOneUserInput!): User!
   deleteManyUsers(input: DeleteManyUsersInput!): DeleteManyResponse!
   deleteOneUser(input: DeleteOneUserInput!): UserDeleteResponse!
   updateManyUsers(input: UpdateManyUsersInput!): UpdateManyResponse!
+  updateOneFoodCategory(input: UpdateOneFoodCategoryInput!): FoodCategory!
   updateOneUser(input: UpdateOneUserInput!): User!
+}
+
+input NumberFieldComparison {
+  between: NumberFieldComparisonBetween
+  eq: Float
+  gt: Float
+  gte: Float
+  in: [Float!]
+  is: Boolean
+  isNot: Boolean
+  lt: Float
+  lte: Float
+  neq: Float
+  notBetween: NumberFieldComparisonBetween
+  notIn: [Float!]
+}
+
+input NumberFieldComparisonBetween {
+  lower: Float!
+  upper: Float!
 }
 
 type PageInfo {
@@ -80,6 +244,20 @@ type PageInfo {
 }
 
 type Query {
+  foodCategories(
+    """Specify to filter the records returned."""
+    filter: FoodCategoryFilter! = {}
+
+    """Limit or page results."""
+    paging: CursorPaging! = {first: 10}
+
+    """Specify to sort results."""
+    sorting: [FoodCategorySort!]! = []
+  ): FoodCategoryConnection!
+  foodCategory(
+    """The id of the record to find."""
+    id: ID!
+  ): FoodCategory
   user(
     """The id of the record to find."""
     id: ID!
@@ -125,6 +303,11 @@ input StringFieldComparison {
   notLike: String
 }
 
+input UpdateFoodCategoryInputInput {
+  id: Float!
+  name: String
+}
+
 type UpdateManyResponse {
   """The number of records updated."""
   updatedCount: Int!
@@ -138,6 +321,14 @@ input UpdateManyUsersInput {
   update: UpdateUserInput!
 }
 
+input UpdateOneFoodCategoryInput {
+  """The id of the record to update"""
+  id: ID!
+
+  """The update to apply."""
+  update: UpdateFoodCategoryInputInput!
+}
+
 input UpdateOneUserInput {
   """The id of the record to update"""
   id: ID!
@@ -148,19 +339,26 @@ input UpdateOneUserInput {
 
 input UpdateUserInput {
   createdBy: String
+  id: Float
   role: String
   status: Boolean! = true
   updatedBy: String
 }
 
 type User {
+  id: Float!
   role: String!
   status: Boolean!
 }
 
 type UserAggregateGroupBy {
+  id: Float
   role: String
   status: Boolean
+}
+
+type UserAvgAggregate {
+  id: Float
 }
 
 type UserConnection {
@@ -175,18 +373,21 @@ type UserConnection {
 }
 
 type UserCountAggregate {
+  id: Int
   role: Int
   status: Int
 }
 
 input UserDeleteFilter {
   and: [UserDeleteFilter!]
+  id: NumberFieldComparison
   or: [UserDeleteFilter!]
   role: StringFieldComparison
   status: BooleanFieldComparison
 }
 
 type UserDeleteResponse {
+  id: Float
   role: String
   status: Boolean
 }
@@ -201,16 +402,27 @@ type UserEdge {
 
 input UserFilter {
   and: [UserFilter!]
+  id: NumberFieldComparison
   or: [UserFilter!]
   role: StringFieldComparison
   status: BooleanFieldComparison
 }
 
+input UserInput {
+  createdBy: String
+  id: Float
+  role: String
+  status: Boolean! = true
+  updatedBy: String
+}
+
 type UserMaxAggregate {
+  id: Float
   role: String
 }
 
 type UserMinAggregate {
+  id: Float
   role: String
 }
 
@@ -221,12 +433,18 @@ input UserSort {
 }
 
 enum UserSortFields {
+  id
   role
   status
 }
 
+type UserSumAggregate {
+  id: Float
+}
+
 input UserUpdateFilter {
   and: [UserUpdateFilter!]
+  id: NumberFieldComparison
   or: [UserUpdateFilter!]
   role: StringFieldComparison
   status: BooleanFieldComparison
