@@ -39,7 +39,6 @@ export class CreateOrderService {
     const manyItemInput: CreateManyItemEntitiesInput = {
       itemEntities: manyUserInput,
     };
-    console.log(manyItemInput);
     this.CreateManyItemEntitiesGQL.mutate({
       input: manyItemInput,
     }).subscribe(

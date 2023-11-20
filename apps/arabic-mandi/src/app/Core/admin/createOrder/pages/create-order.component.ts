@@ -148,7 +148,7 @@ export class CreateOrderComponent implements OnInit, OnChanges, OnDestroy {
         ...this.firstFormGroup.value,
         ...this.secondFormGroup.value,
       };
-      console.log(combinedData);
+      // console.log(combinedData);
       const existingItemIndex = this.draftItems.findIndex(
         (item) => item.id === combinedData.id
       );
@@ -158,12 +158,10 @@ export class CreateOrderComponent implements OnInit, OnChanges, OnDestroy {
         this.draftItems[existingItemIndex] = combinedData;
         this._snackBar.open('Draft item has been Updated');
       } else {
-        // this.onNewCategory();
         this.draftItems.push(combinedData);
         this._snackBar.open('New Draft item has been added');
       }
       this.dataSource = [...this.draftItems];
-      // this.resetFormData();
       console.log(this.dataSource);
       setTimeout(() => {
         this.resetFormData();
@@ -286,7 +284,6 @@ export class CreateOrderComponent implements OnInit, OnChanges, OnDestroy {
         };
         return createItemInput;
       });
-      console.log(this.draftSave);
       this._createService.updateManyItems(this.draftSave);
       this.dataSource = [];
       this.draftItems = [];
