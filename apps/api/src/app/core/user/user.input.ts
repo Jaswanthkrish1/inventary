@@ -1,8 +1,12 @@
 import { InputType, Field } from '@nestjs/graphql';
-import { IsString, IsBoolean } from 'class-validator';
+import { IsString, IsBoolean, IsNumber } from 'class-validator';
 
-@InputType( { isAbstract: true } )
+@InputType({ isAbstract: true })
 export abstract class UserInput {
+  @Field({ nullable: true })
+  @IsNumber()
+  id?: number;
+
   @Field({ nullable: true })
   @IsString()
   role?: string;
@@ -25,4 +29,3 @@ export class CreateUserInput extends UserInput {}
 
 @InputType()
 export class UpdateUserInput extends UserInput {}
-

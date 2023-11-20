@@ -13,7 +13,7 @@ export const typeormOptions: TypeOrmModuleOptions = {
   password: process.env.DATABASE_PASS ?? 'J@swanth1',
   database: process.env.DATABASE_DB ?? 'inventary',
   autoLoadEntities: true,
-  logging: true,
+  logging: false,
   synchronize: true
 };
 

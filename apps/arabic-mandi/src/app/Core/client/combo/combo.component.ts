@@ -7,7 +7,7 @@ declare var $: any;
 @Component({
   selector: 'food-combo',
   templateUrl: './combo.component.html',
-  styleUrls: ['./combo.component.css'],
+  styleUrls: ['./combo.component.scss'],
   animations: [
     trigger('slideIn', [
       transition(':enter', [

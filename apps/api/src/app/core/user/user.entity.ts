@@ -1,14 +1,24 @@
 import { FilterableField } from '@nestjs-query/query-graphql';
 import { ObjectType } from '@nestjs/graphql';
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+  OneToOne,
+  JoinColumn,
+} from 'typeorm';
+import { Authenticate } from '../authentication/authenticate.entity';
 
 @Entity('core_user')
 @ObjectType()
 export class User {
   @PrimaryGeneratedColumn()
+  @FilterableField()
   id: number;
 
-  @Column({ nullable: true})
+  @Column({ nullable: false })
   @FilterableField()
   role: string;
 
@@ -16,10 +26,14 @@ export class User {
   @FilterableField()
   status: boolean;
 
-  @Column( { nullable: true})
+  @OneToOne(() => Authenticate, { cascade: true, eager: true })
+  @JoinColumn()
+  auth: Authenticate;
+
+  @Column({ nullable: true })
   createdBy: string;
 
-  @Column({ nullable: true})
+  @Column({ nullable: true })
   updatedBy: string;
 
   @CreateDateColumn()

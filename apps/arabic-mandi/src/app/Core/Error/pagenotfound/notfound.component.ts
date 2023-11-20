@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
+import { MatMenuModule } from '@angular/material/menu';
 
 @Component({
+  standalone: true,
   selector: 'pageNot-Found',
   templateUrl: './notfound.component.html',
+  imports:[ MatMenuModule ],
   styles: [
     `
       .fundo {

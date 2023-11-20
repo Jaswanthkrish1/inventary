@@ -1,5 +1,4 @@
 import { Component ,AfterViewInit} from '@angular/core';
-import { ElementRef, QueryList, ViewChildren } from '@angular/core';
 
 
 @Component({
@@ -11,3 +10,4 @@ export class AppComponent {
   title = 'arabic-mandi';
   
 }
+

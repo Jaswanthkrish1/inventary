@@ -1,0 +1,163 @@
+<div *ngIf="isLoading" style="
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 24px;
+  ">
+  <mat-spinner></mat-spinner>
+</div>
+<br />
+
+<div>
+  <h3>Create Item</h3>
+  <form [formGroup]="firstCategory">
+    <mat-form-field>
+      <mat-label>Category</mat-label>
+      <mat-select placeholder="Favorite food" formControlName="InitialCategory" required>
+        <mat-option *ngFor="let categoryType of dataSet" [value]="categoryType.name"
+          (onSelectionChange)="onSelectCategory(categoryType)">
+          {{ categoryType.name }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="firstCategory.get('InitialCategory')?.hasError('required')">
+        Please Select Category.
+      </mat-error>
+    </mat-form-field>
+
+    <button mat-raised-button matTooltip="Add New Category " (click)="createCategoryHandlerDailog()"
+      matTooltipPosition="after" style="margin-left: 5px;">
+      <mat-icon>add</mat-icon>
+    </button>
+  </form>
+
+  <mat-label>Food Type</mat-label>
+  <mat-slide-toggle color="primary" (change)="onSlideToggleChange($event)">
+    {{ slideValue ? 'Veg' : 'Non-Veg' }}
+  </mat-slide-toggle>
+  <!-- Button to demonstrate color change -->
+  <img *ngIf="!slideValue" src="../../../../../assets/icon_veg_nonveg/icons8-non-veg-30.png" alt="Vegetables Image"
+    style="width: 24px; height: 24px; margin-left: 8px;">
+
+  <img *ngIf="slideValue" src="../../../../../assets/icon_veg_nonveg/icons8-veg-32.png" alt="Meat Image"
+    style="width: 24px; height: 24px; margin-left: 8px;">
+</div>
+<br>
+<mat-stepper linear [orientation]="isHorizontal ? 'horizontal' : 'vertical'" #stepper>
+  <mat-step [stepControl]="firstFormGroup">
+    <form [formGroup]="firstFormGroup">
+      <ng-template matStepLabel>Create Item</ng-template>
+      <br />
+      <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" placeholder="Name" />
+        <!-- <mat-error *ngIf="firstFormGroup.get('name')?.hasError('required')">
+          This field is required.
+        </mat-error> -->
+      </mat-form-field>
+      <br />
+      <div>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="secondFormGroup">
+    <form [formGroup]="secondFormGroup">
+      <ng-template matStepLabel>Attach Image</ng-template>
+      <br />
+      <mat-form-field>
+        <mat-label>Price</mat-label>
+        <input matInput type="number" formControlName="price" maxlength="5" placeholder="Price" value="" required>
+        <!-- <mat-hint >{{postalCode.value.length}} / 5</mat-hint> -->
+        <!-- <mat-error *ngIf="firstFormGroup.get('price')?.hasError('required')">
+          This field is required.
+        </mat-error> -->
+      </mat-form-field>
+      <br />
+      <mat-label>Image</mat-label>
+      <input type="file" (change)="onFileSelected($event)">
+      <br />
+      <br />
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Draft</ng-template>
+    <div>
+      <br>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button *ngIf="updateStatus" (click)="onItemUpdateHandler()">Update</button>
+      <button mat-raised-button color="warn" *ngIf="submitStatus" (click)="onSubmitHandler()">Save To Draft</button>
+    </div>
+  </mat-step>
+</mat-stepper>
+<br>
+<div>
+  <div style="display: flex; justify-content: space-between;">
+    <h3 *ngIf="draftItems?.length">Draft Table </h3>
+    <button class="flex-end" *ngIf="draftItems?.length" mat-raised-button (click)="onDraftHandler()" color="primary">
+      <mat-icon class="material-icons-outlined">save</mat-icon>
+      Save
+    </button>
+  </div>
+  <br>
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" *ngIf="draftItems?.length">
+
+    <!-- Category Column -->
+
+    <ng-container matColumnDef="category">
+      <th mat-header-cell *matHeaderCellDef>Category</th>
+      <td mat-cell *matCellDef="let element">{{ element.InitialCategory }}</td>
+    </ng-container>
+
+    <!-- Name Column -->
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>Name</th>
+      <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+    </ng-container>
+
+    <!-- Price Column -->
+
+    <ng-container matColumnDef="price">
+      <th mat-header-cell *matHeaderCellDef>Price</th>
+      <td mat-cell *matCellDef="let element">{{ element.price }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="type">
+      <th mat-header-cell *matHeaderCellDef>type</th>
+      <td mat-cell *matCellDef="let element">
+        <img *ngIf="element.type" src="../../../../../assets/icon_veg_nonveg/icons8-veg-32.png" alt="Meat Image"
+          style="width: 24px; height: 24px; margin-left: 8px;">
+        <img *ngIf="!element.type" src="../../../../../assets/icon_veg_nonveg/icons8-non-veg-30.png"
+          alt="Vegetables Image" style="width: 24px; height: 24px; margin-left: 8px;">
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon class="material-icons-outlined">more_horiz</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu" class="condensed-menu">
+          <button mat-menu-item (click)="onSetFormUpdateHandler(element)">
+            <mat-icon class="material-icons-outlined">edit</mat-icon>
+            Update
+          </button>
+          <button mat-menu-item (click)="onDeleteHandler(element)" color="warn">
+            <mat-icon class="material-icons-outlined">delete</mat-icon>
+            Delete
+          </button>
+        </mat-menu>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+
+
+</div>

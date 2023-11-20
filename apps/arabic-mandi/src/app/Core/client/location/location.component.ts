@@ -9,7 +9,7 @@ import * as L from 'leaflet';
 @Component({
   selector: 'layout-location',
   templateUrl: './location.component.html',
-  styleUrls: ['./location.component.css'],
+  styleUrls: ['./location.component.scss'],
   animations: [
     trigger('fadeIn1', [
       transition(':enter', [

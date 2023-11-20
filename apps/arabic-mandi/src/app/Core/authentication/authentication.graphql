@@ -1,6 +1,0 @@
-mutation CreateOneUser($input: CreateOneUserInput!) {
-          createOneUser(input: $input) {
-            role
-            status
-          }
-        }

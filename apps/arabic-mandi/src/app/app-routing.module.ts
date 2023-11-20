@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthenticationGuard } from './Core/authentication/authentication.guard';
 import { PageNotFound } from './Core/Error/pagenotfound/notfound.component';
 import { MenuDialogCompnent } from './Core/client/menu/components/menu-dialog.component';
-import {MainLayout} from './Core/layout/flex-layout.component'
+import {FlexLayoutComponent} from './Core/layout/flex-layout.component'
 
 const appRoutes: Routes = [
   {
@@ -16,7 +16,7 @@ const appRoutes: Routes = [
   
   {
     path: '',
-    component: MainLayout,
+    component: FlexLayoutComponent,
     canActivate: [AuthenticationGuard],
     children: [
       {
@@ -51,6 +51,13 @@ const appRoutes: Routes = [
           ),
       },
       {
+         path: 'admin/add_item/view_item',
+         loadChildren: () => 
+         import('./Core/admin/admin.module').then(
+          (m) => m.AdminModule
+          ),
+      },
+      {
         path: 'menu',
         component: MenuDialogCompnent,
       },
@@ -66,10 +73,8 @@ const appRoutes: Routes = [
       },
     ],
   },
-  {
-    path: '**', // Wildcard route
-    redirectTo: '/auth',
-  },
+ 
+ 
 ];
 @NgModule({
   imports: [RouterModule.forRoot(appRoutes)],

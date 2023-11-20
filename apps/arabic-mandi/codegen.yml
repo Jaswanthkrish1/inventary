@@ -1,6 +1,6 @@
 overwrite: true
-schema: ./schema.gql
-document: "apps/arabic-mandi/src/**/*.graphql"
+schema: './schema.gql'
+documents: 'apps/arabic-mandi/src/**/*.graphql'
 generates: 
      apps/arabic-mandi/src/generate-types.ts:
         plugins: 

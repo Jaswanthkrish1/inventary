@@ -1,6 +1,6 @@
 import { LayoutModule } from '@angular/cdk/layout';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgModule } from '@angular/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
 import { MatRadioModule } from '@angular/material/radio';
@@ -14,11 +14,12 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatBadgeModule } from '@angular/material/badge';
+
 import {
   MAT_FORM_FIELD_DEFAULT_OPTIONS,
   MatFormFieldModule,
 } from '@angular/material/form-field';
-
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -39,12 +40,11 @@ import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatStepperModule } from '@angular/material/stepper';
-import { ReactiveFormsModule } from '@angular/forms';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const MODULES: any[] = [
-  
   LayoutModule,
+  FlexLayoutModule,
   MatNativeDateModule,
   MatAutocompleteModule,
   MatButtonModule,
@@ -78,14 +78,12 @@ const MODULES: any[] = [
   MatStepperModule,
   MatDialogModule,
   MatTooltipModule,
-  FlexLayoutModule,
-  ReactiveFormsModule
-
+  MatBadgeModule,
 ];
 
 @NgModule({
-  imports: MODULES,
-  exports: MODULES,
+  imports: [...MODULES],
+  exports: [...MODULES],
   providers: [
     {
       provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
@@ -96,7 +94,7 @@ const MODULES: any[] = [
       useValue: {
         duration: 5000,
         horizontalPosition: 'center',
-        verticalPosition: 'top',
+        verticalPosition: 'buttom',
       },
     },
     { provide: MAT_DATE_LOCALE, useValue: 'en-IN' },

@@ -1,13 +1,34 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CreateOrderComponent } from './create-order.component';
-
-
+import { CreateOrderComponent } from './pages/create-order.component';
+import { OrderRoutingModule } from './create-route.module';
+import { ViewOrderComponent } from './pages/view-order.component';
+import { UpdateOrderComponent } from './pages/update-order.component';
+import { CoreModule } from '../../core.module';
+import { MaterialModule } from '../../material.module';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatButtonModule } from '@angular/material/button';
+import { CreateCategoryComponentDialog } from './components/create-category-dialog.component';
+import { ApolloModule } from 'apollo-angular';
+import { CreateOrderService } from './create-order.service';
 
 @NgModule({
-  declarations: [CreateOrderComponent],
+  declarations: [
+    CreateOrderComponent,
+    ViewOrderComponent,
+    UpdateOrderComponent,
+    CreateCategoryComponentDialog,
+  ],
   imports: [
-    CommonModule
-  ]
+    CommonModule,
+    OrderRoutingModule,
+    MaterialModule,
+    CoreModule,
+    MatSnackBarModule,
+    MatStepperModule,
+  ],
+  exports: [MatSnackBarModule],
+  providers: [CreateOrderService],
 })
-export class CreateOrderModule { }
+export class CreateOrderModule {}

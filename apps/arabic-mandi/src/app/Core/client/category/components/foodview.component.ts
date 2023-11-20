@@ -12,10 +12,11 @@ import { Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { FoodDetails } from '../pages/food-details.component';
 import { animate, style, transition, trigger } from '@angular/animations';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'food-foodview',
   templateUrl: './foodview.component.html',
-  styleUrls: ['./foodview.component.css'],
+  styleUrls: ['./foodview.component.scss'],
   animations: [
     trigger('slideIn', [
       transition(':enter', [
@@ -208,7 +209,8 @@ export class FoodComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private renderer: Renderer2,
-    private _dialog: MatDialog
+    private _dialog: MatDialog,
+    private _snakBar: MatSnackBar
   ) {
     this.sub = new Subscription();
   }

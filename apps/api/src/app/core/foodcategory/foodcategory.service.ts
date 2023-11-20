@@ -10,7 +10,7 @@ export class FoodCategoryService {
   constructor(
     @InjectRepository(FoodCategory)
     private userRepository: Repository<FoodCategory>,
-   
+    
   ) {}
 
   async getAllUsers(): Promise<FoodCategory[]> {
@@ -45,5 +45,7 @@ export class FoodCategoryService {
        this.userRepository.delete(id)
     
   }
+
+  
   
 }
