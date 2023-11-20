@@ -23,7 +23,7 @@ export type BooleanFieldComparison = {
 };
 
 export type CreateFoodCategoryInputInput = {
-  id: Scalars['Float'];
+  id?: InputMaybe<Scalars['Float']>;
   name?: InputMaybe<Scalars['String']>;
 };
 
@@ -34,6 +34,7 @@ export type CreateItemInput = {
   name?: InputMaybe<Scalars['String']>;
   offer?: InputMaybe<Scalars['String']>;
   price?: InputMaybe<Scalars['Float']>;
+  type?: InputMaybe<Scalars['Boolean']>;
 };
 
 export type CreateManyItemEntitiesInput = {
@@ -94,12 +95,14 @@ export type DeleteOneUserInput = {
 export type FoodCategory = {
   __typename?: 'FoodCategory';
   id: Scalars['Float'];
+  isActive: Scalars['Boolean'];
   name: Scalars['String'];
 };
 
 export type FoodCategoryAggregateGroupBy = {
   __typename?: 'FoodCategoryAggregateGroupBy';
   id?: Maybe<Scalars['Float']>;
+  isActive?: Maybe<Scalars['Boolean']>;
   name?: Maybe<Scalars['String']>;
 };
 
@@ -108,37 +111,23 @@ export type FoodCategoryAvgAggregate = {
   id?: Maybe<Scalars['Float']>;
 };
 
-export type FoodCategoryConnection = {
-  __typename?: 'FoodCategoryConnection';
-  /** Array of edges. */
-  edges: Array<FoodCategoryEdge>;
-  /** Paging information */
-  pageInfo: PageInfo;
-};
-
 export type FoodCategoryCountAggregate = {
   __typename?: 'FoodCategoryCountAggregate';
   id?: Maybe<Scalars['Int']>;
+  isActive?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['Int']>;
-};
-
-export type FoodCategoryEdge = {
-  __typename?: 'FoodCategoryEdge';
-  /** Cursor for this node. */
-  cursor: Scalars['ConnectionCursor'];
-  /** The node containing the FoodCategory */
-  node: FoodCategory;
 };
 
 export type FoodCategoryFilter = {
   and?: InputMaybe<Array<FoodCategoryFilter>>;
   id?: InputMaybe<NumberFieldComparison>;
+  isActive?: InputMaybe<BooleanFieldComparison>;
   name?: InputMaybe<StringFieldComparison>;
   or?: InputMaybe<Array<FoodCategoryFilter>>;
 };
 
 export type FoodCategoryInput = {
-  id: Scalars['Float'];
+  id?: InputMaybe<Scalars['Float']>;
   name?: InputMaybe<Scalars['String']>;
 };
 
@@ -162,6 +151,7 @@ export type FoodCategorySort = {
 
 export enum FoodCategorySortFields {
   Id = 'id',
+  IsActive = 'isActive',
   Name = 'name'
 }
 
@@ -175,6 +165,7 @@ export type ItemEntity = {
   category: FoodCategory;
   id: Scalars['Float'];
   status: Scalars['Boolean'];
+  type: Scalars['Boolean'];
 };
 
 export type ItemEntityAggregateGroupBy = {
@@ -182,6 +173,7 @@ export type ItemEntityAggregateGroupBy = {
   category?: Maybe<FoodCategory>;
   id?: Maybe<Scalars['Float']>;
   status?: Maybe<Scalars['Boolean']>;
+  type?: Maybe<Scalars['Boolean']>;
 };
 
 export type ItemEntityAvgAggregate = {
@@ -194,6 +186,7 @@ export type ItemEntityCountAggregate = {
   category?: Maybe<Scalars['Int']>;
   id?: Maybe<Scalars['Int']>;
   status?: Maybe<Scalars['Int']>;
+  type?: Maybe<Scalars['Int']>;
 };
 
 export type ItemEntityEdge = {
@@ -313,7 +306,7 @@ export type PageInfo = {
 
 export type Query = {
   __typename?: 'Query';
-  foodCategories: FoodCategoryConnection;
+  foodCategories: Array<FoodCategory>;
   foodCategory?: Maybe<FoodCategory>;
   user?: Maybe<User>;
   users: UserConnection;
@@ -322,7 +315,6 @@ export type Query = {
 
 export type QueryFoodCategoriesArgs = {
   filter?: FoodCategoryFilter;
-  paging?: CursorPaging;
   sorting?: Array<FoodCategorySort>;
 };
 
@@ -373,7 +365,8 @@ export type StringFieldComparison = {
 };
 
 export type UpdateFoodCategoryInputInput = {
-  id: Scalars['Float'];
+  id?: InputMaybe<Scalars['Float']>;
+  isActive: Scalars['Boolean'];
   name?: InputMaybe<Scalars['String']>;
 };
 
@@ -547,12 +540,11 @@ export type CreateOneFoodCategoryMutation = { __typename?: 'Mutation', createOne
 
 export type GetFoodCategoriesQueryVariables = Exact<{
   filter?: InputMaybe<FoodCategoryFilter>;
-  paging?: InputMaybe<CursorPaging>;
   sorting?: InputMaybe<Array<FoodCategorySort> | FoodCategorySort>;
 }>;
 
 
-export type GetFoodCategoriesQuery = { __typename?: 'Query', foodCategories: { __typename?: 'FoodCategoryConnection', edges: Array<{ __typename?: 'FoodCategoryEdge', node: { __typename?: 'FoodCategory', id: number, name: string } }>, pageInfo: { __typename?: 'PageInfo', hasNextPage?: boolean | null, endCursor?: any | null } } };
+export type GetFoodCategoriesQuery = { __typename?: 'Query', foodCategories: Array<{ __typename?: 'FoodCategory', id: number, name: string }> };
 
 export const CreateManyItemEntitiesDocument = gql`
     mutation CreateManyItemEntities($input: CreateManyItemEntitiesInput!) {
@@ -611,18 +603,10 @@ export const CreateOneFoodCategoryDocument = gql`
     }
   }
 export const GetFoodCategoriesDocument = gql`
-    query GetFoodCategories($filter: FoodCategoryFilter, $paging: CursorPaging, $sorting: [FoodCategorySort!]) {
-  foodCategories(filter: $filter, paging: $paging, sorting: $sorting) {
-    edges {
-      node {
-        id
-        name
-      }
-    }
-    pageInfo {
-      hasNextPage
-      endCursor
-    }
+    query GetFoodCategories($filter: FoodCategoryFilter, $sorting: [FoodCategorySort!]) {
+  foodCategories(filter: $filter, sorting: $sorting) {
+    id
+    name
   }
 }
     `;

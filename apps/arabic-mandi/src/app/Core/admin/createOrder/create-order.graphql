@@ -20,20 +20,11 @@ mutation CreateOneFoodCategory($input: CreateOneFoodCategoryInput!) {
   }
 }
 query GetFoodCategories(
-  $filter: FoodCategoryFilter,
-  $paging: CursorPaging,
+  $filter: FoodCategoryFilter
   $sorting: [FoodCategorySort!]
 ) {
-  foodCategories(filter: $filter, paging: $paging, sorting: $sorting) {
-    edges {
-      node {
-        id
-        name
-      }
-    }
-    pageInfo {
-      hasNextPage
-      endCursor
-    }
+  foodCategories(filter: $filter, sorting: $sorting) {
+    id
+    name
   }
 }

@@ -9,7 +9,7 @@ import { MaterialModule } from '../../material.module';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatButtonModule } from '@angular/material/button';
-import { DraftViewComponent } from './components/draft-view.component';
+import { CreateCategoryComponentDialog } from './components/create-category-dialog.component';
 import { ApolloModule } from 'apollo-angular';
 import { CreateOrderService } from './create-order.service';
 
@@ -18,7 +18,7 @@ import { CreateOrderService } from './create-order.service';
     CreateOrderComponent,
     ViewOrderComponent,
     UpdateOrderComponent,
-    DraftViewComponent,
+    CreateCategoryComponentDialog,
   ],
   imports: [
     CommonModule,

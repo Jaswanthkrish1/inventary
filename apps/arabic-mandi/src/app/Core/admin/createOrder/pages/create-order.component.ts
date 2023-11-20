@@ -1,14 +1,18 @@
 import {
+  ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   HostListener,
   Inject,
+  OnChanges,
+  OnDestroy,
   OnInit,
+  SimpleChanges,
   ViewChild,
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
-import { DraftViewComponent } from '../components/draft-view.component';
+import { CreateCategoryComponentDialog } from '../components/create-category-dialog.component';
 import {
   MAT_DIALOG_DATA,
   MatDialog,
@@ -29,8 +33,10 @@ import {
   Subscription,
   debounce,
   debounceTime,
+  map,
   switchMap,
 } from 'rxjs';
+import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 interface MenuItem {
   category: string;
   gst: null | string;
@@ -42,37 +48,41 @@ interface MenuItem {
   selector: 'food-create-order',
   templateUrl: './create-order.component.html',
   styleUrls: ['./create-order.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Default,
 })
-export class CreateOrderComponent implements OnInit {
+export class CreateOrderComponent implements OnInit, OnChanges, OnDestroy {
   @ViewChild('stepper') stepper!: MatStepper;
+  private subs = new Subscription();
+  private ItemId!: number;
+  private draftSave!: CreateItemInput[];
+  private nextId: number = 1;
+  private categoryItem: any;
+  private dataSetChange$ = new BehaviorSubject(<
+    GetFoodCategoriesQueryVariables
+  >{
+    filter: {},
+    sorting: [],
+    // paging: { limit: 10, offset: 0 },
+  });
+  private selectedCategoryId: number | null = null;
+
   public isLoading = false;
   public form!: FormGroup;
   public isHorizontal = false;
   public draftItems: any[] = [];
-  public displayedColumns: string[] = ['category', 'name', 'price', 'actions'];
-  public category = ['Staters', 'Biriyani', 'MockTails'];
+  public displayedColumns: string[] = [
+    'category',
+    'name',
+    'price',
+    'type',
+    'actions',
+  ];
   public dataSource!: any;
-  public visible = false;
   public updateStatus!: boolean;
   public submitStatus = true;
-  private ItemId!: number;
-  private draftSave!: CreateItemInput[];
-  nextId: number = 1;
-  private categoryItem: any;
-  public dataSet: GetFoodCategoriesQuery['foodCategories'] = {
-    edges: [],
-    pageInfo: {
-      __typename: undefined,
-      hasNextPage: undefined,
-      endCursor: undefined,
-    },
-  };
-  public dataSetChange$ = new BehaviorSubject(<GetFoodCategoriesQueryVariables>{
-    filter: {},
-    // paging: { limit: 10, offset: 0 },
-  });
-  private subs = new Subscription();
-  private selectedCategoryId: number | null = null;
+  public slideValue = false; // Default to Non-Veg
+  /* for Food category data */
+  public dataSet!: GetFoodCategoriesQuery['foodCategories'];
 
   constructor(
     private readonly _fb: FormBuilder,
@@ -81,6 +91,7 @@ export class CreateOrderComponent implements OnInit {
     private _snackBar: MatSnackBar,
     private _createService: CreateOrderService
   ) {}
+
   firstCategory = this._fb.group({
     InitialCategory: ['', Validators.required],
   });
@@ -94,32 +105,35 @@ export class CreateOrderComponent implements OnInit {
   });
   ngOnInit(): void {
     this.updateStepperMode();
-    this.SubscribeCategoryChanges();
+    this.subscribeCategoryChanges();
   }
+  ngOnChanges(changes: SimpleChanges): void {}
   @HostListener('window:resize', ['$event'])
   onResize(event: Event): void {
     this.updateStepperMode();
   }
-
-  SubscribeCategoryChanges() {
+  /* getting data from databse list of category items */
+  subscribeCategoryChanges() {
     this.subs.add(
       this.dataSetChange$
-        .asObservable()
-        .pipe(debounceTime(500))
-        .pipe(switchMap((variables) => this._createService.find(variables)))
+        .pipe(
+          debounceTime(500),
+          switchMap((variables) => this._createService.find(variables))
+        )
         .subscribe(({ data }) => {
           this.isLoading = false;
-          if (data?.foodCategories.edges) {
+          if (data?.foodCategories) {
             this.dataSet = data.foodCategories;
           }
         })
     );
   }
-
-  private updateStepperMode(): void {
-    // Change the condition based on your desired screen width
-    this.isHorizontal = window.innerWidth > 768;
+  /* to set the type of food  */
+  onSlideToggleChange(event: MatSlideToggleChange) {
+    this.slideValue = event.checked;
   }
+
+  /* To fitch the form to save in the static array */
   onSubmitHandler() {
     if (
       this.firstFormGroup.valid &&
@@ -128,11 +142,13 @@ export class CreateOrderComponent implements OnInit {
     ) {
       const combinedData = {
         id: this.nextId++,
+        type: this.slideValue,
         cId: this.selectedCategoryId,
         ...this.firstCategory.value,
         ...this.firstFormGroup.value,
         ...this.secondFormGroup.value,
       };
+      console.log(combinedData);
       const existingItemIndex = this.draftItems.findIndex(
         (item) => item.id === combinedData.id
       );
@@ -142,12 +158,13 @@ export class CreateOrderComponent implements OnInit {
         this.draftItems[existingItemIndex] = combinedData;
         this._snackBar.open('Draft item has been Updated');
       } else {
-        this.onNewCategory();
+        // this.onNewCategory();
         this.draftItems.push(combinedData);
         this._snackBar.open('New Draft item has been added');
       }
       this.dataSource = [...this.draftItems];
       // this.resetFormData();
+      console.log(this.dataSource);
       setTimeout(() => {
         this.resetFormData();
       }, 2000);
@@ -158,12 +175,25 @@ export class CreateOrderComponent implements OnInit {
       }
     }
   }
+  /* To add new categery  */
+  createCategoryHandlerDailog() {
+    const dialogRef = this._dialog.open(CreateCategoryComponentDialog, {
+      data: { canCreate: true },
+    });
+    dialogRef.afterClosed().subscribe(() => {
+      // this.subscribeCategoryChanges();
+      // this.ngOnInit();
+      this.cdr.detectChanges();
+      // console.log(this.dataSet);
+    });
+  }
+  /* To fitch the category to first category form */
   onSelectCategory(categoryId: any) {
     this.selectedCategoryId = categoryId?.id;
     this.categoryItem = categoryId?.name;
     // console.log(this.firstFormGroup.value);
   }
-
+  /* delete static data based on meniitem data */
   onDeleteHandler(data: MenuItem) {
     const index = this.draftItems.indexOf(data);
     if (index !== -1) {
@@ -172,17 +202,20 @@ export class CreateOrderComponent implements OnInit {
         // If there is no data left, close the dialog
         this.stepper.reset();
         this.resetFormData();
-        this.visible = true;
+        this.updateStatus = false;
+        this.submitStatus = true;
       } else {
-        this.visible = false;
+        this.updateStatus = false;
+        this.submitStatus = true;
         this.dataSource = [...this.draftItems];
         this.cdr.detectChanges();
         this.dataSource = this.draftItems;
       }
     }
   }
-
+  /* set form with perticular static data inside the table to update the data  */
   onSetFormUpdateHandler(data: any) {
+    // console.log(data)
     this.resetFormData();
     this.updateStatus = true;
     this.submitStatus = false;
@@ -192,7 +225,7 @@ export class CreateOrderComponent implements OnInit {
         name: data.name,
       });
       this.firstCategory.setValue({
-        InitialCategory: data?.category,
+        InitialCategory: data.InitialCategory,
       });
       this.secondFormGroup.setValue({
         price: data.price,
@@ -201,7 +234,7 @@ export class CreateOrderComponent implements OnInit {
       });
     }
   }
-
+  /* Update handler  which is responce to handile the data in static way */
   onItemUpdateHandler() {
     if (
       this.firstFormGroup.valid &&
@@ -210,6 +243,7 @@ export class CreateOrderComponent implements OnInit {
     ) {
       const combinedData = {
         id: this.ItemId,
+        type: this.slideValue,
         ...this.firstCategory.value,
         ...this.firstFormGroup.value,
         ...this.secondFormGroup.value,
@@ -229,7 +263,7 @@ export class CreateOrderComponent implements OnInit {
       }
     }
   }
-
+  /* To Save the all draft data into database using graphql */
   onDraftHandler() {
     const CurrentUser: UserInput | null = this._createService.getCurrentUser();
     if (CurrentUser !== null) {
@@ -248,6 +282,7 @@ export class CreateOrderComponent implements OnInit {
           name: draftItem.name,
           price: draftItem.price,
           createdby: CurrentUser,
+          type: this.slideValue,
         };
         return createItemInput;
       });
@@ -260,27 +295,16 @@ export class CreateOrderComponent implements OnInit {
     }
   }
 
-  private onNewCategory() {
-    this.category.forEach((e: any) => {
-      let newCategory: string | null | undefined =
-        this.firstFormGroup.get('category')?.value;
-
-      if (
-        typeof newCategory === 'string' &&
-        !this.category.includes(newCategory)
-      ) {
-        this.category.push(newCategory);
-        this.category = this.category;
-        setTimeout(() => {
-          this._snackBar.open('New category Has been added');
-        }, 2000);
-      }
-    });
-  }
+  /* Reset the all form data */
   private resetFormData() {
     this.firstCategory.setValue({ InitialCategory: this.categoryItem });
     this.firstFormGroup.reset();
     this.secondFormGroup.reset();
+  }
+  /* convert the stepnner into horizenatal and vertical ways based on divice width*/
+  private updateStepperMode(): void {
+    // Change the condition based on your desired screen width
+    this.isHorizontal = window.innerWidth > 768;
   }
 
   onFileSelected(event: any): void {
@@ -298,5 +322,9 @@ export class CreateOrderComponent implements OnInit {
         this.secondFormGroup.get('img')?.setValue(selectedFile);
       }
     }
+  }
+
+  ngOnDestroy(): void {
+    this.subs.unsubscribe();
   }
 }

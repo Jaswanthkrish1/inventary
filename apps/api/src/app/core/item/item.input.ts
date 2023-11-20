@@ -1,5 +1,5 @@
 import { Field, InputType, Int } from '@nestjs/graphql';
-import { IsString, IsNumber, IsOptional } from 'class-validator';
+import { IsString, IsNumber, IsOptional, IsBoolean } from 'class-validator';
 import { FoodCategoryInput } from '../foodcategory/foodcategory.input';
 import { UserInput } from '../user/user.input';
 
@@ -51,6 +51,10 @@ export class CreateItemInput {
   @Field({ nullable: true })
   @IsString()
   offer?: string;
+
+  @Field({ nullable: true })
+  @IsBoolean()
+  type?: boolean;
 }
 
 @InputType()
@@ -78,4 +82,8 @@ export class UpdateItemInput {
   @Field({ nullable: true })
   @IsString()
   offer?: string;
+
+  @Field({ nullable: true })
+  @IsBoolean()
+  type?: boolean;
 }

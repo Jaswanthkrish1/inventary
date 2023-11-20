@@ -44,6 +44,10 @@ export class ItemEntity {
   @FilterableField()
   status?: boolean;
 
+  @Column({ default: true })
+  @FilterableField()
+  type?: boolean;
+
   @Column('decimal', { precision: 10, scale: 2, nullable: true })
   price?: number;
 

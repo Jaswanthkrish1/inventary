@@ -6,14 +6,18 @@ import {
   CreateManyItemEntitiesInput,
   GetFoodCategoriesQueryVariables,
   UserInput,
+  CreateOneFoodCategoryGQL,
+  CreateOneFoodCategoryInput,
 } from 'apps/arabic-mandi/src/generate-types';
-import { catchError, of } from 'rxjs';
+import { Observable, catchError, map, of } from 'rxjs';
 import { AuthenticateService } from '../../authentication/authentication.service';
+
 @Injectable({ providedIn: 'root' })
 export class CreateOrderService {
   constructor(
     private getFoodCategoriesGql: GetFoodCategoriesGQL,
     private CreateManyItemEntitiesGQL: CreateManyItemEntitiesGQL,
+    private createOneCategory: CreateOneFoodCategoryGQL,
     private _auth: AuthenticateService
   ) {}
 
@@ -23,6 +27,12 @@ export class CreateOrderService {
         return of({ data: null });
       })
     );
+  }
+
+  addSingleCategory(input: CreateOneFoodCategoryInput): Observable<any> {
+    return this.createOneCategory
+      .mutate({ input })
+      .pipe(map(({ data }) => data));
   }
 
   updateManyItems(manyUserInput: CreateItemInput[]) {
@@ -35,11 +45,11 @@ export class CreateOrderService {
     }).subscribe(
       ({ data }) => {
         // Handle success, 'data' contains the response from the server
-        console.log('Updated items:', data);
+        // console.log('Updated items:', data);
       },
       (error) => {
         // Handle error
-        console.error('Error updating items:', error);
+        // console.error('Error updating items:', error);
       }
     );
   }

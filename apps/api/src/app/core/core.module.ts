@@ -2,7 +2,10 @@ import { Module } from '@nestjs/common';
 import { UserModule } from './user/user.module';
 import { ItemModule } from './item/item.module';
 import { FoodCategoryModule } from './foodcategory/foodcategory.module';
-import { NestjsQueryGraphQLModule } from '@nestjs-query/query-graphql';
+import {
+  NestjsQueryGraphQLModule,
+  PagingStrategies,
+} from '@nestjs-query/query-graphql';
 import { NestjsQueryTypeOrmModule } from '@nestjs-query/query-typeorm';
 import { User } from './user/user.entity';
 import { JwtModule, JwtModuleOptions, JwtService } from '@nestjs/jwt';
@@ -73,6 +76,7 @@ import {
           CreateDTOClass: CreateFoodCategoryInputInput,
           UpdateDTOClass: UpdateFoodCategoryInputInput,
           // enableTotalCount: true,
+          pagingStrategy: PagingStrategies.NONE,
           create: { many: { disabled: true }, one: { disabled: false } },
           update: { many: { disabled: true }, one: { disabled: false } },
           delete: { many: { disabled: true }, one: { disabled: true } },
