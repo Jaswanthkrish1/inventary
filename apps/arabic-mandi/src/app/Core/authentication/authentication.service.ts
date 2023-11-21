@@ -40,6 +40,21 @@ export class AuthenticateService {
     );
   }
 
+  createUserRegister(details: any){
+    const data= {
+      "username": "Admin_auth",
+      "password": "Arabic",
+      "role": "Admin"
+    }
+  this.http.post(`${environment.apiUrl}/auth/register`,data).subscribe(
+    (res)=>{
+      console.log(res)
+    },(error)=>{
+      console.log(error)
+    }
+  )
+  }
+
   ValidateToken(token:string){
     const payload = { token: token }
     this.http.post(`${environment.apiUrl}/auth/validateToken/`,payload).subscribe( ( responce: any) =>{
