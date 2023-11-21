@@ -16,7 +16,7 @@ export class AuthenticationComponent {
 
   constructor(private fb: FormBuilder, private readonly _router: Router, private _auth:AuthenticateService) {
     this.loginForm = this.fb.group({
-      username: ['Admin', [Validators.required]],
+      username: ['Admin_auth', [Validators.required]],
       password: ['Arabic', Validators.required]
     });
   }
