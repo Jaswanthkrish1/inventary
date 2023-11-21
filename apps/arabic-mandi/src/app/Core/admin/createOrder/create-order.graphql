@@ -3,6 +3,20 @@ mutation CreateManyItemEntities($input: CreateManyItemEntitiesInput!) {
     id
   }
 }
+# View Querys
+
+query itemViewData(
+  $filter: ItemEntityFilter! = {}
+  $paging: CursorPaging! = {}
+) {
+  itemEntities(filter: $filter, paging: $paging) {
+    edges {
+      node {
+        id
+      }
+    }
+  }
+}
 
 # category Order
 

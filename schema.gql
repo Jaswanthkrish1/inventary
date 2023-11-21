@@ -77,6 +77,11 @@ input DeleteManyUsersInput {
   filter: UserDeleteFilter!
 }
 
+input DeleteOneItemEntityInput {
+  """The id of the record to delete."""
+  id: ID!
+}
+
 input DeleteOneUserInput {
   """The id of the record to delete."""
   id: ID!
@@ -144,14 +149,12 @@ type FoodCategorySumAggregate {
 }
 
 type ItemEntity {
-  category: FoodCategory!
   id: Float!
   status: Boolean!
   type: Boolean!
 }
 
 type ItemEntityAggregateGroupBy {
-  category: FoodCategory
   id: Float
   status: Boolean
   type: Boolean
@@ -161,11 +164,24 @@ type ItemEntityAvgAggregate {
   id: Float
 }
 
+type ItemEntityConnection {
+  """Array of edges."""
+  edges: [ItemEntityEdge!]!
+
+  """Paging information"""
+  pageInfo: PageInfo!
+}
+
 type ItemEntityCountAggregate {
-  category: Int
   id: Int
   status: Int
   type: Int
+}
+
+type ItemEntityDeleteResponse {
+  id: Float
+  status: Boolean
+  type: Boolean
 }
 
 type ItemEntityEdge {
@@ -176,18 +192,44 @@ type ItemEntityEdge {
   node: ItemEntity!
 }
 
+input ItemEntityFilter {
+  and: [ItemEntityFilter!]
+  id: NumberFieldComparison
+  or: [ItemEntityFilter!]
+  status: BooleanFieldComparison
+  type: BooleanFieldComparison
+}
+
 type ItemEntityMaxAggregate {
-  category: FoodCategory
   id: Float
 }
 
 type ItemEntityMinAggregate {
-  category: FoodCategory
   id: Float
+}
+
+input ItemEntitySort {
+  direction: SortDirection!
+  field: ItemEntitySortFields!
+  nulls: SortNulls
+}
+
+enum ItemEntitySortFields {
+  id
+  status
+  type
 }
 
 type ItemEntitySumAggregate {
   id: Float
+}
+
+input ItemEntityUpdateFilter {
+  and: [ItemEntityUpdateFilter!]
+  id: NumberFieldComparison
+  or: [ItemEntityUpdateFilter!]
+  status: BooleanFieldComparison
+  type: BooleanFieldComparison
 }
 
 type Mutation {
@@ -196,9 +238,12 @@ type Mutation {
   createOneFoodCategory(input: CreateOneFoodCategoryInput!): FoodCategory!
   createOneUser(input: CreateOneUserInput!): User!
   deleteManyUsers(input: DeleteManyUsersInput!): DeleteManyResponse!
+  deleteOneItemEntity(input: DeleteOneItemEntityInput!): ItemEntityDeleteResponse!
   deleteOneUser(input: DeleteOneUserInput!): UserDeleteResponse!
+  updateManyItemEntities(input: UpdateManyItemEntitiesInput!): UpdateManyResponse!
   updateManyUsers(input: UpdateManyUsersInput!): UpdateManyResponse!
   updateOneFoodCategory(input: UpdateOneFoodCategoryInput!): FoodCategory!
+  updateOneItemEntity(input: UpdateOneItemEntityInput!): ItemEntity!
   updateOneUser(input: UpdateOneUserInput!): User!
 }
 
@@ -248,6 +293,20 @@ type Query {
     """The id of the record to find."""
     id: ID!
   ): FoodCategory
+  itemEntities(
+    """Specify to filter the records returned."""
+    filter: ItemEntityFilter! = {}
+
+    """Limit or page results."""
+    paging: CursorPaging! = {first: 10}
+
+    """Specify to sort results."""
+    sorting: [ItemEntitySort!]! = []
+  ): ItemEntityConnection!
+  itemEntity(
+    """The id of the record to find."""
+    id: ID!
+  ): ItemEntity
   user(
     """The id of the record to find."""
     id: ID!
@@ -299,6 +358,24 @@ input UpdateFoodCategoryInputInput {
   name: String
 }
 
+input UpdateItemInput {
+  categoryId: FoodCategoryInput
+  image_data: String
+  name: String
+  offer: String
+  price: Float
+  type: Boolean
+  updatedby: UserInput
+}
+
+input UpdateManyItemEntitiesInput {
+  """Filter used to find fields to update"""
+  filter: ItemEntityUpdateFilter!
+
+  """The update to apply to all records found using the filter"""
+  update: UpdateItemInput!
+}
+
 type UpdateManyResponse {
   """The number of records updated."""
   updatedCount: Int!
@@ -318,6 +395,14 @@ input UpdateOneFoodCategoryInput {
 
   """The update to apply."""
   update: UpdateFoodCategoryInputInput!
+}
+
+input UpdateOneItemEntityInput {
+  """The id of the record to update"""
+  id: ID!
+
+  """The update to apply."""
+  update: UpdateItemInput!
 }
 
 input UpdateOneUserInput {

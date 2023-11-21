@@ -66,9 +66,9 @@ import {
           UpdateDTOClass: UpdateItemInput,
           // enableTotalCount: true,
           create: { many: { disabled: false }, one: { disabled: true } },
-          update: { many: { disabled: true }, one: { disabled: true } },
-          delete: { many: { disabled: true }, one: { disabled: true } },
-          read: { many: { disabled: true }, one: { disabled: true } },
+          update: { many: { disabled: false }, one: { disabled: false } },
+          delete: { many: { disabled: true }, one: { disabled: false } },
+          read: { many: { disabled: false }, one: { disabled: false } },
         },
         {
           DTOClass: FoodCategory,

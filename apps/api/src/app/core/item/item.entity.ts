@@ -37,7 +37,7 @@ export class ItemEntity {
 
   @ManyToOne(() => FoodCategory, { cascade: true, eager: true })
   @JoinColumn()
-  @FilterableField()
+  // @FilterableField()
   category?: FoodCategory;
 
   @Column({ default: true })
