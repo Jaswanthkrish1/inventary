@@ -26,6 +26,7 @@ export class AuthenticateService {
       // Password is correct
       let authId = auth.id;
       const user = await this.userRepository.findOne({ where: { auth: { id: authId } } });
+      console.log(user)
       const payload = { username: auth.username, id: user.id, role: user.role, status:user.status  };
       // Generate and return a JWT token
       const token = await this.jwtService.signAsync(payload)
@@ -46,7 +47,7 @@ export class AuthenticateService {
     // Create the Auth entity
     const auth = this.authRepository.create({ username, password });
     await this.authRepository.save(auth);
-
+  
     // Create the User entity with role
     const user = this.userRepository.create({ status: true, role, auth });
     await this.userRepository.save(user);

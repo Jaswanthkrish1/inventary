@@ -19,7 +19,7 @@ export class AuthController {
     if (Secret) {
       return { Secret };
     } else {
-      return null ;
+      return 'im not done' ;
     }
   }
 
