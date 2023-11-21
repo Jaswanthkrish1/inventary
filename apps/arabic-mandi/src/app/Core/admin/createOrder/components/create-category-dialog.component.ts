@@ -61,6 +61,7 @@ export class CreateCategoryComponentDialog implements OnInit, OnDestroy {
       this.subs.add(
         this._createService.addSingleCategory(input).subscribe(
           (res) => {
+            console.log(res)
             this.newCategory.setValue({ category_name: '' });
             this._snackBar.open('Category Has Been Added');
           },

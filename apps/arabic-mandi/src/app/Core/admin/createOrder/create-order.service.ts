@@ -8,6 +8,8 @@ import {
   UserInput,
   CreateOneFoodCategoryGQL,
   CreateOneFoodCategoryInput,
+  ItemViewDataGQL,
+  ItemViewDataQueryVariables,
 } from 'apps/arabic-mandi/src/generate-types';
 import { Observable, catchError, map, of } from 'rxjs';
 import { AuthenticateService } from '../../authentication/authentication.service';
@@ -18,9 +20,10 @@ export class CreateOrderService {
     private getFoodCategoriesGql: GetFoodCategoriesGQL,
     private CreateManyItemEntitiesGQL: CreateManyItemEntitiesGQL,
     private createOneCategory: CreateOneFoodCategoryGQL,
+    private itemDataGql: ItemViewDataGQL,
     private _auth: AuthenticateService
   ) {}
-
+  // category quries and mutations
   find(variables: GetFoodCategoriesQueryVariables) {
     return this.getFoodCategoriesGql.watch(variables).valueChanges.pipe(
       catchError(() => {
@@ -34,6 +37,8 @@ export class CreateOrderService {
       .mutate({ input })
       .pipe(map(({ data }) => data));
   }
+
+  // Item or order Querys and mutations
 
   updateManyItems(manyUserInput: CreateItemInput[]) {
     const manyItemInput: CreateManyItemEntitiesInput = {
@@ -53,6 +58,15 @@ export class CreateOrderService {
     );
   }
 
+  getAllItems(variables: ItemViewDataQueryVariables) {
+    this.itemDataGql.watch(variables).valueChanges.pipe(
+      catchError(() => {
+        return of({ data: null });
+      })
+    );
+  }
+
+  // Auth check user is admin or not and user is exited in database or not
   getCurrentUser(): UserInput | null {
     const user = localStorage.getItem(this._auth.CURRENT_USER_KEY);
     if (user) {
