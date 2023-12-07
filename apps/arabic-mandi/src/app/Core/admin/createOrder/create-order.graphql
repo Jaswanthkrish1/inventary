@@ -3,20 +3,21 @@ mutation CreateManyItemEntities($input: CreateManyItemEntitiesInput!) {
     id
   }
 }
-# View Querys
+# View Item Query 
 
-query itemViewData(
-  $filter: ItemEntityFilter! = {}
-  $paging: CursorPaging! = {}
-) {
-  itemEntities(filter: $filter, paging: $paging) {
-    edges {
-      node {
+ query GetAllItemGql($filter: ItemEntityFilter,$paging:CursorPaging){
+  
+  itemEntities(filter:$filter,paging:$paging){
+      node{
         id
+        type
+        status
+        name
+        categoryid
       }
-    }
   }
 }
+
 
 # category Order
 
@@ -26,6 +27,9 @@ query GetFoodCategory($id: ID!) {
     name
   }
 }
+
+
+
 
 mutation CreateOneFoodCategory($input: CreateOneFoodCategoryInput!) {
   createOneFoodCategory(input: $input) {

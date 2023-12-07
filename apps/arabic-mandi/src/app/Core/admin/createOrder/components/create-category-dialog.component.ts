@@ -11,8 +11,10 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { BehaviorSubject, Subscription, debounceTime, switchMap } from 'rxjs';
 import { FormBuilder, Validators } from '@angular/forms';
 import {
+  CreateFoodCategoryInputInput,
   CreateOneFoodCategoryGQL,
   CreateOneFoodCategoryInput,
+  FoodCategory,
   GetFoodCategoriesQuery,
   GetFoodCategoriesQueryVariables,
 } from 'apps/arabic-mandi/src/generate-types';
@@ -27,14 +29,6 @@ export class CreateCategoryComponentDialog implements OnInit, OnDestroy {
   private subs = new Subscription();
   public dataSet!: GetFoodCategoriesQuery['foodCategories'];
 
-  private dataSetChange$ = new BehaviorSubject(<
-    GetFoodCategoriesQueryVariables
-  >{
-    filter: {},
-    sorting: [],
-    // paging: { limit: 10, offset: 0 },
-  });
-
   @Output() categoryCreated = new EventEmitter<void>();
   constructor(
     public dialogRef: MatDialogRef<CreateCategoryComponentDialog>,
@@ -46,6 +40,7 @@ export class CreateCategoryComponentDialog implements OnInit, OnDestroy {
   ) {
     // console.log(data);
   }
+  private responce!: any;
 
   newCategory = this._fb.group({
     category_name: ['', Validators.required],
@@ -61,8 +56,9 @@ export class CreateCategoryComponentDialog implements OnInit, OnDestroy {
       this.subs.add(
         this._createService.addSingleCategory(input).subscribe(
           (res) => {
-            console.log(res)
-            this.newCategory.setValue({ category_name: '' });
+            this.responce = res;
+            this.closeModal()
+            // this.newCategory.setValue({ category_name: '' });
             this._snackBar.open('Category Has Been Added');
           },
           (error) => {
@@ -83,6 +79,6 @@ export class CreateCategoryComponentDialog implements OnInit, OnDestroy {
   ngOnInit(): void {}
   closeModal() {
     this.subs.unsubscribe();
-    this.dialogRef.close();
+    this.dialogRef.close(this.responce);
   }
 }

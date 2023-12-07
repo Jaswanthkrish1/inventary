@@ -17,6 +17,20 @@ export type Scalars = {
   ConnectionCursor: any;
 };
 
+export type AddCategory_IdsToFoodCategoryInput = {
+  /** The id of the record. */
+  id: Scalars['ID'];
+  /** The ids of the relations. */
+  relationIds: Array<Scalars['ID']>;
+};
+
+export type AddItemsToItemEntityInput = {
+  /** The id of the record. */
+  id: Scalars['ID'];
+  /** The ids of the relations. */
+  relationIds: Array<Scalars['ID']>;
+};
+
 export type BooleanFieldComparison = {
   is?: InputMaybe<Scalars['Boolean']>;
   isNot?: InputMaybe<Scalars['Boolean']>;
@@ -50,6 +64,11 @@ export type CreateManyUsersInput = {
 export type CreateOneFoodCategoryInput = {
   /** The record to create */
   foodCategory: CreateFoodCategoryInputInput;
+};
+
+export type CreateOneItemEntityInput = {
+  /** The record to create */
+  itemEntity: CreateItemInput;
 };
 
 export type CreateOneUserInput = {
@@ -99,9 +118,16 @@ export type DeleteOneUserInput = {
 
 export type FoodCategory = {
   __typename?: 'FoodCategory';
+  category_ids: Array<ItemEntity>;
   id: Scalars['Float'];
   isActive: Scalars['Boolean'];
   name: Scalars['String'];
+};
+
+
+export type FoodCategoryCategory_IdsArgs = {
+  filter?: ItemEntityFilter;
+  sorting?: Array<ItemEntitySort>;
 };
 
 export type FoodCategoryAggregateGroupBy = {
@@ -125,10 +151,21 @@ export type FoodCategoryCountAggregate = {
 
 export type FoodCategoryFilter = {
   and?: InputMaybe<Array<FoodCategoryFilter>>;
+  category_id?: InputMaybe<FoodCategoryFilterItemEntityFilter>;
   id?: InputMaybe<NumberFieldComparison>;
   isActive?: InputMaybe<BooleanFieldComparison>;
   name?: InputMaybe<StringFieldComparison>;
   or?: InputMaybe<Array<FoodCategoryFilter>>;
+};
+
+export type FoodCategoryFilterItemEntityFilter = {
+  and?: InputMaybe<Array<FoodCategoryFilterItemEntityFilter>>;
+  id?: InputMaybe<NumberFieldComparison>;
+  name?: InputMaybe<StringFieldComparison>;
+  offer?: InputMaybe<StringFieldComparison>;
+  or?: InputMaybe<Array<FoodCategoryFilterItemEntityFilter>>;
+  status?: InputMaybe<BooleanFieldComparison>;
+  type?: InputMaybe<BooleanFieldComparison>;
 };
 
 export type FoodCategoryInput = {
@@ -167,14 +204,30 @@ export type FoodCategorySumAggregate = {
 
 export type ItemEntity = {
   __typename?: 'ItemEntity';
+  categoryid?: Maybe<Scalars['Float']>;
+  createdby?: Maybe<User>;
   id: Scalars['Float'];
+  image_data: Scalars['String'];
+  items: Array<FoodCategory>;
+  name: Scalars['String'];
+  offer: Scalars['String'];
+  price: Scalars['Float'];
   status: Scalars['Boolean'];
   type: Scalars['Boolean'];
+  updatedby?: Maybe<User>;
+};
+
+
+export type ItemEntityItemsArgs = {
+  filter?: FoodCategoryFilter;
+  sorting?: Array<FoodCategorySort>;
 };
 
 export type ItemEntityAggregateGroupBy = {
   __typename?: 'ItemEntityAggregateGroupBy';
   id?: Maybe<Scalars['Float']>;
+  name?: Maybe<Scalars['String']>;
+  offer?: Maybe<Scalars['String']>;
   status?: Maybe<Scalars['Boolean']>;
   type?: Maybe<Scalars['Boolean']>;
 };
@@ -195,15 +248,24 @@ export type ItemEntityConnection = {
 export type ItemEntityCountAggregate = {
   __typename?: 'ItemEntityCountAggregate';
   id?: Maybe<Scalars['Int']>;
+  name?: Maybe<Scalars['Int']>;
+  offer?: Maybe<Scalars['Int']>;
   status?: Maybe<Scalars['Int']>;
   type?: Maybe<Scalars['Int']>;
 };
 
 export type ItemEntityDeleteResponse = {
   __typename?: 'ItemEntityDeleteResponse';
+  categoryid?: Maybe<Scalars['Float']>;
+  createdby?: Maybe<User>;
   id?: Maybe<Scalars['Float']>;
+  image_data?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  offer?: Maybe<Scalars['String']>;
+  price?: Maybe<Scalars['Float']>;
   status?: Maybe<Scalars['Boolean']>;
   type?: Maybe<Scalars['Boolean']>;
+  updatedby?: Maybe<User>;
 };
 
 export type ItemEntityEdge = {
@@ -217,19 +279,34 @@ export type ItemEntityEdge = {
 export type ItemEntityFilter = {
   and?: InputMaybe<Array<ItemEntityFilter>>;
   id?: InputMaybe<NumberFieldComparison>;
+  items?: InputMaybe<ItemEntityFilterFoodCategoryFilter>;
+  name?: InputMaybe<StringFieldComparison>;
+  offer?: InputMaybe<StringFieldComparison>;
   or?: InputMaybe<Array<ItemEntityFilter>>;
   status?: InputMaybe<BooleanFieldComparison>;
   type?: InputMaybe<BooleanFieldComparison>;
 };
 
+export type ItemEntityFilterFoodCategoryFilter = {
+  and?: InputMaybe<Array<ItemEntityFilterFoodCategoryFilter>>;
+  id?: InputMaybe<NumberFieldComparison>;
+  isActive?: InputMaybe<BooleanFieldComparison>;
+  name?: InputMaybe<StringFieldComparison>;
+  or?: InputMaybe<Array<ItemEntityFilterFoodCategoryFilter>>;
+};
+
 export type ItemEntityMaxAggregate = {
   __typename?: 'ItemEntityMaxAggregate';
   id?: Maybe<Scalars['Float']>;
+  name?: Maybe<Scalars['String']>;
+  offer?: Maybe<Scalars['String']>;
 };
 
 export type ItemEntityMinAggregate = {
   __typename?: 'ItemEntityMinAggregate';
   id?: Maybe<Scalars['Float']>;
+  name?: Maybe<Scalars['String']>;
+  offer?: Maybe<Scalars['String']>;
 };
 
 export type ItemEntitySort = {
@@ -240,6 +317,8 @@ export type ItemEntitySort = {
 
 export enum ItemEntitySortFields {
   Id = 'id',
+  Name = 'name',
+  Offer = 'offer',
   Status = 'status',
   Type = 'type'
 }
@@ -252,6 +331,8 @@ export type ItemEntitySumAggregate = {
 export type ItemEntityUpdateFilter = {
   and?: InputMaybe<Array<ItemEntityUpdateFilter>>;
   id?: InputMaybe<NumberFieldComparison>;
+  name?: InputMaybe<StringFieldComparison>;
+  offer?: InputMaybe<StringFieldComparison>;
   or?: InputMaybe<Array<ItemEntityUpdateFilter>>;
   status?: InputMaybe<BooleanFieldComparison>;
   type?: InputMaybe<BooleanFieldComparison>;
@@ -259,18 +340,35 @@ export type ItemEntityUpdateFilter = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  addCategory_idsToFoodCategory: FoodCategory;
+  addItemsToItemEntity: ItemEntity;
   createManyItemEntities: Array<ItemEntity>;
   createManyUsers: Array<User>;
   createOneFoodCategory: FoodCategory;
+  createOneItemEntity: ItemEntity;
   createOneUser: User;
   deleteManyUsers: DeleteManyResponse;
   deleteOneItemEntity: ItemEntityDeleteResponse;
   deleteOneUser: UserDeleteResponse;
+  removeCategory_idsFromFoodCategory: FoodCategory;
+  removeItemsFromItemEntity: ItemEntity;
+  setCategory_idsOnFoodCategory: FoodCategory;
+  setItemsOnItemEntity: ItemEntity;
   updateManyItemEntities: UpdateManyResponse;
   updateManyUsers: UpdateManyResponse;
   updateOneFoodCategory: FoodCategory;
   updateOneItemEntity: ItemEntity;
   updateOneUser: User;
+};
+
+
+export type MutationAddCategory_IdsToFoodCategoryArgs = {
+  input: AddCategory_IdsToFoodCategoryInput;
+};
+
+
+export type MutationAddItemsToItemEntityArgs = {
+  input: AddItemsToItemEntityInput;
 };
 
 
@@ -286,6 +384,11 @@ export type MutationCreateManyUsersArgs = {
 
 export type MutationCreateOneFoodCategoryArgs = {
   input: CreateOneFoodCategoryInput;
+};
+
+
+export type MutationCreateOneItemEntityArgs = {
+  input: CreateOneItemEntityInput;
 };
 
 
@@ -306,6 +409,26 @@ export type MutationDeleteOneItemEntityArgs = {
 
 export type MutationDeleteOneUserArgs = {
   input: DeleteOneUserInput;
+};
+
+
+export type MutationRemoveCategory_IdsFromFoodCategoryArgs = {
+  input: RemoveCategory_IdsFromFoodCategoryInput;
+};
+
+
+export type MutationRemoveItemsFromItemEntityArgs = {
+  input: RemoveItemsFromItemEntityInput;
+};
+
+
+export type MutationSetCategory_IdsOnFoodCategoryArgs = {
+  input: SetCategory_IdsOnFoodCategoryInput;
+};
+
+
+export type MutationSetItemsOnItemEntityArgs = {
+  input: SetItemsOnItemEntityInput;
 };
 
 
@@ -410,6 +533,34 @@ export type QueryUsersArgs = {
   sorting?: Array<UserSort>;
 };
 
+export type RemoveCategory_IdsFromFoodCategoryInput = {
+  /** The id of the record. */
+  id: Scalars['ID'];
+  /** The ids of the relations. */
+  relationIds: Array<Scalars['ID']>;
+};
+
+export type RemoveItemsFromItemEntityInput = {
+  /** The id of the record. */
+  id: Scalars['ID'];
+  /** The ids of the relations. */
+  relationIds: Array<Scalars['ID']>;
+};
+
+export type SetCategory_IdsOnFoodCategoryInput = {
+  /** The id of the record. */
+  id: Scalars['ID'];
+  /** The ids of the relations. */
+  relationIds: Array<Scalars['ID']>;
+};
+
+export type SetItemsOnItemEntityInput = {
+  /** The id of the record. */
+  id: Scalars['ID'];
+  /** The ids of the relations. */
+  relationIds: Array<Scalars['ID']>;
+};
+
 /** Sort Directions */
 export enum SortDirection {
   Asc = 'ASC',
@@ -446,7 +597,7 @@ export type UpdateFoodCategoryInputInput = {
 };
 
 export type UpdateItemInput = {
-  categoryId?: InputMaybe<FoodCategoryInput>;
+  category: FoodCategoryInput;
   image_data?: InputMaybe<Scalars['String']>;
   name?: InputMaybe<Scalars['String']>;
   offer?: InputMaybe<Scalars['String']>;
@@ -623,13 +774,13 @@ export type CreateManyItemEntitiesMutationVariables = Exact<{
 
 export type CreateManyItemEntitiesMutation = { __typename?: 'Mutation', createManyItemEntities: Array<{ __typename?: 'ItemEntity', id: number }> };
 
-export type ItemViewDataQueryVariables = Exact<{
-  filter?: ItemEntityFilter;
-  paging?: CursorPaging;
+export type GetAllItemGqlQueryVariables = Exact<{
+  filter?: InputMaybe<ItemEntityFilter>;
+  paging?: InputMaybe<CursorPaging>;
 }>;
 
 
-export type ItemViewDataQuery = { __typename?: 'Query', itemEntities: { __typename?: 'ItemEntityConnection', edges: Array<{ __typename?: 'ItemEntityEdge', node: { __typename?: 'ItemEntity', id: number } }> } };
+export type GetAllItemGqlQuery = { __typename?: 'Query', itemEntities: { __typename?: 'ItemEntityConnection', edges: Array<{ __typename?: 'ItemEntityEdge', node: { __typename?: 'ItemEntity', id: number, type: boolean, status: boolean, name: string, categoryid?: number | null } }> } };
 
 export type GetFoodCategoryQueryVariables = Exact<{
   id: Scalars['ID'];
@@ -671,12 +822,16 @@ export const CreateManyItemEntitiesDocument = gql`
       super(apollo);
     }
   }
-export const ItemViewDataDocument = gql`
-    query itemViewData($filter: ItemEntityFilter! = {}, $paging: CursorPaging! = {}) {
+export const GetAllItemGqlDocument = gql`
+    query GetAllItemGql($filter: ItemEntityFilter, $paging: CursorPaging) {
   itemEntities(filter: $filter, paging: $paging) {
     edges {
       node {
         id
+        type
+        status
+        name
+        categoryid
       }
     }
   }
@@ -686,8 +841,8 @@ export const ItemViewDataDocument = gql`
   @Injectable({
     providedIn: 'root'
   })
-  export class ItemViewDataGQL extends Apollo.Query<ItemViewDataQuery, ItemViewDataQueryVariables> {
-    override document = ItemViewDataDocument;
+  export class GetAllItemGqlGQL extends Apollo.Query<GetAllItemGqlQuery, GetAllItemGqlQueryVariables> {
+    override document = GetAllItemGqlDocument;
     
     constructor(apollo: Apollo.Apollo) {
       super(apollo);
