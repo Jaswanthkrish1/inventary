@@ -3,7 +3,7 @@ import { FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import {
   ItemEntityFilter,
-  ItemViewDataQueryVariables,
+  GetAllItemGqlQueryVariables,
 } from 'apps/arabic-mandi/src/generate-types';
 import { BehaviorSubject, Subscription, debounceTime, switchMap } from 'rxjs';
 import { CreateOrderService } from '../create-order.service';
@@ -35,9 +35,9 @@ export class ViewOrderComponent implements OnInit, OnDestroy {
     private _orderservice: CreateOrderService
   ) {}
   private subs = new Subscription();
-  private $datachange = new BehaviorSubject(<ItemViewDataQueryVariables>{
+  private $datachange = new BehaviorSubject(<GetAllItemGqlQueryVariables>{
     $filter: {},
-    paging: { first: 100 },
+    paging: { first: 10 },
   });
   public searchItems = new FormControl(null);
   public displayedColumns: string[] = ['category', 'name', 'price', 'actions'];
@@ -58,7 +58,6 @@ export class ViewOrderComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.getData();
-    this.dataSource = this.ELEMENT_DATA;
     this.subs.add(
       this.searchItems.valueChanges.subscribe((v: any) => {
         if (v) {
@@ -68,7 +67,7 @@ export class ViewOrderComponent implements OnInit, OnDestroy {
             return itemName.includes(search);
           });
         } else {
-          this.dataSource = this.ELEMENT_DATA;
+          // this.dataSource = this.ELEMENT_DATA;
         }
       })
     );
@@ -77,15 +76,13 @@ export class ViewOrderComponent implements OnInit, OnDestroy {
   getData() {
     this.subs.add(
       this.$datachange
-        .asObservable()
         .pipe(
           debounceTime(500),
-          switchMap(async (variables) =>
-            this._orderservice.getAllItems(variables)
-          )
+          switchMap((variables) => this._orderservice.findItem(variables))
         )
-        .subscribe((res) => {
-          console.log(res);
+        .subscribe(({ data }) => {
+          if (data?.itemEntities.edges) console.log(data);
+          this.dataSource = data?.itemEntities.edges;
         })
     );
   }

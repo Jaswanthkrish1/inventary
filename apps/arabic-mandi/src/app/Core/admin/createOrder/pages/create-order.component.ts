@@ -21,7 +21,10 @@ import {
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CreateOrderService } from '../create-order.service';
 import {
+  CreateFoodCategoryInputInput,
   CreateItemInput,
+  CreateOneFoodCategoryInput,
+  FoodCategory,
   FoodCategoryInput,
   GetFoodCategoriesQuery,
   GetFoodCategoriesQueryVariables,
@@ -178,11 +181,17 @@ export class CreateOrderComponent implements OnInit, OnChanges, OnDestroy {
     const dialogRef = this._dialog.open(CreateCategoryComponentDialog, {
       data: { canCreate: true },
     });
-    dialogRef.afterClosed().subscribe(() => {
-      // this.subscribeCategoryChanges();
-      // this.ngOnInit();
+    dialogRef.afterClosed().subscribe((result: any) => {
+      this.dataSet.push({
+        __typename: result.createOneFoodCategory.__typename,
+        id: result.createOneFoodCategory.id,
+        name: result.createOneFoodCategory.name
+      })
+      this.firstCategory.patchValue({
+        InitialCategory: result.createOneFoodCategory.name
+      })
       this.cdr.detectChanges();
-      // console.log(this.dataSet);
+      this.dataSource = this.dataSet
     });
   }
   /* To fitch the category to first category form */

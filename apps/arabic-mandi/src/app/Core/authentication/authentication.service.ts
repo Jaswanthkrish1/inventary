@@ -17,7 +17,6 @@ export class AuthenticateService {
   CURRENT_USER_KEY = 'current-user';
   DEFAULT_CURRENT_USER_KEY = 'default-user';
 
-
   isAuthenticated(secret: any): any {
     this.http.post(`${environment.apiUrl}/auth/login`, secret).subscribe(
       (response: any) => {
@@ -40,41 +39,47 @@ export class AuthenticateService {
     );
   }
 
-  createUserRegister(details: any){
-    const data= {
-      "username": "Admin_auth",
-      "password": "Arabic",
-      "role": "Admin"
-    }
-  this.http.post(`${environment.apiUrl}/auth/register`,data).subscribe(
-    (res)=>{
-      console.log(res)
-    },(error)=>{
-      console.log(error)
-    }
-  )
+  createUserRegister(details: any) {
+    const data = {
+      username: 'Admin_auth',
+      password: 'Arabic',
+      role: 'Admin',
+    };
+    this.http.post(`${environment.apiUrl}/auth/register`, data).subscribe(
+      (res) => {
+        console.log(res);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
-  ValidateToken(token:string){
-    const payload = { token: token }
-    this.http.post(`${environment.apiUrl}/auth/validateToken/`,payload).subscribe( ( responce: any) =>{
-      if(responce){
-        //don't uncoment this. if did The application will reload every page and you will lose the data 
-        // this._router.navigate(['/']);
-      }else{
-        localStorage.clear();
-        this._router.navigate(['/auth']);
-      }
-    },(error: any)=>{
-      console.log(error)
-    })
+  ValidateToken(token: string) {
+    const payload = { token: token };
+    this.http
+      .post(`${environment.apiUrl}/auth/validateToken/`, payload)
+      .subscribe(
+        (responce: any) => {
+          if (responce) {
+            //don't uncoment this. if did The application will reload every page and you will lose the data
+            // this._router.navigate(['/']);
+          } else {
+            localStorage.clear();
+            this._router.navigate(['/auth']);
+          }
+        },
+        (error: any) => {
+          console.log(error);
+        }
+      );
   }
-  getCurrentUser(): boolean{
+  getCurrentUser(): boolean {
     let user = localStorage.getItem(this.DEFAULT_CURRENT_USER_KEY);
-    if(user){
-        this._router.navigate(['/']);
-        return true
-    }else{
+    if (user) {
+      this._router.navigate(['/']);
+      return true;
+    } else {
       return true;
     }
   }
