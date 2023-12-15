@@ -32,7 +32,7 @@ input CreateFoodCategoryInputInput {
 }
 
 input CreateItemInput {
-  category: FoodCategoryInput!
+  category: FoodCategoryInput
   createdby: UserInput
   image_data: String
   name: String
@@ -188,7 +188,7 @@ type FoodCategorySumAggregate {
 }
 
 type ItemEntity {
-  categoryid: Float
+  category: FoodCategory
   createdby: User
   id: Float!
   image_data: String!
@@ -219,14 +219,6 @@ type ItemEntityAvgAggregate {
   id: Float
 }
 
-type ItemEntityConnection {
-  """Array of edges."""
-  edges: [ItemEntityEdge!]!
-
-  """Paging information"""
-  pageInfo: PageInfo!
-}
-
 type ItemEntityCountAggregate {
   id: Int
   name: Int
@@ -236,7 +228,7 @@ type ItemEntityCountAggregate {
 }
 
 type ItemEntityDeleteResponse {
-  categoryid: Float
+  category: FoodCategory
   createdby: User
   id: Float
   image_data: String
@@ -383,20 +375,7 @@ type Query {
     """The id of the record to find."""
     id: ID!
   ): FoodCategory
-  itemEntities(
-    """Specify to filter the records returned."""
-    filter: ItemEntityFilter! = {}
-
-    """Limit or page results."""
-    paging: CursorPaging! = {first: 10}
-
-    """Specify to sort results."""
-    sorting: [ItemEntitySort!]! = []
-  ): ItemEntityConnection!
-  itemEntity(
-    """The id of the record to find."""
-    id: ID!
-  ): ItemEntity
+  getAllItem: ItemEntity!
   user(
     """The id of the record to find."""
     id: ID!
@@ -481,7 +460,7 @@ input UpdateFoodCategoryInputInput {
 }
 
 input UpdateItemInput {
-  category: FoodCategoryInput!
+  category: FoodCategoryInput
   image_data: String
   name: String
   offer: String

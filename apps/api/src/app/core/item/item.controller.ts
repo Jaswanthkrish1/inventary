@@ -12,19 +12,13 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { ItemService } from './item.service';
-import { createWriteStream } from 'fs';
-import { ItemEntity } from './item.entity';
 import { FileInterceptor } from '@nestjs/platform-express';
-import * as fs from 'fs';
-import { join } from 'path';
 @Controller('item')
 export class ItemController {
   constructor(private readonly userService: ItemService) {}
 
-
-  @Get()
   async getAllUsers() {
-    return this.userService.getAllUsers();
+    return this.userService.getAllItems();
   }
 
   @Post('image')

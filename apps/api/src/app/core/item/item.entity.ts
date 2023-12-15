@@ -1,10 +1,3 @@
-// @Entity('item_entity')
-// export class ItemEntity {
-//     @PrimaryGeneratedColumn()
-//     id: number;
-
-// }
-
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -13,43 +6,18 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   JoinColumn,
-  OneToMany,
-  OneToOne,
-  ViewColumn,
-  ViewEntity,
 } from 'typeorm';
 import { User } from '../user/user.entity';
 import { FoodCategory } from '../foodcategory/foodcategory.entity';
 import { Field, ObjectType } from '@nestjs/graphql';
-import { FilterableField, FilterableUnPagedRelation, Relation } from '@nestjs-query/query-graphql';
-import { UserInput } from '../user/user.input';
-import { View } from 'typeorm/schema-builder/view/View';
+import {
+  FilterableField,
+  FilterableUnPagedRelation,
+} from '@nestjs-query/query-graphql';
 
 @Entity('item_entity')
-@FilterableUnPagedRelation('items',() => FoodCategory)
+@FilterableUnPagedRelation('items', () => FoodCategory)
 @ObjectType()
-@ViewEntity({
-  name: 'item_view_table',
-  expression: `
-  SELECT
-      item.id as "id",
-      item.name as "name",
-      item.image_data as "image_data",
-      item.image_ as "image_",
-      item.category_id as "categoryid",
-      item.status as "status",
-      item.type as "type",
-      item.price as "price",
-      item.offer as "offer",
-      item.createdBy as "createdBy",
-      item.updatedBy as "updatedBy",
-      item.createdDate as "createdDate",
-      item.updatedDate as "updatedDate"
-    FROM
-      inventary.item_entity item
-    LEFT JOIN
-      inventary.food_category food_category ON item.category_id = food_category.id`
-})
 export class ItemEntity {
   @PrimaryGeneratedColumn()
   @FilterableField()
@@ -67,12 +35,13 @@ export class ItemEntity {
   @Column({ nullable: true }) // Add the image_data column
   image_?: string;
 
-  @Column({name: "category_id",})
-  @Field({nullable: true })
-  categoryid: number;
-  
-  @ManyToOne(() => FoodCategory, (category)=> category.items  )
-  @JoinColumn({ name: 'category_id' })
+  // @Column({name: "category_id",})
+  // @Field({nullable: true })
+  // categoryid: number;
+
+  @ManyToOne(() => FoodCategory, (category) => category.items)
+  @JoinColumn({ name: 'category' })
+  @Field({ nullable: true })
   category?: FoodCategory;
 
   @Column({ default: true })
@@ -93,14 +62,14 @@ export class ItemEntity {
   @FilterableField()
   @Field()
   offer?: string;
-  
+
   @ManyToOne(() => User, { nullable: true })
-  @JoinColumn({ name: 'createdBy' })
+  @JoinColumn({ name: 'createdby' })
   @Field(() => User, { nullable: true })
   createdby?: User;
 
   @ManyToOne(() => User, { nullable: true })
-  @JoinColumn({ name: 'updatedBy' })
+  @JoinColumn({ name: 'updatedby' })
   @Field(() => User, { nullable: true })
   updatedby?: User;
 

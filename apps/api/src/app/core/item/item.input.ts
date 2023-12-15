@@ -12,7 +12,7 @@ export abstract class ItemInput {
   @Field({ nullable: true })
   image_data?: string;
 
-  @Field(() => FoodCategoryInput)
+  @Field(() => FoodCategoryInput, { nullable: true })
   @IsOptional()
   @IsNumber()
   category?: FoodCategoryInput; // Assuming categoryId is the ID of the selected FoodCategory
@@ -31,16 +31,15 @@ export abstract class ItemInput {
 }
 
 @InputType()
-export class CreateItemInput extends ItemInput{
+export class CreateItemInput extends ItemInput {
   @Field(() => UserInput, { nullable: true })
   @IsNumber()
   createdby: UserInput;
 }
 
 @InputType()
-export class UpdateItemInput extends ItemInput{
+export class UpdateItemInput extends ItemInput {
   @Field(() => UserInput, { nullable: true })
   @IsNumber()
   updatedby: UserInput;
-
 }
