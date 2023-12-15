@@ -1,6 +1,6 @@
 // Update the VARIANT arg in docker-compose.yml to pick a Node.js version: 10, 12, 14
 {
-  "name": "Food Inventary",
+  "name": "Food InventaryApp",
   "dockerComposeFile": "docker-compose.yml",
   "service": "app",
   "workspaceFolder": "/workspace",
