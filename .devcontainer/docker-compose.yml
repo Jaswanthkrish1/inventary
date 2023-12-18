@@ -7,11 +7,10 @@ services:
       dockerfile: Dockerfile
       args:
         # [Choice] Node.js version: 14, 12, 10
-        VARIANT: 18-alpine3.16
+        - VARIANT=18-alpine3.16
         # On Linux, you may need to update USER_UID and USER_GID below if not your local UID is not 1000.
-        USER_UID: 1000
-        USER_GID: 1000
-
+        - USER_UID=1000
+        - USER_GID=1000
     volumes:
       - ..:/workspace:cached
 
@@ -34,21 +33,20 @@ services:
       # - ../_data:/docker-entrypoint-initdb.d
       - mysql-data:/var/lib/mysql
     environment:
-      MYSQL_DATABASE: chronos3
-      MYSQL_ROOT_PASSWORD: aceonics
+      MYSQL_DATABASE: Inventery
+      MYSQL_ROOT_PASSWORD: jaswanth
       TZ: Asia/Kolkata
 
     # Add "forwardPorts": ["5432"] to **devcontainer.json** to forward PostgreSQL locally.
     # (Adding the "ports" property to this file will not forward from a Codespace.)
 
   # To explore database we can use dbgate instead of mysql workbench
-  # dbgate:
+  # db:
   #   image: dbgate/dbgate
   #   restart: always
   #   network_mode: service:db
   #   environment:
   #     CONNECTIONS: con1
-
   #     LABEL_con1: MySql Dev
   #     SERVER_con1: localhost
   #     USER_con1: root
