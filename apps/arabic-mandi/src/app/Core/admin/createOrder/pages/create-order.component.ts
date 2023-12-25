@@ -62,11 +62,11 @@ export class CreateOrderComponent implements OnInit, OnChanges, OnDestroy {
   private categoryItem: any;
   private dataSetChange$ = new BehaviorSubject(<
     GetFoodCategoriesQueryVariables
-  >{
-    filter: {},
-    sorting: [],
-    // paging: { limit: 10, offset: 0 },
-  });
+    >{
+      filter: {},
+      sorting: [],
+      // paging: { limit: 10, offset: 0 },
+    });
   private selectedCategoryId: number | null = null;
 
   public isLoading = false;
@@ -93,7 +93,7 @@ export class CreateOrderComponent implements OnInit, OnChanges, OnDestroy {
     private cdr: ChangeDetectorRef,
     private _snackBar: MatSnackBar,
     private _createService: CreateOrderService
-  ) {}
+  ) { }
 
   firstCategory = this._fb.group({
     InitialCategory: ['', Validators.required],
@@ -110,7 +110,7 @@ export class CreateOrderComponent implements OnInit, OnChanges, OnDestroy {
     this.updateStepperMode();
     this.subscribeCategoryChanges();
   }
-  ngOnChanges(changes: SimpleChanges): void {}
+  ngOnChanges(changes: SimpleChanges): void { }
   @HostListener('window:resize', ['$event'])
   onResize(event: Event): void {
     this.updateStepperMode();
@@ -151,7 +151,6 @@ export class CreateOrderComponent implements OnInit, OnChanges, OnDestroy {
         ...this.firstFormGroup.value,
         ...this.secondFormGroup.value,
       };
-      // console.log(combinedData);
       const existingItemIndex = this.draftItems.findIndex(
         (item) => item.id === combinedData.id
       );
@@ -165,7 +164,6 @@ export class CreateOrderComponent implements OnInit, OnChanges, OnDestroy {
         this._snackBar.open('New Draft item has been added');
       }
       this.dataSource = [...this.draftItems];
-      console.log(this.dataSource);
       setTimeout(() => {
         this.resetFormData();
       }, 2000);
@@ -181,24 +179,26 @@ export class CreateOrderComponent implements OnInit, OnChanges, OnDestroy {
     const dialogRef = this._dialog.open(CreateCategoryComponentDialog, {
       data: { canCreate: true },
     });
+
     dialogRef.afterClosed().subscribe((result: any) => {
-      this.dataSet.push({
-        __typename: result.createOneFoodCategory.__typename,
-        id: result.createOneFoodCategory.id,
-        name: result.createOneFoodCategory.name
-      })
-      this.firstCategory.patchValue({
-        InitialCategory: result.createOneFoodCategory.name
-      })
-      this.cdr.detectChanges();
-      this.dataSource = this.dataSet
+      if (result && result.createOneFoodCategory) {
+        const newData = Array.from(this.dataSet).concat({
+          __typename: result.createOneFoodCategory.__typename,
+          id: result.createOneFoodCategory.id,
+          name: result.createOneFoodCategory.name
+        });
+        this.dataSet = newData;
+        this.firstCategory.patchValue({
+          InitialCategory: result.createOneFoodCategory.name,
+        });
+      }
     });
+
   }
   /* To fitch the category to first category form */
   onSelectCategory(categoryId: any) {
     this.selectedCategoryId = categoryId?.id;
     this.categoryItem = categoryId?.name;
-    // console.log(this.firstFormGroup.value);
   }
   /* delete static data based on meniitem data */
   onDeleteHandler(data: MenuItem) {
@@ -222,7 +222,6 @@ export class CreateOrderComponent implements OnInit, OnChanges, OnDestroy {
   }
   /* set form with perticular static data inside the table to update the data  */
   onSetFormUpdateHandler(data: any) {
-    // console.log(data)
     this.resetFormData();
     this.updateStatus = true;
     this.submitStatus = false;

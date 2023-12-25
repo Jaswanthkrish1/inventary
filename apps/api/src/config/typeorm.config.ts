@@ -10,8 +10,8 @@ export const typeormOptions: TypeOrmModuleOptions = {
   host: process.env.DATABASE_HOST ?? 'localhost',
   port: parseInt(process.env.DATABASE_PORT, 10) ?? 3306,
   username: process.env.DATABASE_USER ?? 'root',
-  password: process.env.DATABASE_PASS ?? 'J@swanth1',
-  database: process.env.DATABASE_DB ?? 'inventary',
+  password: process.env.DATABASE_PASS ?? 'jaswanth',
+  database: process.env.DATABASE_DB ?? 'Inventery',
   autoLoadEntities: true,
   logging: false,
   synchronize: true

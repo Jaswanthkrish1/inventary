@@ -21,6 +21,10 @@ import {
 import { CreateOrderService } from '../create-order.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
+interface responce {
+
+}
+
 @Component({
   selector: 'food-draft-view',
   templateUrl: './create-category-dialog.component.html',
@@ -40,7 +44,7 @@ export class CreateCategoryComponentDialog implements OnInit, OnDestroy {
   ) {
     // console.log(data);
   }
-  private responce!: any;
+  private responce: any = {};
 
   newCategory = this._fb.group({
     category_name: ['', Validators.required],
@@ -56,7 +60,7 @@ export class CreateCategoryComponentDialog implements OnInit, OnDestroy {
       this.subs.add(
         this._createService.addSingleCategory(input).subscribe(
           (res) => {
-            this.responce = res;
+            this.responce = { ...res };
             this.closeModal()
             // this.newCategory.setValue({ category_name: '' });
             this._snackBar.open('Category Has Been Added');
@@ -77,6 +81,7 @@ export class CreateCategoryComponentDialog implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {}
+
   closeModal() {
     this.subs.unsubscribe();
     this.dialogRef.close(this.responce);

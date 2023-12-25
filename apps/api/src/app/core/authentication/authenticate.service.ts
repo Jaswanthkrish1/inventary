@@ -1,9 +1,7 @@
-import { BadRequestException, Injectable, Redirect } from '@nestjs/common';
-import { Controller, Get, Post, Put, Delete, Body, Param,UnauthorizedException } from '@nestjs/common';
+import {  Injectable } from '@nestjs/common';
 
 import { InjectRepository ,} from '@nestjs/typeorm';
-import { jwtOptions } from 'apps/api/src/config/jwt.config';
-import { DeleteResult, Equal, FindOneOptions, Repository, } from 'typeorm';
+import { Repository, } from 'typeorm';
 
 import { Authenticate } from './authenticate.entity';
 import { JwtService } from '@nestjs/jwt';
@@ -24,7 +22,7 @@ export class AuthenticateService {
 
     if (auth && auth.password === password) {
       // Password is correct
-      let authId = auth.id;
+      const authId = auth.id;
       const user = await this.userRepository.findOne({ where: { auth: { id: authId } } });
       console.log(user)
       const payload = { username: auth.username, id: user.id, role: user.role, status:user.status  };
@@ -32,7 +30,7 @@ export class AuthenticateService {
       const token = await this.jwtService.signAsync(payload)
       const userobject ={ payload, token }
       return userobject;
-    } 
+    }
     // Invalid credentials
     return null;
   }
@@ -47,7 +45,7 @@ export class AuthenticateService {
     // Create the Auth entity
     const auth = this.authRepository.create({ username, password });
     await this.authRepository.save(auth);
-  
+
     // Create the User entity with role
     const user = this.userRepository.create({ status: true, role, auth });
     await this.userRepository.save(user);
@@ -55,7 +53,7 @@ export class AuthenticateService {
     return user;
   }
 
-  
+
   async isTokenValid(token: string): Promise<boolean> {
     try {
       await this.jwtService.verifyAsync(token);
@@ -64,6 +62,6 @@ export class AuthenticateService {
       return false;
     }
  }
-  
-  
+
+
 }
