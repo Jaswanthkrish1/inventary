@@ -39,9 +39,9 @@ export class ItemEntity {
   // @Field({nullable: true })
   // categoryid: number;
 
-  @ManyToOne(() => FoodCategory, (category) => category.items)
+  @ManyToOne(() => FoodCategory, { nullable: true })
   @JoinColumn({ name: 'category' })
-  @Field({ nullable: true })
+  @Field(() => FoodCategory, { nullable: true })
   category?: FoodCategory;
 
   @Column({ default: true })
@@ -58,7 +58,7 @@ export class ItemEntity {
   @Field()
   price?: number;
 
-  @Column({ nullable: true })
+  @Column({ nullable: true, default: 0 })
   @FilterableField()
   @Field()
   offer?: string;

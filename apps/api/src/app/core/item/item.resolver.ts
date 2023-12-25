@@ -7,8 +7,8 @@ import { ItemEntity } from './item.entity';
 export class ItemResolver {
   constructor(private readonly itemServ: ItemService) {}
 
-  @Query(() => ItemEntity)
-  getAllItem() {
+  @Query(() => [ItemEntity])
+  getItems() {
     return this.itemServ.getAllItems();
   }
 }

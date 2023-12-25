@@ -5,18 +5,18 @@ mutation CreateManyItemEntities($input: CreateManyItemEntitiesInput!) {
 }
 # View Item Query 
 
- query GetAllItemGql($filter: ItemEntityFilter,$paging:CursorPaging){
+#  query GetAllItemGql($filter: ItemEntityFilter,$paging:CursorPaging){
   
-  itemEntities(filter:$filter,paging:$paging){
-      node{
-        id
-        type
-        status
-        name
-        categoryid
-      }
-  }
-}
+#   itemEntities(filter:$filter,paging:$paging){
+#       node{
+#         id
+#         type
+#         status
+#         name
+#         categoryid
+#       }
+#   }
+# }
 
 
 # category Order

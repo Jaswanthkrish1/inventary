@@ -29,7 +29,9 @@
       <mat-icon>add</mat-icon>
     </button>
   </form>
-
+  
+<div style="display: flex; justify-content: space-between;">
+  <div>
   <mat-label>Food Type</mat-label>
   <mat-slide-toggle color="primary" (change)="onSlideToggleChange($event)">
     {{ slideValue ? 'Veg' : 'Non-Veg' }}
@@ -40,6 +42,11 @@
 
   <img *ngIf="slideValue" src="../../../../../assets/icon_veg_nonveg/icons8-veg-32.png" alt="Meat Image"
     style="width: 24px; height: 24px; margin-left: 8px;">
+  </div>
+    <div>
+    <!-- Add any Button -->
+    </div>
+  </div>
 </div>
 <br>
 <mat-stepper linear [orientation]="isHorizontal ? 'horizontal' : 'vertical'" #stepper>
