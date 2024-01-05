@@ -75,6 +75,7 @@ export class CreateOrderComponent implements OnInit, OnChanges, OnDestroy {
   public draftItems: any[] = [];
   public displayedColumns: string[] = [
     'category',
+    'image',
     'name',
     'price',
     'type',
@@ -92,7 +93,7 @@ export class CreateOrderComponent implements OnInit, OnChanges, OnDestroy {
     private _dialog: MatDialog,
     private cdr: ChangeDetectorRef,
     private _snackBar: MatSnackBar,
-    private _createService: CreateOrderService
+    private _createService: CreateOrderService,
   ) { }
 
   firstCategory = this._fb.group({
@@ -103,7 +104,7 @@ export class CreateOrderComponent implements OnInit, OnChanges, OnDestroy {
   });
   secondFormGroup = this._fb.group({
     price: ['', Validators.required],
-    img: [null],
+    img: [''],
     gst: [''],
   });
   ngOnInit(): void {
@@ -151,10 +152,10 @@ export class CreateOrderComponent implements OnInit, OnChanges, OnDestroy {
         ...this.firstFormGroup.value,
         ...this.secondFormGroup.value,
       };
+      console.log(combinedData)
       const existingItemIndex = this.draftItems.findIndex(
         (item) => item.id === combinedData.id
       );
-
       if (existingItemIndex !== -1) {
         // Update existing item
         this.draftItems[existingItemIndex] = combinedData;
@@ -222,7 +223,7 @@ export class CreateOrderComponent implements OnInit, OnChanges, OnDestroy {
   }
   /* set form with perticular static data inside the table to update the data  */
   onSetFormUpdateHandler(data: any) {
-    // console.log(data)
+    console.log(data)
     this.resetFormData();
     this.updateStatus = true;
     this.submitStatus = false;
@@ -232,7 +233,7 @@ export class CreateOrderComponent implements OnInit, OnChanges, OnDestroy {
         name: data.name,
       });
       this.firstCategory.setValue({
-        InitialCategory: data.InitialCategory,
+      InitialCategory: data.InitialCategory
       });
       this.secondFormGroup.setValue({
         price: data.price,
@@ -251,6 +252,7 @@ export class CreateOrderComponent implements OnInit, OnChanges, OnDestroy {
       const combinedData = {
         id: this.ItemId,
         type: this.slideValue,
+        cId: this.selectedCategoryId,
         ...this.firstCategory.value,
         ...this.firstFormGroup.value,
         ...this.secondFormGroup.value,
@@ -279,7 +281,7 @@ export class CreateOrderComponent implements OnInit, OnChanges, OnDestroy {
         if (draftItem.img !== null) {
           image = draftItem.img;
         }
-        const image_ = btoa(image);
+        const image_ = image;
         const foodCategory: FoodCategoryInput = {
           id: draftItem.cId,
         };
@@ -294,8 +296,10 @@ export class CreateOrderComponent implements OnInit, OnChanges, OnDestroy {
         return createItemInput;
       });
       this._createService.updateManyItems(this.draftSave);
+      this.stepper.reset();
       this.dataSource = [];
       this.draftItems = [];
+      location.reload();
     } else {
       // impliment the user is Notavilable
     }
@@ -312,20 +316,26 @@ export class CreateOrderComponent implements OnInit, OnChanges, OnDestroy {
     // Change the condition based on your desired screen width
     this.isHorizontal = window.innerWidth > 768;
   }
-
+ public imagePreview: string | null = null;
   onFileSelected(event: any): void {
     const selectedFile = event.target.files[0];
-    const maxSizeMB = 2;
+    const maxSizeMB = 0.0488;
     if (selectedFile) {
-      // Check file size
-      const fileSizeMB = selectedFile.size / (1024 * 1024);
-      if (fileSizeMB > maxSizeMB) {
+     // Check file size
+     const fileSizeMB = selectedFile.size / (1024 * 1024);
+     if (fileSizeMB > maxSizeMB) {
         this.secondFormGroup.get('img')?.setValue(null);
         // Reset the control and show an error message
         alert(`File size exceeds the limit of ${maxSizeMB} MB`);
-      } else {
-        // Update the control value
-        this.secondFormGroup.get('img')?.setValue(selectedFile);
+     } else {
+        const reader = new FileReader();
+            reader.onload = (e) => {
+              // Update the control value with the Data URL
+              this.imagePreview = reader.result as string;
+               this.secondFormGroup.get('img')?.setValue(reader.result as string);
+            };
+            const d = reader.readAsDataURL(selectedFile);
+            console.log(d)
       }
     }
   }

@@ -8,10 +8,9 @@ import { CoreModule } from '../../core.module';
 import { MaterialModule } from '../../material.module';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatStepperModule } from '@angular/material/stepper';
-import { MatButtonModule } from '@angular/material/button';
 import { CreateCategoryComponentDialog } from './components/create-category-dialog.component';
-import { ApolloModule } from 'apollo-angular';
 import { CreateOrderService } from './create-order.service';
+import { UpdateItemComponentDialog } from './components/update-order-dailog.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +18,7 @@ import { CreateOrderService } from './create-order.service';
     ViewOrderComponent,
     UpdateOrderComponent,
     CreateCategoryComponentDialog,
+    UpdateItemComponentDialog
   ],
   imports: [
     CommonModule,

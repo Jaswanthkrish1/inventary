@@ -12,11 +12,9 @@ import { FoodCategory } from '../foodcategory/foodcategory.entity';
 import { Field, ObjectType } from '@nestjs/graphql';
 import {
   FilterableField,
-  FilterableUnPagedRelation,
 } from '@nestjs-query/query-graphql';
 
 @Entity('item_entity')
-@FilterableUnPagedRelation('items', () => FoodCategory)
 @ObjectType()
 export class ItemEntity {
   @PrimaryGeneratedColumn()
@@ -28,8 +26,8 @@ export class ItemEntity {
   @Field()
   name?: string;
 
-  @Column('longblob', { nullable: true }) // Add the image_data column
-  @Field()
+  @Column({ type: 'text', nullable: true}) // Add the image_data column
+  @Field({ nullable: true })
   image_data?: string;
 
   @Column({ nullable: true }) // Add the image_data column
@@ -43,6 +41,7 @@ export class ItemEntity {
   @JoinColumn({ name: 'category' })
   @Field(() => FoodCategory, { nullable: true })
   category?: FoodCategory;
+
 
   @Column({ default: true })
   @FilterableField()

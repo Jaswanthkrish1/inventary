@@ -11,7 +11,6 @@ import {
 import { ItemEntity } from '../item/item.entity';
 
 @Entity()
-@FilterableUnPagedRelation('category_id',() => ItemEntity)
 @ObjectType()
 export class FoodCategory {
   @PrimaryGeneratedColumn()
@@ -29,6 +28,7 @@ export class FoodCategory {
   items!: ItemEntity[];
 
   @Column({ default: true })
+  @Field()
   @FilterableField()
   isActive?: boolean;
 }

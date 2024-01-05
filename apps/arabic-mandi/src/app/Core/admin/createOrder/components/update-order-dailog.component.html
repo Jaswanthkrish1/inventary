@@ -1,0 +1,105 @@
+<div class="modal fade show" tabindex="-1" aria-labelledby="foodDetailsModalLabel"
+    style="display: block; background: rgba(0, 0, 0, 0.5);">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="foodDetailsModalLabel">Update Item</h5>
+                <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()"></button>
+            </div>
+            <div class="modal-body">
+                <section style="flex-direction: row;
+                    box-sizing: border-box;
+                    display: flex;
+                    place-content: center space-between;
+                    align-items: center;">
+                    <form [formGroup]="updatedItem">
+                        <div>
+                            <div>
+                                <mat-form-field>
+                                    <mat-label>Category</mat-label>
+                                    <mat-select placeholder="Favorite food" formControlName="category" required>
+                                        <mat-option *ngFor="let categoryType of dataSet" [value]="categoryType.name">
+                                            {{ categoryType.name }}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="updatedItem.get('category')?.hasError('required')">
+                                        Please Select Category.
+                                    </mat-error>
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <mat-label> Name</mat-label>
+                                    <input matInput formControlName="name" placeholder="name">
+                                    <mat-error *ngIf="updatedItem.get('name')?.hasError('required')">
+                                        Please Select Category.
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div>
+                                <mat-form-field>
+                                    <mat-label> Offer</mat-label>
+                                    <input matInput formControlName="offer" placeholder="offer">
+
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <mat-label> Price</mat-label>
+                                    <input matInput type="number" formControlName="price" placeholder="price">
+                                    <mat-error *ngIf="updatedItem.get('price')?.hasError('required')">
+                                        Please Select Category.
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div>
+                                <div>
+                                    <img *ngIf="imageUrl" [src]="imageUrl" alt="Selected Image" 
+                                        style="max-width: 100px; max-height: 100px;">
+                                    <button mat-icon-button color="warn" *ngIf="imageUrl" (click)="removeImage()">
+                                        <mat-icon>close</mat-icon>
+                                    </button>
+                                </div>
+                                <input type="file" accept=".jpg,.jpeg,.png" id="imageUpload"
+                                    (change)="handleFileInput($event)">
+                            </div>
+                            <div style="display: flex; justify-content: space-between;">
+                                <div>
+                                    <mat-label>Food Type :</mat-label>
+                                    <mat-slide-toggle color="primary" (change)="onSlideToggleChange($event)"
+                                        formControlName="type">
+                                        {{ slideValue ? 'Veg' : 'Non-Veg' }}
+                                    </mat-slide-toggle>
+                                    <!-- Button to demonstrate color change -->
+                                    <img *ngIf="!slideValue"
+                                        src="../../../../../assets/icon_veg_nonveg/icons8-non-veg-30.png"
+                                        alt="Vegetables Image" style="width: 24px; height: 24px; margin-left: 8px;">
+
+                                    <img *ngIf="slideValue"
+                                        src="../../../../../assets/icon_veg_nonveg/icons8-veg-32.png" alt="Meat Image"
+                                        style="width: 24px; height: 24px; margin-left: 8px;">
+                                </div>
+                                <div>
+                                    <!-- Add any Button -->
+                                </div>
+                            </div>
+                            <div style="display: flex; justify-content: space-between;">
+                                <div>
+                                    <mat-label>Status Item :</mat-label>
+                                    <mat-slide-toggle color="primary" formControlName="status"
+                                        (change)="onStatusToggleChange($event)">
+                                        <!-- {{ status ? 'InActive' : 'Active' }} -->
+                                    </mat-slide-toggle>
+                                    <!-- Button to demonstrate color change -->
+                                    <div class="red-dot" *ngIf="!status">InActive</div>
+                                    <div class="green-dot" *ngIf="status">Active</div>
+                                </div>
+                                <div>
+                                    <!-- Add any Button -->
+                                </div>
+                            </div>
+                            <br>
+                            <button mat-raised-button color="warn" (click)="onSubmitHandler()">Update</button>
+                        </div>
+                    </form>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>

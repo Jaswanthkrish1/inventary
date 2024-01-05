@@ -1,20 +1,16 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import {
-  Query
+  DeleteOneItemEntityInput
 } from 'apps/arabic-mandi/src/generate-types';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { CreateOrderService } from '../create-order.service';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
+import { MatDialog } from '@angular/material/dialog';
+import { UpdateItemComponentDialog } from '../components/update-order-dailog.component';
 
-interface FoodItem {
-  id: number;
-  name: string;
-  price: number;
-  category: string;
-}
 @Component({
   selector: 'food-view-order',
   templateUrl: './view-order.component.html',
@@ -30,21 +26,28 @@ interface FoodItem {
     `,
   ],
 })
-export class ViewOrderComponent implements OnInit, OnDestroy {
+export class ViewOrderComponent implements OnInit, OnDestroy,AfterViewInit {
   constructor(
     private _snakbar: MatSnackBar,
     private _orderservice: CreateOrderService,
-    private apollo: Apollo
-  ) { }
+    private apollo: Apollo,
+    private _dialog: MatDialog,
+
+  ) {
+  
+   }
+
   private subs = new Subscription();
 
   public searchItems = new FormControl(null);
-  public displayedColumns: string[] = ['name', 'category', 'price', 'offer', 'actions'];
+  public displayedColumns: string[] = ['image','name', 'category', 'price', 'offer', 'status', 'type', 'actions'];
   public dataSource: any;
 
+  ngAfterViewInit(): void {
+    this.getData()
+  }
 
   ngOnInit(): void {
-    this.getData();
     let data: any[] = []
     this.subs.add(
       this.searchItems.valueChanges.subscribe((v: any) => {
@@ -75,6 +78,9 @@ export class ViewOrderComponent implements OnInit, OnDestroy {
             name
             offer
             price
+            type
+            status
+            image_data
             category {
               id
               isActive
@@ -91,7 +97,6 @@ export class ViewOrderComponent implements OnInit, OnDestroy {
       .subscribe(
         ({ data }: any) => {
           this.dataSource = data.getItems;
-          //  console.log(this.dataSource)
         },
         (error) => {
           console.log(error);
@@ -99,8 +104,26 @@ export class ViewOrderComponent implements OnInit, OnDestroy {
       );
   }
 
-  onDeleteHandler(id: any): any {
-    return this._snakbar.open('Cannonball!!');
+  onDeleteHandler(id: any) {
+    const param: DeleteOneItemEntityInput = {
+      id: id,
+    }
+    this._orderservice.removeSingleItem(param)
+      setTimeout(() => {
+        this.ngAfterViewInit();
+      }, 500);
+  }
+  onUpdateHandler(data: any) {
+    let dialogRef = this._dialog.open(UpdateItemComponentDialog, {
+      data: data,
+    });
+    dialogRef.afterClosed().subscribe((r) => {
+      if (r) {
+        setTimeout(() => {
+          this.getData();
+        }, 500);
+      }
+    });
   }
   ngOnDestroy(): void {
     this.subs.unsubscribe();

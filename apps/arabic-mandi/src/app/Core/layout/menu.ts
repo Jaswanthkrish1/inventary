@@ -14,7 +14,7 @@ export interface IMenu {
     {
       label: 'DashBoard',
       icon: '',
-      link: '/DashBoard',
+      link: 'admin/dashboard',
       header: false,
       permissions:['admin']
     },

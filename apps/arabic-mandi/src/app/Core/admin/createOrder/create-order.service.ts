@@ -8,10 +8,15 @@ import {
   UserInput,
   CreateOneFoodCategoryGQL,
   CreateOneFoodCategoryInput,
+  UpdateItemEntityGQL,
+  UpdateOneItemEntityInput,
+  DeleteOneItemEntityGQL,
+  DeleteOneItemEntityInput
 
 } from 'apps/arabic-mandi/src/generate-types';
 import { Observable, catchError, map, of } from 'rxjs';
 import { AuthenticateService } from '../../authentication/authentication.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({ providedIn: 'root' })
 export class CreateOrderService {
@@ -19,8 +24,11 @@ export class CreateOrderService {
     private getFoodCategoriesGql: GetFoodCategoriesGQL,
     private CreateManyItemEntitiesGQL: CreateManyItemEntitiesGQL,
     private createOneCategory: CreateOneFoodCategoryGQL,
-    private _auth: AuthenticateService
-  ) {}
+    private updateItemEntityGQL: UpdateItemEntityGQL,
+    private _auth: AuthenticateService,
+    private _snackBar: MatSnackBar,
+    private  DeleteOneItemEntityGQL: DeleteOneItemEntityGQL
+  ) { }
   // category quries and mutations
   find(variables: GetFoodCategoriesQueryVariables) {
     return this.getFoodCategoriesGql.watch(variables).valueChanges.pipe(
@@ -46,6 +54,7 @@ export class CreateOrderService {
       input: manyItemInput,
     }).subscribe(
       ({ data }) => {
+        this._snackBar.open("Items has been added")
         // Handle success, 'data' contains the response from the server
         // console.log('Updated items:', data);
       },
@@ -55,9 +64,41 @@ export class CreateOrderService {
       }
     );
   }
+  updateSingleItem(updateSingleItemInput: UpdateOneItemEntityInput): boolean {
+    let res: boolean = true;
+    this.updateItemEntityGQL.mutate({
+      input: updateSingleItemInput
+    }).subscribe(data => {
+      if(data){
+        this._snackBar.open("Item is updated")
+        res = true;
+      }
+    }, (error) =>{
+      this._snackBar.open(error)
+      res = false
+    })
+    return res;
+  }
+
+  removeSingleItem(item:DeleteOneItemEntityInput): boolean{
+  let res = true;
+   this.DeleteOneItemEntityGQL.mutate({
+    input:item
+   }).subscribe((r:any) => {
+    if(r.id === undefined ){
+      res = true;
+      this._snackBar.open("Item Deleted ", "OK");
+      location.reload();
+    }
+   },(error)=>{
+    res =false;
+    this._snackBar.open("Could not delete Item", "OK");
+   })
+   return res
+  }
 
 
- 
+
 
   // Auth check user is admin or not and user is exited in database or not
   getCurrentUser(): UserInput | null {

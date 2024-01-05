@@ -42,4 +42,8 @@ export class UpdateItemInput extends ItemInput {
   @Field(() => UserInput, { nullable: true })
   @IsNumber()
   updatedby: UserInput;
+
+  @Field({ nullable: true})
+  @IsBoolean()
+  status?: boolean;
 }

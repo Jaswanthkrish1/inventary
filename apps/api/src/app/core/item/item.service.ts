@@ -12,7 +12,7 @@ import {
 
 import { InjectRepository } from '@nestjs/typeorm';
 import { DeleteResult, Equal, FindOneOptions, Repository } from 'typeorm';
-
+import { Buffer } from 'buffer';
 import { ItemEntity } from './item.entity';
 import { FoodCategory } from '../foodcategory/foodcategory.entity';
 import { User } from '../user/user.entity';
@@ -25,7 +25,7 @@ export class ItemService {
   ) {}
 
   async getAllItems(): Promise<ItemInput[]> {
-    return this.ItemRepository.find({ relations: ['createdby', 'updatedby', 'category'] });
+    return await this.ItemRepository.find({ relations: ['createdby', 'updatedby', 'category'] });
   }
 
   async createUser(img: any): Promise<ItemEntity> {

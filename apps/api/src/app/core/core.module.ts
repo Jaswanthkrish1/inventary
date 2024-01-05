@@ -68,7 +68,7 @@ import {
           create: { many: { disabled: false }, one: { disabled: false } },
           update: { many: { disabled: false }, one: { disabled: false } },
           delete: { many: { disabled: true }, one: { disabled: false } },
-          read: { many: { disabled: true }, one: { disabled: true } },
+          read: { many: { disabled: false }, one: { disabled: true } },
         },
         {
           DTOClass: FoodCategory,

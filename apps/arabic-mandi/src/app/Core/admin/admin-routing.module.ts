@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
+import { DashBoardComponent } from "./dashboard/dashboard.component";
 
 const appRoutes: Routes = [
     {
@@ -9,6 +10,14 @@ const appRoutes: Routes = [
           (m) => m.CreateOrderModule
         ),
     },
+    {
+      path: 'dashboard',
+      loadChildren: () =>
+        import('./dashboard/dashboard-route.module').then(
+          (m) => m.dashboardRoutingModule
+        ),
+    },
+
 ]
 
 @NgModule({

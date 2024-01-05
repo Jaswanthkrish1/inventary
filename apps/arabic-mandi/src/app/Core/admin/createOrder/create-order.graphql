@@ -17,6 +17,33 @@ mutation CreateManyItemEntities($input: CreateManyItemEntitiesInput!) {
 #       }
 #   }
 # }
+mutation UpdateItemEntity($input: UpdateOneItemEntityInput!) {
+  updateOneItemEntity(input: $input) {
+    id
+    name
+    image_data
+    offer
+    price
+    category {
+      id
+      name
+    }
+    status
+    type
+    updatedby {
+      id
+    }
+  }
+}
+
+#  delete query item
+mutation DeleteOneItemEntity($input: DeleteOneItemEntityInput!) {
+  deleteOneItemEntity(input: $input) {
+   id
+  }
+}
+
+
 
 
 # category Order

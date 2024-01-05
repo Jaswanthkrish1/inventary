@@ -10,14 +10,15 @@ export class FoodCategoryInput {
   @Field({ nullable: true })
   @IsNumber()
   id?: number;
+
 }
 @InputType()
 export class CreateFoodCategoryInputInput extends FoodCategoryInput {}
 
 @InputType()
 export class UpdateFoodCategoryInputInput extends FoodCategoryInput {
-  @Field()
+ 
+  @Field({ nullable: true })
   @IsBoolean()
-  @IsOptional()
   isActive?: boolean;
 }

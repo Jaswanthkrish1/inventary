@@ -18,7 +18,7 @@ export class User {
   @FilterableField()
   id: number;
 
-  @Column({ nullable: false })
+  @Column({ nullable: true })
   @FilterableField()
   role: string;
 
