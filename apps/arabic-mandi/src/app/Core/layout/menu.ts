@@ -59,9 +59,9 @@ export const MENUS: IMenu[] = [
     permissions: ['admin'],
     child: [
       {
-        label: 'ViewItems',
+        label: 'NewOffer',
         icon: 'notes',
-        link: 'admin/item',
+        link: 'admin/offer',
         header: false,
         permissions: ['admin']
       },
