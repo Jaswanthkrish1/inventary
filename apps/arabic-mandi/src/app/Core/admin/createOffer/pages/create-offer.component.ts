@@ -5,14 +5,6 @@ import { ChangeDetectionStrategy, Component, OnChanges, OnDestroy, OnInit, Simpl
     templateUrl: './create-offer.component.html',
     changeDetection: ChangeDetectionStrategy.Default,
   })
-  export class CreateOfferComponent implements OnInit, OnChanges, OnDestroy {
-    ngOnInit(): void {
-        throw new Error("Method not implemented.");
-    }
-    ngOnChanges(changes: SimpleChanges): void {
-        throw new Error("Method not implemented.");
-    }
-    ngOnDestroy(): void {
-        throw new Error("Method not implemented.");
-    }
+  export class CreateOfferComponent {
+   
 }
