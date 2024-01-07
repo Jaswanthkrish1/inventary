@@ -4,20 +4,12 @@ import { DashBoardComponent } from "./dashboard/dashboard.component";
 
 const appRoutes: Routes = [
     {
-      path: 'add_item',
-      loadChildren: () =>
-        import('./createOrder/create-order.module').then(
-          (m) => m.CreateOrderModule
-        ),
-    },
-    {
       path: 'dashboard',
       loadChildren: () =>
-        import('./dashboard/dashboard-route.module').then(
-          (m) => m.dashboardRoutingModule
+        import('./dashboard/dashboard.module').then(
+          (m) => m.DashBoardModule
         ),
     },
-
 ]
 
 @NgModule({

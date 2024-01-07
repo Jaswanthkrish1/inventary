@@ -24,6 +24,8 @@ import {
   CreateFoodCategoryInputInput,
   UpdateFoodCategoryInputInput,
 } from './foodcategory/foodcategory.input';
+import { Offer } from './item/comboitem/combo.entity';
+import { CreateOfferInput, OfferInput } from './item/comboitem/combo.input';
 
 @Module({
   imports: [
@@ -45,6 +47,7 @@ import {
           Authenticate,
           ItemEntity,
           FoodCategory,
+          Offer
         ]),
       ],
       resolvers: [
@@ -80,6 +83,18 @@ import {
           create: { many: { disabled: true }, one: { disabled: false } },
           update: { many: { disabled: true }, one: { disabled: false } },
           delete: { many: { disabled: true }, one: { disabled: true } },
+          read: { many: { disabled: false }, one: { disabled: false } },
+        },
+        {
+          DTOClass: Offer,
+          EntityClass: Offer,
+          CreateDTOClass: CreateOfferInput,
+          UpdateDTOClass: CreateOfferInput,
+          // enableTotalCount: true,
+          pagingStrategy: PagingStrategies.NONE,
+          create: { many: { disabled: false }, one: { disabled: false } },
+          update: { many: { disabled: false }, one: { disabled: false } },
+          delete: { many: { disabled: false }, one: { disabled: false } },
           read: { many: { disabled: false }, one: { disabled: false } },
         },
       ],

@@ -30,9 +30,19 @@ input CreateManyItemEntitiesInput {
   itemEntities: [CreateItemInput!]!
 }
 
+input CreateManyOffersInput {
+  """Array of records to create"""
+  offers: [CreateOfferInput!]!
+}
+
 input CreateManyUsersInput {
   """Array of records to create"""
   users: [CreateUserInput!]!
+}
+
+input CreateOfferInput {
+  items: [ItemInput!]
+  name: String
 }
 
 input CreateOneFoodCategoryInput {
@@ -43,6 +53,11 @@ input CreateOneFoodCategoryInput {
 input CreateOneItemEntityInput {
   """The record to create"""
   itemEntity: CreateItemInput!
+}
+
+input CreateOneOfferInput {
+  """The record to create"""
+  offer: CreateOfferInput!
 }
 
 input CreateOneUserInput {
@@ -72,6 +87,11 @@ input CursorPaging {
   last: Int
 }
 
+input DeleteManyOffersInput {
+  """Filter to find records to delete"""
+  filter: OfferDeleteFilter!
+}
+
 type DeleteManyResponse {
   """The number of records deleted."""
   deletedCount: Int!
@@ -83,6 +103,11 @@ input DeleteManyUsersInput {
 }
 
 input DeleteOneItemEntityInput {
+  """The id of the record to delete."""
+  id: ID!
+}
+
+input DeleteOneOfferInput {
   """The id of the record to delete."""
   id: ID!
 }
@@ -265,19 +290,34 @@ input ItemEntityUpdateFilter {
   type: BooleanFieldComparison
 }
 
+input ItemInput {
+  category: FoodCategoryInput
+  image_data: String
+  name: String
+  offer: String
+  price: Float
+  type: Boolean
+}
+
 type Mutation {
   createManyItemEntities(input: CreateManyItemEntitiesInput!): [ItemEntity!]!
+  createManyOffers(input: CreateManyOffersInput!): [Offer!]!
   createManyUsers(input: CreateManyUsersInput!): [User!]!
   createOneFoodCategory(input: CreateOneFoodCategoryInput!): FoodCategory!
   createOneItemEntity(input: CreateOneItemEntityInput!): ItemEntity!
+  createOneOffer(input: CreateOneOfferInput!): Offer!
   createOneUser(input: CreateOneUserInput!): User!
+  deleteManyOffers(input: DeleteManyOffersInput!): DeleteManyResponse!
   deleteManyUsers(input: DeleteManyUsersInput!): DeleteManyResponse!
   deleteOneItemEntity(input: DeleteOneItemEntityInput!): ItemEntityDeleteResponse!
+  deleteOneOffer(input: DeleteOneOfferInput!): OfferDeleteResponse!
   deleteOneUser(input: DeleteOneUserInput!): UserDeleteResponse!
   updateManyItemEntities(input: UpdateManyItemEntitiesInput!): UpdateManyResponse!
+  updateManyOffers(input: UpdateManyOffersInput!): UpdateManyResponse!
   updateManyUsers(input: UpdateManyUsersInput!): UpdateManyResponse!
   updateOneFoodCategory(input: UpdateOneFoodCategoryInput!): FoodCategory!
   updateOneItemEntity(input: UpdateOneItemEntityInput!): ItemEntity!
+  updateOneOffer(input: UpdateOneOfferInput!): Offer!
   updateOneUser(input: UpdateOneUserInput!): User!
 }
 
@@ -299,6 +339,58 @@ input NumberFieldComparison {
 input NumberFieldComparisonBetween {
   lower: Float!
   upper: Float!
+}
+
+type Offer {
+  name: String!
+}
+
+type OfferAggregateGroupBy {
+  name: String
+}
+
+type OfferCountAggregate {
+  name: Int
+}
+
+input OfferDeleteFilter {
+  and: [OfferDeleteFilter!]
+  name: StringFieldComparison
+  or: [OfferDeleteFilter!]
+}
+
+type OfferDeleteResponse {
+  name: String
+}
+
+input OfferFilter {
+  and: [OfferFilter!]
+  name: StringFieldComparison
+  or: [OfferFilter!]
+}
+
+type OfferMaxAggregate {
+  name: String
+}
+
+type OfferMinAggregate {
+  name: String
+}
+
+input OfferSort {
+  direction: SortDirection!
+  field: OfferSortFields!
+  nulls: SortNulls
+}
+
+enum OfferSortFields {
+  name
+}
+
+input OfferUpdateFilter {
+  and: [OfferUpdateFilter!]
+  name: StringFieldComparison
+  or: [OfferUpdateFilter!]
 }
 
 type PageInfo {
@@ -338,6 +430,17 @@ type Query {
     """Specify to sort results."""
     sorting: [ItemEntitySort!]! = []
   ): ItemEntityConnection!
+  offer(
+    """The id of the record to find."""
+    id: ID!
+  ): Offer
+  offers(
+    """Specify to filter the records returned."""
+    filter: OfferFilter! = {}
+
+    """Specify to sort results."""
+    sorting: [OfferSort!]! = []
+  ): [Offer!]!
   user(
     """The id of the record to find."""
     id: ID!
@@ -408,6 +511,14 @@ input UpdateManyItemEntitiesInput {
   update: UpdateItemInput!
 }
 
+input UpdateManyOffersInput {
+  """Filter used to find fields to update"""
+  filter: OfferUpdateFilter!
+
+  """The update to apply to all records found using the filter"""
+  update: CreateOfferInput!
+}
+
 type UpdateManyResponse {
   """The number of records updated."""
   updatedCount: Int!
@@ -435,6 +546,14 @@ input UpdateOneItemEntityInput {
 
   """The update to apply."""
   update: UpdateItemInput!
+}
+
+input UpdateOneOfferInput {
+  """The id of the record to update"""
+  id: ID!
+
+  """The update to apply."""
+  update: CreateOfferInput!
 }
 
 input UpdateOneUserInput {
