@@ -45,7 +45,7 @@
 
             <mat-menu #childMenu="matMenu">
               <ng-container *ngFor="let childItem of item.child">
-                <button  mat-menu-item [routerLink]="[childItem.link]"
+                <button mat-menu-item [routerLink]="[childItem.link]"
                   *ngIf="childItem.permissions && childItem.permissions.includes(userRole)">
                   <mat-icon>{{ childItem.icon }}</mat-icon>
                   <div>{{ childItem.label }}</div>

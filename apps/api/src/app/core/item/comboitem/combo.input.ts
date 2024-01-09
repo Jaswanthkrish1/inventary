@@ -1,21 +1,47 @@
 // create-offer.input.ts
-import { InputType, Field,  } from '@nestjs/graphql';
-import { Type } from 'class-transformer';
-import { ItemInput } from '../item.input';
-import { IsOptional, ValidateNested } from 'class-validator';
+import { InputType, Field, } from '@nestjs/graphql';
+import { IsBoolean, IsNumber, IsString} from 'class-validator';
+import { UserInput } from '../../user/user.input';
 
 @InputType({ isAbstract: true })
-export abstract class OfferInput {
+export class CreateOfferInput  {
   @Field({ nullable: true })
   name?: string;
 
-  @Field(() => [ItemInput], { nullable: true })
-  @IsOptional()
-  @ValidateNested({ each: true })
-  @Type(() => ItemInput)
-  items?: ItemInput[];
+  @Field(() => [OfferItemInput])
+  items?: OfferItemInput[];
+
+  @Field(() => UserInput, { nullable: true })
+  @IsNumber()
+  createdby?: UserInput;
+
+  @Field({ nullable: true })
+  @IsBoolean()
+  status?: boolean;
 }
 
 @InputType()
-export class CreateOfferInput extends OfferInput {
+export class UpdateOfferInput  {
+  @Field(() => UserInput, { nullable: true })
+  @IsNumber()
+  updatedby: UserInput;
+
+  @Field({ nullable: true })
+  @IsBoolean()
+  status?: boolean;
+}
+
+@InputType()
+export class OfferItemInput {
+  
+  @Field({ nullable: true })
+  @IsNumber()
+  id?: number;
+
+  @Field({ nullable: true })
+  @IsString()
+  name?: string;
+
+  @Field({ nullable: true })
+  image_data?: string;
 }

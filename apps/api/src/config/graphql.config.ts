@@ -1,6 +1,5 @@
 // graphql.config.ts
 
-import { ApolloDriver } from '@nestjs/apollo';
 import { join } from 'path';
 import { environment } from '../environment/environment';
 import { registerAs } from '@nestjs/config';
@@ -20,6 +19,7 @@ export const graphqlOptions: unknown = {
     credentials: true,
   },
   resolvers: {},
+
 };
 export const graphqlConfig = registerAs('graphql', () => graphqlOptions);
 

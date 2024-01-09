@@ -25,7 +25,7 @@ import {
   UpdateFoodCategoryInputInput,
 } from './foodcategory/foodcategory.input';
 import { Offer } from './item/comboitem/combo.entity';
-import { CreateOfferInput, OfferInput } from './item/comboitem/combo.input';
+import { CreateOfferInput, UpdateOfferInput } from './item/comboitem/combo.input';
 
 @Module({
   imports: [
@@ -68,10 +68,11 @@ import { CreateOfferInput, OfferInput } from './item/comboitem/combo.input';
           CreateDTOClass: CreateItemInput,
           UpdateDTOClass: UpdateItemInput,
           // enableTotalCount: true,
+          pagingStrategy: PagingStrategies.NONE,
           create: { many: { disabled: false }, one: { disabled: false } },
           update: { many: { disabled: false }, one: { disabled: false } },
-          delete: { many: { disabled: true }, one: { disabled: false } },
-          read: { many: { disabled: false }, one: { disabled: true } },
+          delete: { many: { disabled: false }, one: { disabled: false } },
+          read: { many: { disabled: false }, one: { disabled: false } },
         },
         {
           DTOClass: FoodCategory,
@@ -89,7 +90,7 @@ import { CreateOfferInput, OfferInput } from './item/comboitem/combo.input';
           DTOClass: Offer,
           EntityClass: Offer,
           CreateDTOClass: CreateOfferInput,
-          UpdateDTOClass: CreateOfferInput,
+          UpdateDTOClass: UpdateOfferInput,
           // enableTotalCount: true,
           pagingStrategy: PagingStrategies.NONE,
           create: { many: { disabled: false }, one: { disabled: false } },

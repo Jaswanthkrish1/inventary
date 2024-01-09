@@ -128,7 +128,6 @@ export class UpdateItemComponentDialog implements OnInit, OnDestroy {
         const formdata = this.updatedItem.value;
         const selectedCategoryName = formdata.category?.toString().toLowerCase();
         const category = this.dataSet.find(category => category.name.toLowerCase() === selectedCategoryName);
-
         if (this.updatedItem.valid) {
             const foodCategoryInput: FoodCategoryInput = {
                 id: category?.id,
@@ -145,7 +144,7 @@ export class UpdateItemComponentDialog implements OnInit, OnDestroy {
                     id: this.data.id,
                     update: {
                         category: foodCategoryInput,
-                        image_data: formdata.img,
+                        image_data: formdata.img === '' ? this.imageUrl : formdata.img,
                         name: formdata.name,
                         offer: formdata.offer,
                         price: formdata.price,
