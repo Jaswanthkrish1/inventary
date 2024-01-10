@@ -1,0 +1,21 @@
+query GetItemEntities(
+  $filter: ItemEntityFilter! = {}
+  $sorting: [ItemEntitySort!]
+) {
+  itemEntities(filter: $filter, sorting: $sorting) {
+        id
+        name
+        status
+        category{
+          id
+          name
+        }
+  }
+}
+
+mutation CreateOffer($input: CreateManyOffersInput!) {
+ createManyOffers(input: $input) {
+            name
+            id
+   }
+}

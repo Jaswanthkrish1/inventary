@@ -41,8 +41,10 @@ input CreateManyUsersInput {
 }
 
 input CreateOfferInput {
-  items: [ItemInput!]
+  createdby: UserInput
+  items: [OfferItemInput!]!
   name: String
+  status: Boolean
 }
 
 input CreateOneFoodCategoryInput {
@@ -85,6 +87,11 @@ input CursorPaging {
 
   """Paginate last"""
   last: Int
+}
+
+input DeleteManyItemEntitiesInput {
+  """Filter to find records to delete"""
+  filter: ItemEntityDeleteFilter!
 }
 
 input DeleteManyOffersInput {
@@ -203,20 +210,22 @@ type ItemEntityAvgAggregate {
   id: Float
 }
 
-type ItemEntityConnection {
-  """Array of edges."""
-  edges: [ItemEntityEdge!]!
-
-  """Paging information"""
-  pageInfo: PageInfo!
-}
-
 type ItemEntityCountAggregate {
   id: Int
   name: Int
   offer: Int
   status: Int
   type: Int
+}
+
+input ItemEntityDeleteFilter {
+  and: [ItemEntityDeleteFilter!]
+  id: NumberFieldComparison
+  name: StringFieldComparison
+  offer: StringFieldComparison
+  or: [ItemEntityDeleteFilter!]
+  status: BooleanFieldComparison
+  type: BooleanFieldComparison
 }
 
 type ItemEntityDeleteResponse {
@@ -232,22 +241,33 @@ type ItemEntityDeleteResponse {
   updatedby: User
 }
 
-type ItemEntityEdge {
-  """Cursor for this node."""
-  cursor: ConnectionCursor!
-
-  """The node containing the ItemEntity"""
-  node: ItemEntity!
-}
-
 input ItemEntityFilter {
   and: [ItemEntityFilter!]
+  category: ItemEntityFilterFoodCategoryFilter
+  createdby: ItemEntityFilterUserFilter
   id: NumberFieldComparison
   name: StringFieldComparison
   offer: StringFieldComparison
   or: [ItemEntityFilter!]
   status: BooleanFieldComparison
   type: BooleanFieldComparison
+  updatedby: ItemEntityFilterUserFilter
+}
+
+input ItemEntityFilterFoodCategoryFilter {
+  and: [ItemEntityFilterFoodCategoryFilter!]
+  id: NumberFieldComparison
+  isActive: BooleanFieldComparison
+  name: StringFieldComparison
+  or: [ItemEntityFilterFoodCategoryFilter!]
+}
+
+input ItemEntityFilterUserFilter {
+  and: [ItemEntityFilterUserFilter!]
+  id: NumberFieldComparison
+  or: [ItemEntityFilterUserFilter!]
+  role: StringFieldComparison
+  status: BooleanFieldComparison
 }
 
 type ItemEntityMaxAggregate {
@@ -290,15 +310,6 @@ input ItemEntityUpdateFilter {
   type: BooleanFieldComparison
 }
 
-input ItemInput {
-  category: FoodCategoryInput
-  image_data: String
-  name: String
-  offer: String
-  price: Float
-  type: Boolean
-}
-
 type Mutation {
   createManyItemEntities(input: CreateManyItemEntitiesInput!): [ItemEntity!]!
   createManyOffers(input: CreateManyOffersInput!): [Offer!]!
@@ -307,6 +318,7 @@ type Mutation {
   createOneItemEntity(input: CreateOneItemEntityInput!): ItemEntity!
   createOneOffer(input: CreateOneOfferInput!): Offer!
   createOneUser(input: CreateOneUserInput!): User!
+  deleteManyItemEntities(input: DeleteManyItemEntitiesInput!): DeleteManyResponse!
   deleteManyOffers(input: DeleteManyOffersInput!): DeleteManyResponse!
   deleteManyUsers(input: DeleteManyUsersInput!): DeleteManyResponse!
   deleteOneItemEntity(input: DeleteOneItemEntityInput!): ItemEntityDeleteResponse!
@@ -342,31 +354,57 @@ input NumberFieldComparisonBetween {
 }
 
 type Offer {
+  createdby: User
+  id: Float!
+  items: [OfferItem!]
   name: String!
+  status: Boolean!
+  updatedby: User
 }
 
 type OfferAggregateGroupBy {
   name: String
+  status: Boolean
 }
 
 type OfferCountAggregate {
   name: Int
+  status: Int
 }
 
 input OfferDeleteFilter {
   and: [OfferDeleteFilter!]
   name: StringFieldComparison
   or: [OfferDeleteFilter!]
+  status: BooleanFieldComparison
 }
 
 type OfferDeleteResponse {
+  createdby: User
+  id: Float
+  items: [OfferItem!]
   name: String
+  status: Boolean
+  updatedby: User
 }
 
 input OfferFilter {
   and: [OfferFilter!]
   name: StringFieldComparison
   or: [OfferFilter!]
+  status: BooleanFieldComparison
+}
+
+type OfferItem {
+  id: ID!
+  image_data: String
+  name: String!
+}
+
+input OfferItemInput {
+  id: Float
+  image_data: String
+  name: String
 }
 
 type OfferMaxAggregate {
@@ -385,12 +423,14 @@ input OfferSort {
 
 enum OfferSortFields {
   name
+  status
 }
 
 input OfferUpdateFilter {
   and: [OfferUpdateFilter!]
   name: StringFieldComparison
   or: [OfferUpdateFilter!]
+  status: BooleanFieldComparison
 }
 
 type PageInfo {
@@ -424,12 +464,13 @@ type Query {
     """Specify to filter the records returned."""
     filter: ItemEntityFilter! = {}
 
-    """Limit or page results."""
-    paging: CursorPaging! = {first: 10}
-
     """Specify to sort results."""
     sorting: [ItemEntitySort!]! = []
-  ): ItemEntityConnection!
+  ): [ItemEntity!]!
+  itemEntity(
+    """The id of the record to find."""
+    id: ID!
+  ): ItemEntity
   offer(
     """The id of the record to find."""
     id: ID!
@@ -516,7 +557,7 @@ input UpdateManyOffersInput {
   filter: OfferUpdateFilter!
 
   """The update to apply to all records found using the filter"""
-  update: CreateOfferInput!
+  update: UpdateOfferInput!
 }
 
 type UpdateManyResponse {
@@ -530,6 +571,11 @@ input UpdateManyUsersInput {
 
   """The update to apply to all records found using the filter"""
   update: UpdateUserInput!
+}
+
+input UpdateOfferInput {
+  status: Boolean
+  updatedby: UserInput
 }
 
 input UpdateOneFoodCategoryInput {
@@ -553,7 +599,7 @@ input UpdateOneOfferInput {
   id: ID!
 
   """The update to apply."""
-  update: CreateOfferInput!
+  update: UpdateOfferInput!
 }
 
 input UpdateOneUserInput {

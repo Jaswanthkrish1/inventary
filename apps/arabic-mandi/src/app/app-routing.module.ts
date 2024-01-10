@@ -51,7 +51,7 @@ const appRoutes: Routes = [
           ),
       },
       {
-        path: 'admin/item',
+        path: 'admin',
         loadChildren: () =>
           import('./Core/admin/admin.module').then(
             (m) => m.AdminModule

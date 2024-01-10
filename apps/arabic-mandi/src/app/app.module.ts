@@ -10,8 +10,6 @@ import { APOLLO_OPTIONS }  from 'apollo-angular'
 import { HttpLink } from 'apollo-angular/http';
 import { InMemoryCache } from '@apollo/client/cache';
 import { HttpClientModule } from '@angular/common/http';
-import { FlexRoutingModule } from './Core/layout/flex-routing.module';
-import { MatIconModule } from '@angular/material/icon';
 import { MaterialModule } from './Core/material.module';
 import { LayoutFlexModule } from './Core/layout/layout.module';
 const uri = 'http://localhost:3000/api/graphql'

@@ -8,8 +8,10 @@ import {
   UpdateDateColumn,
   OneToOne,
   JoinColumn,
+  OneToMany,
 } from 'typeorm';
 import { Authenticate } from '../authentication/authenticate.entity';
+import { ItemEntity } from '../item/item.entity';
 
 @Entity('core_user')
 @ObjectType()
@@ -29,6 +31,9 @@ export class User {
   @OneToOne(() => Authenticate, { cascade: true, eager: true })
   @JoinColumn()
   auth: Authenticate;
+
+  @OneToMany(() => ItemEntity, (item) => item.createdby)
+  items: ItemEntity[];
 
   @Column({ nullable: true })
   createdBy: string;

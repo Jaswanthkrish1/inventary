@@ -223,7 +223,6 @@ export class CreateOrderComponent implements OnInit, OnChanges, OnDestroy {
   }
   /* set form with perticular static data inside the table to update the data  */
   onSetFormUpdateHandler(data: any) {
-    console.log(data)
     this.resetFormData();
     this.updateStatus = true;
     this.submitStatus = false;

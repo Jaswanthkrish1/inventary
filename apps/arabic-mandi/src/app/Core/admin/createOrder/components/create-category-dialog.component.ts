@@ -1,5 +1,4 @@
 import {
-  AfterViewInit,
   Component,
   Inject,
   OnDestroy,
@@ -8,25 +7,18 @@ import {
   EventEmitter,
 } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { BehaviorSubject, Subscription, debounceTime, switchMap } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { FormBuilder, Validators } from '@angular/forms';
 import {
-  CreateFoodCategoryInputInput,
-  CreateOneFoodCategoryGQL,
   CreateOneFoodCategoryInput,
-  FoodCategory,
   GetFoodCategoriesQuery,
-  GetFoodCategoriesQueryVariables,
 } from 'apps/arabic-mandi/src/generate-types';
 import { CreateOrderService } from '../create-order.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-interface responce {
-
-}
 
 @Component({
-  selector: 'food-draft-view',
+  selector: 'food-create-dailog-view',
   templateUrl: './create-category-dialog.component.html',
 })
 export class CreateCategoryComponentDialog implements OnInit, OnDestroy {

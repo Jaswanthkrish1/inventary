@@ -6,19 +6,37 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   JoinColumn,
+  Index,
+  ManyToMany,
 } from 'typeorm';
 import { User } from '../user/user.entity';
 import { FoodCategory } from '../foodcategory/foodcategory.entity';
 import { Field, ObjectType } from '@nestjs/graphql';
 import {
-  FilterableField,
+  FilterableField, FilterableRelation,
 } from '@nestjs-query/query-graphql';
-
+import { Offer } from './comboitem/combo.entity';
+@FilterableRelation('createdby', () => User, {
+  nullable: true,
+  disableRemove: true,
+  disableUpdate: true,
+})
+@FilterableRelation('updatedby', () => User, {
+  nullable: true,
+  disableRemove: true,
+  disableUpdate: true,
+})
+@FilterableRelation('category', () => FoodCategory, {
+  nullable: true,
+  disableRemove: true,
+  disableUpdate: true,
+})
 @Entity('item_entity')
 @ObjectType()
 export class ItemEntity {
   @PrimaryGeneratedColumn()
   @FilterableField()
+  @Field()
   id?: number;
 
   @Column({ nullable: true })
@@ -26,22 +44,17 @@ export class ItemEntity {
   @Field()
   name?: string;
 
-  @Column({ type: 'text', nullable: true}) // Add the image_data column
+  @Column({ type: 'text', nullable: true})
   @Field({ nullable: true })
   image_data?: string;
 
-  @Column({ nullable: true }) // Add the image_data column
+  @Column({ nullable: true })
   image_?: string;
-
-  // @Column({name: "category_id",})
-  // @Field({nullable: true })
-  // categoryid: number;
 
   @ManyToOne(() => FoodCategory, { nullable: true })
   @JoinColumn({ name: 'category' })
   @Field(() => FoodCategory, { nullable: true })
   category?: FoodCategory;
-
 
   @Column({ default: true })
   @FilterableField()

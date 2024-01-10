@@ -13,13 +13,6 @@ export interface IMenu {
 
 export const MENUS: IMenu[] = [
   {
-    label: 'Account',
-    icon: 'account_circle',
-    link: '',
-    header: false,
-    permissions: ['admin']
-  },
-  {
     label: 'DashBoard',
     icon: 'dashboard',
     link: 'admin/dashboard',
@@ -59,15 +52,15 @@ export const MENUS: IMenu[] = [
     permissions: ['admin'],
     child: [
       {
-        label: 'ViewItems',
-        icon: 'notes',
-        link: 'admin/item',
+        label: 'NewOffer',
+        icon: 'library_add',
+        link: 'admin/offer',
         header: false,
         permissions: ['admin']
       },
       {
-        label: 'AddItem',
-        icon: 'notes',
+        label: 'View Offers',
+        icon: 'remove_red_eye',
         link: 'admin/item/create_item',
         header: false,
         permissions: ['admin']
@@ -115,14 +108,14 @@ export const MENUS: IMenu[] = [
     child: [
       {
         label: 'ViewItems',
-        icon: 'notes',
+        icon: 'remove_red_eye',
         link: 'admin/item',
         header: false,
         permissions: ['admin']
       },
       {
         label: 'AddItem',
-        icon: 'notes',
+        icon: 'library_add',
         link: 'admin/item/create_item',
         header: false,
         permissions: ['admin']
