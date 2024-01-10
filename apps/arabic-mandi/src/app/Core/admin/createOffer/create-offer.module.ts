@@ -5,9 +5,13 @@ import { MaterialModule } from '../../material.module';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { CreateOfferService } from './create-offer.service';
 import { OfferRoutingModule } from './create-offer.route.module';
+import { CreateOfferComponent } from './pages/create-offer.component';
+import { OfferItemComponentDialog } from './components/combo-offer-dailog.component';
 
 @NgModule({
   declarations: [
+    CreateOfferComponent,
+    OfferItemComponentDialog
   ],
   imports: [
     CommonModule,
@@ -16,7 +20,7 @@ import { OfferRoutingModule } from './create-offer.route.module';
     MatSnackBarModule,
     OfferRoutingModule
   ],
-  exports: [MatSnackBarModule],
+  exports: [],
   providers: [CreateOfferService],
 
 

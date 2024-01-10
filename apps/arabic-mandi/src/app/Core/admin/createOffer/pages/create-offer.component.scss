@@ -1,0 +1,40 @@
+.formStyle {
+  display: grid;
+  justify-items: unset;
+  padding-top: 10px;
+}
+
+.outerDivStyle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+@media (max-width: 480px) {
+  .formStyle {
+      display: grid;
+      justify-items: unset;
+      // padding-left: 50px;
+  }
+
+  .outerDivStyle {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  }
+}
+
+
+@media (min-width: 480px) and (max-width: 1050px) {
+  .formStyle {
+      display: grid;
+      justify-items: unset;
+      padding-left: 50px;
+  }
+
+  .outerDivStyle {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  }
+}
+

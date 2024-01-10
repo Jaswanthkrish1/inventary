@@ -19,14 +19,14 @@ const appRoutes: Routes = [
           (m) => m.CreateOrderModule
         ),
     },
-    // {
-    //   path: 'offer',
-    //   canActivate: [AdminGuard],
-    //   loadChildren: () =>
-    //   import('./createOffer/create-offer.module').then(
-    //     (m) => m.CreateOfferModule
-    //   ),
-    // }
+    {
+      path: 'offer',
+      canActivate: [AdminGuard],
+      loadChildren: () =>
+      import('./createOffer/create-offer.module').then(
+        (m) => m.CreateOfferModule
+      ),
+    }
 
 ]
 

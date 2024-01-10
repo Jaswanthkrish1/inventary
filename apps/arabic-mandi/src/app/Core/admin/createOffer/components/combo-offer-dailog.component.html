@@ -1,0 +1,52 @@
+<section style="flex-direction: row;
+box-sizing: border-box;
+display: flex;
+place-content: center space-between;
+align-items: center;">
+    <div>
+    <mat-form-field style="width: 200px;
+    height: 75px;">
+      <mat-label>Search Item</mat-label>
+      <mat-icon matPrefix class="material-icons-outlined">search</mat-icon>
+      <input matInput placeholder="Find Item" [formControl]="searchItems" />
+    </mat-form-field>
+  </div>
+    <div>
+        <button mat-flat-button color="primary" (click)="onAddItemsClick()">
+            AddItems
+        </button>
+    </div>
+</section>
+<div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" style="
+    max-width: 100%;
+    max-height: 250px;
+    overflow: scroll;">
+
+        <ng-container matColumnDef="select">
+            <th mat-header-cell *matHeaderCellDef>Select</th>
+            <td mat-cell *matCellDef="let element">
+                <mat-checkbox (change)="onCheckboxChange($event, element)" [checked]="element.selected"></mat-checkbox>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef>Name</th>
+            <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="quantity">
+            <th mat-header-cell *matHeaderCellDef>Quantity</th>
+            <td mat-cell *matCellDef="let element">
+                <input mat-input type="number" value="1">
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+    </table>
+    <mat-paginator [pageSizeOptions]="[7]"></mat-paginator>
+    <br>
+</div>
+

@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common';
 import { CreateOrderModule } from '../createOrder/create-order.module';
 
 @NgModule({
-  imports: [CommonModule, CoreModule, MaterialModule, dashboardRoutingModule, DashBoardComponent],
+  imports: [CommonModule, CoreModule, MaterialModule, dashboardRoutingModule],
   declarations: [DashBoardComponent],
   exports: [],
 })
