@@ -25,15 +25,16 @@
           <div fxLayout="row" fxGap="8px" style="justify-content: space-between;">
             <span style="overflow: hidden; text-overflow: ellipsis;">{{ selectedItem.name }}</span>
             <span>:</span>
-            <span> {{ selectedItem.category.name }}</span>
+            <span> {{ selectedItem.quantity }}</span>
           </div>
         </mat-list-item>
       </mat-list>
     </div>
     <br>
-    <a class="btn btn-primary btn-sm " (click)="ItemOfferDailogHandlar()" role="button">SelectItem </a>
+    <a class="btn btn-primary btn-sm " (click)="ItemOfferDailogHandlar()" role="button">
+      {{ selectedItems && selectedItems.length > 0 ? 'UpdateItem' : 'SelectItem' }}</a>
     <br>
-    <button mat-raised-button #paginator color="primary" type="submit">Submit</button>
+    <button mat-raised-button #paginator color="primary" type="submit">AddToList</button>
 
   </form>
 
@@ -41,8 +42,13 @@
   <br>
 </div>
 <br>
-<div class="mat-elevation-z8" style="max-height: 300px;max-width: 100%; overflow: scroll; overflow-x: scroll;" *ngIf="dataSource">
-  <mat-table [dataSource]="dataSource" class="mat-elevation-z8" >
+<div>
+  <button mat-raised-button #paginator color="primary" *ngIf="offerData.length" (click)="submitTableData()">AddAllOffers</button>
+ </div>
+ <br>
+<div class="mat-elevation-z8" style="max-height: 300px;max-width: 100%; overflow: scroll; overflow-x: scroll;"*ngIf="offerData.length">
+
+  <mat-table [dataSource]="dataSource" class="mat-elevation-z8" *ngIf="offerData.length">
 
     <!-- Offer Name Column -->
     <ng-container matColumnDef="offerName">
@@ -54,10 +60,9 @@
     <ng-container matColumnDef="listOfItems">
       <mat-header-cell *matHeaderCellDef> <mat-icon>list</mat-icon> </mat-header-cell>
       <mat-cell *matCellDef="let element">
-        <ul>
-          <li *ngFor="let item of element.listOfItems">{{ item.name }}</li>
-        </ul>
-      </mat-cell>
+        <div style="display: grid;">
+        <span *ngFor="let item of element.listOfItems" >{{ item.name }}={{ item.quantity }}</span>
+      </div></mat-cell>
     </ng-container>
 
     <!-- Price Column -->
@@ -91,5 +96,5 @@
     <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
   </mat-table>
 
-  <mat-paginator [pageSizeOptions]="[8]"></mat-paginator>
+  <mat-paginator [pageSizeOptions]="[8]" ></mat-paginator>
 </div>

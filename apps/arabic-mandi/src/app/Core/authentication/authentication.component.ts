@@ -14,7 +14,7 @@ export class AuthenticationComponent {
 
   loginForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private readonly _router: Router, private _auth:AuthenticateService) {
+  constructor(private fb: FormBuilder, private readonly _router: Router, private _auth: AuthenticateService) {
     this.loginForm = this.fb.group({
       username: ['Admin_auth', [Validators.required]],
       password: ['Arabic', Validators.required]
@@ -22,15 +22,15 @@ export class AuthenticationComponent {
   }
 
   ngOnInit() {
-   const user = localStorage.getItem(this._auth.DEFAULT_CURRENT_USER_KEY);
-   if(!user){
-     this._router.navigate(['/home']);
+    const user = localStorage.getItem(this._auth.DEFAULT_CURRENT_USER_KEY);
+    if (!user) {
+      this._router.navigate(['/home']);
     }
   }
 
   onSubmit() {
     if (this.loginForm.valid) {
-     console.log( this._auth.isAuthenticated(this.loginForm.value));
+      this._auth.isAuthenticated(this.loginForm.value)
       // Continue with form submission
     }
   }

@@ -1,0 +1,51 @@
+<mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+  <!-- Offer Name Column -->
+  <ng-container matColumnDef="offerName">
+    <mat-header-cell *matHeaderCellDef> <mat-icon> local_offer</mat-icon> </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+  </ng-container>
+
+  <!-- List of Items Column -->
+  <ng-container matColumnDef="listOfItems">
+    <mat-header-cell *matHeaderCellDef> <mat-icon>list</mat-icon> </mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      <div style="display: grid;">
+      <span *ngFor="let item of element.items" >{{ item.name }}={{ item.quantity }}</span>
+    </div></mat-cell>
+  </ng-container>
+
+  <!-- Price Column -->
+  <ng-container matColumnDef="price">
+    <mat-header-cell *matHeaderCellDef> <mat-icon> attach_money</mat-icon> </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.price}} </mat-cell>
+  </ng-container>
+
+  <!-- Special Discount Column -->
+  <ng-container matColumnDef="specialDiscount">
+    <mat-header-cell *matHeaderCellDef> <mat-icon> percentage</mat-icon> </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.discount}} </mat-cell>
+  </ng-container>
+
+  <!-- Total Cost After Discount Column -->
+  <ng-container matColumnDef="totalCostAfterDiscount">
+    <mat-header-cell *matHeaderCellDef> <mat-icon> attach_money</mat-icon></mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.totalPrice}} </mat-cell>
+  </ng-container>
+
+  <!-- select Item Column -->
+  <ng-container matColumnDef="delete">
+    <th mat-header-cell *matHeaderCellDef> <mat-icon >delete</mat-icon> </th>
+    <td mat-cell *matCellDef="let element">
+      <mat-icon color="warn">delete</mat-icon>
+    </td>
+</ng-container>
+
+  <!-- Header Rows -->
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+</mat-table>
+<div>
+  <mat-paginator [pageSizeOptions]="[10]"></mat-paginator >
+
+</div>

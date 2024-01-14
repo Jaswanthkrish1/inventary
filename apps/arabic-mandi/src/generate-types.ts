@@ -54,9 +54,12 @@ export type CreateManyUsersInput = {
 
 export type CreateOfferInput = {
   createdby?: InputMaybe<UserInput>;
+  discount?: InputMaybe<Scalars['Float']>;
   items: Array<OfferItemInput>;
   name?: InputMaybe<Scalars['String']>;
+  price?: InputMaybe<Scalars['Float']>;
   status?: InputMaybe<Scalars['Boolean']>;
+  totalPrice?: InputMaybe<Scalars['Float']>;
 };
 
 export type CreateOneFoodCategoryInput = {
@@ -482,70 +485,107 @@ export type NumberFieldComparisonBetween = {
 export type Offer = {
   __typename?: 'Offer';
   createdby?: Maybe<User>;
+  discount: Scalars['Float'];
   id: Scalars['Float'];
   items?: Maybe<Array<OfferItem>>;
   name: Scalars['String'];
+  price: Scalars['Float'];
   status: Scalars['Boolean'];
+  totalPrice: Scalars['Float'];
   updatedby?: Maybe<User>;
 };
 
 export type OfferAggregateGroupBy = {
   __typename?: 'OfferAggregateGroupBy';
+  discount?: Maybe<Scalars['Float']>;
   name?: Maybe<Scalars['String']>;
+  price?: Maybe<Scalars['Float']>;
   status?: Maybe<Scalars['Boolean']>;
+  totalPrice?: Maybe<Scalars['Float']>;
+};
+
+export type OfferAvgAggregate = {
+  __typename?: 'OfferAvgAggregate';
+  discount?: Maybe<Scalars['Float']>;
+  price?: Maybe<Scalars['Float']>;
+  totalPrice?: Maybe<Scalars['Float']>;
 };
 
 export type OfferCountAggregate = {
   __typename?: 'OfferCountAggregate';
+  discount?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['Int']>;
+  price?: Maybe<Scalars['Int']>;
   status?: Maybe<Scalars['Int']>;
+  totalPrice?: Maybe<Scalars['Int']>;
 };
 
 export type OfferDeleteFilter = {
   and?: InputMaybe<Array<OfferDeleteFilter>>;
+  discount?: InputMaybe<NumberFieldComparison>;
   name?: InputMaybe<StringFieldComparison>;
   or?: InputMaybe<Array<OfferDeleteFilter>>;
+  price?: InputMaybe<NumberFieldComparison>;
   status?: InputMaybe<BooleanFieldComparison>;
+  totalPrice?: InputMaybe<NumberFieldComparison>;
 };
 
 export type OfferDeleteResponse = {
   __typename?: 'OfferDeleteResponse';
   createdby?: Maybe<User>;
+  discount?: Maybe<Scalars['Float']>;
   id?: Maybe<Scalars['Float']>;
   items?: Maybe<Array<OfferItem>>;
   name?: Maybe<Scalars['String']>;
+  price?: Maybe<Scalars['Float']>;
   status?: Maybe<Scalars['Boolean']>;
+  totalPrice?: Maybe<Scalars['Float']>;
   updatedby?: Maybe<User>;
 };
 
 export type OfferFilter = {
   and?: InputMaybe<Array<OfferFilter>>;
+  discount?: InputMaybe<NumberFieldComparison>;
   name?: InputMaybe<StringFieldComparison>;
   or?: InputMaybe<Array<OfferFilter>>;
+  price?: InputMaybe<NumberFieldComparison>;
   status?: InputMaybe<BooleanFieldComparison>;
+  totalPrice?: InputMaybe<NumberFieldComparison>;
 };
 
 export type OfferItem = {
   __typename?: 'OfferItem';
+  category?: Maybe<FoodCategory>;
   id: Scalars['ID'];
   image_data?: Maybe<Scalars['String']>;
   name: Scalars['String'];
+  quantity?: Maybe<Scalars['Float']>;
+  selected?: Maybe<Scalars['Boolean']>;
 };
 
 export type OfferItemInput = {
+  category?: InputMaybe<FoodCategoryInput>;
   id?: InputMaybe<Scalars['Float']>;
   image_data?: InputMaybe<Scalars['String']>;
   name?: InputMaybe<Scalars['String']>;
+  quantity?: InputMaybe<Scalars['Float']>;
+  selected?: InputMaybe<Scalars['Boolean']>;
 };
 
 export type OfferMaxAggregate = {
   __typename?: 'OfferMaxAggregate';
+  discount?: Maybe<Scalars['Float']>;
   name?: Maybe<Scalars['String']>;
+  price?: Maybe<Scalars['Float']>;
+  totalPrice?: Maybe<Scalars['Float']>;
 };
 
 export type OfferMinAggregate = {
   __typename?: 'OfferMinAggregate';
+  discount?: Maybe<Scalars['Float']>;
   name?: Maybe<Scalars['String']>;
+  price?: Maybe<Scalars['Float']>;
+  totalPrice?: Maybe<Scalars['Float']>;
 };
 
 export type OfferSort = {
@@ -555,15 +595,28 @@ export type OfferSort = {
 };
 
 export enum OfferSortFields {
+  Discount = 'discount',
   Name = 'name',
-  Status = 'status'
+  Price = 'price',
+  Status = 'status',
+  TotalPrice = 'totalPrice'
 }
+
+export type OfferSumAggregate = {
+  __typename?: 'OfferSumAggregate';
+  discount?: Maybe<Scalars['Float']>;
+  price?: Maybe<Scalars['Float']>;
+  totalPrice?: Maybe<Scalars['Float']>;
+};
 
 export type OfferUpdateFilter = {
   and?: InputMaybe<Array<OfferUpdateFilter>>;
+  discount?: InputMaybe<NumberFieldComparison>;
   name?: InputMaybe<StringFieldComparison>;
   or?: InputMaybe<Array<OfferUpdateFilter>>;
+  price?: InputMaybe<NumberFieldComparison>;
   status?: InputMaybe<BooleanFieldComparison>;
+  totalPrice?: InputMaybe<NumberFieldComparison>;
 };
 
 export type PageInfo = {
@@ -710,7 +763,10 @@ export type UpdateManyUsersInput = {
 };
 
 export type UpdateOfferInput = {
+  discount?: InputMaybe<Scalars['Float']>;
+  price?: InputMaybe<Scalars['Float']>;
   status?: InputMaybe<Scalars['Boolean']>;
+  totalPrice?: InputMaybe<Scalars['Float']>;
   updatedby?: InputMaybe<UserInput>;
 };
 
@@ -870,12 +926,20 @@ export type GetItemEntitiesQueryVariables = Exact<{
 
 export type GetItemEntitiesQuery = { __typename?: 'Query', itemEntities: Array<{ __typename?: 'ItemEntity', id: number, name: string, status: boolean, category?: { __typename?: 'FoodCategory', id: number, name: string } | null }> };
 
-export type CreateOfferMutationVariables = Exact<{
+export type CreateManyOfferMutationVariables = Exact<{
   input: CreateManyOffersInput;
 }>;
 
 
-export type CreateOfferMutation = { __typename?: 'Mutation', createManyOffers: Array<{ __typename?: 'Offer', name: string, id: number }> };
+export type CreateManyOfferMutation = { __typename?: 'Mutation', createManyOffers: Array<{ __typename?: 'Offer', name: string, id: number }> };
+
+export type GetAlloffersQueryVariables = Exact<{
+  filter?: OfferFilter;
+  sorting?: Array<OfferSort> | OfferSort;
+}>;
+
+
+export type GetAlloffersQuery = { __typename?: 'Query', offers: Array<{ __typename?: 'Offer', id: number, name: string, discount: number, status: boolean, totalPrice: number, price: number, items?: Array<{ __typename?: 'OfferItem', quantity?: number | null, name: string }> | null, createdby?: { __typename?: 'User', id: number } | null, updatedby?: { __typename?: 'User', id: number } | null }> };
 
 export type CreateManyItemEntitiesMutationVariables = Exact<{
   input: CreateManyItemEntitiesInput;
@@ -944,8 +1008,8 @@ export const GetItemEntitiesDocument = gql`
       super(apollo);
     }
   }
-export const CreateOfferDocument = gql`
-    mutation CreateOffer($input: CreateManyOffersInput!) {
+export const CreateManyOfferDocument = gql`
+    mutation CreateManyOffer($input: CreateManyOffersInput!) {
   createManyOffers(input: $input) {
     name
     id
@@ -956,8 +1020,41 @@ export const CreateOfferDocument = gql`
   @Injectable({
     providedIn: 'root'
   })
-  export class CreateOfferGQL extends Apollo.Mutation<CreateOfferMutation, CreateOfferMutationVariables> {
-    override document = CreateOfferDocument;
+  export class CreateManyOfferGQL extends Apollo.Mutation<CreateManyOfferMutation, CreateManyOfferMutationVariables> {
+    override document = CreateManyOfferDocument;
+
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
+export const GetAlloffersDocument = gql`
+    query GetAlloffers($filter: OfferFilter! = {}, $sorting: [OfferSort!]! = []) {
+  offers(filter: $filter, sorting: $sorting) {
+    id
+    name
+    discount
+    status
+    totalPrice
+    price
+    items {
+      quantity
+      name
+    }
+    createdby {
+      id
+    }
+    updatedby {
+      id
+    }
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class GetAlloffersGQL extends Apollo.Query<GetAlloffersQuery, GetAlloffersQueryVariables> {
+    override document = GetAlloffersDocument;
 
     constructor(apollo: Apollo.Apollo) {
       super(apollo);
