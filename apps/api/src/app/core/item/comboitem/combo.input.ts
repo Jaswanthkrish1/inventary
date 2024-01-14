@@ -37,6 +37,13 @@ export class UpdateOfferInput  {
   @IsNumber()
   updatedby: UserInput;
 
+
+  @Field({ nullable: true })
+  name?: string;
+
+  @Field(() => [OfferItemInput], { nullable: true })
+  items?: OfferItemInput[];
+
   @Field({ nullable: true })
   @IsBoolean()
   status?: boolean;

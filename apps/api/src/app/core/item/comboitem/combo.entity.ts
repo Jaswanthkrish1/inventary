@@ -1,6 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 import { Field, ID, ObjectType } from '@nestjs/graphql';
-import { FilterableField } from '@nestjs-query/query-graphql';
+import { FilterableField, FilterableRelation } from '@nestjs-query/query-graphql';
 import { User } from '../../user/user.entity';
 import { FoodCategoryInput } from '../../foodcategory/foodcategory.input';
 import { FoodCategory } from '../../foodcategory/foodcategory.entity';
@@ -24,13 +24,26 @@ export class OfferItem {
 
   @Field({nullable: true})
   category?: FoodCategory;
+
+  @Field({defaultValue: true})
+  status?: boolean;
 }
 
 @Entity('combo_offer')
 @ObjectType()
+@FilterableRelation('createdby', () => User, {
+  nullable: true,
+  disableRemove: true,
+  disableUpdate: true,
+})
+@FilterableRelation('updatedby', () => User, {
+  nullable: true,
+  disableRemove: true,
+  disableUpdate: true,
+})
 export class Offer {
   @PrimaryGeneratedColumn()
-  @Field()
+  @Field(() => ID)
   id: number;
 
   @Column()

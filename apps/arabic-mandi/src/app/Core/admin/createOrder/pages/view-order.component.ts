@@ -23,6 +23,13 @@ import { UpdateItemComponentDialog } from '../components/update-order-dailog.com
       .button_action:hover {
         background-color: red;
       }
+      .mat-mdc-table {
+        --mat-table-row-item-outline-width: 1px;
+        table-layout: auto;
+        white-space: normal;
+        width: 100%;
+        background-color: var(--mat-table-background-color);
+    }
     `,
   ],
 })
@@ -34,7 +41,7 @@ export class ViewOrderComponent implements OnInit, OnDestroy,AfterViewInit {
     private _dialog: MatDialog,
 
   ) {
-  
+
    }
 
   private subs = new Subscription();

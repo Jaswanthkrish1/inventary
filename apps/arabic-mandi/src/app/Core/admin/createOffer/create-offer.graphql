@@ -13,6 +13,12 @@ query GetItemEntities(
   }
 }
 
+mutation updateOneOffer($input: UpdateOneOfferInput!) {
+ updateOneOffer(input: $input) {
+  id
+  }
+}
+
 mutation CreateManyOffer($input: CreateManyOffersInput!) {
  createManyOffers(input: $input) {
             name
@@ -31,6 +37,13 @@ query GetAlloffers( $filter: OfferFilter! = {} $sorting: [OfferSort!]! = [] ){
     items{
       quantity
       name
+      id
+      selected
+      status
+      category{
+        id
+        name
+      }
     }
     createdby{
       id

@@ -486,7 +486,7 @@ export type Offer = {
   __typename?: 'Offer';
   createdby?: Maybe<User>;
   discount: Scalars['Float'];
-  id: Scalars['Float'];
+  id: Scalars['ID'];
   items?: Maybe<Array<OfferItem>>;
   name: Scalars['String'];
   price: Scalars['Float'];
@@ -534,7 +534,7 @@ export type OfferDeleteResponse = {
   __typename?: 'OfferDeleteResponse';
   createdby?: Maybe<User>;
   discount?: Maybe<Scalars['Float']>;
-  id?: Maybe<Scalars['Float']>;
+  id?: Maybe<Scalars['ID']>;
   items?: Maybe<Array<OfferItem>>;
   name?: Maybe<Scalars['String']>;
   price?: Maybe<Scalars['Float']>;
@@ -545,12 +545,22 @@ export type OfferDeleteResponse = {
 
 export type OfferFilter = {
   and?: InputMaybe<Array<OfferFilter>>;
+  createdby?: InputMaybe<OfferFilterUserFilter>;
   discount?: InputMaybe<NumberFieldComparison>;
   name?: InputMaybe<StringFieldComparison>;
   or?: InputMaybe<Array<OfferFilter>>;
   price?: InputMaybe<NumberFieldComparison>;
   status?: InputMaybe<BooleanFieldComparison>;
   totalPrice?: InputMaybe<NumberFieldComparison>;
+  updatedby?: InputMaybe<OfferFilterUserFilter>;
+};
+
+export type OfferFilterUserFilter = {
+  and?: InputMaybe<Array<OfferFilterUserFilter>>;
+  id?: InputMaybe<NumberFieldComparison>;
+  or?: InputMaybe<Array<OfferFilterUserFilter>>;
+  role?: InputMaybe<StringFieldComparison>;
+  status?: InputMaybe<BooleanFieldComparison>;
 };
 
 export type OfferItem = {
@@ -561,6 +571,7 @@ export type OfferItem = {
   name: Scalars['String'];
   quantity?: Maybe<Scalars['Float']>;
   selected?: Maybe<Scalars['Boolean']>;
+  status: Scalars['Boolean'];
 };
 
 export type OfferItemInput = {
@@ -764,6 +775,8 @@ export type UpdateManyUsersInput = {
 
 export type UpdateOfferInput = {
   discount?: InputMaybe<Scalars['Float']>;
+  items?: InputMaybe<Array<OfferItemInput>>;
+  name?: InputMaybe<Scalars['String']>;
   price?: InputMaybe<Scalars['Float']>;
   status?: InputMaybe<Scalars['Boolean']>;
   totalPrice?: InputMaybe<Scalars['Float']>;
@@ -926,12 +939,19 @@ export type GetItemEntitiesQueryVariables = Exact<{
 
 export type GetItemEntitiesQuery = { __typename?: 'Query', itemEntities: Array<{ __typename?: 'ItemEntity', id: number, name: string, status: boolean, category?: { __typename?: 'FoodCategory', id: number, name: string } | null }> };
 
+export type UpdateOneOfferMutationVariables = Exact<{
+  input: UpdateOneOfferInput;
+}>;
+
+
+export type UpdateOneOfferMutation = { __typename?: 'Mutation', updateOneOffer: { __typename?: 'Offer', id: string } };
+
 export type CreateManyOfferMutationVariables = Exact<{
   input: CreateManyOffersInput;
 }>;
 
 
-export type CreateManyOfferMutation = { __typename?: 'Mutation', createManyOffers: Array<{ __typename?: 'Offer', name: string, id: number }> };
+export type CreateManyOfferMutation = { __typename?: 'Mutation', createManyOffers: Array<{ __typename?: 'Offer', name: string, id: string }> };
 
 export type GetAlloffersQueryVariables = Exact<{
   filter?: OfferFilter;
@@ -939,7 +959,7 @@ export type GetAlloffersQueryVariables = Exact<{
 }>;
 
 
-export type GetAlloffersQuery = { __typename?: 'Query', offers: Array<{ __typename?: 'Offer', id: number, name: string, discount: number, status: boolean, totalPrice: number, price: number, items?: Array<{ __typename?: 'OfferItem', quantity?: number | null, name: string }> | null, createdby?: { __typename?: 'User', id: number } | null, updatedby?: { __typename?: 'User', id: number } | null }> };
+export type GetAlloffersQuery = { __typename?: 'Query', offers: Array<{ __typename?: 'Offer', id: string, name: string, discount: number, status: boolean, totalPrice: number, price: number, items?: Array<{ __typename?: 'OfferItem', quantity?: number | null, name: string, id: string, selected?: boolean | null, status: boolean, category?: { __typename?: 'FoodCategory', id: number, name: string } | null }> | null, createdby?: { __typename?: 'User', id: number } | null, updatedby?: { __typename?: 'User', id: number } | null }> };
 
 export type CreateManyItemEntitiesMutationVariables = Exact<{
   input: CreateManyItemEntitiesInput;
@@ -1008,6 +1028,24 @@ export const GetItemEntitiesDocument = gql`
       super(apollo);
     }
   }
+export const UpdateOneOfferDocument = gql`
+    mutation updateOneOffer($input: UpdateOneOfferInput!) {
+  updateOneOffer(input: $input) {
+    id
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class UpdateOneOfferGQL extends Apollo.Mutation<UpdateOneOfferMutation, UpdateOneOfferMutationVariables> {
+    override document = UpdateOneOfferDocument;
+
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
 export const CreateManyOfferDocument = gql`
     mutation CreateManyOffer($input: CreateManyOffersInput!) {
   createManyOffers(input: $input) {
@@ -1039,6 +1077,13 @@ export const GetAlloffersDocument = gql`
     items {
       quantity
       name
+      id
+      selected
+      status
+      category {
+        id
+        name
+      }
     }
     createdby {
       id

@@ -147,8 +147,6 @@ export class OfferItemComponentDialog implements AfterViewInit, OnInit, OnDestro
       })
     );
   }
-
-
   ngOnDestroy() {
     this.subs.unsubscribe();
   }

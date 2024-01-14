@@ -1,4 +1,17 @@
+<div>
+  <div>
+      <h3>All Offer's</h3>
+  </div>
+
+</div>
 <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+  <ng-container matColumnDef="status">
+    <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      <mat-slide-toggle [checked]="element.status" (change)="onStatusChange($event, element)"></mat-slide-toggle>
+    </mat-cell>
+  </ng-container>
 
   <!-- Offer Name Column -->
   <ng-container matColumnDef="offerName">
@@ -11,8 +24,9 @@
     <mat-header-cell *matHeaderCellDef> <mat-icon>list</mat-icon> </mat-header-cell>
     <mat-cell *matCellDef="let element">
       <div style="display: grid;">
-      <span *ngFor="let item of element.items" >{{ item.name }}={{ item.quantity }}</span>
-    </div></mat-cell>
+        <span *ngFor="let item of element.items">{{ item.name }}={{ item.quantity }}</span>
+      </div>
+    </mat-cell>
   </ng-container>
 
   <!-- Price Column -->
@@ -21,31 +35,27 @@
     <mat-cell *matCellDef="let element"> {{element.price}} </mat-cell>
   </ng-container>
 
-  <!-- Special Discount Column -->
-  <ng-container matColumnDef="specialDiscount">
-    <mat-header-cell *matHeaderCellDef> <mat-icon> percentage</mat-icon> </mat-header-cell>
-    <mat-cell *matCellDef="let element"> {{element.discount}} </mat-cell>
-  </ng-container>
-
   <!-- Total Cost After Discount Column -->
   <ng-container matColumnDef="totalCostAfterDiscount">
     <mat-header-cell *matHeaderCellDef> <mat-icon> attach_money</mat-icon></mat-header-cell>
     <mat-cell *matCellDef="let element"> {{element.totalPrice}} </mat-cell>
   </ng-container>
 
-  <!-- select Item Column -->
-  <ng-container matColumnDef="delete">
-    <th mat-header-cell *matHeaderCellDef> <mat-icon >delete</mat-icon> </th>
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef>Actions</th>
     <td mat-cell *matCellDef="let element">
-      <mat-icon color="warn">delete</mat-icon>
+      <button mat-menu-item (click)="UpdateHandlerTable(element)">
+        <mat-icon class="material-icons-outlined">edit</mat-icon>
+      </button>
     </td>
-</ng-container>
+  </ng-container>
 
   <!-- Header Rows -->
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
   <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
 </mat-table>
 <div>
-  <mat-paginator [pageSizeOptions]="[10]"></mat-paginator >
+
+  <mat-paginator [pageSizeOptions]="[10]"></mat-paginator>
 
 </div>
