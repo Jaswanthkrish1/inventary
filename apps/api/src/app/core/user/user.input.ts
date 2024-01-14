@@ -13,7 +13,7 @@ export abstract class UserInput {
 
   @Field({ defaultValue: true })
   @IsBoolean()
-  status: boolean;
+  status?: boolean;
 
   @Field({ nullable: true })
   @IsString()

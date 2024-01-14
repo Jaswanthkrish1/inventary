@@ -2,6 +2,8 @@ import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, CreateDa
 import { Field, ID, ObjectType } from '@nestjs/graphql';
 import { FilterableField } from '@nestjs-query/query-graphql';
 import { User } from '../../user/user.entity';
+import { FoodCategoryInput } from '../../foodcategory/foodcategory.input';
+import { FoodCategory } from '../../foodcategory/foodcategory.entity';
 
 @ObjectType()
 export class OfferItem {
@@ -13,9 +15,18 @@ export class OfferItem {
 
   @Field({ nullable: true })
   image_data?: string;
+
+  @Field({nullable: true})
+  quantity?: number;
+
+  @Field({nullable: true})
+  selected?: boolean;
+
+  @Field({nullable: true})
+  category?: FoodCategory;
 }
 
-@Entity('Combo_offer')
+@Entity('combo_offer')
 @ObjectType()
 export class Offer {
   @PrimaryGeneratedColumn()
@@ -40,6 +51,21 @@ export class Offer {
   @FilterableField()
   @Field()
   status?: boolean;
+
+  @Column()
+  @FilterableField()
+  @Field()
+  price?: number;
+
+  @Column()
+  @FilterableField()
+  @Field()
+  totalPrice?: number;
+
+  @Column()
+  @FilterableField()
+  @Field()
+  discount?: number;
 
   @ManyToOne(() => User, { nullable: true })
   @JoinColumn({ name: 'createdby' })

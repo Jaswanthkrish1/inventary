@@ -42,9 +42,12 @@ input CreateManyUsersInput {
 
 input CreateOfferInput {
   createdby: UserInput
+  discount: Float
   items: [OfferItemInput!]!
   name: String
+  price: Float
   status: Boolean
+  totalPrice: Float
 }
 
 input CreateOneFoodCategoryInput {
@@ -355,64 +358,100 @@ input NumberFieldComparisonBetween {
 
 type Offer {
   createdby: User
+  discount: Float!
   id: Float!
   items: [OfferItem!]
   name: String!
+  price: Float!
   status: Boolean!
+  totalPrice: Float!
   updatedby: User
 }
 
 type OfferAggregateGroupBy {
+  discount: Float
   name: String
+  price: Float
   status: Boolean
+  totalPrice: Float
+}
+
+type OfferAvgAggregate {
+  discount: Float
+  price: Float
+  totalPrice: Float
 }
 
 type OfferCountAggregate {
+  discount: Int
   name: Int
+  price: Int
   status: Int
+  totalPrice: Int
 }
 
 input OfferDeleteFilter {
   and: [OfferDeleteFilter!]
+  discount: NumberFieldComparison
   name: StringFieldComparison
   or: [OfferDeleteFilter!]
+  price: NumberFieldComparison
   status: BooleanFieldComparison
+  totalPrice: NumberFieldComparison
 }
 
 type OfferDeleteResponse {
   createdby: User
+  discount: Float
   id: Float
   items: [OfferItem!]
   name: String
+  price: Float
   status: Boolean
+  totalPrice: Float
   updatedby: User
 }
 
 input OfferFilter {
   and: [OfferFilter!]
+  discount: NumberFieldComparison
   name: StringFieldComparison
   or: [OfferFilter!]
+  price: NumberFieldComparison
   status: BooleanFieldComparison
+  totalPrice: NumberFieldComparison
 }
 
 type OfferItem {
+  category: FoodCategory
   id: ID!
   image_data: String
   name: String!
+  quantity: Float
+  selected: Boolean
 }
 
 input OfferItemInput {
+  category: FoodCategoryInput
   id: Float
   image_data: String
   name: String
+  quantity: Float
+  selected: Boolean
 }
 
 type OfferMaxAggregate {
+  discount: Float
   name: String
+  price: Float
+  totalPrice: Float
 }
 
 type OfferMinAggregate {
+  discount: Float
   name: String
+  price: Float
+  totalPrice: Float
 }
 
 input OfferSort {
@@ -422,15 +461,27 @@ input OfferSort {
 }
 
 enum OfferSortFields {
+  discount
   name
+  price
   status
+  totalPrice
+}
+
+type OfferSumAggregate {
+  discount: Float
+  price: Float
+  totalPrice: Float
 }
 
 input OfferUpdateFilter {
   and: [OfferUpdateFilter!]
+  discount: NumberFieldComparison
   name: StringFieldComparison
   or: [OfferUpdateFilter!]
+  price: NumberFieldComparison
   status: BooleanFieldComparison
+  totalPrice: NumberFieldComparison
 }
 
 type PageInfo {
@@ -574,7 +625,10 @@ input UpdateManyUsersInput {
 }
 
 input UpdateOfferInput {
+  discount: Float
+  price: Float
   status: Boolean
+  totalPrice: Float
   updatedby: UserInput
 }
 

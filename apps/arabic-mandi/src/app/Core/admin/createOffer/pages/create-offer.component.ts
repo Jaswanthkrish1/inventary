@@ -2,13 +2,14 @@ import { AfterViewInit, ChangeDetectionStrategy, Component, OnChanges, OnDestroy
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { CreateOfferService } from "../create-offer.service";
 import { BehaviorSubject, Subscription, debounceTime, switchMap } from "rxjs";
-import { GetItemEntitiesQueryVariables } from "apps/arabic-mandi/src/generate-types";
+import { GetItemEntitiesQueryVariables, CreateManyOffersInput, CreateOfferInput, OfferItemInput } from "apps/arabic-mandi/src/generate-types";
 import { MatDialog } from "@angular/material/dialog";
 import { OfferItemComponentDialog } from "../components/combo-offer-dailog.component";
 import { MatSnackBar, MatSnackBarConfig } from "@angular/material/snack-bar";
 import { MatTableDataSource } from "@angular/material/table";
 import { MatPaginator } from "@angular/material/paginator";
 import { ChangeDetectorRef } from '@angular/core';
+import { CommonService } from "../../adminCommonsService.service";
 export class OfferForm {
   offerName: string;
   listOfItems: any[];
@@ -30,14 +31,14 @@ export class OfferForm {
   styleUrls: ['./create-offer.component.scss'],
   changeDetection: ChangeDetectionStrategy.Default,
 })
-export class CreateOfferComponent implements OnInit,AfterViewInit {
+export class CreateOfferComponent implements OnInit, AfterViewInit {
 
   offerForm!: FormGroup;
   offerModel!: OfferForm;
   private dataSourceItems!: any;
   public checked: boolean = false;
   public dataSource!: MatTableDataSource<any>;
-  public selectedItems!: any;
+  public selectedItems!: any[];
   public offerData: any[] = [];
   public displayedColumns: string[] = ['offerName', 'listOfItems', "price", 'specialDiscount', 'totalCostAfterDiscount', 'delete'];
   private dataSetChange$ = new BehaviorSubject(<
@@ -53,6 +54,7 @@ export class CreateOfferComponent implements OnInit,AfterViewInit {
     private _dialog: MatDialog,
     private _snackbar: MatSnackBar,
     private cdr: ChangeDetectorRef,
+    private commonService: CommonService,
     private offerService: CreateOfferService) { }
   ngAfterViewInit(): void {
     this.updateTable();
@@ -79,39 +81,52 @@ export class CreateOfferComponent implements OnInit,AfterViewInit {
   }
 
   ItemOfferDailogHandlar() {
-    const selectedItems = this.offerForm.get('listOfItems')?.value
-      this.selectedItems = selectedItems;
-    if(this.selectedItems.length){
-      const selectedItems = this.offerForm.get('listOfItems')?.value
-      this.selectedItems = selectedItems;
-      const data = this.dataSourceItems
-      const maindata = data?.itemEntities.filter((item: any) => !selectedItems.some((selectedItem: { id: any; }) => selectedItem.id === item.id));
-      const updatedMaindata = maindata.concat(selectedItems).reverse()
+    // Get the selected items from the offerForm
+    const selectedItems = this.offerForm.get('listOfItems')?.value;
+
+    if (selectedItems && selectedItems.length > 0) {
+      // Map the dataSourceItems with an additional 'quantity' property
+      const dataWithSelected = this.dataSourceItems.itemEntities.map((item: any) => ({ ...item, quantity: 1 }));
+
+      // Filter out items that are already selected
+      const mainData = dataWithSelected.filter(
+        (item: any) => !selectedItems.some((selectedItem: { id: any; }) => selectedItem.id === item.id)
+      );
+
+      // Combine the mainData and selectedItems, reversing the order
+      const updatedMainData = mainData.concat(selectedItems).reverse();
+
+      // Open the dialog with the updated data
       const dialogRef = this._dialog.open(OfferItemComponentDialog, {
-        data: updatedMaindata,
+        data: updatedMainData,
       });
-      dialogRef.afterClosed().subscribe(
-        data => {
+
+      // Subscribe to the dialog's afterClosed event
+      dialogRef.afterClosed().subscribe((data: any[]) => {
+        if (data) {
+          // Update the offerForm and selectedItems with the returned data
           this.offerForm.get('listOfItems')?.setValue(data);
-          const selectedItems = this.offerForm.get('listOfItems')?.value
-          this.selectedItems = selectedItems;
+          this.selectedItems = data;
         }
-      )
+      });
     } else {
-      console.log("data")
-      const dialogRef = this._dialog.open(OfferItemComponentDialog, {
+      // Open the dialog with the original dataSourceItems when no items are selected
+      const intldialogRef = this._dialog.open(OfferItemComponentDialog, {
         data: this.dataSourceItems,
       });
-      dialogRef.afterClosed().subscribe(
-        data => {
-          this.offerForm.get('listOfItems')?.setValue(data);
-          const selectedItems = this.offerForm.get('listOfItems')?.value
-          this.selectedItems = selectedItems;
-        }
-      )
 
+      // Subscribe to the dialog's afterClosed event
+      intldialogRef.afterClosed().subscribe((data: any[]) => {
+        if (data) {
+          // Update the offerForm and selectedItems with the returned data
+          this.offerForm.get('listOfItems')?.setValue(data);
+          this.selectedItems = data;
+        }
+      });
+    }
   }
-  }
+
+
   onDeleteClick(row: any): void {
     const config = new MatSnackBarConfig();
     config.horizontalPosition = 'center';
@@ -146,18 +161,16 @@ export class CreateOfferComponent implements OnInit,AfterViewInit {
 
   private updateTable(): void {
     // Update the table within Angular zone
-
-      this.dataSource = new MatTableDataSource(this.offerData);
-      this.dataSource.paginator = this.paginator;
-      // Explicitly mark for change detection
-      this.cdr.detectChanges();
+    this.dataSource = new MatTableDataSource(this.offerData);
+    this.dataSource.paginator = this.paginator;
+    // Explicitly mark for change detection
+    this.cdr.detectChanges();
 
   }
 
 
   private initializeForm() {
     this.offerModel = new OfferForm();
-
     this.offerForm = this.formBuilder.group({
       offerName: [this.offerModel.offerName, Validators.required],
       listOfItems: [this.offerModel.listOfItems, Validators.required],
@@ -178,7 +191,7 @@ export class CreateOfferComponent implements OnInit,AfterViewInit {
     const discount = (specialDiscount / 100) * price;
 
     // Calculate the total cost after discount
-    const totalCostAfterDiscount = price - discount;
+    const totalCostAfterDiscount = Math.floor(price - discount);
 
     // If the special discount is greater than or equal to the price, set totalCostAfterDiscount to the total value
     if (specialDiscount >= price) {
@@ -201,5 +214,61 @@ export class CreateOfferComponent implements OnInit,AfterViewInit {
     }
   }
 
+  removeTypename(obj: any) {
+    const newObj: any = {};
+    for (const key in obj) {
+      if (key !== '__typename') {
+        newObj[key] = typeof obj[key] === 'object' ? this.removeTypename(obj[key]) : obj[key];
+      }
+    }
+    return newObj;
+  }
 
+  /* complex One don't touch*/
+  submitTableData() {
+    const currentuser = this.commonService.getCurrentUser();
+
+    if (this.offerData) {
+      // Map the offerData to create an array of offers
+      const data = this.offerData.map((offer: any) => {
+        console.log(offer)
+        // Remove __typename from each item in listOfItems
+        const removedTypeNameItems = offer.listOfItems.map((item: any) => this.removeTypename(item));
+        const items: OfferItemInput[] = removedTypeNameItems.map((offer: any) => {
+          const obj: OfferItemInput = {
+            id: offer.id,
+            name: offer.name,
+            quantity: offer.quantity,
+            selected: offer.selected,
+            category: {
+              id: offer.category.id,
+              name: offer.category.name
+            }
+          }
+          return obj;
+        })
+
+        // Create an individual offer
+        const singleOffer: CreateOfferInput = {
+          items: items,
+          createdby: currentuser,
+          name: offer.offerName,
+          status: true,
+          discount: offer.specialDiscount,
+          price: offer.price,
+          totalPrice: offer.totalCostAfterDiscount
+        };
+
+        return singleOffer;
+      });
+
+      // Prepare the input for the mutation
+      const variablesdata: CreateManyOffersInput = {
+        offers: data
+      };
+
+      // Call your mutation service with the prepared data
+      this.offerService.AddAllOffers(variablesdata);
+    }
+  }
 }

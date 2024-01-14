@@ -61,7 +61,7 @@ export const MENUS: IMenu[] = [
       {
         label: 'View Offers',
         icon: 'remove_red_eye',
-        link: 'admin/item/create_item',
+        link: 'admin/offer/View_Offers',
         header: false,
         permissions: ['admin']
       }

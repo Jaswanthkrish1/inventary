@@ -7,11 +7,13 @@ import { CreateOfferService } from './create-offer.service';
 import { OfferRoutingModule } from './create-offer.route.module';
 import { CreateOfferComponent } from './pages/create-offer.component';
 import { OfferItemComponentDialog } from './components/combo-offer-dailog.component';
+import { OfferViewComponent } from './pages/offer-view.component';
 
 @NgModule({
   declarations: [
     CreateOfferComponent,
-    OfferItemComponentDialog
+    OfferItemComponentDialog,
+    OfferViewComponent
   ],
   imports: [
     CommonModule,
