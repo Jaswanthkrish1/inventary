@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AdminGuard } from '../admin.guard';
 import { CreateOfferComponent } from './pages/create-offer.component';
 import { OfferViewComponent } from './pages/offer-view.component';
+import { UpdateOfferDailogComponent } from './components/update-offer.component';
 const appRoutes: Routes = [
   {
     path: '',
@@ -16,11 +17,11 @@ const appRoutes: Routes = [
     component: OfferViewComponent,
     canActivate: [AdminGuard],
   },
-  // {
-  //   path: 'update_item',
-  //   // component: UpdateOrderComponent,
-  //   canActivate: [AdminGuard],
-  // },
+  {
+    path: 'update_item',
+    component: UpdateOfferDailogComponent,
+    canActivate: [AdminGuard],
+  },
 ];
 
 @NgModule({

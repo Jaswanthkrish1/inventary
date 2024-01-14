@@ -359,7 +359,7 @@ input NumberFieldComparisonBetween {
 type Offer {
   createdby: User
   discount: Float!
-  id: Float!
+  id: ID!
   items: [OfferItem!]
   name: String!
   price: Float!
@@ -403,7 +403,7 @@ input OfferDeleteFilter {
 type OfferDeleteResponse {
   createdby: User
   discount: Float
-  id: Float
+  id: ID
   items: [OfferItem!]
   name: String
   price: Float
@@ -414,12 +414,22 @@ type OfferDeleteResponse {
 
 input OfferFilter {
   and: [OfferFilter!]
+  createdby: OfferFilterUserFilter
   discount: NumberFieldComparison
   name: StringFieldComparison
   or: [OfferFilter!]
   price: NumberFieldComparison
   status: BooleanFieldComparison
   totalPrice: NumberFieldComparison
+  updatedby: OfferFilterUserFilter
+}
+
+input OfferFilterUserFilter {
+  and: [OfferFilterUserFilter!]
+  id: NumberFieldComparison
+  or: [OfferFilterUserFilter!]
+  role: StringFieldComparison
+  status: BooleanFieldComparison
 }
 
 type OfferItem {
@@ -429,6 +439,7 @@ type OfferItem {
   name: String!
   quantity: Float
   selected: Boolean
+  status: Boolean!
 }
 
 input OfferItemInput {
@@ -626,6 +637,8 @@ input UpdateManyUsersInput {
 
 input UpdateOfferInput {
   discount: Float
+  items: [OfferItemInput!]
+  name: String
   price: Float
   status: Boolean
   totalPrice: Float

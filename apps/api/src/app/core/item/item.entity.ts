@@ -15,7 +15,6 @@ import { Field, ObjectType } from '@nestjs/graphql';
 import {
   FilterableField, FilterableRelation,
 } from '@nestjs-query/query-graphql';
-import { Offer } from './comboitem/combo.entity';
 @FilterableRelation('createdby', () => User, {
   nullable: true,
   disableRemove: true,

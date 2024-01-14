@@ -1,7 +1,9 @@
 import { Injectable } from "@angular/core";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { Router } from "@angular/router";
+import { Observable } from "@apollo/client/utilities";
 
-import { GetItemEntitiesGQL, GetItemEntitiesQueryVariables, CreateManyOfferGQL, CreateManyOffersInput, UserInput, GetAlloffersGQL, GetAlloffersQueryVariables } from "apps/arabic-mandi/src/generate-types";
+import { GetItemEntitiesGQL, GetItemEntitiesQueryVariables, CreateManyOfferGQL, CreateManyOffersInput, UserInput, GetAlloffersGQL, GetAlloffersQueryVariables, UpdateOneOfferGQL, UpdateOneOfferInput, UpdateOneOfferMutationVariables, MutationDeleteOneOfferArgs } from "apps/arabic-mandi/src/generate-types";
 import { catchError, of } from "rxjs";
 
 @Injectable({ providedIn: 'root' })
@@ -10,6 +12,8 @@ export class CreateOfferService {
     private GetItemEntitiesGQL: GetItemEntitiesGQL,
     private CreateManyOfferGQL: CreateManyOfferGQL,
     private GetAlloffersGQL: GetAlloffersGQL,
+    private UpdateOneOfferGQL: UpdateOneOfferGQL,
+    private _router: Router,
     private _snackBar: MatSnackBar
 
   ) {
@@ -30,7 +34,25 @@ export class CreateOfferService {
       })
     )
   }
-
+  updateOneOffer(variables: UpdateOneOfferMutationVariables): Observable<boolean> {
+    return new Observable<boolean>(observer => {
+      const snackBarRef = this._snackBar;
+      this.UpdateOneOfferGQL.mutate(variables).subscribe(
+        ({ data }) => {
+          if (data) {
+            snackBarRef.open("Offer Updated");
+            observer.next(true);
+            observer.complete();
+          }
+        },
+        (error) => {
+          observer.next(false);
+          observer.complete();
+          this._snackBar.open("Having some error" + error);
+        }
+      );
+    });
+  }
 
   AddAllOffers(variables: CreateManyOffersInput) {
     this.CreateManyOfferGQL.mutate({
@@ -50,4 +72,5 @@ export class CreateOfferService {
       }
     );
   }
+
 }

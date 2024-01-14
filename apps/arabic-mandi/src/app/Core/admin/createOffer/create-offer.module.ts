@@ -8,12 +8,14 @@ import { OfferRoutingModule } from './create-offer.route.module';
 import { CreateOfferComponent } from './pages/create-offer.component';
 import { OfferItemComponentDialog } from './components/combo-offer-dailog.component';
 import { OfferViewComponent } from './pages/offer-view.component';
+import { UpdateOfferDailogComponent } from './components/update-offer.component';
 
 @NgModule({
   declarations: [
     CreateOfferComponent,
     OfferItemComponentDialog,
-    OfferViewComponent
+    OfferViewComponent,
+    UpdateOfferDailogComponent
   ],
   imports: [
     CommonModule,

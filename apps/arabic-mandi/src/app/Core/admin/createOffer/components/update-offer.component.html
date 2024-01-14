@@ -1,0 +1,40 @@
+<div class="outerDivStyle">
+<form class="formStyle" [formGroup]="offerForm" (ngSubmit)="onSubmit()">
+  <mat-form-field>
+    <mat-label>Offer Name</mat-label>
+    <input matInput id="offerName" formControlName="offerName" />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Price</mat-label>
+    <input matInput id="price" formControlName="price" type="number" />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Special Discount</mat-label>
+    <input matInput id="specialDiscount" formControlName="specialDiscount" type="number" />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Total Cost After Discount</mat-label>
+    <input matInput id="totalCostAfterDiscount" formControlName="totalCostAfterDiscount" type="number" readonly />
+  </mat-form-field>
+  <div>
+    <mat-list>
+      <mat-list-item *ngFor="let selectedItem of selectedItems">
+        <div fxLayout="row" fxGap="8px" style="justify-content: space-between;">
+          <span style="overflow: hidden; text-overflow: ellipsis;">{{ selectedItem.name }}</span>
+          <span>:</span>
+          <span> {{ selectedItem.quantity }}</span>
+        </div>
+      </mat-list-item>
+    </mat-list>
+  </div>
+  <br>
+  <a class="btn btn-primary btn-sm " (click)="ItemOfferDailogHandlar()" role="button">
+    {{ itemList && itemList.length > 0 ? 'Update Items' : 'SelectItem' }}</a>
+  <br>
+  <button mat-raised-button #paginator color="primary" type="submit">{{ itemList && itemList.length > 0 ? 'Submit' : 'SelectItem' }}</button>
+
+</form>
+</div>
