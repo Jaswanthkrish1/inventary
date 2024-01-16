@@ -23,8 +23,8 @@ import { Subscription } from "rxjs";
         flex-direction: row;
         box-sizing: border-box;
         display: flex;
-        place-content: center space-between;
-        align-items: center;
+        place-content:space-between;
+
       }
       @media only screen and (max-width: 724px) {
         .search_update{

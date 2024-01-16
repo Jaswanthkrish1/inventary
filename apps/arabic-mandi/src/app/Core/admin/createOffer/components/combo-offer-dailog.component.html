@@ -8,6 +8,7 @@
     {{ update ? 'UpdateItem' : 'AddItem' }}
   </button>
 </section>
+<br>
 <div>
   <table mat-table [dataSource]="dataSource">
     <ng-container matColumnDef="select">
@@ -37,5 +38,5 @@
 
   </table>
   <mat-paginator [pageSizeOptions]="[5]"></mat-paginator>
-  <br>
+
 </div>

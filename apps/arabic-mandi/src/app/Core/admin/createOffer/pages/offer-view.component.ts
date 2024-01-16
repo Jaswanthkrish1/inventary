@@ -1,18 +1,18 @@
-import { AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
+import { AfterViewInit, Component, OnDestroy, ViewChild } from "@angular/core";
 import { CreateOfferService } from "../create-offer.service";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { MatPaginator } from "@angular/material/paginator";
-import { BehaviorSubject, Subscription, debounceTime, switchMap, window } from "rxjs";
+import { BehaviorSubject, Subscription, debounceTime, switchMap } from "rxjs";
 import { MatTableDataSource } from "@angular/material/table";
-import { GetAlloffersQueryVariables, UpdateOneOfferInput, UpdateOneOfferMutationVariables } from "apps/arabic-mandi/src/generate-types";
+import { GetAlloffersQueryVariables, UpdateOneOfferMutationVariables } from "apps/arabic-mandi/src/generate-types";
 import { CommonService } from "../../adminCommonsService.service";
-import { LoadChildren, NavigationEnd, Route, Router } from "@angular/router";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'offer-view',
   templateUrl: './offer-view.component.html',
 })
-export class OfferViewComponent implements OnInit, AfterViewInit, OnDestroy {
+export class OfferViewComponent implements AfterViewInit, OnDestroy {
   private dataSetChange$ = new BehaviorSubject(<
     GetAlloffersQueryVariables
     >{
@@ -20,7 +20,6 @@ export class OfferViewComponent implements OnInit, AfterViewInit, OnDestroy {
       sorting: [],
       // paging: { limit: 10, offset: 0 },
     });
-  private dataSourceItems!: any;
   public checked: boolean = false;
   public dataSource!: MatTableDataSource<any>;
   public selectedItems!: any[];
@@ -28,7 +27,6 @@ export class OfferViewComponent implements OnInit, AfterViewInit, OnDestroy {
   public displayedColumns: string[] = ['status', 'offerName', 'listOfItems', "price", 'totalCostAfterDiscount', 'actions'];
 
   private subs = new Subscription();
-  private reloadSubscription = new Subscription();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   constructor(
@@ -37,7 +35,6 @@ export class OfferViewComponent implements OnInit, AfterViewInit, OnDestroy {
     private offerService: CreateOfferService,
     private _router: Router,
     private _commonService: CommonService,
-    private cdr: ChangeDetectorRef,
   ) { }
 
   onStatusChange(event: any, element: any) {
@@ -55,7 +52,7 @@ export class OfferViewComponent implements OnInit, AfterViewInit, OnDestroy {
           }
         }
       }
-      this.offerService.updateOneOffer(data).subscribe( status => {
+      this.offerService.updateOneOffer(data).subscribe(status => {
         this._snackbar.open("Item Is Active Now")
       })
       // Trigger your method or perform any other action
@@ -71,7 +68,7 @@ export class OfferViewComponent implements OnInit, AfterViewInit, OnDestroy {
           }
         }
       }
-      this.offerService.updateOneOffer(data).subscribe( status => {
+      this.offerService.updateOneOffer(data).subscribe(status => {
         this._snackbar.open("Item Is Not Active")
       })
     }
@@ -79,12 +76,6 @@ export class OfferViewComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     this.initData();
-  }
-
-  ngOnInit(): void {
-    // setTimeout(() => {
-    //   this.initData();
-    // }, 5000);
   }
 
   initData() {
@@ -104,7 +95,6 @@ export class OfferViewComponent implements OnInit, AfterViewInit, OnDestroy {
     );
 
   }
-
 
   UpdateHandlerTable(element: any) {
     this._commonService.setData(element);

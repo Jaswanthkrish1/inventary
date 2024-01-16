@@ -156,11 +156,9 @@ export class UpdateOfferDailogComponent implements AfterViewInit {
 
     if (selectedItems && selectedItems.length > 0) {
       const dataWithSelected = this.itemList.map((item: any) => ({ ...item, quantity: 1, selected: false }));
-
       const mainData = dataWithSelected.filter(
-        (item: any) => !selectedItems.some((selectedItem: { id: any; }) => selectedItem.id === item.id)
+        (item: any) => !selectedItems.some((selectedItem: { id: any; }) => parseInt(selectedItem.id) === item.id)
       );
-
       // Create a new array with the updated quantity property
       const updatedMainData = mainData.concat(selectedItems.map((item: any) => ({ ...item, quantity: item.quantity }))).reverse();
 
@@ -189,7 +187,6 @@ export class UpdateOfferDailogComponent implements AfterViewInit {
   }
 
   onSubmit() {
-
     if (this.offerForm.valid) {
       const currentuser = this.commonService.getCurrentUser();
       const offer = this.offerForm.value;
@@ -232,7 +229,7 @@ export class UpdateOfferDailogComponent implements AfterViewInit {
               // Reload the page after navigation
               location.reload();
             });
-          }, 3000);
+          }, 1000);
         }
       });
     }

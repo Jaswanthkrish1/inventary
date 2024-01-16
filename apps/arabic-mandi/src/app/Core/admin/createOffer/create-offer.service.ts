@@ -13,7 +13,6 @@ export class CreateOfferService {
     private CreateManyOfferGQL: CreateManyOfferGQL,
     private GetAlloffersGQL: GetAlloffersGQL,
     private UpdateOneOfferGQL: UpdateOneOfferGQL,
-    private _router: Router,
     private _snackBar: MatSnackBar
 
   ) {
