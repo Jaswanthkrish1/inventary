@@ -1,9 +1,8 @@
-
 @use '@angular/material' as mat;
 
 @include mat.core();
 /* You can add global styles to this file, and also import other style files */
- @import "~bootstrap/dist/css/bootstrap.min.css"; 
+@import "~bootstrap/dist/css/bootstrap.min.css";
 // Generated from http://mcg.mbitson.com/
 $my-palette: (
   50: #eef0fd,
@@ -20,8 +19,7 @@ $my-palette: (
   A200: #ffffff,
   A400: #d2d5ff,
   A700: #b8bdff,
-  contrast: (
-    50: #000000,
+  contrast: (50: #000000,
     100: #000000,
     200: #000000,
     300: #000000,
@@ -41,21 +39,16 @@ $my-palette: (
 $my-primary: mat.define-palette($my-palette);
 $my-accent: mat.define-palette($my-palette);
 $my-warn: mat.define-palette(mat.$red-palette, 500);
-$my-typography: mat.define-typography-config(
-  $font-family: "'Sofia', sans-serif",
-);
+$my-typography: mat.define-typography-config($font-family: "'Sofia', sans-serif",
+  );
 
-$my-theme: mat.define-light-theme(
-  (
-    color: (
-      primary: $my-primary,
-      accent: $my-accent,
-      warn: $my-warn,
-    ),
-    //  typography: $my-typography,
-    density: 0,
-  )
-);
+$my-theme: mat.define-light-theme((color: (primary: $my-primary,
+        accent: $my-accent,
+        warn: $my-warn,
+      ),
+      //  typography: $my-typography,
+      density: 0,
+    ));
 
 @include mat.all-component-themes($my-theme);
 // https://github.com/angular/components/issues/24370
@@ -80,28 +73,8 @@ body {
   height: 100%;
 }
 
-body {
-  margin: 0;
-  font-family: $font-family;
-  background: $white;
-}
-
-::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
-}
-
-::-webkit-scrollbar-track {
-  color: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  background-color: rgba(0, 0, 0, 0.3);
-  margin-right: 4px;
-  border-radius: 7px;
-}
-
 .condensed-menu {
+
   .mat-mdc-menu-item:hover:not([disabled]),
   .mat-mdc-menu-item.cdk-program-focused:not([disabled]),
   .mat-mdc-menu-item.cdk-keyboard-focused:not([disabled]),
@@ -109,6 +82,7 @@ body {
     background: #f8fafc;
     color: $para-color;
   }
+
   button,
   a {
     padding: 0 13px;
@@ -121,6 +95,7 @@ body {
       width: 15px;
       color: $para-color;
     }
+
     span.mdc-list-item__primary-text {
       font-size: 15px !important;
       letter-spacing: normal !important;
@@ -132,6 +107,7 @@ body {
 .cdk-overlay-container mat-dialog-container {
   .mdc-dialog__container .mat-mdc-dialog-surface.mdc-dialog__surface {
     padding: 30px;
+
     .mat-mdc-dialog-title.mdc-dialog__title {
       padding: 0;
       color: $dark-color;
@@ -141,12 +117,14 @@ body {
       font-weight: 700;
       margin-top: -20px;
     }
+
     .mat-mdc-dialog-content.mdc-dialog__content {
       padding: 0;
       color: $para-color;
       font-size: $font-size;
       line-height: 27px;
     }
+
     .mat-mdc-dialog-actions.mdc-dialog__actions {
       padding: 0;
     }
@@ -166,7 +144,8 @@ body {
   }
 
   mat-form-field {
-    width: 280px;
+    width: max-content;
+
     // .mdc-text-field--outlined:not(.mdc-text-field--disabled):not(.mdc-text-field--focused):hover
     //   .mdc-notched-outline
     //   .mdc-notched-outline__leading,
@@ -186,18 +165,16 @@ body {
     //   .mdc-notched-outline__trailing {
     //   border-color: rgba(0, 0, 0, 0.38);
     // }
-    .mdc-text-field--outlined
-      .mdc-notched-outline
-      .mdc-notched-outline__leading {
+    .mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__leading {
       border-top-left-radius: 10px;
       border-bottom-left-radius: 10px;
     }
-    .mdc-text-field--outlined
-      .mdc-notched-outline
-      .mdc-notched-outline__trailing {
+
+    .mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__trailing {
       border-top-right-radius: 10px;
       border-bottom-right-radius: 10px;
     }
+
     // .mdc-text-field .mdc-floating-label {
     //   color: #a9a9c8;
     // }
@@ -212,9 +189,11 @@ body {
     padding: 0 25px;
     border-radius: 5px;
   }
+
   .mat-mdc-unelevated-button:not(:disabled) {
     color: $para-color;
   }
+
   .mat-mdc-unelevated-button:not(:disabled).mat-primary {
     color: $white;
   }
@@ -234,10 +213,40 @@ body {
   --text-color: #fff;
 }
 
-  a {
-    text-decoration: none !important;
+body {
+  margin: 0;
+  font-family: $font-family;
+  background: $white;
+  /* For Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+
+  ::-webkit-scrollbar-thumb {
+    color: transparent;
+    margin-right: 0px;
+    border-radius: 0px;
   }
-.pointer{
+}
+
+::-webkit-scrollbar {
+ width: 0.5px;
+}
+
+::-webkit-scrollbar-track {
+  color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  color: transparent;
+  margin-right: 0px;
+  border-radius: 0px;
+}
+
+a {
+  text-decoration: none !important;
+}
+
+.pointer {
   cursor: pointer;
 }
 
@@ -245,12 +254,14 @@ body {
 .card-title {
   text-align: center;
 }
+
 .card:hover {
   transform: translatex(-15px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.4s;
 }
-.card{
+
+.card {
   height: 200px;
   width: 200px;
   background: #fff;
@@ -266,6 +277,7 @@ body {
   overflow: auto;
   white-space: nowrap;
 }
+
 .GImg {
   height: 100%;
   width: 100%;
@@ -273,76 +285,92 @@ body {
   border-radius: 10px;
 }
 
-// /* card  -end */
-// .footer {
-//   background-color: #f8f9fa;
-//   border-color: 1px solid #dee2e6;
-// }
-
-
 /* casuvals */
 .Gcarousel-image {
-  max-height: 500px; /* Set your desired maximum height */
-  width: auto; /* Allow the width to adjust automatically */
-  margin: 0 auto; /* Center the image horizontally */
+  max-height: 500px;
+  /* Set your desired maximum height */
+  width: auto;
+  /* Allow the width to adjust automatically */
+  margin: 0 auto;
+  /* Center the image horizontally */
 }
+
 .carousel-caption h1 span {
-  color: #ef101fec; /* Highlight color for the "10% OFF" text */
+  color: #ef101fec;
+  /* Highlight color for the "10% OFF" text */
 }
-.carousel-caption{
+
+.carousel-caption {
   font-size: 30px;
- 
+
 }
+
 .carousel-caption h1,
 .carousel-caption p {
   margin: 0;
   /* padding: 10px; */
 }
+
 .glass-effect .dark {
-  color: #fdfbfb; /* Text color on the dark glass background */
+  color: #fdfbfb;
+  /* Text color on the dark glass background */
 }
+
 .glass-effect {
   position: relative;
-  background: linear-gradient(
-    0deg,
-    rgb(0, 72, 148) 60%,
-    transparent 80%
-  ),
-  #010e21fd; /* Adjust the alpha value for the desired transparency */
+  background: linear-gradient(0deg,
+      rgb(0, 72, 148) 60%,
+      transparent 80%),
+    #010e21fd;
+  /* Adjust the alpha value for the desired transparency */
   overflow: hidden;
 }
 
 .glass-effect img {
   width: 100%;
   height: auto;
-  opacity: 0.7; /* Adjust the opacity for the desired level of transparency */
-  
+  opacity: 0.7;
+  /* Adjust the opacity for the desired level of transparency */
+
 }
-/* carsoal en */
+
+/*scroll bar removing and scrolling feature in table for small screns */
+@media only screen and (max-width: 724px) {
+  .table-Over-Flow-Globle {
+    max-width: 100%;
+    max-height: 650px;
+    overflow-x: scroll;
+    overflow-y: scroll;
+  }
+
+}
 
 /* more then 992 */
 @media (max-width: 992px) {
+
   .GImg {
     height: 100%;
     width: 100%;
     object-fit: cover;
     border-radius: 10px;
   }
+
   .Gcarousel-image {
-    max-height: 400px; /* Set your desired maximum height */
-    width: auto; /* Allow the width to adjust automatically */
-    margin: 0 auto; /* Center the image horizontally */
+    max-height: 400px;
+    /* Set your desired maximum height */
+    width: auto;
+    /* Allow the width to adjust automatically */
+    margin: 0 auto;
+    /* Center the image horizontally */
   }
 
   .carousel-image {
-    max-height: 500px; /* Set the maximum height for large screens */
+    max-height: 500px;
+    /* Set the maximum height for large screens */
   }
-  .carousel-caption{
+
+  .carousel-caption {
     font-size: 10px;
-   
+
   }
 }
-
-
-
-

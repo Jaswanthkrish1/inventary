@@ -29,7 +29,7 @@
       <mat-icon>add</mat-icon>
     </button>
   </form>
-  
+
 <div style="display: flex; justify-content: space-between;">
   <div>
   <mat-label>Food Type</mat-label>
@@ -111,15 +111,17 @@
     </button>
   </div>
   <br>
+<section class="table-Over-Flow-Globle">
+
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" *ngIf="draftItems?.length">
 
     <!-- image column-->
     <ng-container matColumnDef="image">
       <th mat-header-cell *matHeaderCellDef>Image</th>
-      <td mat-cell *matCellDef="let element"> 
+      <td mat-cell *matCellDef="let element">
         <img *ngIf="element.img" [src]="element.img" alt="Image" style="max-width: 100px; max-height: 100px;">
       </td>
-    </ng-container>    
+    </ng-container>
 
     <!-- Category Column -->
 
@@ -174,6 +176,8 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>
+</section>
+
 
 
 </div>

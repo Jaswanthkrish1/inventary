@@ -64,117 +64,73 @@
       </button>
     </mat-toolbar>
   </header>
+  <div class="content ">
+    <router-outlet></router-outlet>
+  </div>
+</body>
 
-  <mat-sidenav-container fxFlexFill class="example-container " fxLayout="column">
-    <!-- <mat-sidenav class="side-nav" color="primary" #sidenav fxLayout="column" mode="over" opened="false"
-      [fxHide.gt-sm]="true">
-      <h1 class="title" style="display: none">Arabic Mandi</h1>
-      <div class="sidebar-content">
-        <ng-container *ngFor="let item of menuItems">
-          <ng-container
-            *ngIf="item.header !== true && !item.child && item.permissions && item.permissions.includes(userRole)">
-            <a mat-button [routerLink]="[item.link]" (click)="navigate(item.label, sidenav)">
-              {{ item.label }}
-            </a>
-          </ng-container>
+<footer class="fixed-bottom">
+  <mat-toolbar color="warn" fxLayout="row" fxLayoutAlign="space-between center">
+    <ng-container *ngFor="let item of menuItems">
+      <ng-container *ngIf="hasPermission(item.permissions)">
+        <button mat-icon-button class="example-icon" [routerLink]="[item.link]"
+          aria-label="Example icon-button with menu icon"
+          *ngIf="!item.child && item.header === false && !item.submenu === true && hasPermission(item.permissions)">
+          <div class="icon-container">
+            <mat-icon>{{ item.icon }}</mat-icon>
+            <div class="button-label">{{ item.label }}</div>
+          </div>
+        </button>
 
-          <ng-container *ngIf="item.child && item.permissions && item.permissions.includes(userRole)">
-            <button mat-button [matMenuTriggerFor]="childMenu">
-              <ng-container *ngIf="item.header !== false; else regular">
-                <h1 class="title">{{ item.label }}</h1>
-              </ng-container>
-              <ng-template #regular>
-                {{ item.label }}
-              </ng-template>
-            </button>
+        <button mat-icon-button class="example-icon" [routerLink]="[item.link]"
+          aria-label="Example icon-button with menu icon"
+          *ngIf="!item.child && item.header === false && item.submenu && hasPermission(['user'])">
+          <div class="icon-container">
+            <mat-icon>{{ item.icon }}</mat-icon>
+            <div class="button-label">{{ item.label }}</div>
+          </div>
+        </button>
 
-            <mat-menu #childMenu="matMenu">
-              <ng-container *ngFor="let childItem of item.child">
-                <button mat-menu-item [routerLink]="[childItem.link]"
-                  *ngIf="childItem.permissions && childItem.permissions.includes(userRole)">
-                  {{ childItem.label }}
-                </button>
-              </ng-container>
-            </mat-menu>
-          </ng-container>
-        </ng-container>
-      </div>
-    </mat-sidenav> -->
-
-    <mat-sidenav-content fxFlexFill>
-      <div class="content ">
-        <router-outlet></router-outlet>
-      </div>
-    </mat-sidenav-content>
-
-  </mat-sidenav-container>
-  <footer class="fixed-bottom">
-    <mat-toolbar color="warn" fxLayout="row" fxLayoutAlign="space-between center">
-      <ng-container *ngFor="let item of menuItems">
-        <ng-container *ngIf="hasPermission(item.permissions)">
-          <button mat-icon-button class="example-icon" [routerLink]="[item.link]"
-            aria-label="Example icon-button with menu icon"
-            *ngIf="!item.child && item.header === false && !item.submenu === true && hasPermission(item.permissions)">
+        <ng-container *ngIf="item.child">
+          <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon"
+            [matMenuTriggerFor]="childMenu">
             <div class="icon-container">
               <mat-icon>{{ item.icon }}</mat-icon>
               <div class="button-label">{{ item.label }}</div>
             </div>
           </button>
 
-          <button mat-icon-button class="example-icon" [routerLink]="[item.link]"
-            aria-label="Example icon-button with menu icon"
-            *ngIf="!item.child && item.header === false && item.submenu && hasPermission(['user'])">
-            <div class="icon-container">
-              <mat-icon>{{ item.icon }}</mat-icon>
-              <div class="button-label">{{ item.label }}</div>
-            </div>
-          </button>
-
-          <ng-container *ngIf="item.child">
-            <button mat-icon-button class="example-icon" [routerLink]="[item.link]"
-              aria-label="Example icon-button with menu icon" [matMenuTriggerFor]="childMenu">
-              <div class="icon-container">
-                <mat-icon>{{ item.icon }}</mat-icon>
-                <div class="button-label">{{ item.label }}</div>
-              </div>
-            </button>
-
-            <mat-menu #childMenu="matMenu">
-              <ng-container *ngFor="let childItem of item.child">
-                <button mat-menu-item [routerLink]="[childItem.link]" *ngIf="hasPermission(childItem.permissions)">
-                  {{ childItem.label }}
-                </button>
-              </ng-container>
-            </mat-menu>
-          </ng-container>
+          <mat-menu #childMenu="matMenu">
+            <ng-container *ngFor="let childItem of item.child">
+              <button mat-menu-item [routerLink]="[childItem.link]" *ngIf="hasPermission(childItem.permissions)">
+                {{ childItem.label }}
+              </button>
+            </ng-container>
+          </mat-menu>
         </ng-container>
       </ng-container>
+    </ng-container>
 
-      <button mat-icon-button class="example-icon" [matMenuTriggerFor]="moreMenu"
-        aria-label="Example icon-button with menu icon" *ngIf="hasPermission(['admin'])">
-        <div class="icon-container">
-          <mat-icon>more_vert</mat-icon>
-          <span class="button-label">View</span>
-        </div>
-      </button>
-      <!-- Mat-menu for additional items -->
-      <mat-menu #moreMenu="matMenu">
-        <ng-container *ngFor="let subItem of menuItems">
-          <button mat-menu-item [routerLink]="[subItem.link]"
-            *ngIf="subItem.submenu && hasPermission(subItem.permissions)">
-            <mat-icon>{{ subItem.icon }}</mat-icon>
-            <div>{{ subItem.label }}</div>
-          </button>
-        </ng-container>
-      </mat-menu>
+    <button mat-icon-button class="example-icon" [matMenuTriggerFor]="moreMenu"
+      aria-label="Example icon-button with menu icon" *ngIf="hasPermission(['admin'])">
+      <div class="icon-container">
+        <mat-icon>more_vert</mat-icon>
+        <span class="button-label">View</span>
+      </div>
+    </button>
+    <!-- Mat-menu for additional items -->
+    <mat-menu #moreMenu="matMenu">
+      <ng-container *ngFor="let subItem of menuItems">
+        <button mat-menu-item [routerLink]="[subItem.link]"
+          *ngIf="subItem.submenu && hasPermission(subItem.permissions)">
+          <mat-icon>{{ subItem.icon }}</mat-icon>
+          <div>{{ subItem.label }}</div>
+        </button>
+      </ng-container>
+    </mat-menu>
 
-    </mat-toolbar>
-
-
-
-
-  </footer>
-</body>
+  </mat-toolbar>
+</footer>
 
 
 </html>

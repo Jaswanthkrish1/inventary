@@ -2,10 +2,6 @@
   font-size: 150%;
 }
 
-/* .mat-toolbar {
-  height: 9vh;
-} */
-
 div {
   overflow: none;
 }
@@ -49,28 +45,14 @@ button {
   align-items: center;
 }
 
-mat-sidenav {
-  position: fixed;
-  top: 1rem;
-  bottom: 0;
-  left: 0;
-  z-index: 3;
-  background-color: rgb(255, 255, 255);
-  width: 100px;
-  /* transform: translatex(-15px); */
-  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); */
-  /* transition: transform 0.4s; */
 
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 1);
-  overflow: hidden;
-  text-align: center;
-}
-
-mat-sidenav-content {
+.content {
   min-height: 100vh;
-  padding: 70px 2rem 2rem;
+  margin-top: 60px;
+  margin-left: 20px;
+  margin-bottom: 60px;
+  padding: 10px 1.5rem 1rem;
   max-width: 100%;
-  margin: 0 auto;
 }
 
 .user-image {
@@ -88,9 +70,11 @@ mat-sidenav-content {
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
 
 }
-.fixed-bottom{
+
+.fixed-bottom {
   box-shadow: 0px -3px 5px rgba(55, 55, 55, 0.5);
 }
+
 
 @media (max-width: 480px) {
   .fixed-top {
@@ -102,7 +86,8 @@ mat-sidenav-content {
     z-index: 1000;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
   }
-  .fixed-bottom{
+
+  .fixed-bottom {
     overflow: hidden;
     background-color: #333;
     position: fixed;
@@ -111,29 +96,14 @@ mat-sidenav-content {
     z-index: 1000;
     box-shadow: 0px -6px 8px rgba(0, 0, 0, 0.5);
   }
-  .sidenav-content {
-    padding: 40px 1rem 1rem;
-  }
 
-  .mat-sidenav-container {
+  .content {
     min-height: 100vh;
-    padding: 30px 0rem 0rem;
-    margin: 0 auto;
-    background-color: white;
-  }
-
-  mat-sidenav-content {
-    min-height: 100vh;
-    padding: 50px 1rem 1rem;
-    margin: 0 auto;
-  }
-
-  .sidebar-content {
-    box-sizing: border-box;
-    display: grid;
-    gap: 4px;
-    justify-content: center;
-    margin-top: 4.5rem;
+    margin-top: 60px;
+    margin-bottom: 60px;
+    margin-bottom: 60px;
+    padding: 10px 1.5rem 1rem;
+    max-width: 100%;
   }
 }
 
@@ -152,6 +122,7 @@ mat-sidenav-content {
 .example-tree .mat-nested-tree-node div[role=group] {
   padding-left: 5px;
 }
+
 .example-tree div[role=group]>.mat-tree-node {
   padding-left: 10px;
 }
@@ -161,13 +132,15 @@ mat-sidenav-content {
   .fixed-bottom {
     display: none;
   }
- 
+
 }
+
 @media only screen and (max-width: 960px) {
   .side-nav {
     display: none !important;
   }
 }
+
 .icon-container {
   display: flex;
   flex-direction: column;
@@ -191,8 +164,9 @@ mat-sidenav-content {
     flex-direction: row;
     align-items: center;
     white-space: nowrap;
-   font-size: medium;
+    font-size: medium;
   }
+
   .fixed-top {
     overflow: hidden;
     background-color: #333;
@@ -201,7 +175,8 @@ mat-sidenav-content {
     width: 100%;
     z-index: 1000;
   }
-  .fixed-bottom{
+
+  .fixed-bottom {
     overflow: hidden;
     background-color: #333;
     position: fixed;
@@ -209,28 +184,16 @@ mat-sidenav-content {
     width: 100%;
     z-index: 1000;
   }
-  
 
-  .mat-sidenav-container {
+  .content {
     min-height: 100vh;
-    padding: 35px 0rem 0rem;
-    margin: 0 auto;
-    background-color: white;
+    margin-top: 60px;
+    margin-bottom: 60px;
+    padding: 10px 1.5rem 1rem;
+    max-width: 100%;
   }
 
-  mat-sidenav-content {
-    min-height: 100vh;
-    padding: 50px 1rem 1rem;
-    margin: 0 auto;
-  }
 
-  .sidebar-content {
-    box-sizing: border-box;
-    display: grid;
-    gap: 4px;
-    justify-content: center;
-    margin-top: 5rem;
-  }
 }
 
 .example-icon {

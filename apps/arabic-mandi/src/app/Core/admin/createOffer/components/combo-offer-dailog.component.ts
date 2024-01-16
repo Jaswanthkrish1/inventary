@@ -9,11 +9,6 @@ import { Subscription } from "rxjs";
   selector: 'Offer-item-dailog-view',
   templateUrl: './combo-offer-dailog.component.html',
   styles: [`
-    .mat-mdc-table {
-        max-width: 100%;
-        max-height: 250px;
-        overflow: scroll;
-      }
       .quantity-container {
         display: flex;
         align-items: center;
@@ -23,6 +18,19 @@ import { Subscription } from "rxjs";
         width: 45px;
         text-align: center;
         -moz-appearance: textfield;
+      }
+      .search_update{
+        flex-direction: row;
+        box-sizing: border-box;
+        display: flex;
+        place-content: center space-between;
+        align-items: center;
+      }
+      @media only screen and (max-width: 724px) {
+        .search_update{
+          display: block;
+        }
+
       }
 
      `]

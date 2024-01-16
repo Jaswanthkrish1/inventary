@@ -17,6 +17,7 @@ align-items: center;">
     </button>
   </div>
 </section>
+<section class="table-Over-Flow-Globle">
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
   <ng-container matColumnDef="image">
@@ -26,7 +27,7 @@ align-items: center;">
      <img *ngIf="!element.image_data" src="../../../../../assets/defaultimg.jpg" alt="Image" style="max-width: 100px; max-height: 100px;">
      </td>
   </ng-container>
-  
+
 
   <ng-container matColumnDef="name">
     <th mat-header-cell *matHeaderCellDef>Name</th>
@@ -96,3 +97,4 @@ align-items: center;">
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
 </table>
+</section>

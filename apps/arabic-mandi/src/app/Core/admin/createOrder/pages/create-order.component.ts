@@ -32,11 +32,8 @@ import {
 } from 'apps/arabic-mandi/src/generate-types';
 import {
   BehaviorSubject,
-  Subscriber,
   Subscription,
-  debounce,
   debounceTime,
-  map,
   switchMap,
 } from 'rxjs';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';

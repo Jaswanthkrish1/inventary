@@ -4,7 +4,8 @@
   </div>
 
 </div>
-<mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+<section class="table-Over-Flow-Globle mat-elevation-z8">
+<table mat-table [dataSource]="dataSource">
 
   <ng-container matColumnDef="status">
     <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
@@ -53,9 +54,6 @@
   <!-- Header Rows -->
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
   <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
-</mat-table>
-<div>
-
-  <mat-paginator [pageSizeOptions]="[10]"></mat-paginator>
-
-</div>
+</table>
+  <mat-paginator #paginator style="width: initial;" [pageSizeOptions]="[10]"></mat-paginator>
+</section>
