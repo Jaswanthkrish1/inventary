@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "nx",
-    "start": "node dist/apps/api/main",
+    "start": "node ./dist/apps/api/main",
     "build": "nx build",
     "lint": "nx lint",
     "test": "nx test",
