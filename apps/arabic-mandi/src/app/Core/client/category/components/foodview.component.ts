@@ -2,17 +2,17 @@ import {
   Component,
   OnInit,
   OnDestroy,
-  ViewChild,
-  ElementRef,
   Renderer2,
 } from '@angular/core';
 import { FoodItem } from '../../../structures/structure';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+import { BehaviorSubject, Subscription, debounceTime, switchMap } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { FoodDetails } from '../pages/food-details.component';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { CategoryService } from '../category.service';
+import { GetItemEntitiesQueryVariables } from 'apps/arabic-mandi/src/generate-types';
 @Component({
   selector: 'food-foodview',
   templateUrl: './foodview.component.html',
@@ -29,9 +29,19 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class FoodComponent implements OnInit, OnDestroy {
   public sub: Subscription;
   public selectedFoodItem: any;
-  public itemName:any
+  public itemName: any
   public isDropdownOpen: boolean = false;
   public selectedFilter: string = '';
+  selectedType: string = '';
+  public dataSource: any[] = [];
+  private $dataSetChange = new BehaviorSubject(<
+    GetItemEntitiesQueryVariables
+    >{
+      filter: {},
+      sorting: [],
+      //   paging: { limit: 10, offset: 0 },
+    });
+
 
   foodTypes: string[] = [];
   structuredFoodType: { [key: string]: FoodItem[] } = {};
@@ -208,9 +218,8 @@ export class FoodComponent implements OnInit, OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
-    private renderer: Renderer2,
     private _dialog: MatDialog,
-    private _snakBar: MatSnackBar
+    private _categoryService: CategoryService
   ) {
     this.sub = new Subscription();
   }
@@ -228,17 +237,23 @@ export class FoodComponent implements OnInit, OnDestroy {
     console.log('Selected Filter: ' + this.selectedFilter);
     this.isDropdownOpen = false; // Close the dropdown after selection.
   }
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+
     this.sub.add(
-      this.route.paramMap.subscribe((params) => {
-        const key = params.get('category');
-        this.itemName=key
-        if (key) {
-          this.getFoods(key);
+      await this.OnInitItemList().then(status => {
+        if (status) {
+          this.route.paramMap.subscribe((params) => {
+            const key = params.get('category');
+            this.itemName = key
+            if (key) {
+              this.getFoods(key);
+            }
+          })
+          this.foodTypes = Object.keys(this.structuredFoodType);
         }
       })
-    );
-    this.foodTypes = Object.keys(this.structuredFoodType);
+    )
+
   }
 
   getFoods(key: any) {
@@ -254,7 +269,6 @@ export class FoodComponent implements OnInit, OnDestroy {
     }, {} as { [key: string]: FoodItem[] });
   }
 
-  selectedType: string = '';
   // Toggle the selected food type
   toggleFoodType(type: string) {
     this.selectedType = type;
@@ -264,6 +278,28 @@ export class FoodComponent implements OnInit, OnDestroy {
   isTypeVisible(type: string): boolean {
     return this.selectedType === type;
   }
+
+  OnInitItemList(): Promise<boolean> {
+    return new Promise<boolean>((resolve) => {
+      this.sub.add(
+        this.$dataSetChange
+          .pipe(
+            debounceTime(500),
+            switchMap((variables) => this._categoryService.find(variables))
+          )
+          .subscribe(({ data }) => {
+            if (data?.itemEntities) {
+              this.dataSource = data.itemEntities;
+              console.log(this.dataSource)
+              resolve(true); // Data is available, resolving the promise with true
+            } else {
+              resolve(false); // Data is not available, resolving the promise with false
+            }
+          })
+      );
+    });
+  }
+
 
   ngOnDestroy(): void {
     this.sub.unsubscribe();

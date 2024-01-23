@@ -49,9 +49,8 @@ button {
 .content {
   min-height: 100vh;
   margin-top: 60px;
-  margin-left: 20px;
   margin-bottom: 60px;
-  padding: 10px 1.5rem 1rem;
+  padding: 10px 0.2rem 0.2rem;
   max-width: 100%;
 }
 
@@ -102,7 +101,7 @@ button {
     margin-top: 60px;
     margin-bottom: 60px;
     margin-bottom: 60px;
-    padding: 10px 1.5rem 1rem;
+    padding: 10px 0.2rem 0.2rem;
     max-width: 100%;
   }
 }
@@ -133,12 +132,6 @@ button {
     display: none;
   }
 
-}
-
-@media only screen and (max-width: 960px) {
-  .side-nav {
-    display: none !important;
-  }
 }
 
 .icon-container {
@@ -189,7 +182,7 @@ button {
     min-height: 100vh;
     margin-top: 60px;
     margin-bottom: 60px;
-    padding: 10px 1.5rem 1rem;
+    padding: 10px 0.5rem 0.5rem;
     max-width: 100%;
   }
 

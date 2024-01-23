@@ -3,7 +3,6 @@ import { Categories, comboOffer } from '../../structures/structure';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { trigger, transition, style, animate } from '@angular/animations';
-declare var $: any;
 
 @Component({
   selector: 'food-category',
@@ -97,7 +96,7 @@ export class CategoryComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     setTimeout(() => {
-      const carouselElement = $('#myCarousel') as any;
+      const carouselElement = ('#myCarousel') as any;
       carouselElement.carousel({ interval: 1000 });
     }, 100);
   }

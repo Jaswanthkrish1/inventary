@@ -15,7 +15,7 @@
       ),
       #226fe25c;
   }
-  
+
   .e-con-inner-inner {
     justify-content: center;
     display: flex;
@@ -39,7 +39,7 @@
   .textTwo {
     padding: 0px 250px 0px 290px;
   }
-  
+
   .grid {
 display: grid;
 gap: 2rem;
@@ -92,16 +92,16 @@ object-fit: cover; /* Maintain aspect ratio and cover the entire space */
 @media (max-width: 992px) {
 
     /* main */
-    
+
     .img-container {
       background-image: url('../../../../../assets/foodView/banner.webp');
       background-position: 0px -269px;
       background-size: contain;
       width: 100%;
       height: 250px;
-  
+
     }
-   
+
     .text-color {
       color: var(--text-color);
       font-size: 12px;
@@ -141,7 +141,6 @@ object-fit: cover; /* Maintain aspect ratio and cover the entire space */
   border: 1px solid #ccc;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
   text-align: center;
 }
 .card-content {
