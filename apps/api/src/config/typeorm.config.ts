@@ -12,9 +12,9 @@ export const typeormOptions: TypeOrmModuleOptions = {
   username: process.env.DATABASE_USER ?? 'root',
   password: process.env.DATABASE_PASS ?? 'jaswanth',
   database: process.env.DATABASE_DB ?? 'Inventery',
-  autoLoadEntities: true,
+  autoLoadEntities: false,
   logging: false,
-  synchronize: true
+  synchronize: false
 };
 
 export const typeormConfig = registerAs('typeorm', () => typeormOptions);
