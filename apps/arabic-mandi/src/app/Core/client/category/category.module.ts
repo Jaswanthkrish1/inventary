@@ -7,11 +7,13 @@ import { FoodComponent } from './components/foodview.component';
 import { FoodDetails } from '././pages/food-details.component';
 import { SlideComponent } from './pages/slider/slide.component';
 import { MaterialModule } from '../../material.module';
+import { CategoryService } from './category.service';
 
 @NgModule({
   declarations: [CategoryComponent, FoodComponent, FoodDetails, SlideComponent],
   imports: [CommonModule, CoreModule, CategoryRoutingModule, MaterialModule,],
 
   exports: [CategoryComponent,FoodComponent, FoodDetails, SlideComponent],
+  providers: [CategoryService]
 })
 export class CategoryModule {}

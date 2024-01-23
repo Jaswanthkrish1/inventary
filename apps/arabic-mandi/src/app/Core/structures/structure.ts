@@ -28,8 +28,9 @@ export interface FoodItem {
     category:string,
     type: string;
     name: string;
-    url: string;
+    url?: string;
     price: number;
+    discount?: number
   }
 
 
