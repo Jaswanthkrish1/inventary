@@ -6,7 +6,7 @@ FROM ${BUILD_IMAGE} as BUILD
 WORKDIR /app
 COPY ./package.json ./
 COPY ./yarn.lock ./
-COPY ./decorate-angular-cli.js ./
+# COPY ./decorate-angular-cli.js ./
 RUN yarn install --frozen-lockfile
 COPY ./ ./
 ENV NODE_ENV=production
