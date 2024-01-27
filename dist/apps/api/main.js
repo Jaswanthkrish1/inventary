@@ -1464,16 +1464,16 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.typeormConfig = exports.typeormOptions = void 0;
 const config_1 = __webpack_require__(23);
 exports.typeormOptions = {
-  name: 'default',
-  type: 'mysql',
-  host: process.env.MYSQLHOST ?? 'localhost',
-  port: parseInt(process.env.MYSQLPORT, 10) ?? 3306,
-  username: process.env.MYSQLUSER ?? 'root',
-  password: process.env.MYSQLPASSWORD ?? 'jaswanth', // Change to your default password
-  database: process.env.MYSQLDATABASE ?? 'Inventery',
-  autoLoadEntities: false,
-  logging: false,
-  synchronize: false,
+    name: 'default',
+    type: 'mysql',
+    host: 'monorail.proxy.rlwy.net',
+    port: 43081,
+    username: 'root',
+    password: '6A1gaAehEGEf-A4aA1f4FH2hbD4agD32',
+    database: 'railway',
+    autoLoadEntities: false,
+    logging: false,
+    synchronize: false
 };
 exports.typeormConfig = (0, config_1.registerAs)('typeorm', () => exports.typeormOptions);
 
@@ -1483,7 +1483,7 @@ exports.typeormConfig = (0, config_1.registerAs)('typeorm', () => exports.typeor
 /************************************************************************/
 /******/ 	// The module cache
 /******/ 	var __webpack_module_cache__ = {};
-/******/
+/******/ 	
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
 /******/ 		// Check if module is in cache
@@ -1497,14 +1497,14 @@ exports.typeormConfig = (0, config_1.registerAs)('typeorm', () => exports.typeor
 /******/ 			// no module.loaded needed
 /******/ 			exports: {}
 /******/ 		};
-/******/
+/******/ 	
 /******/ 		// Execute the module function
 /******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
-/******/
+/******/ 	
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
 /******/ 	}
-/******/
+/******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
