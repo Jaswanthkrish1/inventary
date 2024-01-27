@@ -6,15 +6,14 @@ import path = require('path');
 export const typeormOptions: TypeOrmModuleOptions = {
   name: 'default',
   type: 'mysql',
-  // entities: [__dirname+'/**/*.entity{.ts,.js}'],
-  host: process.env.DATABASE_HOST ?? 'localhost',
-  port: parseInt(process.env.DATABASE_PORT, 10) ?? 3306,
-  username: process.env.DATABASE_USER ?? 'root',
-  password: process.env.DATABASE_PASS ?? 'jaswanth',
-  database: process.env.DATABASE_DB ?? 'Inventery',
+  host: process.env.MYSQLHOST ?? 'localhost',
+  port: parseInt(process.env.MYSQLPORT, 10) ?? 3306,
+  username: process.env.MYSQLUSER ?? 'root',
+  password: process.env.MYSQLPASSWORD ?? 'jaswanth', // Change to your default password
+  database: process.env.MYSQLDATABASE ?? 'Inventery',
   autoLoadEntities: false,
   logging: false,
-  synchronize: false
+  synchronize: false,
 };
 
 export const typeormConfig = registerAs('typeorm', () => typeormOptions);
