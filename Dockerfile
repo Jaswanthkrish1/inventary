@@ -11,7 +11,7 @@ RUN yarn install --frozen-lockfile
 COPY ./ ./
 ENV NODE_ENV=production
 RUN yarn build api --prod
-RUN yarn build web
+# RUN yarn build web
 
 # Install Production Dependencies
 FROM ${PROD_IMAGE} as DEPENDENCIES
@@ -30,5 +30,5 @@ ENV NODE_ENV=production
 # ENV TZ=Asia/Kolkata
 # RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 COPY --from=DEPENDENCIES /app/node_modules ./node_modules
-COPY --from=BUILD /app/dist/apps ./
+COPY --from=BUILD /app/dist/apps/api ./
 CMD ["node", "./api/main.js"]
