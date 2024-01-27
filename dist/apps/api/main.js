@@ -1394,7 +1394,7 @@ exports.config = {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.graphqlConfig = exports.graphqlOptions = void 0;
 const path_1 = __webpack_require__(36);
-const environment_1 = __webpack_require__(37);
+const environment_prod_1 = __webpack_require__(37);
 const config_1 = __webpack_require__(23);
 exports.graphqlOptions = {
     path: 'api/graphql',
@@ -1402,7 +1402,7 @@ exports.graphqlOptions = {
     playground: true,
     installSubscriptionHandlers: true,
     allowBatchedHttpRequests: true,
-    autoSchemaFile: environment_1.environment.processName.search(/primary/) !== -1 ? (0, path_1.join)(process.cwd(), 'schema.gql') : false,
+    autoSchemaFile: environment_prod_1.environment.processName.search(/primary/) !== -1 ? (0, path_1.join)(process.cwd(), 'schema.gql') : false,
     sortSchema: true,
     // driver: ApolloDriver,
     cors: {
@@ -1429,10 +1429,11 @@ module.exports = require("path");
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.environment = void 0;
 exports.environment = {
-    production: false,
+    production: true,
     processName: process.env.name ?? 'primary',
-    url: process.env.URL ?? 'http://localhost:3000',
-    imageUrl: process.env.IMAGE_URL ?? 'http://localhost:3000',
+    // url: process.env.URL ?? 'http://localhost:3000',
+    // imageUrl: process.env.IMAGE_URL ?? 'http://localhost:3000',
+    // oldImageUrl: process.env.OLD_IMAGE_URL ?? 'http://localhost:3000',
 };
 
 
@@ -1465,7 +1466,6 @@ const config_1 = __webpack_require__(23);
 exports.typeormOptions = {
   name: 'default',
   type: 'mysql',
-  // entities: [__dirname+'/**/*.entity{.ts,.js}'],
   host: process.env.MYSQLHOST ?? 'localhost',
   port: parseInt(process.env.MYSQLPORT, 10) ?? 3306,
   username: process.env.MYSQLUSER ?? 'root',
