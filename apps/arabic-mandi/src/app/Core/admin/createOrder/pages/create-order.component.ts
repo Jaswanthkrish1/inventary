@@ -313,6 +313,7 @@ export class CreateOrderComponent implements OnInit, OnChanges, OnDestroy {
     this.isHorizontal = window.innerWidth > 768;
   }
  public imagePreview: string | null = null;
+
   onFileSelected(event: any): void {
     const selectedFile = event.target.files[0];
     const maxSizeMB = 0.0488;
