@@ -6,10 +6,10 @@
     "ng": "nx",
     "start": "nx serve",
     "build": "nx build",
+    "start-static": "node .static-xlsx/xlsxserver.js",
     "lint": "nx lint",
     "test": "nx test",
-    "generate-types": "nx generate-types",
-    "start-static": "node .static-xlsx/xlsxserver.js"
+    "generate-types": "nx generate-types"
   },
   "private": true,
   "dependencies": {

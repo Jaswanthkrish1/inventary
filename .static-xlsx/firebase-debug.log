@@ -1,0 +1,81 @@
+[debug] [2024-01-31T14:00:06.460Z] ----------------------------------------------------------------------
+[debug] [2024-01-31T14:00:06.462Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Hema\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2024-01-31T14:00:06.462Z] CLI Version:   13.0.3
+[debug] [2024-01-31T14:00:06.463Z] Platform:      win32
+[debug] [2024-01-31T14:00:06.463Z] Node Version:  v18.12.0
+[debug] [2024-01-31T14:00:06.469Z] Time:          Wed Jan 31 2024 19:30:06 GMT+0530 (India Standard Time)
+[debug] [2024-01-31T14:00:06.469Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-01-31T14:00:06.476Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-01-31T14:00:06.476Z] > authorizing via signed-in user (jaswanth.d304@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Users\Hema\inventary\.static-xlsx
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[info] i  If you want to create a project in a Google Cloud organization or folder, please use "firebase projects:create" instead, and return to this command when you've created the project. 
+[debug] [2024-01-31T14:01:24.827Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects [none]
+[debug] [2024-01-31T14:01:24.827Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects {"projectId":"api-static","name":"api-static"}
+[debug] [2024-01-31T14:01:27.172Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects 409
+[debug] [2024-01-31T14:01:27.173Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects {"error":{"code":409,"message":"Requested entity already exists","status":"ALREADY_EXISTS"}}
+[debug] [2024-01-31T14:01:27.652Z] FirebaseError: HTTP Error: 409, Requested entity already exists
+    at responseToError (C:\Users\Hema\AppData\Roaming\npm\node_modules\firebase-tools\lib\responseToError.js:49:12)
+    at RetryOperation._fn (C:\Users\Hema\AppData\Roaming\npm\node_modules\firebase-tools\lib\apiv2.js:292:77)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+[error] 
+[error] Error: Failed to create project because there is already a project with ID api-static. Please try again with a unique project ID.
+[debug] [2024-01-31T14:03:02.022Z] ----------------------------------------------------------------------
+[debug] [2024-01-31T14:03:02.024Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Hema\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2024-01-31T14:03:02.025Z] CLI Version:   13.0.3
+[debug] [2024-01-31T14:03:02.025Z] Platform:      win32
+[debug] [2024-01-31T14:03:02.025Z] Node Version:  v18.12.0
+[debug] [2024-01-31T14:03:02.026Z] Time:          Wed Jan 31 2024 19:33:02 GMT+0530 (India Standard Time)
+[debug] [2024-01-31T14:03:02.027Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-01-31T14:03:02.036Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-01-31T14:03:02.037Z] > authorizing via signed-in user (jaswanth.d304@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Users\Hema\inventary\.static-xlsx
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[debug] [2024-01-31T14:03:16.453Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects pageSize=100
+[debug] [2024-01-31T14:03:18.191Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects 200
+[debug] [2024-01-31T14:03:18.191Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects [omitted]
+[info] i  Using project backend-f7252 (backend) 
+[info] 
+=== Hosting Setup
+[debug] [2024-01-31T14:03:22.533Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/backend-f7252 [none]
+[debug] [2024-01-31T14:03:23.259Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/backend-f7252 200
+[debug] [2024-01-31T14:03:23.259Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/backend-f7252 {"projectId":"backend-f7252","projectNumber":"470744987727","displayName":"backend","name":"projects/backend-f7252","resources":{"hostingSite":"backend-f7252","realtimeDatabaseInstance":"backend-f7252-default-rtdb"},"state":"ACTIVE","etag":"1_eb7f48f9-dff7-4f0d-ad80-ec271bad1b35"}
+[info] 
+[info] Your public directory is the folder (relative to your project directory) that
+[info] will contain Hosting assets to be uploaded with firebase deploy. If you
+[info] have a build process for your assets, use your build's output directory.
+[info] 
