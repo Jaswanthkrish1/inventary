@@ -2,8 +2,12 @@
 
 # compiled output
 dist/apps/api
+
 tmp
 /out-tsc
+dist/apps/arabic-mandi
+.nx
+apps/arabic-mandi/dist
 
 # dependencies
 node_modules
