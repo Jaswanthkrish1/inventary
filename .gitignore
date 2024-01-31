@@ -5,6 +5,8 @@ dist/apps/api
 
 tmp
 /out-tsc
+.nx
+.vscode
 
 
 # dependencies
