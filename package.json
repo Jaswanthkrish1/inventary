@@ -8,7 +8,8 @@
     "build": "nx build",
     "lint": "nx lint",
     "test": "nx test",
-    "generate-types": "nx generate-types"
+    "generate-types": "nx generate-types",
+    "start-static": "node .static-xlsx/xlsxserver.js"
   },
   "private": true,
   "dependencies": {
@@ -43,6 +44,7 @@
     "@nx/angular": "16.9.1",
     "@types/googlemaps": "^3.43.3",
     "@types/jquery": "^3.5.20",
+    "@types/uuid": "^9.0.8",
     "animate.css": "^4.1.1",
     "apollo-angular": "^5.0.2",
     "axios": "^1.0.0",
@@ -63,8 +65,9 @@
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "typeorm": "^0.3.17",
-    "zone.js": "~0.13.0",
-    "xlsx": "^0.17.4"
+    "uuid": "^9.0.1",
+    "xlsx": "^0.17.4",
+    "zone.js": "~0.13.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~16.2.0",

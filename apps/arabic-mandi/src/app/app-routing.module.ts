@@ -13,6 +13,13 @@ const appRoutes: Routes = [
         (m) => m.AuthenticationModule
       ),
   },
+  {
+    path: 'Uploadxlsx',
+    loadChildren: () =>
+      import('./Core/static-data/xlsx.module').then(
+        (m) => m.xlsxModule
+      ),
+   },
 
   {
     path: '',
@@ -80,6 +87,7 @@ const appRoutes: Routes = [
       },
     ],
   },
+
 
 
 ];

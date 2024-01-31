@@ -1,6 +1,5 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'food-foodDetils',
@@ -11,7 +10,6 @@ export class FoodDetails {
   selectedFoodItem: any;
 
   constructor(
-    private route: ActivatedRoute,
 
     public dialogRef: MatDialogRef<FoodDetails>,
     @Inject(MAT_DIALOG_DATA)

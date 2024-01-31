@@ -4,15 +4,17 @@ import {
   OnDestroy,
   Renderer2,
 } from '@angular/core';
-import { FoodItem } from '../../../structures/structure';
+import { FoodItem, StaticFoodItem } from '../../../structures/structure';
 import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, Subscription, debounceTime, switchMap } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { FoodDetails } from '../pages/food-details.component';
 import { animate, style, transition, trigger } from '@angular/animations';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { CategoryService } from '../category.service';
 import { GetItemEntitiesQueryVariables } from 'apps/arabic-mandi/src/generate-types';
+import { HttpClient } from '@angular/common/http';
+import { foodItemsJson } from '.static-xlsx/food';
+import {foodOfferJson} from '.static-xlsx/offer'
 @Component({
   selector: 'food-foodview',
   templateUrl: './foodview.component.html',
@@ -32,7 +34,7 @@ export class FoodComponent implements OnInit, OnDestroy {
   public itemName: any
   public isDropdownOpen: boolean = false;
   public selectedFilter: string = '';
-  selectedType: string = '';
+  public selectedType: string = '';
   public dataSource: any[] = [];
   private $dataSetChange = new BehaviorSubject(<
     GetItemEntitiesQueryVariables
@@ -45,183 +47,16 @@ export class FoodComponent implements OnInit, OnDestroy {
 
   foodTypes: string[] = [];
   structuredFoodType: { [key: string]: FoodItem[] } = {};
-  foodType: FoodItem[] = [
-    {
-      category: 'staters',
-      type: 'wet',
-      name: 'dragonchiken',
-      url: '../../../../assets/dynamicimg/mandi.jpeg',
-      price: 100,
-    },
-    {
-      category: 'staters',
-      type: 'wet',
-      name: 'dragonchiken',
-      url: '../../../../assets/dynamicimg/mandi.jpeg',
-      price: 100,
-    },
-    {
-      category: 'staters',
-      type: 'dry',
-      name: 'dragonchiken',
-      url: '../../../../assets/dynamicimg/mandi.jpeg',
-      price: 100,
-    },
-    {
-      category: 'staters',
-      type: 'dry',
-      name: 'dragonchiken',
-      url: '../../../../assets/dynamicimg/mandi.jpeg',
-      price: 100,
-    },
-    {
-      category: 'staters',
-      type: 'dry',
-      name: 'dragonchiken',
-      url: '../../../../assets/dynamicimg/mandi.jpeg',
-      price: 100,
-    },
-    {
-      category: 'staters',
-      type: 'veg',
-      name: 'dragonchiken',
-      url: '../../../../assets/dynamicimg/mandi.jpeg',
-      price: 100,
-    },
-    {
-      category: 'staters',
-      type: 'veg',
-      name: 'dragonchiken',
-      url: '../../../../assets/dynamicimg/mandi.jpeg',
-      price: 100,
-    },
-    {
-      category: 'staters',
-      type: 'veg',
-      name: 'dragonchiken',
-      url: '../../../../assets/dynamicimg/mandi.jpeg',
-      price: 100,
-    },
-    {
-      category: 'staters',
-      type: 'wet',
-      name: 'dragonchiken',
-      url: '../../../../assets/dynamicimg/mandi.jpeg',
-      price: 100,
-    },
-    {
-      category: 'Mandi',
-      type: 'JuiceMandi',
-      name: 'dragonchiken',
-      url: '../../../../assets/dynamicimg/mandi.jpeg',
-      price: 100,
-    },
-    {
-      category: 'Mandi',
-      type: 'FryMandi',
-      name: 'dragonchiken',
-      url: '../../../../assets/dynamicimg/mandi.jpeg',
-      price: 100,
-    },
-    {
-      category: 'Mandi',
-      type: 'FryMandi',
-      name: 'dragonchiken',
-      url: '../../../../assets/dynamicimg/mandi.jpeg',
-      price: 100,
-    },
-    {
-      category: 'mandi',
-      type: 'FryMandi',
-      name: 'dragonchiken',
-      url: '../../../../assets/dynamicimg/mandi.jpeg',
-      price: 100,
-    },
-    {
-      category: 'mandi',
-      type: 'JuiceMandi',
-      name: 'dragonchiken',
-      url: '../../../../assets/dynamicimg/mandi.jpeg',
-      price: 100,
-    },
-    {
-      category: 'mandi',
-      type: 'JuiceMandi',
-      name: 'dragonchiken',
-      url: '../../../../assets/dynamicimg/mandi.jpeg',
-      price: 100,
-    },
-    {
-      category: 'Mandi',
-      type: 'JuiceMandi',
-      name: 'dragonchiken',
-      url: '../../../../assets/dynamicimg/mandi.jpeg',
-      price: 100,
-    },
-    {
-      category: 'Mandi',
-      type: 'FryMandi',
-      name: 'dragonchiken',
-      url: '../../../../assets/dynamicimg/mandi.jpeg',
-      price: 100,
-    },
-    {
-      category: 'Mandi',
-      type: 'FryMandi',
-      name: 'dragonchiken',
-      url: '../../../../assets/dynamicimg/mandi.jpeg',
-      price: 100,
-    },
-    {
-      category: 'mandi',
-      type: 'FryMandi',
-      name: 'dragonchiken',
-      url: '../../../../assets/dynamicimg/mandi.jpeg',
-      price: 100,
-    },
-    {
-      category: 'mandi',
-      type: 'JuiceMandi',
-      name: 'dragonchiken',
-      url: '../../../../assets/dynamicimg/mandi.jpeg',
-      price: 100,
-    },
-    {
-      category: 'mandi',
-      type: 'JuiceMandi',
-      name: 'dragonchiken',
-      url: '../../../../assets/dynamicimg/mandi.jpeg',
-      price: 100,
-    },
-    {
-      category: 'MockTails',
-      type: 'juice',
-      name: 'dragonchiken',
-      url: '../../../../assets/dynamicimg/mandi.jpeg',
-      price: 100,
-    },
-    {
-      category: 'MockTails',
-      type: 'juice',
-      name: 'dragonchiken',
-      url: '../../../../assets/dynamicimg/mandi.jpeg',
-      price: 100,
-    },
-    {
-      category: 'MockTails',
-      type: 'juice',
-      name: 'dragonchiken',
-      url: '../../../../assets/dynamicimg/mandi.jpeg',
-      price: 100,
-    },
-  ];
+  staticStructuredFoodType: { [key: string]: StaticFoodItem[] } = {};
+  public FoodItems;
 
   constructor(
     private route: ActivatedRoute,
     private _dialog: MatDialog,
-    private _categoryService: CategoryService
+    private _categoryService: CategoryService,
   ) {
     this.sub = new Subscription();
+    this.FoodItems = foodItemsJson;
   }
 
   openDilog(data: any) {
@@ -237,8 +72,8 @@ export class FoodComponent implements OnInit, OnDestroy {
     console.log('Selected Filter: ' + this.selectedFilter);
     this.isDropdownOpen = false; // Close the dropdown after selection.
   }
-  async ngOnInit(): Promise<void> {
 
+  async ngOnInit(): Promise<void> {
     this.sub.add(
       await this.OnInitItemList().then(status => {
         if (status) {
@@ -249,24 +84,37 @@ export class FoodComponent implements OnInit, OnDestroy {
               this.getFoods(key);
             }
           })
-          this.foodTypes = Object.keys(this.structuredFoodType);
+          this.foodTypes = Object.keys(this.staticStructuredFoodType);
         }
       })
     )
 
   }
 
+  getSizeSuffix(size: any): string {
+    switch (size) {
+      case 1:
+        return ' Single';
+      case 2:
+        return ' Half';
+      case 3:
+        return ' Full';
+      default:
+        return ''; // Handle other cases as needed
+    }
+  }
+
   getFoods(key: any) {
-    const filteredFoodType = this.foodType.filter(
-      (item) => item.category.toLowerCase() === key.toLowerCase()
+    const filteredFoodType = this.FoodItems.filter(
+      (item: StaticFoodItem) => item.FoodType?.toLowerCase() === key.toLowerCase()
     );
-    this.structuredFoodType = filteredFoodType.reduce((acc, item) => {
-      if (!acc[item.type]) {
-        acc[item.type] = [];
+    this.staticStructuredFoodType = filteredFoodType.reduce((acc, item) => {
+      if (!acc[item.Category]) {
+        acc[item.Category] = [];
       }
-      acc[item.type].push(item);
+      acc[item.Category].push(item);
       return acc;
-    }, {} as { [key: string]: FoodItem[] });
+    }, {} as { [key: string]: StaticFoodItem[] });
   }
 
   // Toggle the selected food type
@@ -290,7 +138,6 @@ export class FoodComponent implements OnInit, OnDestroy {
           .subscribe(({ data }) => {
             if (data?.itemEntities) {
               this.dataSource = data.itemEntities;
-              console.log(this.dataSource)
               resolve(true); // Data is available, resolving the promise with true
             } else {
               resolve(false); // Data is not available, resolving the promise with false

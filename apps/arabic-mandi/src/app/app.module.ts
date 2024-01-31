@@ -24,12 +24,12 @@ const uri = 'http://localhost:3000/api/graphql'
     MaterialModule,
     LayoutFlexModule,
     AuthenticationModule,
-    
+
   ],
-  
+
   providers: [
     {
-      provide: APOLLO_OPTIONS, 
+      provide: APOLLO_OPTIONS,
       useFactory: (httpLink: HttpLink) => {
         return {
           cache: new InMemoryCache(),
