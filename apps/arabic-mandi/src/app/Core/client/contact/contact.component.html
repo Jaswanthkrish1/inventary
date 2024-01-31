@@ -7,7 +7,7 @@
     <div fxLayout="row" class="body">
       <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" fxLayout="column">
         <ul fxLayout="column">
-          <li fxLayout="row">
+          <li fxLayout="row" fxLayout.xs="column">
             <p class="left" fxFlex="50">
               <mat-form-field appearance="fill" class="full-width">
                 <mat-label>First Name</mat-label>
@@ -27,7 +27,7 @@
               <input matInput formControlName="email" placeholder="example.krishna@gmail.com" required="true" />
             </mat-form-field>
           </li>
-          
+
           <li>
             <mat-label>Comments</mat-label>
 
@@ -42,4 +42,3 @@
       </form>
     </div>
   </div>
-  

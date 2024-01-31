@@ -14,7 +14,7 @@ import { CategoryService } from '../category.service';
 import { GetItemEntitiesQueryVariables } from 'apps/arabic-mandi/src/generate-types';
 import { HttpClient } from '@angular/common/http';
 import { foodItemsJson } from '.static-xlsx/food';
-import {foodOfferJson} from '.static-xlsx/offer'
+import {foodOfferJson} from '.static-xlsx/offer';
 @Component({
   selector: 'food-foodview',
   templateUrl: './foodview.component.html',

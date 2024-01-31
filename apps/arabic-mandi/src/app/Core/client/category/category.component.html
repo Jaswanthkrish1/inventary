@@ -1,4 +1,5 @@
 <head>
+<!-- Add this in your HTML file, before your script -->
 
 </head>
 
@@ -11,14 +12,14 @@
         data-ride="carousel"
       >
         <!-- Indicators -->
-        <ol class="carousel-indicators">
+        <!-- <ol class="carousel-indicators">
           <li
             data-target="#myCarousel"
             [attr.data-slide-to]="i"
             [class.active]="i === 0"
             *ngFor="let combo of dataCombo; let i = index"
           ></li>
-        </ol>
+        </ol> -->
 
         <!-- Slides -->
         <div class="carousel-inner col-md-12">
@@ -35,10 +36,10 @@
                 class="d-block w-100 img-fluid Gcarousel-image"
               />
               <div class="carousel-caption">
-                <h1>Special Offer</h1>
+                <h1>Special Offer On Every </h1>
                 <br />
                 <h1>
-                  Today<span>{{ combo.discount }} OFF</span>
+                  {{combo.for}}<span>{{ combo.discount }} OFF</span>
                 </h1>
                 <br />
                 <p>{{ combo.discription }}</p>
@@ -99,7 +100,6 @@
             >
               <img
                 [src]="category.imgUrl"
-                alt="img"
                 class="card-img-top GImg"
                 alt="item"
               />

@@ -53,7 +53,7 @@
         <div class="card-food">
           <img [src]="data.Image" class="img" >
           <div class="card-content">
-            <div class="price">{{data.Price}}</div>
+            <div class="price">{{data.Price}}$(Ind)</div>
             <div class="description">{{data.Name}}{{getSizeSuffix(data?.Size)}}</div>
             <a (click)="openDilog(data)" style="color: red; cursor: pointer;">View</a>
           </div>

@@ -3,7 +3,8 @@ import { Categories, comboOffer } from '../../structures/structure';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { trigger, transition, style, animate } from '@angular/animations';
-
+import { foodItemsJson } from '.static-xlsx/food';
+import * as $ from 'jquery'
 @Component({
   selector: 'food-category',
   templateUrl: './category.component.html',
@@ -31,7 +32,7 @@ import { trigger, transition, style, animate } from '@angular/animations';
 })
 export class CategoryComponent implements OnInit, AfterViewInit {
   sub: Subscription;
-  data: Categories[] = [
+  data: any[] = [
     {
       id: 1,
       name: 'Mandi',
@@ -54,6 +55,13 @@ export class CategoryComponent implements OnInit, AfterViewInit {
       price: 500,
     },
     {
+      id: 3,
+      name: 'Mixed Mandi',
+      imgUrl: '../../../../assets/foodtype/biryani.jpg',
+      avilable: true,
+      price: 500,
+    },
+    {
       id: 4,
       name: 'MockTails',
       imgUrl: '../../../../assets/foodtype/mocktials.jpg',
@@ -68,7 +76,7 @@ export class CategoryComponent implements OnInit, AfterViewInit {
       price: 550,
       imgUrl: '../../../../assets/carousel/bg1.jpeg',
       discription:
-        'Special offer for family upto 10% discount.....................',
+        'Special Offer For Students & Family Upto 10% Discount .....................',
       for: 'Sunday',
       discount: '10%',
     },
@@ -88,7 +96,10 @@ export class CategoryComponent implements OnInit, AfterViewInit {
     this.sub = new Subscription();
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+
+  }
+
   /* Navigate to foodview*/
   navigateToDetail(categoryName: any) {
     this.router.navigate(['food', categoryName], { relativeTo: this.route });
@@ -96,8 +107,30 @@ export class CategoryComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     setTimeout(() => {
-      const carouselElement = ('#myCarousel') as any;
+      const carouselElement = $('#myCarousel') as any;
       carouselElement.carousel({ interval: 1000 });
     }, 100);
+    const data = this.getUniqueValues(foodItemsJson, "FoodType");
+    console.log(this.data = this.getImgUrlsByNames(this.data, data))
+
   }
+
+    private getUniqueValues(data: any[], fieldName: string | number) {
+      const uniqueValuesSet = new Set(data.map(item => item[fieldName]));
+      return Array.from(uniqueValuesSet);
+    }
+
+    private getImgUrlsByNames(data: any[], names: string[]): { name: string; imgUrl: string }[] {
+      const result:{ name: string; imgUrl: string, avilable: Boolean }[] = [];
+
+      names.forEach(name => {
+        const category = data.find(category => category.name === name);
+        if (category) {
+          result.push({ name: name, imgUrl: category.imgUrl, avilable: true });
+        }else{
+          result.push({name: name, imgUrl: '../../../../assets/foodtype/MixedMandi.jpeg', avilable: true})
+        }
+      });
+      return result;
+    }
 }

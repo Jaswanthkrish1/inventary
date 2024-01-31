@@ -101,13 +101,24 @@ export class ContactComponent {
   onSubmit() {
     if (this.contactForm.valid) {
       this.contactForm.reset();
-      this.openDailog('We Will Contact You Soon ThankYou..........');
+      this.openDailog('We Will Contact You Soon ThankYou..........',true);
     } else {
       // alert('Plese Fill All Details...');
-      this.openDailog('Plese Fill All Details..........');
+      this.openDailog('Plese Fill All Details..........',false);
     }
   }
-  openDailog(text: any) {
-    alert(text)
+  openDailog(text: any, status: boolean) {
+    if(status){
+      this._snackbar.open(text,'close',{
+        duration: 3000,
+        verticalPosition:'top'
+      })
+    }else{
+      this._snackbar.open(text,'!',{
+        duration: 3000,
+        verticalPosition:'top'
+      })
+    }
+
   }
 }
