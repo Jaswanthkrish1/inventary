@@ -4,6 +4,7 @@
 dist/apps/api
 tmp
 /out-tsc
+.nx
 
 # dependencies
 node_modules
