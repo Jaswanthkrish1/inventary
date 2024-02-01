@@ -3,9 +3,10 @@ import {
   OnInit,
   OnDestroy,
   Renderer2,
+  AfterViewInit,
 } from '@angular/core';
 import { FoodItem, StaticFoodItem } from '../../../structures/structure';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, Subscription, debounceTime, switchMap } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { FoodDetails } from '../pages/food-details.component';
@@ -14,7 +15,7 @@ import { CategoryService } from '../category.service';
 import { GetItemEntitiesQueryVariables } from 'apps/arabic-mandi/src/generate-types';
 import { HttpClient } from '@angular/common/http';
 import { foodItemsJson } from '.static-xlsx/food';
-import {foodOfferJson} from '.static-xlsx/offer';
+import { foodOfferJson } from '.static-xlsx/offer';
 @Component({
   selector: 'food-foodview',
   templateUrl: './foodview.component.html',
@@ -31,7 +32,8 @@ import {foodOfferJson} from '.static-xlsx/offer';
 export class FoodComponent implements OnInit, OnDestroy {
   public sub: Subscription;
   public selectedFoodItem: any;
-  public itemName: any
+  public itemName: any;
+  public loading = true;
   public isDropdownOpen: boolean = false;
   public selectedFilter: string = '';
   public selectedType: string = '';
@@ -52,11 +54,15 @@ export class FoodComponent implements OnInit, OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
+    private _router: Router,
     private _dialog: MatDialog,
     private _categoryService: CategoryService,
   ) {
     this.sub = new Subscription();
     this.FoodItems = foodItemsJson;
+  }
+  ngOnInit(): void {
+    this.loadContent();
   }
 
   openDilog(data: any) {
@@ -69,26 +75,29 @@ export class FoodComponent implements OnInit, OnDestroy {
 
   applyFilter() {
     // Handle the selected filter here, e.g., emit an event or call a function with this.selectedFilter.
-    console.log('Selected Filter: ' + this.selectedFilter);
     this.isDropdownOpen = false; // Close the dropdown after selection.
   }
 
-  async ngOnInit(): Promise<void> {
-    this.sub.add(
-      await this.OnInitItemList().then(status => {
-        if (status) {
-          this.route.paramMap.subscribe((params) => {
-            const key = params.get('category');
-            this.itemName = key
-            if (key) {
-              this.getFoods(key);
-            }
-          })
-          this.foodTypes = Object.keys(this.staticStructuredFoodType);
-        }
-      })
-    )
 
+  private loadContent(){
+    this.sub.add(
+      this.route.paramMap.subscribe((params) => {
+        const key = params.get('category');
+        this.itemName = key
+        if (key) {
+          this.getFoods(key);
+        }
+      }),
+    )
+    this.foodTypes = Object.keys(this.staticStructuredFoodType);
+    if(this.foodTypes.length > 0){
+       setTimeout( () => {
+         this.loading = false;
+       },2000)
+    }else{
+      this.loading = false;
+      this._router.navigate(['/'])
+    }
   }
 
   getSizeSuffix(size: any): string {
@@ -146,8 +155,6 @@ export class FoodComponent implements OnInit, OnDestroy {
       );
     });
   }
-
-
   ngOnDestroy(): void {
     this.sub.unsubscribe();
   }

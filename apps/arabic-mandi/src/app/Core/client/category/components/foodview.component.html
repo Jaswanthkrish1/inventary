@@ -8,8 +8,15 @@
 </head>
 
 <body>
+  <section class="loading" *ngIf="loading">
+    <div class="loading-container">
+      <div class="pizza"></div>
+      <p class="loading-text">Loading </p>
+    </div>
+  </section>
   <!-- Thsi padding 60px is imp  dont remove -->
-  <section style="padding-bottom: 60px;">
+  <section style="padding-bottom: 60px;" *ngIf="!loading">
+
   <section>
     <div class="img-container">
       <div class="glass">
@@ -34,7 +41,7 @@
     </div>
   </section>
 <br>
-  <section *ngFor="let foodType of foodTypes">
+  <section *ngFor="let foodType of foodTypes" >
     <div class="elements">
       <div class="e-con-inner">
         <div class="">
@@ -53,7 +60,7 @@
         <div class="card-food">
           <img [src]="data.Image" class="img" >
           <div class="card-content">
-            <div class="price">{{data.Price}}$(Ind)</div>
+            <div class="price">{{data.Price}} &#8377;</div>
             <div class="description">{{data.Name}}{{getSizeSuffix(data?.Size)}}</div>
             <a (click)="openDilog(data)" style="color: red; cursor: pointer;">View</a>
           </div>
