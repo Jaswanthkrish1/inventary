@@ -61,20 +61,25 @@
       </div>
     </div>
   </div>
+
 </section>
-<div class="container" id="location" [@fadeIn1]>
-  <div class="row">
-    <div class="col-md-6">
-      <!-- Map section -->
-      <div id="map" class="location"></div>
-    </div>
-    <div class="col-md-6 mb-4 grid">
-      <!-- Photo grid -->
-      <div style="overflow: hidden" *ngFor="let d of galleryImg">
-        <div class="photo">
-          <img [src]="d.url" [alt]="d.alt" />
+
+<section class="section2">
+  <div id="location" [@fadeIn1]>
+    <div class="row">
+      <div class="col-md-6">
+        <!-- Map section -->
+        <div id="map" class="location"></div>
+      </div>
+      <div class="col-md-6 mb-4 grid">
+        <!-- Photo grid -->
+        <div style="overflow: hidden" *ngFor="let d of galleryImg">
+          <div class="photo">
+            <img [src]="d.url" [alt]="d.alt" />
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+</section>
+

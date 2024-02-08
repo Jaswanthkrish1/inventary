@@ -229,7 +229,7 @@ export class CreateOrderComponent implements OnInit, OnChanges, OnDestroy {
         name: data.name,
       });
       this.firstCategory.setValue({
-      InitialCategory: data.InitialCategory
+        InitialCategory: data.InitialCategory
       });
       this.secondFormGroup.setValue({
         price: data.price,
@@ -312,26 +312,27 @@ export class CreateOrderComponent implements OnInit, OnChanges, OnDestroy {
     // Change the condition based on your desired screen width
     this.isHorizontal = window.innerWidth > 768;
   }
- public imagePreview: string | null = null;
+  public imagePreview: string | null = null;
+
   onFileSelected(event: any): void {
     const selectedFile = event.target.files[0];
     const maxSizeMB = 0.0488;
     if (selectedFile) {
-     // Check file size
-     const fileSizeMB = selectedFile.size / (1024 * 1024);
-     if (fileSizeMB > maxSizeMB) {
+      // Check file size
+      const fileSizeMB = selectedFile.size / (1024 * 1024);
+      if (fileSizeMB > maxSizeMB) {
         this.secondFormGroup.get('img')?.setValue(null);
         // Reset the control and show an error message
         alert(`File size exceeds the limit of ${maxSizeMB} MB`);
-     } else {
+      } else {
         const reader = new FileReader();
-            reader.onload = (e) => {
-              // Update the control value with the Data URL
-              this.imagePreview = reader.result as string;
-               this.secondFormGroup.get('img')?.setValue(reader.result as string);
-            };
-            const d = reader.readAsDataURL(selectedFile);
-            console.log(d)
+        reader.onload = (e) => {
+          // Update the control value with the Data URL
+          this.imagePreview = reader.result as string;
+          this.secondFormGroup.get('img')?.setValue(reader.result as string);
+        };
+        const d = reader.readAsDataURL(selectedFile);
+        console.log(d)
       }
     }
   }

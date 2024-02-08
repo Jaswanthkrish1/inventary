@@ -1,13 +1,12 @@
 <div fxLayout="column" class="container">
-  <router-outlet></router-outlet>
     <div class="header">
       <h1>CONTACT US</h1>
-      <h3>Fill out the form below to learn more!</h3>
+      <h3>Fill out the form below to know more!</h3>
     </div>
     <div fxLayout="row" class="body">
       <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" fxLayout="column">
         <ul fxLayout="column">
-          <li fxLayout="row">
+          <li fxLayout="row" fxLayout.xs="column">
             <p class="left" fxFlex="50">
               <mat-form-field appearance="fill" class="full-width">
                 <mat-label>First Name</mat-label>
@@ -27,7 +26,7 @@
               <input matInput formControlName="email" placeholder="example.krishna@gmail.com" required="true" />
             </mat-form-field>
           </li>
-          
+
           <li>
             <mat-label>Comments</mat-label>
 
@@ -42,4 +41,3 @@
       </form>
     </div>
   </div>
-  

@@ -1,0 +1,211 @@
+[
+    {
+        "Id": 1,
+        "Size": 1,
+        "Name": "ChickenMandi",
+        "Price": 280,
+        "Category": "FryMandi",
+        "Status": "TRUE",
+        "Type": "TRUE",
+        "Discount": null,
+        "Image": null
+    },
+    {
+        "Id": 2,
+        "Size": 2,
+        "Name": "ChickenMandi",
+        "Price": 281,
+        "Category": "FryMandi",
+        "Status": "TRUE",
+        "Type": "TRUE",
+        "Discount": null,
+        "Image": null
+    },
+    {
+        "Id": 3,
+        "Size": 3,
+        "Name": "ChickenMandi",
+        "Price": 282,
+        "Category": "FryMandi",
+        "Status": "TRUE",
+        "Type": "TRUE",
+        "Discount": null,
+        "Image": null
+    },
+    {
+        "Id": 4,
+        "Size": 1,
+        "Name": "MottonMandi",
+        "Price": 283,
+        "Category": "FryMandi",
+        "Status": "TRUE",
+        "Type": "TRUE",
+        "Discount": null,
+        "Image": null
+    },
+    {
+        "Id": 5,
+        "Size": 2,
+        "Name": "MottonMandi",
+        "Price": 284,
+        "Category": "FryMandi",
+        "Status": "TRUE",
+        "Type": "TRUE",
+        "Discount": null,
+        "Image": null
+    },
+    {
+        "Id": 6,
+        "Size": 3,
+        "Name": "MottonMandi",
+        "Price": 285,
+        "Category": "FryMandi",
+        "Status": "TRUE",
+        "Type": "TRUE",
+        "Discount": null,
+        "Image": null
+    },
+    {
+        "Id": 7,
+        "Size": 1,
+        "Name": "FishMandi",
+        "Price": 286,
+        "Category": "FryMandi",
+        "Status": "TRUE",
+        "Type": "TRUE",
+        "Discount": null,
+        "Image": null
+    },
+    {
+        "Id": 8,
+        "Size": 2,
+        "Name": "FishMandi",
+        "Price": 287,
+        "Category": "FryMandi",
+        "Status": "TRUE",
+        "Type": "TRUE",
+        "Discount": null,
+        "Image": null
+    },
+    {
+        "Id": 9,
+        "Size": 3,
+        "Name": "FishMandi",
+        "Price": 288,
+        "Category": "FryMandi",
+        "Status": "TRUE",
+        "Type": "TRUE",
+        "Discount": null,
+        "Image": null
+    },
+    {
+        "Id": 10,
+        "Size": 1,
+        "Name": "ChickenMandi",
+        "Price": 289,
+        "Category": "JuicyMandi",
+        "Status": "TRUE",
+        "Type": "TRUE",
+        "Discount": null,
+        "Image": null
+    },
+    {
+        "Id": 11,
+        "Size": 2,
+        "Name": "ChickenMandi",
+        "Price": 290,
+        "Category": "JuicyMandi",
+        "Status": "TRUE",
+        "Type": "TRUE",
+        "Discount": null,
+        "Image": null
+    },
+    {
+        "Id": 12,
+        "Size": 3,
+        "Name": "ChickenMandi",
+        "Price": 291,
+        "Category": "JuicyMandi",
+        "Status": "TRUE",
+        "Type": "TRUE",
+        "Discount": null,
+        "Image": null
+    },
+    {
+        "Id": 13,
+        "Size": 1,
+        "Name": "MottonMandi",
+        "Price": 292,
+        "Category": "JuicyMandi",
+        "Status": "TRUE",
+        "Type": "TRUE",
+        "Discount": null,
+        "Image": null
+    },
+    {
+        "Id": 14,
+        "Size": 2,
+        "Name": "MottonMandi",
+        "Price": 293,
+        "Category": "JuicyMandi",
+        "Status": "TRUE",
+        "Type": "TRUE",
+        "Discount": null,
+        "Image": null
+    },
+    {
+        "Id": 14,
+        "Size": 3,
+        "Name": "MottonMandi",
+        "Price": 294,
+        "Category": "JuicyMandi",
+        "Status": "TRUE",
+        "Type": "TRUE",
+        "Discount": null,
+        "Image": null
+    },
+    {
+        "Id": 14,
+        "Size": 0,
+        "Name": "Chicken 65",
+        "Price": 295,
+        "Category": "Staters",
+        "Status": "TRUE",
+        "Type": "TRUE",
+        "Discount": null,
+        "Image": null
+    },
+    {
+        "Id": 14,
+        "Size": 0,
+        "Name": "Chicken 555",
+        "Price": 296,
+        "Category": "Staters",
+        "Status": "TRUE",
+        "Type": "TRUE",
+        "Discount": null,
+        "Image": null
+    },
+    {
+        "Id": 14,
+        "Size": 0,
+        "Name": "Chicken manchuriyan",
+        "Price": 297,
+        "Category": "Staters",
+        "Status": "TRUE",
+        "Type": "TRUE",
+        "Discount": null,
+        "Image": null
+    },
+    {
+        "Id": 14,
+        "Size": 0,
+        "Name": "Chicken Kabab",
+        "Price": 298,
+        "Category": "Staters",
+        "Status": "TRUE",
+        "Type": "TRUE",
+        "Discount": null,
+        "Image": null
+    }
+]

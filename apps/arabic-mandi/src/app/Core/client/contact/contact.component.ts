@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ContactDailog } from './components/contact-dailog.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'food-category',
@@ -88,7 +89,8 @@ export class ContactComponent {
   constructor(
     private formBuilder: FormBuilder,
     private _snackbar: MatSnackBar,
-    private _dialog: MatDialog
+    private _dialog: MatDialog,
+    private _router: Router
   ) {
     this.contactForm = this.formBuilder.group({
       // Define your form controls here
@@ -101,13 +103,25 @@ export class ContactComponent {
   onSubmit() {
     if (this.contactForm.valid) {
       this.contactForm.reset();
-      this.openDailog('We Will Contact You Soon ThankYou..........');
+      this.openDailog('We Will Contact You Soon ThankYou..........',true);
+      this._router.navigate(['/'])
     } else {
       // alert('Plese Fill All Details...');
-      this.openDailog('Plese Fill All Details..........');
+      this.openDailog('Plese Fill All Details..........',false);
     }
   }
-  openDailog(text: any) {
-    alert(text)
+  openDailog(text: any, status: boolean) {
+    if(status){
+      this._snackbar.open(text,'close',{
+        duration: 3000,
+        verticalPosition:'top'
+      })
+    }else{
+      this._snackbar.open(text,'!',{
+        duration: 3000,
+        verticalPosition:'top'
+      })
+    }
+
   }
 }

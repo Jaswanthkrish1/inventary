@@ -1,4 +1,5 @@
 <head>
+<!-- Add this in your HTML file, before your script -->
 
 </head>
 
@@ -11,14 +12,14 @@
         data-ride="carousel"
       >
         <!-- Indicators -->
-        <ol class="carousel-indicators">
+        <!-- <ol class="carousel-indicators">
           <li
             data-target="#myCarousel"
             [attr.data-slide-to]="i"
             [class.active]="i === 0"
             *ngFor="let combo of dataCombo; let i = index"
           ></li>
-        </ol>
+        </ol> -->
 
         <!-- Slides -->
         <div class="carousel-inner col-md-12">
@@ -35,10 +36,10 @@
                 class="d-block w-100 img-fluid Gcarousel-image"
               />
               <div class="carousel-caption">
-                <h1>Special Offer</h1>
+                <h1>Special Offer On Every </h1>
                 <br />
                 <h1>
-                  Today<span>{{ combo.discount }} OFF</span>
+                  {{combo.for}}<span>{{ combo.discount }} OFF</span>
                 </h1>
                 <br />
                 <p>{{ combo.discription }}</p>
@@ -88,6 +89,7 @@
   </section>
   <!-- slider -->
   <div class="row container-fluid" [@fadeIn1]>
+    <h1>Explore....Hear</h1>
     <div class="GSlider">
       <div class="col" style="display: flex">
         <div class="col-md-3" *ngFor="let category of data">
@@ -99,7 +101,6 @@
             >
               <img
                 [src]="category.imgUrl"
-                alt="img"
                 class="card-img-top GImg"
                 alt="item"
               />
@@ -115,6 +116,13 @@
   <section class="section2">
     <div class="">
       <div class="e-con-inner">
+        <div class="section2-e-con-inner-inner">
+          <div class="">
+            <div class="">
+              <h2 class="">What is Arabic Mandi</h2>
+            </div>
+          </div>
+        </div>
         <div class="">
           <div class="">
             <div class="section2-inner-text">
@@ -126,13 +134,7 @@
             </div>
           </div>
         </div>
-        <div class="section2-e-con-inner-inner">
-          <div class="">
-            <div class="">
-              <h2 class="">What is Arabic Mandi</h2>
-            </div>
-          </div>
-        </div>
+        
       </div>
     </div>
   </section>
@@ -148,7 +150,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> 
     </div>
   </section>
 </body>

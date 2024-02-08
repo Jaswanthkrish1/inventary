@@ -33,6 +33,19 @@ export interface FoodItem {
     discount?: number
   }
 
+export interface StaticFoodItem{
+  Id?: string
+  Size?: number,
+  Name?: string,
+  Price?: number,
+  Category?: string,
+  Status?: boolean,
+  FoodType?: string,
+  Type?: boolean,
+  Discount?: number,
+  Image?:string
+}
+
 
 
 
