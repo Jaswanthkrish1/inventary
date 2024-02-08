@@ -104,6 +104,11 @@ button {
     padding: 10px 0.2rem 0.2rem;
     max-width: 100%;
   }
+  .rights {
+    justify-content: center;
+    display: flex;
+    height: 11px;
+  }
 }
 
 .example-tree-invisible {

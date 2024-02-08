@@ -7,6 +7,7 @@ import { MaterialModule } from './material.module';
 import { NoScrollDirective } from './no-scroll/no-scroll.directive';
 import { ApolloModule } from 'apollo-angular';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { CopyRightsComponent } from './copyrights/rights.component';
 
 const MODULES = [
   CommonModule,
@@ -16,8 +17,8 @@ const MODULES = [
   MaterialModule,
   ApolloModule,
   MatTooltipModule,
+  CopyRightsComponent
 ];
-const COMPONENT = [];
 @NgModule({
   declarations: [NoScrollDirective],
   imports: [...MODULES],
