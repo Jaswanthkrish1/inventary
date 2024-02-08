@@ -3,6 +3,8 @@
 # compiled output
 dist/apps/api
 dist/apps/arabic-mandi
+.firebase
+
 tmp
 /out-tsc
 .nx
