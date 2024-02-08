@@ -47,7 +47,20 @@ Have a look at the [Nx Console extensions](https://nx.dev/nx-console). It provid
 ## Ready to deploy?
 
 Just run `nx build demoapp` to build the application. The build artifacts will be stored in the `dist/` directory, ready to be deployed.
+## firebase setup
+  # Command to add firebase
+    ```
+       1  ` npm install -g firebase-tools ` or ` yarn  install -g firebase-tools `, based on package manager
+       2  ` firebase login ` 
+       3  ` firebase init `
+       4  ` firebase deploy `
+    ```
+     If you using firebase for deploy static website or realtime website, you should need to be follow this step. 
+     change the output path of application which you wanted to build  [`"outputPath": ".firebase/dist/apps/arabic-mandi"`] 
+     for web write ` yarn build arabic-mandi` it will create build file under the firebase.
 
+     In the same way change the output putpath of api as well.
+    
 ## Set up CI!
 
 Nx comes with local caching already built-in (check your `nx.json`). On CI you might want to go a step further.

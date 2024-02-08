@@ -7,10 +7,10 @@
   "tags": [],
   "targets": {
     "build": {
-      "executor": "@angular-devkit/build-angular:browser",
+      "executor": "@angular-devkit/build-angular:browser", 
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/apps/arabic-mandi",
+        "outputPath": ".firebase/dist/apps/arabic-mandi",
         "index": "apps/arabic-mandi/src/index.html",
         "main": "apps/arabic-mandi/src/main.ts",
         "polyfills": ["zone.js"],

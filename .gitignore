@@ -2,6 +2,7 @@
 
 # compiled output
 dist/apps/api
+dist/apps/arabic-mandi
 tmp
 /out-tsc
 .nx
