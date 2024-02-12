@@ -31,7 +31,7 @@ export class OfferForm {
   styleUrls: ['./create-offer.component.scss'],
   changeDetection: ChangeDetectionStrategy.Default,
 })
-export class CreateOfferComponent implements OnInit, AfterViewInit {
+export class CreateOfferComponent implements OnInit, AfterViewInit, OnDestroy {
 
   offerForm!: FormGroup;
   offerModel!: OfferForm;
@@ -56,6 +56,7 @@ export class CreateOfferComponent implements OnInit, AfterViewInit {
     private cdr: ChangeDetectorRef,
     private commonService: CommonService,
     private offerService: CreateOfferService) { }
+  
   ngAfterViewInit(): void {
     this.updateTable();
   }
@@ -231,7 +232,6 @@ export class CreateOfferComponent implements OnInit, AfterViewInit {
     if (this.offerData) {
       // Map the offerData to create an array of offers
       const data = this.offerData.map((offer: any) => {
-        console.log(offer)
         // Remove __typename from each item in listOfItems
         const removedTypeNameItems = offer.listOfItems.map((item: any) => this.removeTypename(item));
         const items: OfferItemInput[] = removedTypeNameItems.map((offer: any) => {
@@ -270,5 +270,8 @@ export class CreateOfferComponent implements OnInit, AfterViewInit {
       // Call your mutation service with the prepared data
       this.offerService.AddAllOffers(variablesdata);
     }
+  }
+  ngOnDestroy(): void {
+    this.offerData = []
   }
 }

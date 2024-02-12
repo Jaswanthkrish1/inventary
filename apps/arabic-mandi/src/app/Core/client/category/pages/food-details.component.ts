@@ -15,7 +15,8 @@ export class FoodDetails {
     @Inject(MAT_DIALOG_DATA)
     public data: { Item: any }
   ) {
-    console.log(this.selectedFoodItem = data) }
+    this.selectedFoodItem = data 
+  }
 
   closeModal() {
     this.dialogRef.close();

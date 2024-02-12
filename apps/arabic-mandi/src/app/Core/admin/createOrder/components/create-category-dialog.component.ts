@@ -34,7 +34,6 @@ export class CreateCategoryComponentDialog implements OnInit, OnDestroy {
     private _createService: CreateOrderService,
     private _snackBar: MatSnackBar
   ) {
-    // console.log(data);
   }
   private responce: any = {};
 
@@ -58,7 +57,6 @@ export class CreateCategoryComponentDialog implements OnInit, OnDestroy {
             this._snackBar.open('Category Has Been Added');
           },
           (error) => {
-            // console.log(error);
             this.newCategory.reset();
             this.newCategory.setErrors(Validators.required);
             this._snackBar.open('Category Is Already exited');

@@ -1,4 +1,4 @@
-import { FilterableField } from '@nestjs-query/query-graphql';
+import { FilterableField, FilterableUnPagedRelation } from '@nestjs-query/query-graphql';
 import { Field, ObjectType } from '@nestjs/graphql';
 import {
   Entity,
@@ -7,11 +7,11 @@ import {
   Index,
   OneToMany,
 } from 'typeorm';
-import { ItemEntity } from '../item/item.entity';
+import { ItemEntity } from '../../item/item.entity';
 
 @Entity()
 @ObjectType()
-export class FoodCategory {
+export class FoodType {
   @PrimaryGeneratedColumn()
   @FilterableField()
   @Field()
@@ -23,11 +23,12 @@ export class FoodCategory {
   @Field()
   name: string;
 
-  @OneToMany(() => ItemEntity, (items) => items.category)
+  @OneToMany(() => ItemEntity, (items) => items.foodtype)
   items!: ItemEntity[];
 
   @Column({ default: true })
   @Field()
   @FilterableField()
   isActive?: boolean;
+
 }

@@ -3,20 +3,9 @@ mutation CreateManyItemEntities($input: CreateManyItemEntitiesInput!) {
     id
   }
 }
-# View Item Query 
 
-#  query GetAllItemGql($filter: ItemEntityFilter,$paging:CursorPaging){
-  
-#   itemEntities(filter:$filter,paging:$paging){
-#       node{
-#         id
-#         type
-#         status
-#         name
-#         categoryid
-#       }
-#   }
-# }
+
+
 mutation UpdateItemEntity($input: UpdateOneItemEntityInput!) {
   updateOneItemEntity(input: $input) {
     id
@@ -24,12 +13,18 @@ mutation UpdateItemEntity($input: UpdateOneItemEntityInput!) {
     image_data
     offer
     price
+    status
+    type
+    foodsize{
+      id
+    },
+    foodtype{
+      id
+    },
     category {
       id
       name
-    }
-    status
-    type
+    },
     updatedby {
       id
     }
@@ -44,8 +39,6 @@ mutation DeleteOneItemEntity($input: DeleteOneItemEntityInput!) {
 }
 
 
-
-
 # category Order
 
 query GetFoodCategory($id: ID!) {
@@ -56,14 +49,13 @@ query GetFoodCategory($id: ID!) {
 }
 
 
-
-
 mutation CreateOneFoodCategory($input: CreateOneFoodCategoryInput!) {
   createOneFoodCategory(input: $input) {
     id
     name
   }
 }
+
 query GetFoodCategories(
   $filter: FoodCategoryFilter
   $sorting: [FoodCategorySort!]
@@ -71,5 +63,52 @@ query GetFoodCategories(
   foodCategories(filter: $filter, sorting: $sorting) {
     id
     name
+  }
+}
+
+#mutation create one foodtype 
+
+mutation createOneFoodType($input : CreateOneFoodTypeInput!){
+  createOneFoodType(input: $input){
+    name
+    id
+  }
+}
+
+#mutation singlefoodtype updated 
+
+mutation updateOneItemEntity($input: UpdateOneItemEntityInput!) {
+  updateOneItemEntity(input: $input) {
+    name
+    foodtype{
+      id
+      name
+      isActive
+    }
+    category{
+      name
+    }
+  }
+}
+
+#Query  get all  foodtype
+
+query foodTypes(
+  $filter: FoodTypeFilter!
+  $sorting: [FoodTypeSort!]
+ ) {
+  foodTypes(filter: $filter, sorting: $sorting) {
+    id
+    name
+  }
+}
+# GetFoodsize
+query foodSizes(
+  $filter: FoodSizeFilter!
+  $sorting: [FoodSizeSort!]
+) {
+  foodSizes(filter: $filter, sorting: $sorting) {
+   id
+   name
   }
 }

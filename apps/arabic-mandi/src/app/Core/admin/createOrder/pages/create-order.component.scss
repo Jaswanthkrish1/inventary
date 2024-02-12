@@ -1,0 +1,16 @@
+.main_body {
+    padding: 30px;
+}
+
+.heading_section2 {
+    flex-direction: row;
+    box-sizing: border-box;
+    display: flex;
+    place-content: center space-between;
+    align-items: center;
+}
+
+.foodtype_div_inner {
+    display: flex;
+    justify-content: space-between;
+}

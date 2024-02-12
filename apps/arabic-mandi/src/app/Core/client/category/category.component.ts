@@ -111,7 +111,7 @@ export class CategoryComponent implements OnInit, AfterViewInit {
       carouselElement.carousel({ interval: 1000 });
     }, 100);
     const data = this.getUniqueValues(foodItemsJson, "FoodType");
-    console.log(this.data = this.getImgUrlsByNames(this.data, data))
+    this.data = this.getImgUrlsByNames(this.data, data)
 
   }
 

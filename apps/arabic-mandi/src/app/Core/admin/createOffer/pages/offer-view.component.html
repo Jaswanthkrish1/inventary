@@ -25,20 +25,21 @@
     <mat-header-cell *matHeaderCellDef> <mat-icon>list</mat-icon> </mat-header-cell>
     <mat-cell *matCellDef="let element">
       <div style="display: grid;">
-        <span *ngFor="let item of element.items">{{ item.name }}={{ item.quantity }}</span>
+         <a (click)="offerItemViewHandler(element)" style="cursor: pointer;">View</a>
+        <!-- <span *ngFor="let item of element.items">{{ item.category.name }}={{ item.quantity }}</span> -->
       </div>
     </mat-cell>
   </ng-container>
 
   <!-- Price Column -->
   <ng-container matColumnDef="price">
-    <mat-header-cell *matHeaderCellDef> <mat-icon> attach_money</mat-icon> </mat-header-cell>
+    <mat-header-cell *matHeaderCellDef> AC<mat-icon> attach_money</mat-icon> </mat-header-cell>
     <mat-cell *matCellDef="let element"> {{element.price}} </mat-cell>
   </ng-container>
 
   <!-- Total Cost After Discount Column -->
   <ng-container matColumnDef="totalCostAfterDiscount">
-    <mat-header-cell *matHeaderCellDef> <mat-icon> attach_money</mat-icon></mat-header-cell>
+    <mat-header-cell *matHeaderCellDef> TC<mat-icon> attach_money</mat-icon></mat-header-cell>
     <mat-cell *matCellDef="let element"> {{element.totalPrice}} </mat-cell>
   </ng-container>
 

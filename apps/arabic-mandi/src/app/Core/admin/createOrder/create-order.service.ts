@@ -11,7 +11,16 @@ import {
   UpdateItemEntityGQL,
   UpdateOneItemEntityInput,
   DeleteOneItemEntityGQL,
-  DeleteOneItemEntityInput
+  DeleteOneItemEntityInput,
+  FoodTypesQueryVariables,
+  FoodTypesGQL,
+  FoodSizesGQL,
+  FoodSizesQueryVariables,
+  GetItemEntitiesQueryVariables,
+  GetItemEntitiesGQL,
+  GetAllItemEntitiesQueryVariables,
+  GetAllItemEntitiesGQL,
+  
 
 } from 'apps/arabic-mandi/src/generate-types';
 import { Observable, catchError, map, of } from 'rxjs';
@@ -27,11 +36,38 @@ export class CreateOrderService {
     private updateItemEntityGQL: UpdateItemEntityGQL,
     private _auth: AuthenticateService,
     private _snackBar: MatSnackBar,
-    private  DeleteOneItemEntityGQL: DeleteOneItemEntityGQL
+    private  DeleteOneItemEntityGQL: DeleteOneItemEntityGQL,
+    private FoodTypesGQL: FoodTypesGQL,
+    private FoodSizesGQL: FoodSizesGQL,
+    private GetAllItemEntitiesGQL: GetAllItemEntitiesGQL
   ) { }
   // category quries and mutations
   find(variables: GetFoodCategoriesQueryVariables) {
     return this.getFoodCategoriesGql.watch(variables).valueChanges.pipe(
+      catchError(() => {
+        return of({ data: null });
+      })
+    );
+  }
+
+  findAllItems(variables: GetAllItemEntitiesQueryVariables) {
+    return this.GetAllItemEntitiesGQL.watch(variables).valueChanges.pipe(
+      catchError(() => {
+        return of({ data: null });
+      })
+    );
+  }
+
+  findFoodType(variables: FoodTypesQueryVariables) {
+    return this.FoodTypesGQL.watch(variables).valueChanges.pipe(
+      catchError(() => {
+        return of({ data: null });
+      })
+    );
+  }
+
+  findFoodSize(variables: FoodSizesQueryVariables) {
+    return this.FoodSizesGQL.watch(variables).valueChanges.pipe(
       catchError(() => {
         return of({ data: null });
       })
@@ -56,7 +92,6 @@ export class CreateOrderService {
       ({ data }) => {
         this._snackBar.open("Items has been added")
         // Handle success, 'data' contains the response from the server
-        // console.log('Updated items:', data);
       },
       (error) => {
         // Handle error

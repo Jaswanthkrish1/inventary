@@ -143,7 +143,7 @@ export class XlsxComponent {
           return dataObject;
         });
 
-        console.log(formattedOfferData);
+        // console.log(formattedOfferData);
         // Log formatted data to the console
         this.offerJsonData = formattedOfferData;
       } else {

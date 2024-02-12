@@ -50,7 +50,7 @@ export class AuthenticateService {
         console.log(res);
       },
       (error) => {
-        console.log(error);
+        console.error(error);
       }
     );
   }
@@ -70,7 +70,7 @@ export class AuthenticateService {
           }
         },
         (error: any) => {
-          console.log(error);
+          console.error(error);
         }
       );
   }

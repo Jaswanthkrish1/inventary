@@ -25,7 +25,7 @@ export class ItemService {
   ) {}
 
   async getAllItems(): Promise<ItemInput[]> {
-    return await this.ItemRepository.find({ relations: ['createdby', 'updatedby', 'category'] });
+    return await this.ItemRepository.find({ relations: ['createdby', 'updatedby', 'category','foodtype', 'foodsize'] });
   }
 
   async createUser(img: any): Promise<ItemEntity> {

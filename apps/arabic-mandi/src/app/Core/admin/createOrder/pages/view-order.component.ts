@@ -2,9 +2,9 @@ import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import {
-  DeleteOneItemEntityInput
+  DeleteOneItemEntityInput, FoodTypesQueryVariables, GetItemEntitiesQueryVariables
 } from 'apps/arabic-mandi/src/generate-types';
-import { BehaviorSubject, Subscription } from 'rxjs';
+import { BehaviorSubject, Subscription, debounceTime, switchMap } from 'rxjs';
 import { CreateOrderService } from '../create-order.service';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
@@ -33,21 +33,27 @@ import { UpdateItemComponentDialog } from '../components/update-order-dailog.com
     `,
   ],
 })
-export class ViewOrderComponent implements OnInit, OnDestroy,AfterViewInit {
+export class ViewOrderComponent implements OnInit, OnDestroy, AfterViewInit {
+  foodTypes: { __typename?: "FoodType" | undefined; id: number; name: string; }[] = [];
   constructor(
     private _snakbar: MatSnackBar,
     private _orderservice: CreateOrderService,
     private apollo: Apollo,
     private _dialog: MatDialog,
 
-  ) {
-
-   }
+  ) { }
 
   private subs = new Subscription();
-
+  private getAllEntitiesDataSetChange$ = new BehaviorSubject(<
+    GetItemEntitiesQueryVariables
+    >{
+      filter: {},
+      sorting: [],
+      // paging: { limit: 10, offset: 0 },
+    });
+  public isLoading = true;
   public searchItems = new FormControl(null);
-  public displayedColumns: string[] = ['image','name', 'category', 'price', 'offer', 'status', 'type', 'actions'];
+  public displayedColumns: string[] = ['image', 'name', 'category', 'foodtype', 'size', 'price', 'offer', 'status', 'type', 'actions'];
   public dataSource: any;
 
   ngAfterViewInit(): void {
@@ -63,8 +69,8 @@ export class ViewOrderComponent implements OnInit, OnDestroy,AfterViewInit {
         }
         if (v) {
           this.dataSource = data.filter((item: any) => {
-            const itemName = String(item.category.name).toLowerCase();
-            const search = String(v).toLowerCase();
+            const itemName = String(item.name).toLowerCase().replace(/\s/g, '');
+            const search = String(v).toLowerCase().replace(/\s/g, '');
             return itemName.includes(search);
           });
         } else {
@@ -75,6 +81,7 @@ export class ViewOrderComponent implements OnInit, OnDestroy,AfterViewInit {
   }
 
   getData() {
+
     this.apollo
       .query({
         query: gql
@@ -92,8 +99,20 @@ export class ViewOrderComponent implements OnInit, OnDestroy,AfterViewInit {
               id
               isActive
               name
-            }
+            },
+            foodtype{
+              id
+              name
+            },
+            foodsize{
+              id
+              name
+            },
             createdby {
+              id
+              role
+            },
+            updatedby {
               id
               role
             }
@@ -103,22 +122,27 @@ export class ViewOrderComponent implements OnInit, OnDestroy,AfterViewInit {
       })
       .subscribe(
         ({ data }: any) => {
-          this.dataSource = data.getItems;
+          setTimeout(() => {
+            this.dataSource = data.getItems;
+            this.isLoading = false;
+          }, 1000)
         },
         (error) => {
-          console.log(error);
+          console.error(error);
+          this._snakbar.open("Error while getting data ")
         }
       );
   }
+
 
   onDeleteHandler(id: any) {
     const param: DeleteOneItemEntityInput = {
       id: id,
     }
     this._orderservice.removeSingleItem(param)
-      setTimeout(() => {
-        this.ngAfterViewInit();
-      }, 500);
+    setTimeout(() => {
+      this.ngAfterViewInit();
+    }, 1000);
   }
   onUpdateHandler(data: any) {
     let dialogRef = this._dialog.open(UpdateItemComponentDialog, {
@@ -128,7 +152,7 @@ export class ViewOrderComponent implements OnInit, OnDestroy,AfterViewInit {
       if (r) {
         setTimeout(() => {
           this.getData();
-        }, 500);
+        }, 1000);
       }
     });
   }

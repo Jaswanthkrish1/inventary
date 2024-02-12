@@ -7,6 +7,8 @@ import { MatTableDataSource } from "@angular/material/table";
 import { GetAlloffersQueryVariables, UpdateOneOfferMutationVariables } from "apps/arabic-mandi/src/generate-types";
 import { CommonService } from "../../adminCommonsService.service";
 import { Router } from "@angular/router";
+import { MatDialog } from "@angular/material/dialog";
+import { OfferDetailsDailogComponent } from "../components/offer-details-dailog.component";
 
 @Component({
   selector: 'offer-view',
@@ -34,6 +36,7 @@ export class OfferViewComponent implements AfterViewInit, OnDestroy {
     private _snackbar: MatSnackBar,
     private offerService: CreateOfferService,
     private _router: Router,
+    private _dialog: MatDialog,
     private _commonService: CommonService,
   ) { }
 
@@ -53,7 +56,7 @@ export class OfferViewComponent implements AfterViewInit, OnDestroy {
         }
       }
       this.offerService.updateOneOffer(data).subscribe(status => {
-        this._snackbar.open("Item Is Active Now")
+        this._snackbar.open("Offer Is Active Now")
       })
       // Trigger your method or perform any other action
     } else {
@@ -69,7 +72,7 @@ export class OfferViewComponent implements AfterViewInit, OnDestroy {
         }
       }
       this.offerService.updateOneOffer(data).subscribe(status => {
-        this._snackbar.open("Item Is Not Active")
+        this._snackbar.open("Offer Is Not Active")
       })
     }
   }
@@ -87,6 +90,7 @@ export class OfferViewComponent implements AfterViewInit, OnDestroy {
         )
         .subscribe(({ data }) => {
           if (data?.offers) {
+
             this.dataSource = new MatTableDataSource<any>(data?.offers);
             this.dataSource.paginator = this.paginator;
           }
@@ -95,12 +99,20 @@ export class OfferViewComponent implements AfterViewInit, OnDestroy {
     );
 
   }
+  
 
   UpdateHandlerTable(element: any) {
     this._commonService.setData(element);
     // Navigate to the update page
     this._router.navigate(["admin/offer/update_item"]);
   }
+
+  offerItemViewHandler(element: any){
+   this._dialog.open(OfferDetailsDailogComponent,{
+    data: element.items
+   })
+  }
+  
 
   ngOnDestroy(): void {
     this.subs.unsubscribe();

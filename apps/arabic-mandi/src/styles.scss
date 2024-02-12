@@ -404,6 +404,14 @@ a {
   color: #333;
 }
 
+// common Loading feature 
+ .common_loading{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+ }
+
 /*scroll bar removing and scrolling feature in table for small screns */
 @media only screen and (max-width: 724px) {
   .table-Over-Flow-Globle {

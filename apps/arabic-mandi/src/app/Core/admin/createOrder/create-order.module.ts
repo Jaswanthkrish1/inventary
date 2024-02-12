@@ -10,6 +10,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatStepperModule } from '@angular/material/stepper';
 import { CreateCategoryComponentDialog } from './components/create-category-dialog.component';
 import { UpdateItemComponentDialog } from './components/update-order-dailog.component';
+import { MatSpinner } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [

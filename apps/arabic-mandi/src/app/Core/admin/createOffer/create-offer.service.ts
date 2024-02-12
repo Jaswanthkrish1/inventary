@@ -13,7 +13,8 @@ export class CreateOfferService {
     private CreateManyOfferGQL: CreateManyOfferGQL,
     private GetAlloffersGQL: GetAlloffersGQL,
     private UpdateOneOfferGQL: UpdateOneOfferGQL,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private _router: Router
 
   ) {
   }
@@ -60,9 +61,9 @@ export class CreateOfferService {
       ({ data }) => {
         if (data) {
           this._snackBar.open("Offers has been added")
+          this._router.navigate(['/admin/offer/View_Offers'])
         }
         // Handle success, 'data' contains the response from the server
-        // console.log('Updated items:', data);
       },
       (error) => {
         this._snackBar.open("Haveing some error" + error)

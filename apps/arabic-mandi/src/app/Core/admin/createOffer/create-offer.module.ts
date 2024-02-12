@@ -9,13 +9,15 @@ import { CreateOfferComponent } from './pages/create-offer.component';
 import { OfferItemComponentDialog } from './components/combo-offer-dailog.component';
 import { OfferViewComponent } from './pages/offer-view.component';
 import { UpdateOfferDailogComponent } from './components/update-offer.component';
+import { OfferDetailsDailogComponent } from './components/offer-details-dailog.component';
 
 @NgModule({
   declarations: [
     CreateOfferComponent,
     OfferItemComponentDialog,
     OfferViewComponent,
-    UpdateOfferDailogComponent
+    UpdateOfferDailogComponent,
+    OfferDetailsDailogComponent
   ],
   imports: [
     CommonModule,

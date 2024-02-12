@@ -15,9 +15,21 @@ input CreateFoodCategoryInputInput {
   name: String
 }
 
+input CreateFoodSizeInput {
+  id: Float
+  name: String
+}
+
+input CreateFoodTypeInput {
+  id: Float
+  name: String
+}
+
 input CreateItemInput {
   category: FoodCategoryInput
   createdby: UserInput
+  foodsize: FoodSizeInput
+  foodtype: FoodTypeInput
   image_data: String
   name: String
   offer: String
@@ -53,6 +65,16 @@ input CreateOfferInput {
 input CreateOneFoodCategoryInput {
   """The record to create"""
   foodCategory: CreateFoodCategoryInputInput!
+}
+
+input CreateOneFoodSizeInput {
+  """The record to create"""
+  foodSize: CreateFoodSizeInput!
+}
+
+input CreateOneFoodTypeInput {
+  """The record to create"""
+  foodType: CreateFoodTypeInput!
 }
 
 input CreateOneItemEntityInput {
@@ -110,6 +132,11 @@ type DeleteManyResponse {
 input DeleteManyUsersInput {
   """Filter to find records to delete"""
   filter: UserDeleteFilter!
+}
+
+input DeleteOneFoodTypeInput {
+  """The id of the record to delete."""
+  id: ID!
 }
 
 input DeleteOneItemEntityInput {
@@ -188,9 +215,139 @@ type FoodCategorySumAggregate {
   id: Float
 }
 
+type FoodSize {
+  id: Float!
+  isActive: Boolean!
+  name: String!
+}
+
+type FoodSizeAggregateGroupBy {
+  id: Float
+  isActive: Boolean
+  name: String
+}
+
+type FoodSizeAvgAggregate {
+  id: Float
+}
+
+type FoodSizeCountAggregate {
+  id: Int
+  isActive: Int
+  name: Int
+}
+
+input FoodSizeFilter {
+  and: [FoodSizeFilter!]
+  id: NumberFieldComparison
+  isActive: BooleanFieldComparison
+  name: StringFieldComparison
+  or: [FoodSizeFilter!]
+}
+
+input FoodSizeInput {
+  id: Float
+  name: String
+}
+
+type FoodSizeMaxAggregate {
+  id: Float
+  name: String
+}
+
+type FoodSizeMinAggregate {
+  id: Float
+  name: String
+}
+
+input FoodSizeSort {
+  direction: SortDirection!
+  field: FoodSizeSortFields!
+  nulls: SortNulls
+}
+
+enum FoodSizeSortFields {
+  id
+  isActive
+  name
+}
+
+type FoodSizeSumAggregate {
+  id: Float
+}
+
+type FoodType {
+  id: Float!
+  isActive: Boolean!
+  name: String!
+}
+
+type FoodTypeAggregateGroupBy {
+  id: Float
+  isActive: Boolean
+  name: String
+}
+
+type FoodTypeAvgAggregate {
+  id: Float
+}
+
+type FoodTypeCountAggregate {
+  id: Int
+  isActive: Int
+  name: Int
+}
+
+type FoodTypeDeleteResponse {
+  id: Float
+  isActive: Boolean
+  name: String
+}
+
+input FoodTypeFilter {
+  and: [FoodTypeFilter!]
+  id: NumberFieldComparison
+  isActive: BooleanFieldComparison
+  name: StringFieldComparison
+  or: [FoodTypeFilter!]
+}
+
+input FoodTypeInput {
+  id: Float
+  name: String
+}
+
+type FoodTypeMaxAggregate {
+  id: Float
+  name: String
+}
+
+type FoodTypeMinAggregate {
+  id: Float
+  name: String
+}
+
+input FoodTypeSort {
+  direction: SortDirection!
+  field: FoodTypeSortFields!
+  nulls: SortNulls
+}
+
+enum FoodTypeSortFields {
+  id
+  isActive
+  name
+}
+
+type FoodTypeSumAggregate {
+  id: Float
+}
+
 type ItemEntity {
   category: FoodCategory
   createdby: User
+  foodsize: FoodSize
+  foodtype: FoodType
   id: Float!
   image_data: String
   name: String!
@@ -234,6 +391,8 @@ input ItemEntityDeleteFilter {
 type ItemEntityDeleteResponse {
   category: FoodCategory
   createdby: User
+  foodsize: FoodSize
+  foodtype: FoodType
   id: Float
   image_data: String
   name: String
@@ -248,6 +407,8 @@ input ItemEntityFilter {
   and: [ItemEntityFilter!]
   category: ItemEntityFilterFoodCategoryFilter
   createdby: ItemEntityFilterUserFilter
+  foodsize: ItemEntityFilterFoodSizeFilter
+  foodtype: ItemEntityFilterFoodTypeFilter
   id: NumberFieldComparison
   name: StringFieldComparison
   offer: StringFieldComparison
@@ -263,6 +424,22 @@ input ItemEntityFilterFoodCategoryFilter {
   isActive: BooleanFieldComparison
   name: StringFieldComparison
   or: [ItemEntityFilterFoodCategoryFilter!]
+}
+
+input ItemEntityFilterFoodSizeFilter {
+  and: [ItemEntityFilterFoodSizeFilter!]
+  id: NumberFieldComparison
+  isActive: BooleanFieldComparison
+  name: StringFieldComparison
+  or: [ItemEntityFilterFoodSizeFilter!]
+}
+
+input ItemEntityFilterFoodTypeFilter {
+  and: [ItemEntityFilterFoodTypeFilter!]
+  id: NumberFieldComparison
+  isActive: BooleanFieldComparison
+  name: StringFieldComparison
+  or: [ItemEntityFilterFoodTypeFilter!]
 }
 
 input ItemEntityFilterUserFilter {
@@ -318,12 +495,15 @@ type Mutation {
   createManyOffers(input: CreateManyOffersInput!): [Offer!]!
   createManyUsers(input: CreateManyUsersInput!): [User!]!
   createOneFoodCategory(input: CreateOneFoodCategoryInput!): FoodCategory!
+  createOneFoodSize(input: CreateOneFoodSizeInput!): FoodSize!
+  createOneFoodType(input: CreateOneFoodTypeInput!): FoodType!
   createOneItemEntity(input: CreateOneItemEntityInput!): ItemEntity!
   createOneOffer(input: CreateOneOfferInput!): Offer!
   createOneUser(input: CreateOneUserInput!): User!
   deleteManyItemEntities(input: DeleteManyItemEntitiesInput!): DeleteManyResponse!
   deleteManyOffers(input: DeleteManyOffersInput!): DeleteManyResponse!
   deleteManyUsers(input: DeleteManyUsersInput!): DeleteManyResponse!
+  deleteOneFoodType(input: DeleteOneFoodTypeInput!): FoodTypeDeleteResponse!
   deleteOneItemEntity(input: DeleteOneItemEntityInput!): ItemEntityDeleteResponse!
   deleteOneOffer(input: DeleteOneOfferInput!): OfferDeleteResponse!
   deleteOneUser(input: DeleteOneUserInput!): UserDeleteResponse!
@@ -331,6 +511,8 @@ type Mutation {
   updateManyOffers(input: UpdateManyOffersInput!): UpdateManyResponse!
   updateManyUsers(input: UpdateManyUsersInput!): UpdateManyResponse!
   updateOneFoodCategory(input: UpdateOneFoodCategoryInput!): FoodCategory!
+  updateOneFoodSize(input: UpdateOneFoodSizeInput!): FoodSize!
+  updateOneFoodType(input: UpdateOneFoodTypeInput!): FoodType!
   updateOneItemEntity(input: UpdateOneItemEntityInput!): ItemEntity!
   updateOneOffer(input: UpdateOneOfferInput!): Offer!
   updateOneUser(input: UpdateOneUserInput!): User!
@@ -521,6 +703,28 @@ type Query {
     """The id of the record to find."""
     id: ID!
   ): FoodCategory
+  foodSize(
+    """The id of the record to find."""
+    id: ID!
+  ): FoodSize
+  foodSizes(
+    """Specify to filter the records returned."""
+    filter: FoodSizeFilter! = {}
+
+    """Specify to sort results."""
+    sorting: [FoodSizeSort!]! = []
+  ): [FoodSize!]!
+  foodType(
+    """The id of the record to find."""
+    id: ID!
+  ): FoodType
+  foodTypes(
+    """Specify to filter the records returned."""
+    filter: FoodTypeFilter! = {}
+
+    """Specify to sort results."""
+    sorting: [FoodTypeSort!]! = []
+  ): [FoodType!]!
   getItems: [ItemEntity!]!
   itemEntities(
     """Specify to filter the records returned."""
@@ -595,8 +799,22 @@ input UpdateFoodCategoryInputInput {
   name: String
 }
 
+input UpdateFoodSizeInput {
+  id: Float
+  isActive: Boolean
+  name: String
+}
+
+input UpdateFoodTypeInput {
+  id: Float
+  isActive: Boolean
+  name: String
+}
+
 input UpdateItemInput {
   category: FoodCategoryInput
+  foodsize: FoodSizeInput
+  foodtype: FoodTypeInput
   image_data: String
   name: String
   offer: String
@@ -651,6 +869,22 @@ input UpdateOneFoodCategoryInput {
 
   """The update to apply."""
   update: UpdateFoodCategoryInputInput!
+}
+
+input UpdateOneFoodSizeInput {
+  """The id of the record to update"""
+  id: ID!
+
+  """The update to apply."""
+  update: UpdateFoodSizeInput!
+}
+
+input UpdateOneFoodTypeInput {
+  """The id of the record to update"""
+  id: ID!
+
+  """The update to apply."""
+  update: UpdateFoodTypeInput!
 }
 
 input UpdateOneItemEntityInput {
