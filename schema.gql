@@ -7,11 +7,10 @@ input BooleanFieldComparison {
   isNot: Boolean
 }
 
-"""Cursor for paging through collections"""
-scalar ConnectionCursor
-
-input CreateFoodCategoryInputInput {
+input CreateFoodCategoryInput {
+  category_image: String
   id: Float
+  isActive: Boolean
   name: String
 }
 
@@ -47,11 +46,6 @@ input CreateManyOffersInput {
   offers: [CreateOfferInput!]!
 }
 
-input CreateManyUsersInput {
-  """Array of records to create"""
-  users: [CreateUserInput!]!
-}
-
 input CreateOfferInput {
   createdby: UserInput
   discount: Float
@@ -64,7 +58,7 @@ input CreateOfferInput {
 
 input CreateOneFoodCategoryInput {
   """The record to create"""
-  foodCategory: CreateFoodCategoryInputInput!
+  foodCategory: CreateFoodCategoryInput!
 }
 
 input CreateOneFoodSizeInput {
@@ -95,23 +89,10 @@ input CreateOneUserInput {
 input CreateUserInput {
   createdBy: String
   id: Float
+  name: String
+  profile_img: String
   role: String
-  status: Boolean! = true
   updatedBy: String
-}
-
-input CursorPaging {
-  """Paginate after opaque cursor"""
-  after: ConnectionCursor
-
-  """Paginate before opaque cursor"""
-  before: ConnectionCursor
-
-  """Paginate first"""
-  first: Int
-
-  """Paginate last"""
-  last: Int
 }
 
 input DeleteManyItemEntitiesInput {
@@ -129,9 +110,9 @@ type DeleteManyResponse {
   deletedCount: Int!
 }
 
-input DeleteManyUsersInput {
-  """Filter to find records to delete"""
-  filter: UserDeleteFilter!
+input DeleteOneFoodCategoryInput {
+  """The id of the record to delete."""
+  id: ID!
 }
 
 input DeleteOneFoodTypeInput {
@@ -149,12 +130,8 @@ input DeleteOneOfferInput {
   id: ID!
 }
 
-input DeleteOneUserInput {
-  """The id of the record to delete."""
-  id: ID!
-}
-
 type FoodCategory {
+  category_image: String
   id: Float!
   isActive: Boolean!
   name: String!
@@ -176,6 +153,13 @@ type FoodCategoryCountAggregate {
   name: Int
 }
 
+type FoodCategoryDeleteResponse {
+  category_image: String
+  id: Float
+  isActive: Boolean
+  name: String
+}
+
 input FoodCategoryFilter {
   and: [FoodCategoryFilter!]
   id: NumberFieldComparison
@@ -185,7 +169,9 @@ input FoodCategoryFilter {
 }
 
 input FoodCategoryInput {
+  category_image: String
   id: Float
+  isActive: Boolean
   name: String
 }
 
@@ -493,7 +479,6 @@ input ItemEntityUpdateFilter {
 type Mutation {
   createManyItemEntities(input: CreateManyItemEntitiesInput!): [ItemEntity!]!
   createManyOffers(input: CreateManyOffersInput!): [Offer!]!
-  createManyUsers(input: CreateManyUsersInput!): [User!]!
   createOneFoodCategory(input: CreateOneFoodCategoryInput!): FoodCategory!
   createOneFoodSize(input: CreateOneFoodSizeInput!): FoodSize!
   createOneFoodType(input: CreateOneFoodTypeInput!): FoodType!
@@ -502,14 +487,12 @@ type Mutation {
   createOneUser(input: CreateOneUserInput!): User!
   deleteManyItemEntities(input: DeleteManyItemEntitiesInput!): DeleteManyResponse!
   deleteManyOffers(input: DeleteManyOffersInput!): DeleteManyResponse!
-  deleteManyUsers(input: DeleteManyUsersInput!): DeleteManyResponse!
+  deleteOneFoodCategory(input: DeleteOneFoodCategoryInput!): FoodCategoryDeleteResponse!
   deleteOneFoodType(input: DeleteOneFoodTypeInput!): FoodTypeDeleteResponse!
   deleteOneItemEntity(input: DeleteOneItemEntityInput!): ItemEntityDeleteResponse!
   deleteOneOffer(input: DeleteOneOfferInput!): OfferDeleteResponse!
-  deleteOneUser(input: DeleteOneUserInput!): UserDeleteResponse!
   updateManyItemEntities(input: UpdateManyItemEntitiesInput!): UpdateManyResponse!
   updateManyOffers(input: UpdateManyOffersInput!): UpdateManyResponse!
-  updateManyUsers(input: UpdateManyUsersInput!): UpdateManyResponse!
   updateOneFoodCategory(input: UpdateOneFoodCategoryInput!): FoodCategory!
   updateOneFoodSize(input: UpdateOneFoodSizeInput!): FoodSize!
   updateOneFoodType(input: UpdateOneFoodTypeInput!): FoodType!
@@ -677,20 +660,6 @@ input OfferUpdateFilter {
   totalPrice: NumberFieldComparison
 }
 
-type PageInfo {
-  """The cursor of the last returned record."""
-  endCursor: ConnectionCursor
-
-  """true if paging forward and there are more records."""
-  hasNextPage: Boolean
-
-  """true if paging backwards and there are more records."""
-  hasPreviousPage: Boolean
-
-  """The cursor of the first returned record."""
-  startCursor: ConnectionCursor
-}
-
 type Query {
   foodCategories(
     """Specify to filter the records returned."""
@@ -756,12 +725,9 @@ type Query {
     """Specify to filter the records returned."""
     filter: UserFilter! = {}
 
-    """Limit or page results."""
-    paging: CursorPaging! = {first: 10}
-
     """Specify to sort results."""
     sorting: [UserSort!]! = []
-  ): UserConnection!
+  ): [User!]!
 }
 
 """Sort Directions"""
@@ -793,7 +759,8 @@ input StringFieldComparison {
   notLike: String
 }
 
-input UpdateFoodCategoryInputInput {
+input UpdateFoodCategoryInput {
+  category_image: String
   id: Float
   isActive: Boolean
   name: String
@@ -845,14 +812,6 @@ type UpdateManyResponse {
   updatedCount: Int!
 }
 
-input UpdateManyUsersInput {
-  """Filter used to find fields to update"""
-  filter: UserUpdateFilter!
-
-  """The update to apply to all records found using the filter"""
-  update: UpdateUserInput!
-}
-
 input UpdateOfferInput {
   discount: Float
   items: [OfferItemInput!]
@@ -868,7 +827,7 @@ input UpdateOneFoodCategoryInput {
   id: ID!
 
   """The update to apply."""
-  update: UpdateFoodCategoryInputInput!
+  update: UpdateFoodCategoryInput!
 }
 
 input UpdateOneFoodSizeInput {
@@ -914,6 +873,8 @@ input UpdateOneUserInput {
 input UpdateUserInput {
   createdBy: String
   id: Float
+  name: String
+  profile_img: String
   role: String
   status: Boolean! = true
   updatedBy: String
@@ -921,6 +882,8 @@ input UpdateUserInput {
 
 type User {
   id: Float!
+  name: String
+  profile_img: String
   role: String!
   status: Boolean!
 }
@@ -935,43 +898,10 @@ type UserAvgAggregate {
   id: Float
 }
 
-type UserConnection {
-  """Array of edges."""
-  edges: [UserEdge!]!
-
-  """Paging information"""
-  pageInfo: PageInfo!
-
-  """Fetch total count of records"""
-  totalCount: Int!
-}
-
 type UserCountAggregate {
   id: Int
   role: Int
   status: Int
-}
-
-input UserDeleteFilter {
-  and: [UserDeleteFilter!]
-  id: NumberFieldComparison
-  or: [UserDeleteFilter!]
-  role: StringFieldComparison
-  status: BooleanFieldComparison
-}
-
-type UserDeleteResponse {
-  id: Float
-  role: String
-  status: Boolean
-}
-
-type UserEdge {
-  """Cursor for this node."""
-  cursor: ConnectionCursor!
-
-  """The node containing the User"""
-  node: User!
 }
 
 input UserFilter {
@@ -985,8 +915,9 @@ input UserFilter {
 input UserInput {
   createdBy: String
   id: Float
+  name: String
+  profile_img: String
   role: String
-  status: Boolean! = true
   updatedBy: String
 }
 
@@ -1014,12 +945,4 @@ enum UserSortFields {
 
 type UserSumAggregate {
   id: Float
-}
-
-input UserUpdateFilter {
-  and: [UserUpdateFilter!]
-  id: NumberFieldComparison
-  or: [UserUpdateFilter!]
-  role: StringFieldComparison
-  status: BooleanFieldComparison
 }

@@ -11,8 +11,6 @@ export class CommonService {
  private dataSubject = new BehaviorSubject<any>(null);
 public data$ = this.dataSubject.asObservable();
 
-
-
  getCurrentUser(): UserInput | null {
   const user = localStorage.getItem(this._auth.CURRENT_USER_KEY);
   if (user) {
@@ -24,8 +22,6 @@ public data$ = this.dataSubject.asObservable();
   }
   return null;
 }
-
-
 
 setData(data: any): void {
   this.dataSubject.next(data);

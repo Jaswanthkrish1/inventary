@@ -58,10 +58,11 @@
     <div class="grid">
       <div *ngFor="let data of staticStructuredFoodType[foodType] ;let i = index" class="grid-item" [@slideIn]>
         <div class="card-food">
-          <img [src]="data.Image" class="img" >
+          <img *ngIf="data?.image_data" [src]="data?.image_data" class="img" >
+          <img *ngIf="!data?.image_data" src="../../../../../assets/defaultimg.jpg" class="img" >
           <div class="card-content">
-            <div class="price">{{data.Price}} &#8377;</div>
-            <div class="description">{{data.Name}}{{getSizeSuffix(data?.Size)}}</div>
+            <div class="price">{{data?.price}} &#8377;</div>
+            <div class="description">{{data?.name}}{{data?.foodsize?.name}}</div>
             <a (click)="openDilog(data)" style="color: red; cursor: pointer;">View</a>
           </div>
         </div>
@@ -69,7 +70,6 @@
     </div>
 
   </section>
-<Copy-Rights></Copy-Rights> 
 </section>
 </body>
 

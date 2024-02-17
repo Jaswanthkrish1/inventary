@@ -18,6 +18,16 @@
                             <input matInput formControlName="category_name" placeholder="name">
                         </mat-form-field>
                         <br>
+                        <mat-label>Category Image</mat-label>
+                        <div>
+                            <div>
+                                <img *ngIf="newCategory.get('category_image')?.value" [src]="newCategory.get('category_image')?.value"
+                                    alt="Selected Image" style="max-width: 100%; max-height: 200px;">
+                            </div>
+                            <input type="file" accept=".jpg,.jpeg,.png" id="imageUpload"
+                                (change)="onFileSelected($event)" value="">
+                        </div>
+                        <br>
                         <button mat-raised-button color="warn" (click)="onSubmitHandler(newCategory.value)">Add
                             Category</button>
                     </form>

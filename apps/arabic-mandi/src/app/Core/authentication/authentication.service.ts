@@ -3,16 +3,17 @@ import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { environment } from 'apps/arabic-mandi/src/environments/environment';
-import { Observable } from 'rxjs';
+import { GetItemEntitiesGQL, GetItemEntitiesQueryVariables } from 'apps/arabic-mandi/src/generate-types';
+import { catchError, of } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticateService {
   constructor(
     private http: HttpClient,
     private _snakbar: MatSnackBar,
-    private readonly _router: Router
+    private readonly _router: Router,
+  private GetItemEntitiesGQL: GetItemEntitiesGQL
   ) {}
-
   ACCESS_TOKEN_KEY = 'access-token';
   CURRENT_USER_KEY = 'current-user';
   DEFAULT_CURRENT_USER_KEY = 'default-user';
@@ -55,16 +56,20 @@ export class AuthenticateService {
     );
   }
 
-  ValidateToken(token: string) {
+  async ValidateToken(token: string): Promise<boolean> {
     const payload = { token: token };
+    let data: boolean = true;
     this.http
       .post(`${environment.apiUrl}/auth/validateToken/`, payload)
       .subscribe(
         (responce: any) => {
           if (responce) {
+              data = true
             //don't uncoment this. if did The application will reload every page and you will lose the data
             // this._router.navigate(['/']);
           } else {
+            data = false
+            console.log(data)
             localStorage.clear();
             this._router.navigate(['/auth']);
           }
@@ -73,7 +78,9 @@ export class AuthenticateService {
           console.error(error);
         }
       );
+      return await data;
   }
+
   getCurrentUser(): boolean {
     let user = localStorage.getItem(this.DEFAULT_CURRENT_USER_KEY);
     if (user) {
@@ -83,4 +90,13 @@ export class AuthenticateService {
       return true;
     }
   }
+
+  findItems(variables: GetItemEntitiesQueryVariables) {
+    return this.GetItemEntitiesGQL.watch(variables).valueChanges.pipe(
+      catchError(() => {
+        return of({ data: null });
+      })
+    );
+  }
+  
 }

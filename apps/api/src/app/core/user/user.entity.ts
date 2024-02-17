@@ -1,5 +1,5 @@
 import { FilterableField } from '@nestjs-query/query-graphql';
-import { ObjectType } from '@nestjs/graphql';
+import { Field, ObjectType } from '@nestjs/graphql';
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -23,6 +23,14 @@ export class User {
   @Column({ nullable: true })
   @FilterableField()
   role: string;
+
+  @Column({ type: 'mediumtext', nullable: true})
+  @Field({ nullable: true })
+  profile_img?: string;
+
+  @Column({ nullable: true })
+  @Field({ nullable: true })
+  name: string;
 
   @Column({ default: true })
   @FilterableField()

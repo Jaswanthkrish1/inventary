@@ -23,6 +23,10 @@ export class FoodCategory {
   @Field()
   name: string;
 
+  @Column({ type: 'mediumtext', nullable: true })
+  @Field({ nullable: true })
+  category_image?: string | null;
+
   @OneToMany(() => ItemEntity, (items) => items.category)
   items!: ItemEntity[];
 

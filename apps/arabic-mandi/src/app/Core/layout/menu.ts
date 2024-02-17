@@ -54,7 +54,7 @@ export const MENUS: IMenu[] = [
       {
         label: 'NewOffer',
         icon: 'library_add',
-        link: 'admin/offer',
+        link: 'admin/dashboard/offer',
         header: false,
         permissions: ['admin']
       },
@@ -109,14 +109,31 @@ export const MENUS: IMenu[] = [
       {
         label: 'ViewItems',
         icon: 'remove_red_eye',
-        link: 'admin/item',
+        link: 'admin/dashboard/item',
         header: false,
         permissions: ['admin']
       },
       {
         label: 'AddItem',
         icon: 'library_add',
-        link: 'admin/item/create_item',
+        link: 'admin/dashboard/item/create_item',
+        header: false,
+        permissions: ['admin']
+      }
+    ]
+
+  },
+  {
+    label: 'Category',
+    icon: 'add_circle',
+    // link: 'admin/add_item/view_item',
+    header: false,
+    permissions: ['admin'],
+    child: [
+      {
+        label: 'ViewCategory',
+        icon: 'remove_red_eye',
+        link: 'admin/dashboard/category_view',
         header: false,
         permissions: ['admin']
       }

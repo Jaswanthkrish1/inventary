@@ -31,6 +31,7 @@ import { FoodSize } from '../foodcategory/foodsize/foodsize.entity';
   nullable: true,
   disableRemove: true,
   disableUpdate: true,
+  allowFiltering: true
 })
 @FilterableRelation('foodtype', () => FoodType, {
   nullable: true,

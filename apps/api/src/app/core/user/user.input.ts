@@ -11,9 +11,13 @@ export abstract class UserInput {
   @IsString()
   role?: string;
 
-  @Field({ defaultValue: true })
-  @IsBoolean()
-  status?: boolean;
+  @Field({ nullable: true })
+  @IsString()
+  profile_img?: string;
+
+  @Field({ nullable: true })
+  @IsString()
+  name?: string;
 
   @Field({ nullable: true })
   @IsString()
@@ -25,7 +29,13 @@ export abstract class UserInput {
 }
 
 @InputType()
-export class CreateUserInput extends UserInput {}
+export class CreateUserInput extends UserInput { }
 
 @InputType()
-export class UpdateUserInput extends UserInput {}
+export class UpdateUserInput extends UserInput {
+
+  @Field({ defaultValue: true })
+  @IsBoolean()
+  status?: boolean;
+  
+}

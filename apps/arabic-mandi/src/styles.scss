@@ -68,10 +68,7 @@ $material-icons-font-path: '~material-icons/iconfont/';
 @import '~quill/dist/quill.bubble.css';
 @import '~quill/dist/quill.snow.css';
 
-html,
-body {
-  height: 100%;
-}
+
 
 .condensed-menu {
 
@@ -416,7 +413,7 @@ a {
 @media only screen and (max-width: 724px) {
   .table-Over-Flow-Globle {
     max-width: 100%;
-    max-height: 650px;
+    max-height: 550px;
     overflow-x: scroll;
     overflow-y: scroll;
   }

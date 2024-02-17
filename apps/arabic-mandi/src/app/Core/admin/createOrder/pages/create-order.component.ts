@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
-import { CreateCategoryComponentDialog } from '../components/create-category-dialog.component';
+import { CreateCategoryComponentDialog } from '../../category/components/create-category-dialog.component';
 import { MatDialog, } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CreateOrderService } from '../create-order.service';
@@ -199,7 +199,8 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
         const newData = Array.from(this.dataSet).concat({
           __typename: result.createOneFoodCategory.__typename,
           id: result.createOneFoodCategory.id,
-          name: result.createOneFoodCategory.name
+          name: result.createOneFoodCategory.name,
+          isActive: result.createOneFoodCategory.isActive
         });
         this.dataSet = newData;
         this.firstCategory.patchValue({
@@ -210,26 +211,6 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
 
   }
   // under Implemenatation look after some time not in use
-  createFoodTypeHandlerDailog() {
-    const dialogRef = this._dialog.open(CreateCategoryComponentDialog, {
-      data: { canCreate: true },
-    });
-
-    dialogRef.afterClosed().subscribe((result: any) => {
-      if (result && result.createOneFoodCategory) {
-        const newData = Array.from(this.dataSet).concat({
-          __typename: result.createOneFoodCategory.__typename,
-          id: result.createOneFoodCategory.id,
-          name: result.createOneFoodCategory.name
-        });
-        this.dataSet = newData;
-        this.firstCategory.patchValue({
-          InitialCategory: result.createOneFoodCategory.name,
-        });
-      }
-    });
-
-  }
 
   /* To Save the all draft data into database using graphql */
   onDraftTableHandler() {

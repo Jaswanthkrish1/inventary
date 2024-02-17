@@ -11,8 +11,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class XlsxComponent {
   constructor(private XlsxFileService: XlsxFileService, private fb: FormBuilder) { }
-  public jsonData!: any[];
-  public offerJsonData!: any[];
+  public jsonData: any[] = [];
+  public offerJsonData: any[] = [];
   public editedData: FormGroup = this.fb.group({});
   public showSection = true;
   public desiredItemFields = ['Size', 'Name', 'Price', 'Category', 'Status', 'Type', 'Discount', 'FoodType', 'Image'];
@@ -48,52 +48,64 @@ export class XlsxComponent {
   toggleSection(): void {
     this.showSection = !this.showSection;
   }
+
   private processExcelData(file: File): void {
     const reader = new FileReader();
-
+  
     reader.onload = (e: any) => {
       const data = new Uint8Array(e.target.result);
       const workbook = XLSX.read(data, { type: 'array' });
-
+  
       // Assuming the data is in the first sheet
       const sheetName = workbook.SheetNames[0];
       const worksheet = workbook.Sheets[sheetName];
-
+  
       // Convert to JSON with explicitly specified type
       const jsonData: Array<any[]> = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+  
+      // Get the first row of the Excel sheet which contains field names
+      const fieldNames = jsonData[0];
+  
+      // Filter the desired fields based on the provided array
+      const desiredFields = this.desiredItemFields;
+  
       // Map array data to objects with named properties following the FoodType interface
       const formattedData = jsonData.slice(1).map(row => {
         const dataObject: { [key: string]: any } = {
           Id: uuidv4()
         };
-
-        for (let i = 1; i < row.length; i++) {
-          const fieldName = jsonData[0][i];
-          let fieldValue = row[i];
-
-          // Check if the current field is one of the desired fields
-          if (this.desiredItemFields.includes(fieldName)) {
+  
+        // Iterate through each desired field
+        for (const fieldName of desiredFields) {
+          const index = fieldNames.indexOf(fieldName);
+          if (index !== -1) {
+            // Check if the value is available, otherwise assign an empty string
+            const fieldValue = row[index] !== undefined && row[index] !== null ? row[index] : "";
             dataObject[fieldName] = fieldValue;
+          } else {
+            // Field not found, assign an empty string
+            dataObject[fieldName] = "";
           }
         }
-
+  
         return dataObject;
       });
-
-
+  
       // Log formatted data to the console
       this.jsonData = formattedData;
     };
     reader.readAsArrayBuffer(file);
   }
+  
 
   //offer start
 
   onOfferFileChange(event: any): void {
+   this.onFileChange2(event)
     const file = event.target.files[0];
 
     if (file) {
-      this.processOfferExcelData(file);
+      // this.processOfferExcelData(file);
     }
   }
 
@@ -101,6 +113,31 @@ export class XlsxComponent {
     this.XlsxFileService.saveOfferToFile(this.offerJsonData);
     this.clearOfferJson();
   }
+
+  private onFileChange2(event: any) {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.onload = (e: any) => {
+      const data = new Uint8Array(e.target.result);
+      const workbook = XLSX.read(data, { type: 'array' });
+      const firstSheetName = workbook.SheetNames[0];
+      const worksheet = workbook.Sheets[firstSheetName];
+      const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+      // Extract custom fields and convert to JSON
+      const customFields = ['Size', 'Name', 'Price', 'foodType','Status', 'Category','Type',' Discount', 'Image']; // Add your custom fields here
+      const extractedData = jsonData.map((row: any) => {
+        const obj: any = {};
+        customFields.forEach((field: string, index: number) => {
+          obj[field] = row[index];
+        });
+        return obj;
+      });
+      console.log(extractedData); // Output JSON data to console
+    };
+    reader.readAsArrayBuffer(file);
+  }
+
+
 
 
   private processOfferExcelData(file: File): void {

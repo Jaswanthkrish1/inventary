@@ -2,20 +2,17 @@ import {
   Component,
   OnInit,
   OnDestroy,
-  Renderer2,
   AfterViewInit,
+  ChangeDetectorRef,
 } from '@angular/core';
-import { FoodItem, StaticFoodItem } from '../../../structures/structure';
+import { FoodItem, StaticFoodItem, ViewStructureInput } from '../../../structures/structure';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, Subscription, debounceTime, switchMap } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { FoodDetails } from '../pages/food-details.component';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { CategoryService } from '../category.service';
-import { GetItemEntitiesQueryVariables } from 'apps/arabic-mandi/src/generate-types';
-import { HttpClient } from '@angular/common/http';
-import { foodItemsJson } from '.static-xlsx/food';
-import { foodOfferJson } from '.static-xlsx/offer';
+import { CreateItemInput, CreateOneItemEntityInput, GetItemEntitiesQueryVariables } from 'apps/arabic-mandi/src/generate-types';
 @Component({
   selector: 'food-foodview',
   templateUrl: './foodview.component.html',
@@ -29,7 +26,7 @@ import { foodOfferJson } from '.static-xlsx/offer';
     ]),
   ],
 })
-export class FoodComponent implements OnInit, OnDestroy {
+export class FoodComponent implements  OnDestroy {
   public sub: Subscription;
   public selectedFoodItem: any;
   public itemName: any;
@@ -49,8 +46,7 @@ export class FoodComponent implements OnInit, OnDestroy {
 
   foodTypes: string[] = [];
   structuredFoodType: { [key: string]: FoodItem[] } = {};
-  staticStructuredFoodType: { [key: string]: StaticFoodItem[] } = {};
-  public FoodItems;
+  staticStructuredFoodType: { [key: string]: CreateItemInput[] } = {};
 
   constructor(
     private route: ActivatedRoute,
@@ -59,10 +55,17 @@ export class FoodComponent implements OnInit, OnDestroy {
     private _categoryService: CategoryService,
   ) {
     this.sub = new Subscription();
-    this.FoodItems = foodItemsJson;
-  }
-  ngOnInit(): void {
-    this.loadContent();
+    this.sub.add(
+      this.route.paramMap.subscribe((params) => {
+        const key = params.get('category');
+        this.itemName = key;
+        if (key) {
+          this.loading = true;
+          const encodedId = this._categoryService.decodeId(key);
+          this.getFoods(encodedId);
+        }
+      })
+    );
   }
 
   openDilog(data: any) {
@@ -78,53 +81,44 @@ export class FoodComponent implements OnInit, OnDestroy {
     this.isDropdownOpen = false; // Close the dropdown after selection.
   }
 
-
-  private loadContent(){
-    this.sub.add(
-      this.route.paramMap.subscribe((params) => {
-        const key = params.get('category');
-        this.itemName = key
-        if (key) {
-          this.getFoods(key);
-        }
-      }),
-    )
-    this.foodTypes = Object.keys(this.staticStructuredFoodType);
-    if(this.foodTypes.length > 0){
-       setTimeout( () => {
-         this.loading = false;
-       },2000)
-    }else{
-      this.loading = false;
-      this._router.navigate(['/'])
-    }
-  }
-
-  getSizeSuffix(size: any): string {
-    switch (size) {
-      case 1:
-        return ' Single';
-      case 2:
-        return ' Half';
-      case 3:
-        return ' Full';
-      default:
-        return ''; // Handle other cases as needed
-    }
-  }
-
   getFoods(key: any) {
-    const filteredFoodType = this.FoodItems.filter(
-      (item: StaticFoodItem) => item.FoodType?.toLowerCase() === key.toLowerCase()
-    );
-    this.staticStructuredFoodType = filteredFoodType.reduce((acc, item) => {
-      if (!acc[item.Category]) {
-        acc[item.Category] = [];
+    const id = +key // converting string to number using " + "
+    this.sub.add(
+      this.$dataSetChange.pipe(
+        debounceTime(500),
+        switchMap(variable => {
+          // Create a new filter object based on the category key
+          const filter = { category: { id: { eq: id } } };
+          // Merge the filter into the existing variables
+          const newVariables = { ...variable, filter };
+          // Call the find method with the updated variables
+          return this._categoryService.find(newVariables);
+        })
+      ).subscribe(({ data }) => {
+        if (data?.itemEntities) {
+          this.dataSource = data?.itemEntities;
+          this.itemName = this.dataSource[0].category.name;
+          this.staticStructuredFoodType = this.dataSource.reduce((acc, item) => {
+            if (!acc[item.foodtype?.name]) {
+              acc[item.foodtype?.name] = [];
+            }
+            acc[item.foodtype?.name].push(item);
+            return acc;
+          }, {} as { [key: string]: ViewStructureInput[] });
+        }
+      })
+    )
+    setTimeout(() => {
+      this.foodTypes = Object.keys(this.staticStructuredFoodType);
+      if (this.foodTypes.length > 0) {
+        this.loading = false;
+      } else {
+        this.loading = false;
+        this._router.navigate(['/'])
       }
-      acc[item.Category].push(item);
-      return acc;
-    }, {} as { [key: string]: StaticFoodItem[] });
+    },2000)
   }
+
 
   // Toggle the selected food type
   toggleFoodType(type: string) {
@@ -136,25 +130,6 @@ export class FoodComponent implements OnInit, OnDestroy {
     return this.selectedType === type;
   }
 
-  OnInitItemList(): Promise<boolean> {
-    return new Promise<boolean>((resolve) => {
-      this.sub.add(
-        this.$dataSetChange
-          .pipe(
-            debounceTime(500),
-            switchMap((variables) => this._categoryService.find(variables))
-          )
-          .subscribe(({ data }) => {
-            if (data?.itemEntities) {
-              this.dataSource = data.itemEntities;
-              resolve(true); // Data is available, resolving the promise with true
-            } else {
-              resolve(false); // Data is not available, resolving the promise with false
-            }
-          })
-      );
-    });
-  }
   ngOnDestroy(): void {
     this.sub.unsubscribe();
   }

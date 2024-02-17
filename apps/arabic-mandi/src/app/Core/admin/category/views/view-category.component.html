@@ -1,0 +1,60 @@
+<section class="mat-elevation-z8 table-Over-Flow-Globle ">
+  <table mat-table [dataSource]="dataSource">
+ <!-- Item image Column -->
+    <ng-container matColumnDef="image">
+         <mat-header-cell *matHeaderCellDef>Image</mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <img *ngIf="element.category_image" [src]="element.category_image" alt="Image"
+            style="max-width: 50px; max-height: 50px;">
+          <img *ngIf="!element.category_image" src="../../../../../assets/defaultimg.jpg" alt="Image"
+            style="max-width: 50px; max-height: 50px;">
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+         <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{ element.name }}</mat-cell>
+      </ng-container>
+
+
+      <!-- <ng-container matColumnDef="status">
+         <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <ng-container *ngIf="!element.isActive; else activeStatus">
+            Inactive
+          </ng-container>
+          <ng-template #activeStatus>
+            Active
+          </ng-template>
+        </mat-cell>
+      </ng-container> -->
+
+      <ng-container matColumnDef="status">
+        <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <mat-slide-toggle [checked]="element.isActive" (change)="onStatusChange($event, element)"></mat-slide-toggle>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <button mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon class="material-icons-outlined">more_horiz</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu" class="condensed-menu">
+            <button mat-menu-item (click)="onUpdateCategoryHandler(element)">
+              <mat-icon class="material-icons-outlined">edit</mat-icon>
+              Update
+            </button>
+          </mat-menu>
+        </mat-cell>
+      </ng-container>  
+  
+    <!-- Header Rows -->
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+  </table>
+<mat-paginator #paginator style="width: initial;" [pageSizeOptions]="[10]"></mat-paginator>
+ 
+</section>

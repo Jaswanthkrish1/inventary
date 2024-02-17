@@ -1,18 +1,31 @@
 import { AfterViewInit, Component, OnDestroy, ViewChild } from "@angular/core";
 import { CreateOfferService } from "../create-offer.service";
 import { MatSnackBar } from "@angular/material/snack-bar";
-import { MatPaginator } from "@angular/material/paginator";
+import { MatPaginator, MatPaginatorModule } from "@angular/material/paginator";
 import { BehaviorSubject, Subscription, debounceTime, switchMap } from "rxjs";
 import { MatTableDataSource } from "@angular/material/table";
 import { GetAlloffersQueryVariables, UpdateOneOfferMutationVariables } from "apps/arabic-mandi/src/generate-types";
 import { CommonService } from "../../adminCommonsService.service";
-import { Router } from "@angular/router";
+import { Router, RouterLink } from "@angular/router";
 import { MatDialog } from "@angular/material/dialog";
 import { OfferDetailsDailogComponent } from "../components/offer-details-dailog.component";
+import { CommonModule } from "@angular/common";
+import { MaterialModule } from "../../../material.module";
+import { CoreModule } from "@angular/flex-layout";
+import { ReactiveFormsModule } from "@angular/forms";
 
 @Component({
   selector: 'offer-view',
   templateUrl: './offer-view.component.html',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MaterialModule,
+    CoreModule,
+    MatPaginatorModule,
+    ReactiveFormsModule,
+    RouterLink
+  ]
 })
 export class OfferViewComponent implements AfterViewInit, OnDestroy {
   private dataSetChange$ = new BehaviorSubject(<
@@ -20,7 +33,7 @@ export class OfferViewComponent implements AfterViewInit, OnDestroy {
     >{
       filter: {},
       sorting: [],
-      // paging: { limit: 10, offset: 0 },
+      //  paging: { limit: 10, offset: 0 },
     });
   public checked: boolean = false;
   public dataSource!: MatTableDataSource<any>;
@@ -41,7 +54,6 @@ export class OfferViewComponent implements AfterViewInit, OnDestroy {
   ) { }
 
   onStatusChange(event: any, element: any) {
-
     if (event.checked) {
 
       const data: UpdateOneOfferMutationVariables = {
@@ -95,12 +107,9 @@ export class OfferViewComponent implements AfterViewInit, OnDestroy {
             this.dataSource.paginator = this.paginator;
           }
         })
-
     );
-
   }
   
-
   UpdateHandlerTable(element: any) {
     this._commonService.setData(element);
     // Navigate to the update page
@@ -112,7 +121,6 @@ export class OfferViewComponent implements AfterViewInit, OnDestroy {
     data: element.items
    })
   }
-  
 
   ngOnDestroy(): void {
     this.subs.unsubscribe();

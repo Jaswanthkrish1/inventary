@@ -1,3 +1,37 @@
+#Query for getting all data
+query GetItemEntities($filter: ItemEntityFilter!, $sorting: [ItemEntitySort!]) {
+  itemEntities(filter: $filter, sorting: $sorting) {
+            id
+            name
+            offer
+            price
+            type
+            status
+            image_data
+            category {
+              id
+              isActive
+              name
+            },
+            foodtype{
+              id
+              name
+            },
+            foodsize{
+              id
+              name
+            },
+            createdby {
+              id
+              role
+            },
+            updatedby {
+              id
+              role
+            }
+  }
+}
+
 mutation CreateManyItemEntities($input: CreateManyItemEntitiesInput!) {
   createManyItemEntities(input: $input) {
     id
@@ -31,6 +65,7 @@ mutation UpdateItemEntity($input: UpdateOneItemEntityInput!) {
   }
 }
 
+
 #  delete query item
 mutation DeleteOneItemEntity($input: DeleteOneItemEntityInput!) {
   deleteOneItemEntity(input: $input) {
@@ -38,33 +73,6 @@ mutation DeleteOneItemEntity($input: DeleteOneItemEntityInput!) {
   }
 }
 
-
-# category Order
-
-query GetFoodCategory($id: ID!) {
-  foodCategory(id: $id) {
-    id
-    name
-  }
-}
-
-
-mutation CreateOneFoodCategory($input: CreateOneFoodCategoryInput!) {
-  createOneFoodCategory(input: $input) {
-    id
-    name
-  }
-}
-
-query GetFoodCategories(
-  $filter: FoodCategoryFilter
-  $sorting: [FoodCategorySort!]
-) {
-  foodCategories(filter: $filter, sorting: $sorting) {
-    id
-    name
-  }
-}
 
 #mutation create one foodtype 
 
@@ -102,6 +110,9 @@ query foodTypes(
     name
   }
 }
+
+
+
 # GetFoodsize
 query foodSizes(
   $filter: FoodSizeFilter!

@@ -18,8 +18,6 @@ import {
   FoodSizesQueryVariables,
   GetItemEntitiesQueryVariables,
   GetItemEntitiesGQL,
-  GetAllItemEntitiesQueryVariables,
-  GetAllItemEntitiesGQL,
   
 
 } from 'apps/arabic-mandi/src/generate-types';
@@ -37,9 +35,9 @@ export class CreateOrderService {
     private _auth: AuthenticateService,
     private _snackBar: MatSnackBar,
     private  DeleteOneItemEntityGQL: DeleteOneItemEntityGQL,
+    private GetItemEntitiesGQL: GetItemEntitiesGQL,
     private FoodTypesGQL: FoodTypesGQL,
     private FoodSizesGQL: FoodSizesGQL,
-    private GetAllItemEntitiesGQL: GetAllItemEntitiesGQL
   ) { }
   // category quries and mutations
   find(variables: GetFoodCategoriesQueryVariables) {
@@ -49,14 +47,15 @@ export class CreateOrderService {
       })
     );
   }
-
-  findAllItems(variables: GetAllItemEntitiesQueryVariables) {
-    return this.GetAllItemEntitiesGQL.watch(variables).valueChanges.pipe(
+  
+  findItems(variables: GetItemEntitiesQueryVariables) {
+    return this.GetItemEntitiesGQL.watch(variables).valueChanges.pipe(
       catchError(() => {
         return of({ data: null });
       })
     );
   }
+
 
   findFoodType(variables: FoodTypesQueryVariables) {
     return this.FoodTypesGQL.watch(variables).valueChanges.pipe(

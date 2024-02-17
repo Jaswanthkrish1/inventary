@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminGuard } from '../admin.guard';
 import { CreateOfferComponent } from './pages/create-offer.component';
-import { OfferViewComponent } from './pages/offer-view.component';
+import { OfferViewComponent } from './views/offer-view.component';
 import { UpdateOfferDailogComponent } from './components/update-offer.component';
 const appRoutes: Routes = [
   {

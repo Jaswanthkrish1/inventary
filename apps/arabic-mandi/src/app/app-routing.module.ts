@@ -19,15 +19,17 @@ const appRoutes: Routes = [
       import('./Core/static-data/xlsx.module').then(
         (m) => m.xlsxModule
       ),
-   },
+  },
 
   {
     path: '',
     component: FlexLayoutComponent,
     canActivate: [AuthenticationGuard],
+    data: { breadcrumb: 'Home' },
     children: [
       {
         path: 'home',
+        data: { breadcrumb: { skip: true } },
         loadChildren: () =>
           import('./Core/client/category/category.module').then(
             (m) => m.CategoryModule
@@ -35,6 +37,8 @@ const appRoutes: Routes = [
       },
       {
         path: 'contact',
+        data: { breadcrumb: 'Contact' },
+
         loadChildren: () =>
           import('./Core/client/contact/contact.module').then(
             (m) => m.ContactModule
@@ -42,16 +46,19 @@ const appRoutes: Routes = [
       },
       {
         path: 'combo',
+        data: { breadcrumb: 'Combo' },
         loadChildren: () =>
           import('./Core/client/combo/combo.module').then((m) => m.ComboModule),
       },
       {
         path: 'about',
+        data: { breadcrumb: 'About' },
         loadChildren: () =>
           import('./Core/client/about/about.module').then((m) => m.AboutModule),
       },
       {
         path: 'location',
+        data: { breadcrumb: 'Location' },
         loadChildren: () =>
           import('./Core/client/location/location.module').then(
             (m) => m.locationModule
@@ -59,20 +66,16 @@ const appRoutes: Routes = [
       },
       {
         path: 'admin',
+        data: { breadcrumb: 'Admin' },
+        canActivate: [AuthenticationGuard],
         loadChildren: () =>
           import('./Core/admin/admin.module').then(
             (m) => m.AdminModule
           ),
       },
       {
-        path: 'admin/dashboard',
-        loadChildren: () => {
-          return import('./Core/admin/dashboard/dashboard-route.module').then(
-            (m) => m.dashboardRoutingModule);
-        }
-      },
-      {
         path: 'menu',
+        data: { breadcrumb: 'Menu' },
         component: MenuDialogCompnent,
       },
       { path: '', pathMatch: 'full', redirectTo: '/home' },

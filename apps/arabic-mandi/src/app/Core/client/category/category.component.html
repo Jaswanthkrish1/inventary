@@ -62,7 +62,7 @@
     </div>
     &nbsp;
   </div>
-  <section class="section2">
+  <!-- <section class="section2">
     <div class="">
       <div class="e-con-inner">
         <div class="section2-e-con-inner-inner">
@@ -86,28 +86,33 @@
         </div>
       </div>
     </div>
-  </section>
+  </section> -->
   <!-- slider -->
   <div class="row container-fluid" [@fadeIn1]>
     <h1>Explore....Hear</h1>
     <div class="GSlider">
       <div class="col" style="display: flex">
         <div class="col-md-3" *ngFor="let category of data">
-          <div [ngClass]="{ 'disabled-card': !category.avilable }">
+          <div [ngClass]="{ 'disabled-card': !category.isActive }">
             <div
               class="card mb-2"
-              (click)="navigateToDetail(category.name)"
+              (click)="navigateToDetail(category.id)"
               style="cursor: pointer"
             >
               <img
-                [src]="category.imgUrl"
+                [src]="category.category_image"
                 class="card-img-top GImg"
                 alt="item"
               />
               <div class="card-body">
                 <h5 class="card-title">{{ category.name }}</h5>
+                
               </div>
             </div>
+            <button mat-menu-item (click)="onCategoryUpdateHandler(category)">
+              <mat-icon class="material-icons-outlined">edit</mat-icon>
+              Update
+            </button>
           </div>
         </div>
       </div>

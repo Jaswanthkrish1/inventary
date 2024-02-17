@@ -1,10 +1,15 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { Categories, comboOffer } from '../../structures/structure';
+import { comboOffer } from '../../structures/structure';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { BehaviorSubject, Subscription, debounceTime, switchMap } from 'rxjs';
 import { trigger, transition, style, animate } from '@angular/animations';
-import { foodItemsJson } from '.static-xlsx/food';
 import * as $ from 'jquery'
+import { GetFoodCategoriesQueryVariables, GetItemEntitiesQueryVariables } from 'apps/arabic-mandi/src/generate-types';
+import { CreateOrderService } from '../../admin/createOrder/create-order.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { UpdateCategoryComponentDialog } from '../../admin/category/components/update-category-dialog.component';
+import { CategoryService } from './category.service';
 @Component({
   selector: 'food-category',
   templateUrl: './category.component.html',
@@ -32,43 +37,7 @@ import * as $ from 'jquery'
 })
 export class CategoryComponent implements OnInit, AfterViewInit {
   sub: Subscription;
-  data: any[] = [
-    {
-      id: 1,
-      name: 'Mandi',
-      imgUrl: '../../../../assets/foodtype/mutton-mandifull.jpg',
-      avilable: true,
-      price: 500,
-    },
-    {
-      id: 2,
-      name: 'Staters',
-      imgUrl: '../../../../assets/foodtype/staters.jpeg',
-      avilable: true,
-      price: 500,
-    },
-    {
-      id: 3,
-      name: 'Biryani',
-      imgUrl: '../../../../assets/foodtype/biryani.jpg',
-      avilable: true,
-      price: 500,
-    },
-    {
-      id: 3,
-      name: 'Mixed Mandi',
-      imgUrl: '../../../../assets/foodtype/biryani.jpg',
-      avilable: true,
-      price: 500,
-    },
-    {
-      id: 4,
-      name: 'MockTails',
-      imgUrl: '../../../../assets/foodtype/mocktials.jpg',
-      avilable: false,
-      price: 500,
-    },
-  ];
+  data: any[] = [];
   dataCombo: comboOffer[] = [
     {
       id: 1,
@@ -92,17 +61,86 @@ export class CategoryComponent implements OnInit, AfterViewInit {
     },
   ];
 
-  constructor(private router: Router, private route: ActivatedRoute) {
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private _snackBar: MatSnackBar,
+    private _dialog: MatDialog,
+    private _createService: CreateOrderService,
+    private _categoryService: CategoryService,
+
+    ) {
     this.sub = new Subscription();
   }
 
+  private subs = new Subscription();
+  private categoriesdataSetChange$ = new BehaviorSubject(<
+    GetFoodCategoriesQueryVariables
+    >{
+      filter: {},
+      sorting: [],
+      // paging: { limit: 10, offset: 0 },
+    });
+    private $dataSetChange = new BehaviorSubject(<
+      GetItemEntitiesQueryVariables
+      >{
+        filter: {},
+        sorting: [],
+        //   paging: { limit: 10, offset: 0 },
+      });
+
   ngOnInit() {
+    this.subs.add(
+      this.categoriesdataSetChange$
+        .pipe(
+          debounceTime(500),
+          switchMap((variables) => this._createService.find(variables))
+        ).subscribe(({ data }) => {
+          if (data?.foodCategories) {
+            this.data = data.foodCategories;
+          } else {
+            this._snackBar.open("Something Wrong While getting FoodCategory Data");
+            return; // Return early to avoid unnecessary processing
+          }
+        })
+    );
+    this.OnInitItemList();
 
   }
-
+ OnInitItemList(): Promise<boolean> {
+    return new Promise<boolean>((resolve) => {
+      const storedValue = this._categoryService.getStoredValue();
+      if (storedValue && storedValue.length !== 0) {
+        resolve(true);
+      } else {
+        this.sub.add(
+          this.$dataSetChange
+            .pipe(
+              debounceTime(500),
+              switchMap((variables) => this._categoryService.find(variables))
+            )
+            .subscribe(({ data }) => {
+              if (data?.itemEntities) {
+                this._categoryService.setStoredValue(data.itemEntities);
+                resolve(true);
+              } else {
+                resolve(false);
+              }
+            })
+        );
+      }
+    });
+  }
+  onCategoryUpdateHandler(data: any){
+    const dialogRef = this._dialog.open(UpdateCategoryComponentDialog, {
+      data: data,
+    });
+  }
+  
   /* Navigate to foodview*/
-  navigateToDetail(categoryName: any) {
-    this.router.navigate(['food', categoryName], { relativeTo: this.route });
+  navigateToDetail(id: any) {
+    const encodedId = this._categoryService.encodeId(id);
+    this.router.navigate(['food', encodedId], { relativeTo: this.route });
   }
 
   ngAfterViewInit(): void {
@@ -110,27 +148,5 @@ export class CategoryComponent implements OnInit, AfterViewInit {
       const carouselElement = $('#myCarousel') as any;
       carouselElement.carousel({ interval: 1000 });
     }, 100);
-    const data = this.getUniqueValues(foodItemsJson, "FoodType");
-    this.data = this.getImgUrlsByNames(this.data, data)
-
   }
-
-    private getUniqueValues(data: any[], fieldName: string | number) {
-      const uniqueValuesSet = new Set(data.map(item => item[fieldName]));
-      return Array.from(uniqueValuesSet);
-    }
-
-    private getImgUrlsByNames(data: any[], names: string[]): { name: string; imgUrl: string }[] {
-      const result:{ name: string; imgUrl: string, avilable: Boolean }[] = [];
-
-      names.forEach(name => {
-        const category = data.find(category => category.name === name);
-        if (category) {
-          result.push({ name: name, imgUrl: category.imgUrl, avilable: true });
-        }else{
-          result.push({name: name, imgUrl: '../../../../assets/foodtype/MixedMandi.jpeg', avilable: true})
-        }
-      });
-      return result;
-    }
 }
