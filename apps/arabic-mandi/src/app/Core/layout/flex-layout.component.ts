@@ -91,10 +91,12 @@ export class FlexLayoutComponent {
     // Set the value of the clicked item to the FormControl
     this.globalSearchItems.setValue(item.name);
   }
-
   selectOption(item: any) {
     this.navigateToAnotherPage(item)
     this.globalSearchItems.setValue(item.name); // Set the value of the search bar to the clicked item's name
+    setTimeout( ( )=>{
+      this.globalSearchItems.setValue(''); // Set the value of the search bar to the clicked item's name
+    },1000)
   }
 
   private navigateToAnotherPage(item: any) {
@@ -112,8 +114,6 @@ export class FlexLayoutComponent {
       this.selectedIndex = Math.min(this.selectedIndex + 1, this.filteredData.length - 1); // Move selection down
     } else if (event.key === 'Enter' && this.selectedIndex !== -1) {
       // Select the item if Enter is pressed
-      this.globalSearchItems.setValue('');
-    this. displayOption = false;
       this.selectOption(this.filteredData[this.selectedIndex]);
     }
   }

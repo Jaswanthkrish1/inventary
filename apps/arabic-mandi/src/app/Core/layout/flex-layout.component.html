@@ -91,15 +91,13 @@
 
   </mat-toolbar>
   <div class="background">
-    <div *ngIf="filteredData.length > 0 && displayOption && globalSearchItems.value !== ''" class="searchBar">
-      <div *ngFor="let item of filteredData; let i = index" [class.selected]="i === selectedIndex"
-        (click)="selectOption(item)">
-        {{ item.name }}
-      </div>
+    <div *ngIf="filteredData.length > 0 && globalSearchItems.value !== ''" class="searchBar">
+      <mat-option *ngFor="let item of filteredData; let i = index" [class.selected]="i === selectedIndex"
+      (click)="selectOption(item)">{{ item.name }}</mat-option>
     </div>
-    <div *ngIf="!filteredData.length && displayOption" class="searchBar">
+    <mat-option *ngIf="!filteredData.length  && globalSearchItems.value !== '' " class="searchBar">
       No data
-    </div>
+    </mat-option>
   </div>
 </header>
 

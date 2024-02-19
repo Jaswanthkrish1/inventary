@@ -19,9 +19,9 @@ export class FoodDetails {
   constructor(
     public dialogRef: MatDialogRef<FoodDetails>,
     @Inject(MAT_DIALOG_DATA)
-    public data: { Item: any }
+    public data: any,
   ) {
-    this.selectedFoodItem = data
+    this.selectedFoodItem = data;
   }
 
   closeModal() {

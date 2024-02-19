@@ -3,6 +3,8 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { v4 as uuidv4 } from 'uuid';
 
 import {
+  GetFilterCategoriesForViewGQL,
+ GetFilterCategoriesForViewQueryVariables,
  UpdateOneFoodCategoryGQL, UpdateOneFoodCategoryInput,
 } from 'apps/arabic-mandi/src/generate-types';
 import { CreateOneFoodCategoryGQL, CreateOneFoodCategoryInput, GetItemEntitiesGQL, GetItemEntitiesQueryVariables } from "apps/arabic-mandi/src/generate-types";
@@ -10,16 +12,25 @@ import { catchError, map, of, Observable } from "rxjs";
 
 @Injectable({ providedIn: 'root' })
 export class CategoryService {
-  items: any[] = [];
   constructor(
     private _getItemEntitiesGQL: GetItemEntitiesGQL,
     private createOneCategory: CreateOneFoodCategoryGQL,
     private UpdateOneFoodCategoryGQL: UpdateOneFoodCategoryGQL,
+    private _getFilterCategoriesForView: GetFilterCategoriesForViewGQL,
+    
     private _snackBar: MatSnackBar,
   ) { }
  
   find(variables: GetItemEntitiesQueryVariables) {
     return this._getItemEntitiesGQL.watch(variables).valueChanges.pipe(
+      catchError(() => {
+        return of({ data: null });
+      })
+    );
+  }
+
+  getFilterCategorys(variables: GetFilterCategoriesForViewQueryVariables){
+    return this._getFilterCategoriesForView.watch(variables).valueChanges.pipe(
       catchError(() => {
         return of({ data: null });
       })
@@ -38,15 +49,6 @@ export class CategoryService {
     }).pipe(map(({ data }) => data)); 
   }
 
-  setStoredValue(value: any): void {
-   console.log("imcalling")
-    this.items = value;
-  }
-
-  getStoredValue(): any {
-    console.log("im getting")
-    return this.items;
-  }
   encodeId(id: any): string {
     return btoa(String(id));
   }

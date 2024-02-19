@@ -1,4 +1,4 @@
-import { FilterableField } from '@nestjs-query/query-graphql';
+import { FilterableField, FilterableRelation } from '@nestjs-query/query-graphql';
 import { Field, ObjectType } from '@nestjs/graphql';
 import {
   Entity,
@@ -6,11 +6,18 @@ import {
   Column,
   Index,
   OneToMany,
+  JoinColumn,
 } from 'typeorm';
 import { ItemEntity } from '../item/item.entity';
 
 @Entity()
 @ObjectType()
+@FilterableRelation('items', () => ItemEntity, {
+  nullable: true,
+  disableRemove: true,
+  disableUpdate: true,
+  allowFiltering: true
+})
 export class FoodCategory {
   @PrimaryGeneratedColumn()
   @FilterableField()
@@ -28,7 +35,14 @@ export class FoodCategory {
   category_image?: string | null;
 
   @OneToMany(() => ItemEntity, (items) => items.category)
+  @JoinColumn({ name: 'items' })
+  @Field(() => ItemEntity, { nullable: true })
   items!: ItemEntity[];
+
+  @Column({ default: false })
+  @Field()
+  @FilterableField()
+  clientView?: boolean;
 
   @Column({ default: true })
   @Field()

@@ -200,7 +200,8 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
           __typename: result.createOneFoodCategory.__typename,
           id: result.createOneFoodCategory.id,
           name: result.createOneFoodCategory.name,
-          isActive: result.createOneFoodCategory.isActive
+          isActive: result.createOneFoodCategory.isActive,
+          clientView: result.createOneFoodCategory.clientView,
         });
         this.dataSet = newData;
         this.firstCategory.patchValue({

@@ -22,7 +22,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 })
 export class CategoryViewComponent implements AfterViewInit {
     private subs = new Subscription
-    public displayedColumns: string[] = ['status', 'image', 'name', 'actions'];
+    public displayedColumns: string[] = ['status','view', 'image', 'name', 'actions'];
     public dataSource!: MatTableDataSource<any>;
     @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -91,6 +91,34 @@ export class CategoryViewComponent implements AfterViewInit {
             }
             this._adminCategoryService.updateOneCategory(data).subscribe(status => {
                 this._snackbar.open("Category Is Not Active")
+            })
+        }
+    }
+    onViewStatusChange(event: any, element: any) {
+        if (event.checked) {
+            const data: UpdateOneFoodCategoryMutationVariables = {
+                input: {
+                    id: element.id,
+                    update: {
+                        clientView: true
+                    }
+                }
+            }
+            this._adminCategoryService.updateOneCategory(data).subscribe(status => {
+                this._snackbar.open("Catgeory Items is Activated from live")
+            })
+            // Trigger your method or perform any other action
+        } else {
+            const data: UpdateOneFoodCategoryMutationVariables = {
+                input: {
+                    id: element.id,
+                    update: {
+                        clientView: false
+                    }
+                }
+            }
+            this._adminCategoryService.updateOneCategory(data).subscribe(status => {
+                this._snackbar.open("Catgeory Items Removed from live ")
             })
         }
     }

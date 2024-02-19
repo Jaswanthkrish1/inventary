@@ -8,12 +8,12 @@
         <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()"></button>
       </div>
       <div class="modal-body">
-        <img *ngIf="selectedFoodItem.Item?.image_data"  [src]="selectedFoodItem.Item?.image_data" style="width: 50%; height: 50%; object-fit: cover;">
-        <img *ngIf="!selectedFoodItem.Item?.image_data" src="../../../../../assets/defaultimg.jpg" style="width: 50%; height: 50%; object-fit: cover;">
+        <img *ngIf="selectedFoodItem?.image_data"  [src]="selectedFoodItem?.image_data" style="width: 50%; height: 50%; object-fit: cover;">
+        <img *ngIf="!selectedFoodItem?.image_data" src="../../../../../assets/defaultimg.png" style="width: 50%; height: 50%; object-fit: cover;">
 
         <div class="modal-body_inner">
-        <h4>{{ selectedFoodItem.Item.name }}</h4>
-        <p>Price: ${{ selectedFoodItem.Item.price }}</p>
+        <h4>{{ selectedFoodItem?.name }}</h4>
+        <p>Price: ${{ selectedFoodItem?.price }}</p>
       </div>
       </div>
     </div>

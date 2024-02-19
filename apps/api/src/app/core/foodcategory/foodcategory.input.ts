@@ -17,6 +17,10 @@ export class FoodCategoryInput {
   @Field({ nullable: true })
   @IsBoolean()
   isActive?: boolean;
+
+  @Field({ nullable: true })
+  @IsBoolean()
+  clientView?: boolean;
 }
 @InputType()
 export class CreateFoodCategoryInput extends FoodCategoryInput {}

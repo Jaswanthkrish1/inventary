@@ -53,6 +53,7 @@ export interface ViewStructureInput {
     id: number
     isActive: boolean
     name: string
+    clientView: boolean
   }
   updatedby: {
     id: number

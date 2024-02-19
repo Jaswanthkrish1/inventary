@@ -23,6 +23,7 @@ mutation updateOneFoodCategory($input: UpdateOneFoodCategoryInput!){
     category_image
     isActive
     name
+    clientView
   }
 }
 
@@ -35,5 +36,37 @@ query GetFoodCategories(
     name
     category_image
     isActive
+    clientView
+    items{
+      id
+      name
+      offer
+      price
+      type
+      status
+      image_data
+    }
+  }
+}
+
+query GetFilterCategoriesForView(
+  $filter: FoodCategoryFilter
+  $sorting: [FoodCategorySort!]
+) {
+  foodCategories(filter: $filter, sorting: $sorting) {
+    id
+    name
+    category_image
+    isActive
+    clientView
+    items{
+      id
+      name
+      offer
+      price
+      type
+      status
+      image_data
+    }
   }
 }

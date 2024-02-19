@@ -9,6 +9,7 @@ input BooleanFieldComparison {
 
 input CreateFoodCategoryInput {
   category_image: String
+  clientView: Boolean
   id: Float
   isActive: Boolean
   name: String
@@ -132,12 +133,15 @@ input DeleteOneOfferInput {
 
 type FoodCategory {
   category_image: String
+  clientView: Boolean!
   id: Float!
   isActive: Boolean!
+  items: ItemEntity
   name: String!
 }
 
 type FoodCategoryAggregateGroupBy {
+  clientView: Boolean
   id: Float
   isActive: Boolean
   name: String
@@ -148,6 +152,7 @@ type FoodCategoryAvgAggregate {
 }
 
 type FoodCategoryCountAggregate {
+  clientView: Int
   id: Int
   isActive: Int
   name: Int
@@ -155,21 +160,36 @@ type FoodCategoryCountAggregate {
 
 type FoodCategoryDeleteResponse {
   category_image: String
+  clientView: Boolean
   id: Float
   isActive: Boolean
+  items: ItemEntity
   name: String
 }
 
 input FoodCategoryFilter {
   and: [FoodCategoryFilter!]
+  clientView: BooleanFieldComparison
   id: NumberFieldComparison
   isActive: BooleanFieldComparison
+  items: FoodCategoryFilterItemEntityFilter
   name: StringFieldComparison
   or: [FoodCategoryFilter!]
 }
 
+input FoodCategoryFilterItemEntityFilter {
+  and: [FoodCategoryFilterItemEntityFilter!]
+  id: NumberFieldComparison
+  name: StringFieldComparison
+  offer: StringFieldComparison
+  or: [FoodCategoryFilterItemEntityFilter!]
+  status: BooleanFieldComparison
+  type: BooleanFieldComparison
+}
+
 input FoodCategoryInput {
   category_image: String
+  clientView: Boolean
   id: Float
   isActive: Boolean
   name: String
@@ -192,6 +212,7 @@ input FoodCategorySort {
 }
 
 enum FoodCategorySortFields {
+  clientView
   id
   isActive
   name
@@ -406,6 +427,7 @@ input ItemEntityFilter {
 
 input ItemEntityFilterFoodCategoryFilter {
   and: [ItemEntityFilterFoodCategoryFilter!]
+  clientView: BooleanFieldComparison
   id: NumberFieldComparison
   isActive: BooleanFieldComparison
   name: StringFieldComparison
@@ -761,6 +783,7 @@ input StringFieldComparison {
 
 input UpdateFoodCategoryInput {
   category_image: String
+  clientView: Boolean
   id: Float
   isActive: Boolean
   name: String

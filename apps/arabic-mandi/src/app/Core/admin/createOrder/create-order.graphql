@@ -12,6 +12,8 @@ query GetItemEntities($filter: ItemEntityFilter!, $sorting: [ItemEntitySort!]) {
               id
               isActive
               name
+              category_image
+              clientView
             },
             foodtype{
               id

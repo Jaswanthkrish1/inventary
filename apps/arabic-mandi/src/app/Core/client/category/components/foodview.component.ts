@@ -72,7 +72,7 @@ export class FoodComponent implements  OnDestroy {
     this.selectedFoodItem = data;
     this._dialog.open(FoodDetails, {
       width: '500px',
-      data: { Item: data },
+      data: data ,
     });
   }
 

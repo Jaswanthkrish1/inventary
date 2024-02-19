@@ -16,7 +16,7 @@
   </section>
   <!-- Thsi padding 60px is imp  dont remove -->
   <section style="padding-bottom: 60px;" *ngIf="!loading">
-
+    
   <section>
     <div class="img-container">
       <div class="glass">
@@ -40,7 +40,9 @@
       </div>
     </div>
   </section>
-<br>
+<!-- <div class="goBack">
+    <a class="brand" href="/home">Home>view</a>
+  </div> -->
   <section *ngFor="let foodType of foodTypes" >
     <div class="elements">
       <div class="e-con-inner">
@@ -59,7 +61,7 @@
       <div *ngFor="let data of staticStructuredFoodType[foodType] ;let i = index" class="grid-item" [@slideIn]>
         <div class="card-food">
           <img *ngIf="data?.image_data" [src]="data?.image_data" class="img" >
-          <img *ngIf="!data?.image_data" src="../../../../../assets/defaultimg.jpg" class="img" >
+          <img *ngIf="!data?.image_data" src="../../../../../assets/defaultimg.png" class="img" >
           <div class="card-content">
             <div class="price">{{data?.price}} &#8377;</div>
             <div class="description">{{data?.name}}{{data?.foodsize?.name}}</div>

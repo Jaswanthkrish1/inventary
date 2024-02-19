@@ -67,15 +67,14 @@ button {
   width: 100%; /* Ensure the image fills the container */
   height: 100%; /* Ensure the image fills the container */
   object-fit: cover;
-  margin-left: 8px;
   border-radius: 50%;
   /* Adjust the margin to separate the icon and image */
 }
 
 .profile-icon-container {
   position: relative;
-  width: 100px;
-  height: 80px;
+  width: 80px;
+  height: 70px;
   border-radius: 50%;
   overflow: hidden;
 }
