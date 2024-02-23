@@ -4,7 +4,6 @@ import { FlexLayoutComponent } from "./flex-layout.component";
 
 const routes: Routes = [
     { path: '', component: FlexLayoutComponent},
-    // { path: 'auth/callback', component: MsalRedirectComponent }
   ];
 @NgModule({
     imports: [RouterModule.forChild(routes)],

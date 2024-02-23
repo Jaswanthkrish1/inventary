@@ -16,63 +16,69 @@
   </section>
   <!-- Thsi padding 60px is imp  dont remove -->
   <section style="padding-bottom: 60px;" *ngIf="!loading">
-    
-  <section>
-    <div class="img-container">
-      <div class="glass">
-        <div class="e-con-inner">
-          <div class="e-con-inner-inner">
-            <div class="inner-img">
-              <div class="inner-img-text text-color">
-                <h1 class="">Our {{itemName}}</h1>
+
+    <section>
+      <div class="img-container">
+        <div class="glass">
+          <div class="e-con-inner">
+            <div class="e-con-inner-inner">
+              <div class="inner-img">
+                <div class="inner-img-text text-color">
+                  <h1 class="">Our {{itemName}}</h1>
+                </div>
               </div>
-            </div>
-            <div class="textTwo">
-              <div class="">
-                <div class="inner-text-two text-color">
-                  Arabic Mandi offers a diverse selection of dishes from traditional Arabic cuisine to contemporary
-                  fusion options, expertly prepared by our skilled chefs. From hearty biryanis to refreshing mocktails,
-                  our menu is designed to cater to a wide range of palates and preferences.</div>
+              <div class="textTwo">
+                <div class="">
+                  <div class="inner-text-two text-color">
+                    Arabic Mandi offers a diverse selection of dishes from traditional Arabic cuisine to contemporary
+                    fusion options, expertly prepared by our skilled chefs. From hearty biryanis to refreshing
+                    mocktails,
+                    our menu is designed to cater to a wide range of palates and preferences.</div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
-<!-- <div class="goBack">
+    </section>
+    <!-- <div class="goBack">
     <a class="brand" href="/home">Home>view</a>
   </div> -->
-  <section *ngFor="let foodType of foodTypes" >
-    <div class="elements">
-      <div class="e-con-inner">
-        <div class="">
+    <section *ngFor="let foodType of foodTypes">
+      <div class="elements">
+        <div class="e-con-inner">
           <div class="">
-            <div class="elementor-widget-container">
-              <h1 class="elementor-heading-title"
-             >{{foodType}}</h1>
+            <div class="">
+              <div class="elementor-widget-container">
+                <h1 class="elementor-heading-title">{{foodType}}</h1>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <br>
-    <div class="grid">
-      <div *ngFor="let data of staticStructuredFoodType[foodType] ;let i = index" class="grid-item" [@slideIn]>
-        <div class="card-food">
-          <img *ngIf="data?.image_data" [src]="data?.image_data" class="img" >
-          <img *ngIf="!data?.image_data" src="../../../../../assets/defaultimg.png" class="img" >
-          <div class="card-content">
-            <div class="price">{{data?.price}} &#8377;</div>
-            <div class="description">{{data?.name}}{{data?.foodsize?.name}}</div>
-            <a (click)="openDilog(data)" style="color: red; cursor: pointer;">View</a>
+      <br>
+      <div class="grid">
+        <div *ngFor="let data of staticStructuredFoodType[foodType] ;let i = index" class="grid-item" [@slideIn]>
+          <div class="card-food">
+            <div>
+              <img *ngIf="data?.image_data" [src]="data?.image_data" class="img">
+              <img *ngIf="!data?.image_data" src="../../../../../assets/defaultimg.png" class="img">
+            </div>
+            <div class="card-content">
+              <div class="description">{{data?.name}}{{data?.foodsize?.name}}</div>
+              <div class="price">
+                <div class="price-inner">
+                  {{data?.price}} &#8377;
+                </div>
+              <a (click)="openDilog(data)" style="color: red; cursor: pointer;">View</a>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+      </div>
 
+    </section>
   </section>
-</section>
 </body>
 
 

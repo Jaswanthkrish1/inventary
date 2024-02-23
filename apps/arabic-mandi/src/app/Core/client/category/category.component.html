@@ -4,52 +4,7 @@
 </head>
 
 <body>
-  <div class="container-fluid " [@slideIn]>
-    <div class="row">
-      <div id="myCarousel" class="carousel slide col-md-12" data-ride="carousel">
-        <!-- Indicators -->
-        <!-- <ol class="carousel-indicators">
-          <li
-            data-target="#myCarousel"
-            [attr.data-slide-to]="i"
-            [class.active]="i === 0"
-            *ngFor="let combo of dataCombo; let i = index"
-          ></li>
-        </ol> -->
-
-        <!-- Slides -->
-        <div class="carousel-inner col-md-12">
-          <div class="carousel-item" *ngFor="let combo of dataCombo; let i = index" [class.active]="i === 0">
-            <!-- Apply the glass effect to the image -->
-            <div class="glass-effect">
-              <img [src]="combo.imgUrl" [alt]="combo.name" class="d-block w-100 img-fluid Gcarousel-image" />
-              <div class="carousel-caption">
-                <h1>Special Offer On Every </h1>
-                <br />
-                <h1>
-                  {{combo.for}}<span>{{ combo.discount }} OFF</span>
-                </h1>
-                <br />
-                <p>{{ combo.discription }}</p>
-                <p></p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Left and right controls -->
-        <!-- <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="sr-only">Next</span>
-        </a> -->
-      </div>
-    </div>
-    &nbsp;
-  </div>
+  <carousel-app></carousel-app>
 
   <!-- slider -->
   <section class="section2">
@@ -81,17 +36,16 @@
   <div class="row container-fluid" [@fadeIn1]>
     <h1>Explore....Hear</h1>
     <div class="GSlider">
-      <div class="col" style="display: flex">
+      <div class="col" style="display: flex; gap: 10px;">
         <div class="col-md-3" *ngFor="let category of data">
           <div [ngClass]="{ 'disabled-card': !category.isActive }">
             <div class="card mb-2" (click)="navigateToDetail(category.id)" style="cursor: pointer">
               <img [src]="category.category_image" class="card-img-top GImg" alt="item" />
               <div class="card-body">
                 <h5 class="card-title">{{ category.name }}</h5>
-
               </div>
             </div>
-            <button mat-menu-item (click)="onCategoryUpdateHandler(category)">
+            <button mat-menu-item *ngIf="user?.id" (click)="onCategoryUpdateHandler(category)">
               <mat-icon class="material-icons-outlined">edit</mat-icon>
               Update
             </button>
@@ -100,13 +54,41 @@
       </div>
     </div>
   </div>
+
+  <section class="section2">
+    <div class="">
+      <div class="e-con-inner">
+        <div class="">
+          <div class="">
+            <div class="section2-inner-text">
+              <div class="elementor-text-editor elementor-clearfix">
+                Mandi is a traditional Arabian rice dish known for its delicious
+                flavors and aromatic spices. It's a popular dish in many Middle
+                Eastern and South Asian countries, particularly in the Arabian
+                Peninsula, Yemen, and parts of the Indian subcontinent.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="section2-e-con-inner-inner">
+          <div class=" ">
+            <div class="">
+              <h2 class="">Teste the soul of Arabian Mandi</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
   <section class="category-section">
     <div class="category-wrapper">
       <div class="category-info" (click)="navigateToDetail(categoryNameOne?.id)">
         <!-- Image with category name -->
-    <img *ngIf="!categoryNameOne?.category_image" src="../../../../assets/Combo/combo.jpg" alt="Category Image">
-    <img *ngIf="categoryNameOne?.category_image" [src]="categoryNameOne?.category_image" alt="Category Image">   
-    <h2>{{categoryNameOne?.name}}</h2>
+        <img *ngIf="!categoryNameOne?.category_image" src="../../../../assets/Combo/combo.jpg" alt="Category Image">
+        <img *ngIf="categoryNameOne?.category_image" [src]="categoryNameOne?.category_image" alt="Category Image">
+        <h2>{{categoryNameOne?.name}}</h2>
       </div>
       <div class="items-wrapper">
         <!-- Items with category items -->
@@ -126,13 +108,15 @@
       </div>
     </div>
   </section>
+
+ 
   <section class="section4">
     <div class="image-container">
       <img class="elements" src="../../../../assets/mainpage/dazzle5.png" alt="">
     </div>
   </section>
   <section class="category-section">
-    <div class="category-wrapper" >
+    <div class="category-wrapper">
       <div class="category-info" (click)="navigateToDetail(categoryNameTwo?.id)">
         <!-- Image with category name -->
         <img src="../../../../assets/Combo/combo.jpg" alt="Category Image">
@@ -156,30 +140,5 @@
       </div>
     </div>
   </section>
-  <!-- <section class="section2">
-    <div class="">
-      <div class="e-con-inner">
-        <div class="section2-e-con-inner-inner">
-          <div class=" ">
-            <div class="">
-              <h2 class="">Teste the soul of Arabian Mandi</h2>
-            </div>
-          </div>
-        </div>
-        <div class="">
-          <div class="">
-            <div class="section2-inner-text">
-              <div class="elementor-text-editor elementor-clearfix">
-                Mandi is a traditional Arabian rice dish known for its delicious
-                flavors and aromatic spices. It's a popular dish in many Middle
-                Eastern and South Asian countries, particularly in the Arabian
-                Peninsula, Yemen, and parts of the Indian subcontinent.
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section> -->
 
 </body>

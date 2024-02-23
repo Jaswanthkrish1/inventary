@@ -3,7 +3,6 @@ import { ViewStructureInput, comboOffer } from '../../structures/structure';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, Subscription, debounceTime, switchMap } from 'rxjs';
 import { trigger, transition, style, animate } from '@angular/animations';
-import * as $ from 'jquery'
 import { GetFoodCategoriesQueryVariables, GetItemEntitiesQueryVariables } from 'apps/arabic-mandi/src/generate-types';
 import { CreateOrderService } from '../../admin/createOrder/create-order.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -11,6 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { UpdateCategoryComponentDialog } from '../../admin/category/components/update-category-dialog.component';
 import { CategoryService } from './category.service';
 import { FoodDetails } from './pages/food-details.component';
+declare var $: any;
 @Component({
   selector: 'food-category',
   templateUrl: './category.component.html',
@@ -43,30 +43,6 @@ export class CategoryComponent implements OnInit, AfterViewInit {
   viewArrayTwo: ViewStructureInput[] = [];
   categoryNameOne: any;
   categoryNameTwo: any;
-
-  dataCombo: comboOffer[] = [
-    {
-      id: 1,
-      name: 'Family',
-      price: 550,
-      imgUrl: '../../../../assets/carousel/bg1.jpeg',
-      discription:
-        'Special Offer For Students & Family Upto 10% Discount .....................',
-      for: 'Sunday',
-      discount: '10%',
-    },
-    {
-      id: 2,
-      name: 'Friends',
-      price: 500,
-      imgUrl: '../../../../assets/carousel/bg2.jpeg',
-      discription:
-        'Special offer for Friends upto 10% discount.....................',
-      for: 'Sunday',
-      discount: '10%',
-    },
-  ];
-
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -80,6 +56,7 @@ export class CategoryComponent implements OnInit, AfterViewInit {
   }
 
   private subs = new Subscription();
+  protected user:any
   private categoriesdataSetChange$ = new BehaviorSubject(<
     GetFoodCategoriesQueryVariables
     >{
@@ -94,7 +71,6 @@ export class CategoryComponent implements OnInit, AfterViewInit {
       sorting: [],
       //   paging: { limit: 10, offset: 0 },
     });
-
   ngOnInit() {
     this.subs.add(
       this.categoriesdataSetChange$
@@ -103,7 +79,14 @@ export class CategoryComponent implements OnInit, AfterViewInit {
           switchMap((variables) => this._createService.find(variables))
         ).subscribe(({ data }) => {
           if (data?.foodCategories) {
-            this.data = data.foodCategories;
+            const user = this._createService.getCurrentUser();
+            if(user?.id){
+              this.user = user;
+              this.data = data.foodCategories;
+              console.log(user)
+            }else{
+              this.data = data.foodCategories;
+            } 
           } else {
             this._snackBar.open("Something Wrong While getting FoodCategory Data");
             return; // Return early to avoid unnecessary processing
@@ -183,7 +166,7 @@ export class CategoryComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     setTimeout(() => {
-      const carouselElement = $('#myCarousel') as any;
+      const carouselElement =  $('#myCarousel') as any;
       carouselElement.carousel({ interval: 1000 });
     }, 100);
   }

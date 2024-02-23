@@ -10,6 +10,7 @@ import { FormControl } from '@angular/forms';
 import { BehaviorSubject, Subscription, catchError, debounceTime, switchMap } from 'rxjs';
 import { GetItemEntitiesQueryVariables } from 'apps/arabic-mandi/src/generate-types';
 import { CategoryService } from '../client/category/category.service';
+import { NotificationService } from '../tools/notification/notification.service';
 @Component({
   selector: 'flex-layout',
   templateUrl: './flex-layout.component.html',
@@ -48,7 +49,7 @@ export class FlexLayoutComponent {
     private _router: Router,
     private _snakBar: MatSnackBar,
     private route: ActivatedRoute,
-    private _categoryService: CategoryService
+    private _categoryService: CategoryService,
 
   ) {
     this.ngOnInit();

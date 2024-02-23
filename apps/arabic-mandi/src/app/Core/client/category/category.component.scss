@@ -164,7 +164,7 @@ h3{
   width: 150px;
   height: 180px;
   object-fit: fill;
-  border-radius: 20px 20px 0px 0px;
+  border-radius: 20px 20px 20px 20px;
   /* Make the image black on hover */
 }
 
@@ -223,6 +223,16 @@ h3{
 
 /* Small screens */
 @media (max-width: 768px) {
+  .card{
+    height: 200px;
+    width: 150px;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 8px 5px 2px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    text-align: center;
+  }
   .section4 {
     position: relative;
     width: 100%;

@@ -9,10 +9,12 @@ import { SlideComponent } from './pages/slider/slide.component';
 import { MaterialModule } from '../../material.module';
 import { CategoryService } from './category.service';
 import { UpdateCategoryComponentDialog } from '../../admin/category/components/update-category-dialog.component';
+import { CarouselComponent } from './pages/carousel/carousel.component';
+import { CarouselModule } from 'ngx-bootstrap/carousel';
 
 @NgModule({
   declarations: [CategoryComponent, FoodComponent, FoodDetails, SlideComponent,UpdateCategoryComponentDialog],
-  imports: [CommonModule, CoreModule, CategoryRoutingModule, MaterialModule,],
+  imports: [CommonModule, CoreModule, CategoryRoutingModule, MaterialModule, CarouselComponent, CarouselModule],
 
   exports: [CategoryComponent,FoodComponent, FoodDetails, SlideComponent],
   providers: [CategoryService]

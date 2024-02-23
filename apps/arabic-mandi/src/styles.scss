@@ -283,55 +283,6 @@ a {
   border-radius: 10px;
 }
 
-/* casuvals */
-.Gcarousel-image {
-  max-height: 500px;
-  /* Set your desired maximum height */
-  width: auto;
-  /* Allow the width to adjust automatically */
-  margin: 0 auto;
-  /* Center the image horizontally */
-}
-
-.carousel-caption h1 span {
-  color: #ef101fec;
-  /* Highlight color for the "10% OFF" text */
-}
-
-.carousel-caption {
-  font-size: 30px;
-
-}
-
-.carousel-caption h1,
-.carousel-caption p {
-  margin: 0;
-  /* padding: 10px; */
-}
-
-.glass-effect .dark {
-  color: #fdfbfb;
-  /* Text color on the dark glass background */
-}
-
-.glass-effect {
-  position: relative;
-  background: linear-gradient(0deg,
-      rgb(0, 72, 148) 60%,
-      transparent 80%),
-    #010e21fd;
-  /* Adjust the alpha value for the desired transparency */
-  overflow: hidden;
-}
-
-.glass-effect img {
-  width: 100%;
-  height: auto;
-  opacity: 0.7;
-  /* Adjust the opacity for the desired level of transparency */
-
-}
-
 //Loading animation
 .loading-container {
   display: flex;
@@ -428,25 +379,6 @@ a {
     width: 100%;
     object-fit: cover;
     border-radius: 10px;
-  }
-
-  .Gcarousel-image {
-    max-height: 400px;
-    /* Set your desired maximum height */
-    width: auto;
-    /* Allow the width to adjust automatically */
-    margin: 0 auto;
-    /* Center the image horizontally */
-  }
-
-  .carousel-image {
-    max-height: 500px;
-    /* Set the maximum height for large screens */
-  }
-
-  .carousel-caption {
-    font-size: 10px;
-
   }
 }
 
