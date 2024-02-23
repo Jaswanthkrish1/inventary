@@ -11,10 +11,11 @@ import { CategoryService } from './category.service';
 import { UpdateCategoryComponentDialog } from '../../admin/category/components/update-category-dialog.component';
 import { CarouselComponent } from './pages/carousel/carousel.component';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [CategoryComponent, FoodComponent, FoodDetails, SlideComponent,UpdateCategoryComponentDialog],
-  imports: [CommonModule, CoreModule, CategoryRoutingModule, MaterialModule, CarouselComponent, CarouselModule],
+  imports: [CommonModule, CoreModule, CategoryRoutingModule, MaterialModule, CarouselComponent, CarouselModule,FlexLayoutModule],
 
   exports: [CategoryComponent,FoodComponent, FoodDetails, SlideComponent],
   providers: [CategoryService]

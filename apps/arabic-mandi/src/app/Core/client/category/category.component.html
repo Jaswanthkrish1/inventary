@@ -83,8 +83,9 @@
 
 
   <section class="category-section">
+    <h2 fxShow="true" fxHide.gt-sm="true" fxHide.lt-md="false">{{categoryNameOne?.name}}</h2>
     <div class="category-wrapper">
-      <div class="category-info" (click)="navigateToDetail(categoryNameOne?.id)">
+      <div class="category-info" (click)="navigateToDetail(categoryNameOne?.id)" fxShow="true" fxHide.gt-sm="false" fxHide.lt-md="true">
         <!-- Image with category name -->
         <img *ngIf="!categoryNameOne?.category_image" src="../../../../assets/Combo/combo.jpg" alt="Category Image">
         <img *ngIf="categoryNameOne?.category_image" [src]="categoryNameOne?.category_image" alt="Category Image">
@@ -108,16 +109,24 @@
       </div>
     </div>
   </section>
+  <br fxShow="true" fxHide.gt-sm="false" fxHide.lt-md="true" >
+  <br fxShow="true" fxHide.gt-sm="false" fxHide.lt-md="true" >
 
+  <br fxShow="true" fxHide.gt-sm="true" fxHide.lt-md="false">
  
   <section class="section4">
     <div class="image-container">
       <img class="elements" src="../../../../assets/mainpage/dazzle5.png" alt="">
     </div>
   </section>
+  <br fxShow="true" fxHide.gt-sm="true" fxHide.lt-md="false" >
+  <br fxShow="true" fxHide.gt-sm="false" fxHide.lt-md="true" >
+  <br fxShow="true" fxHide.gt-sm="false" fxHide.lt-md="true" >
+
   <section class="category-section">
-    <div class="category-wrapper">
-      <div class="category-info" (click)="navigateToDetail(categoryNameTwo?.id)">
+    <h2 fxShow="true" fxHide.gt-sm="true" fxHide.lt-md="false">{{categoryNameTwo?.name}}</h2>
+    <div class="category-wrapper" >
+      <div class="category-info" (click)="navigateToDetail(categoryNameTwo?.id)" fxShow="true" fxHide.gt-sm="false" fxHide.lt-md="true">
         <!-- Image with category name -->
         <img src="../../../../assets/Combo/combo.jpg" alt="Category Image">
         <h2>{{categoryNameTwo?.name}}</h2>

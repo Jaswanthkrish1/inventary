@@ -113,7 +113,7 @@
 </body>
 <span class="example-spacer"></span>
 <footer class="fixed-bottom">
-  <mat-toolbar color="warn" fxLayout="row" fxLayoutAlign="space-between center">
+  <mat-toolbar color="warn" fxLayout="row" fxLayoutAlign="space-around center">
     <ng-container *ngFor="let item of menuItems">
       <ng-container *ngIf="hasPermission(item.permissions)">
         <button mat-icon-button class="example-icon" [routerLink]="[item.link]"

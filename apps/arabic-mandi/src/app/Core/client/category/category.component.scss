@@ -97,6 +97,7 @@ h3{
   flex-direction: row;
   border: 0px;
   height: 250px;
+  box-shadow: 1px 0px 20px 10px rgba(0, 0, 0, 0.2);
 }
 
 .category-info {
@@ -246,6 +247,7 @@ h3{
     height: 200px;
     /* Allow height to adjust based on content */
     width: 100%;
+    box-shadow: 1px 0px 20px 10px rgba(0, 0, 0, 0.2);
   }
 
   .category-info {
@@ -288,18 +290,7 @@ h3{
     margin: 0px;
   }
 
-  .items-wrapper {
-    padding: 10px;
-    /* Add padding for better spacing */
-  }
-
-  .items-wrapper .item {
-    // width: 100%;
-    /* Make items fill the container width */
-    margin: 10px 10px;
-    /* Adjust margin for spacing */
-  }
-
+  
   .items-wrapper .item img {
     border-radius: 30px;
     /* Reduce border radius */

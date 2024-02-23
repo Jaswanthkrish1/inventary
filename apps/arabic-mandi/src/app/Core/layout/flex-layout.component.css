@@ -243,13 +243,22 @@ button {
 }
 @media (min-width: 480px) and (max-width: 1050px) {
 
-  .mat-toolbar-single-row {
+  /* .mat-toolbar-single-row {
     display: flex;
     position: relative;
     box-sizing: border-box;
-    /* padding: 0 16px; */
     width: 100%;
     justify-content: space-around;
+    align-items: center;
+    white-space: nowrap;
+    font-size: medium;
+  } */
+  .mat-toolbar-single-row {
+    display: flex;
+    box-sizing: border-box;
+    padding: 0 0px;
+    width: 100%;
+    flex-direction: row;
     align-items: center;
     white-space: nowrap;
     font-size: medium;
@@ -274,12 +283,14 @@ button {
 
   .fixed-bottom {
     overflow: hidden;
-    background-color: #333;
     position: fixed;
     bottom: 0;
     width: 100%;
     z-index: 1000;
+    border-radius: 50px 50px 10px 10px;
+    height: 60px;
   }
+  
 
   .content {
       box-sizing: border-box;
