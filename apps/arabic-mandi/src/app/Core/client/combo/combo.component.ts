@@ -2,7 +2,7 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { comboOffer } from '../../structures/structure'
 import { MatDialog } from '@angular/material/dialog';
 import { trigger, transition, style, animate } from '@angular/animations';
-import { FoodDetails } from '../category/pages/food-details.component';
+import { FoodDetails } from '../category/components/food-details.component';
 declare var $: any;
 @Component({
   selector: 'food-combo',

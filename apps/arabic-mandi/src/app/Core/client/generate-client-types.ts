@@ -1148,56 +1148,36 @@ export type UserSumAggregate = {
   id?: Maybe<Scalars['Float']>;
 };
 
-export type GetFoodCategoryQueryVariables = Exact<{
-  id: Scalars['ID'];
-}>;
-
-
-export type GetFoodCategoryQuery = { __typename?: 'Query', foodCategory?: { __typename?: 'FoodCategory', id: number, name: string } | null };
-
-export type CreateOneFoodCategoryMutationVariables = Exact<{
-  input: CreateOneFoodCategoryInput;
-}>;
-
-
-export type CreateOneFoodCategoryMutation = { __typename?: 'Mutation', createOneFoodCategory: { __typename?: 'FoodCategory', id: number, name: string, category_image?: string | null } };
-
-export type UpdateOneFoodCategoryMutationVariables = Exact<{
+export type UpdateOneFoodCategoryClientMutationVariables = Exact<{
   input: UpdateOneFoodCategoryInput;
 }>;
 
 
-export type UpdateOneFoodCategoryMutation = { __typename?: 'Mutation', updateOneFoodCategory: { __typename?: 'FoodCategory', id: number, category_image?: string | null, isActive: boolean, name: string, clientView: boolean } };
+export type UpdateOneFoodCategoryClientMutation = { __typename?: 'Mutation', updateOneFoodCategory: { __typename?: 'FoodCategory', id: number, category_image?: string | null, isActive: boolean, name: string, clientView: boolean } };
 
-export type GetFoodCategoriesQueryVariables = Exact<{
+export type GetFoodCategoriesClientQueryVariables = Exact<{
   filter?: InputMaybe<FoodCategoryFilter>;
   sorting?: InputMaybe<Array<FoodCategorySort> | FoodCategorySort>;
 }>;
 
 
-export type GetFoodCategoriesQuery = { __typename?: 'Query', foodCategories: Array<{ __typename?: 'FoodCategory', id: number, name: string, category_image?: string | null, isActive: boolean, clientView: boolean, items?: { __typename?: 'ItemEntity', id: number, name: string, offer: string, price: number, type: boolean, status: boolean, image_data?: string | null } | null }> };
+export type GetFoodCategoriesClientQuery = { __typename?: 'Query', foodCategories: Array<{ __typename?: 'FoodCategory', id: number, name: string, category_image?: string | null, isActive: boolean, clientView: boolean, items?: { __typename?: 'ItemEntity', id: number, name: string, offer: string, price: number, type: boolean, status: boolean, image_data?: string | null } | null }> };
 
-export type GetFilterCategoriesForViewQueryVariables = Exact<{
-  filter?: InputMaybe<FoodCategoryFilter>;
-  sorting?: InputMaybe<Array<FoodCategorySort> | FoodCategorySort>;
+export type GetItemEntitiesClientQueryVariables = Exact<{
+  filter: ItemEntityFilter;
+  sorting?: InputMaybe<Array<ItemEntitySort> | ItemEntitySort>;
 }>;
 
 
-export type GetFilterCategoriesForViewQuery = { __typename?: 'Query', foodCategories: Array<{ __typename?: 'FoodCategory', id: number, name: string, category_image?: string | null, isActive: boolean, clientView: boolean, items?: { __typename?: 'ItemEntity', id: number, name: string, offer: string, price: number, type: boolean, status: boolean, image_data?: string | null } | null }> };
+export type GetItemEntitiesClientQuery = { __typename?: 'Query', itemEntities: Array<{ __typename?: 'ItemEntity', name: string, offer: string, price: number, type: boolean, status: boolean, image_data?: string | null, category?: { __typename?: 'FoodCategory', id: number, isActive: boolean, name: string, category_image?: string | null, clientView: boolean } | null, foodtype?: { __typename?: 'FoodType', name: string } | null, foodsize?: { __typename?: 'FoodSize', name: string } | null }> };
 
-export type UpdateOneOfferMutationVariables = Exact<{
-  input: UpdateOneOfferInput;
+export type GetItemEntitiesClientViewQueryVariables = Exact<{
+  filter: ItemEntityFilter;
+  sorting?: InputMaybe<Array<ItemEntitySort> | ItemEntitySort>;
 }>;
 
 
-export type UpdateOneOfferMutation = { __typename?: 'Mutation', updateOneOffer: { __typename?: 'Offer', id: string } };
-
-export type CreateManyOfferMutationVariables = Exact<{
-  input: CreateManyOffersInput;
-}>;
-
-
-export type CreateManyOfferMutation = { __typename?: 'Mutation', createManyOffers: Array<{ __typename?: 'Offer', name: string, id: string }> };
+export type GetItemEntitiesClientViewQuery = { __typename?: 'Query', itemEntities: Array<{ __typename?: 'ItemEntity', name: string, offer: string, price: number, type: boolean, status: boolean, image_data?: string | null, category?: { __typename?: 'FoodCategory', name: string, isActive: boolean } | null, foodtype?: { __typename?: 'FoodType', name: string } | null, foodsize?: { __typename?: 'FoodSize', name: string } | null }> };
 
 export type GetAlloffersQueryVariables = Exact<{
   filter?: OfferFilter;
@@ -1207,106 +1187,8 @@ export type GetAlloffersQueryVariables = Exact<{
 
 export type GetAlloffersQuery = { __typename?: 'Query', offers: Array<{ __typename?: 'Offer', id: string, name: string, discount: number, status: boolean, totalPrice: number, price: number, items?: Array<{ __typename?: 'OfferItem', quantity?: number | null, name: string, id: string, selected?: boolean | null, status: boolean, category?: { __typename?: 'FoodCategory', id: number, name: string } | null }> | null, createdby?: { __typename?: 'User', id: number } | null, updatedby?: { __typename?: 'User', id: number } | null }> };
 
-export type GetItemEntitiesQueryVariables = Exact<{
-  filter: ItemEntityFilter;
-  sorting?: InputMaybe<Array<ItemEntitySort> | ItemEntitySort>;
-}>;
-
-
-export type GetItemEntitiesQuery = { __typename?: 'Query', itemEntities: Array<{ __typename?: 'ItemEntity', id: number, name: string, offer: string, price: number, type: boolean, status: boolean, image_data?: string | null, category?: { __typename?: 'FoodCategory', id: number, isActive: boolean, name: string, category_image?: string | null, clientView: boolean } | null, foodtype?: { __typename?: 'FoodType', id: number, name: string } | null, foodsize?: { __typename?: 'FoodSize', id: number, name: string } | null, createdby?: { __typename?: 'User', id: number, role: string } | null, updatedby?: { __typename?: 'User', id: number, role: string } | null }> };
-
-export type CreateManyItemEntitiesMutationVariables = Exact<{
-  input: CreateManyItemEntitiesInput;
-}>;
-
-
-export type CreateManyItemEntitiesMutation = { __typename?: 'Mutation', createManyItemEntities: Array<{ __typename?: 'ItemEntity', id: number }> };
-
-export type UpdateItemEntityMutationVariables = Exact<{
-  input: UpdateOneItemEntityInput;
-}>;
-
-
-export type UpdateItemEntityMutation = { __typename?: 'Mutation', updateOneItemEntity: { __typename?: 'ItemEntity', id: number, name: string, image_data?: string | null, offer: string, price: number, status: boolean, type: boolean, foodsize?: { __typename?: 'FoodSize', id: number } | null, foodtype?: { __typename?: 'FoodType', id: number } | null, category?: { __typename?: 'FoodCategory', id: number, name: string } | null, updatedby?: { __typename?: 'User', id: number } | null } };
-
-export type DeleteOneItemEntityMutationVariables = Exact<{
-  input: DeleteOneItemEntityInput;
-}>;
-
-
-export type DeleteOneItemEntityMutation = { __typename?: 'Mutation', deleteOneItemEntity: { __typename?: 'ItemEntityDeleteResponse', id?: number | null } };
-
-export type CreateOneFoodTypeMutationVariables = Exact<{
-  input: CreateOneFoodTypeInput;
-}>;
-
-
-export type CreateOneFoodTypeMutation = { __typename?: 'Mutation', createOneFoodType: { __typename?: 'FoodType', name: string, id: number } };
-
-export type UpdateOneItemEntityMutationVariables = Exact<{
-  input: UpdateOneItemEntityInput;
-}>;
-
-
-export type UpdateOneItemEntityMutation = { __typename?: 'Mutation', updateOneItemEntity: { __typename?: 'ItemEntity', name: string, foodtype?: { __typename?: 'FoodType', id: number, name: string, isActive: boolean } | null, category?: { __typename?: 'FoodCategory', name: string } | null } };
-
-export type FoodTypesQueryVariables = Exact<{
-  filter: FoodTypeFilter;
-  sorting?: InputMaybe<Array<FoodTypeSort> | FoodTypeSort>;
-}>;
-
-
-export type FoodTypesQuery = { __typename?: 'Query', foodTypes: Array<{ __typename?: 'FoodType', id: number, name: string }> };
-
-export type FoodSizesQueryVariables = Exact<{
-  filter: FoodSizeFilter;
-  sorting?: InputMaybe<Array<FoodSizeSort> | FoodSizeSort>;
-}>;
-
-
-export type FoodSizesQuery = { __typename?: 'Query', foodSizes: Array<{ __typename?: 'FoodSize', id: number, name: string }> };
-
-export const GetFoodCategoryDocument = gql`
-    query GetFoodCategory($id: ID!) {
-  foodCategory(id: $id) {
-    id
-    name
-  }
-}
-    `;
-
-  @Injectable({
-    providedIn: 'root'
-  })
-  export class GetFoodCategoryGQL extends Apollo.Query<GetFoodCategoryQuery, GetFoodCategoryQueryVariables> {
-    override document = GetFoodCategoryDocument;
-    
-    constructor(apollo: Apollo.Apollo) {
-      super(apollo);
-    }
-  }
-export const CreateOneFoodCategoryDocument = gql`
-    mutation CreateOneFoodCategory($input: CreateOneFoodCategoryInput!) {
-  createOneFoodCategory(input: $input) {
-    id
-    name
-    category_image
-  }
-}
-    `;
-
-  @Injectable({
-    providedIn: 'root'
-  })
-  export class CreateOneFoodCategoryGQL extends Apollo.Mutation<CreateOneFoodCategoryMutation, CreateOneFoodCategoryMutationVariables> {
-    override document = CreateOneFoodCategoryDocument;
-    
-    constructor(apollo: Apollo.Apollo) {
-      super(apollo);
-    }
-  }
-export const UpdateOneFoodCategoryDocument = gql`
-    mutation updateOneFoodCategory($input: UpdateOneFoodCategoryInput!) {
+export const UpdateOneFoodCategoryClientDocument = gql`
+    mutation updateOneFoodCategoryClient($input: UpdateOneFoodCategoryInput!) {
   updateOneFoodCategory(input: $input) {
     id
     category_image
@@ -1320,15 +1202,15 @@ export const UpdateOneFoodCategoryDocument = gql`
   @Injectable({
     providedIn: 'root'
   })
-  export class UpdateOneFoodCategoryGQL extends Apollo.Mutation<UpdateOneFoodCategoryMutation, UpdateOneFoodCategoryMutationVariables> {
-    override document = UpdateOneFoodCategoryDocument;
+  export class UpdateOneFoodCategoryClientGQL extends Apollo.Mutation<UpdateOneFoodCategoryClientMutation, UpdateOneFoodCategoryClientMutationVariables> {
+    document = UpdateOneFoodCategoryClientDocument;
     
     constructor(apollo: Apollo.Apollo) {
       super(apollo);
     }
   }
-export const GetFoodCategoriesDocument = gql`
-    query GetFoodCategories($filter: FoodCategoryFilter, $sorting: [FoodCategorySort!]) {
+export const GetFoodCategoriesClientDocument = gql`
+    query GetFoodCategoriesClient($filter: FoodCategoryFilter, $sorting: [FoodCategorySort!]) {
   foodCategories(filter: $filter, sorting: $sorting) {
     id
     name
@@ -1351,29 +1233,34 @@ export const GetFoodCategoriesDocument = gql`
   @Injectable({
     providedIn: 'root'
   })
-  export class GetFoodCategoriesGQL extends Apollo.Query<GetFoodCategoriesQuery, GetFoodCategoriesQueryVariables> {
-    override document = GetFoodCategoriesDocument;
+  export class GetFoodCategoriesClientGQL extends Apollo.Query<GetFoodCategoriesClientQuery, GetFoodCategoriesClientQueryVariables> {
+    document = GetFoodCategoriesClientDocument;
     
     constructor(apollo: Apollo.Apollo) {
       super(apollo);
     }
   }
-export const GetFilterCategoriesForViewDocument = gql`
-    query GetFilterCategoriesForView($filter: FoodCategoryFilter, $sorting: [FoodCategorySort!]) {
-  foodCategories(filter: $filter, sorting: $sorting) {
-    id
+export const GetItemEntitiesClientDocument = gql`
+    query GetItemEntitiesClient($filter: ItemEntityFilter!, $sorting: [ItemEntitySort!]) {
+  itemEntities(filter: $filter, sorting: $sorting) {
     name
-    category_image
-    isActive
-    clientView
-    items {
+    offer
+    price
+    type
+    status
+    image_data
+    category {
       id
+      isActive
       name
-      offer
-      price
-      type
-      status
-      image_data
+      category_image
+      clientView
+    }
+    foodtype {
+      name
+    }
+    foodsize {
+      name
     }
   }
 }
@@ -1382,36 +1269,32 @@ export const GetFilterCategoriesForViewDocument = gql`
   @Injectable({
     providedIn: 'root'
   })
-  export class GetFilterCategoriesForViewGQL extends Apollo.Query<GetFilterCategoriesForViewQuery, GetFilterCategoriesForViewQueryVariables> {
-    override document = GetFilterCategoriesForViewDocument;
+  export class GetItemEntitiesClientGQL extends Apollo.Query<GetItemEntitiesClientQuery, GetItemEntitiesClientQueryVariables> {
+    document = GetItemEntitiesClientDocument;
     
     constructor(apollo: Apollo.Apollo) {
       super(apollo);
     }
   }
-export const UpdateOneOfferDocument = gql`
-    mutation updateOneOffer($input: UpdateOneOfferInput!) {
-  updateOneOffer(input: $input) {
-    id
-  }
-}
-    `;
-
-  @Injectable({
-    providedIn: 'root'
-  })
-  export class UpdateOneOfferGQL extends Apollo.Mutation<UpdateOneOfferMutation, UpdateOneOfferMutationVariables> {
-    override document = UpdateOneOfferDocument;
-    
-    constructor(apollo: Apollo.Apollo) {
-      super(apollo);
-    }
-  }
-export const CreateManyOfferDocument = gql`
-    mutation CreateManyOffer($input: CreateManyOffersInput!) {
-  createManyOffers(input: $input) {
+export const GetItemEntitiesClientViewDocument = gql`
+    query GetItemEntitiesClientView($filter: ItemEntityFilter!, $sorting: [ItemEntitySort!]) {
+  itemEntities(filter: $filter, sorting: $sorting) {
     name
-    id
+    offer
+    price
+    type
+    status
+    image_data
+    category {
+      name
+      isActive
+    }
+    foodtype {
+      name
+    }
+    foodsize {
+      name
+    }
   }
 }
     `;
@@ -1419,8 +1302,8 @@ export const CreateManyOfferDocument = gql`
   @Injectable({
     providedIn: 'root'
   })
-  export class CreateManyOfferGQL extends Apollo.Mutation<CreateManyOfferMutation, CreateManyOfferMutationVariables> {
-    override document = CreateManyOfferDocument;
+  export class GetItemEntitiesClientViewGQL extends Apollo.Query<GetItemEntitiesClientViewQuery, GetItemEntitiesClientViewQueryVariables> {
+    document = GetItemEntitiesClientViewDocument;
     
     constructor(apollo: Apollo.Apollo) {
       super(apollo);
@@ -1460,210 +1343,7 @@ export const GetAlloffersDocument = gql`
     providedIn: 'root'
   })
   export class GetAlloffersGQL extends Apollo.Query<GetAlloffersQuery, GetAlloffersQueryVariables> {
-    override document = GetAlloffersDocument;
-    
-    constructor(apollo: Apollo.Apollo) {
-      super(apollo);
-    }
-  }
-export const GetItemEntitiesDocument = gql`
-    query GetItemEntities($filter: ItemEntityFilter!, $sorting: [ItemEntitySort!]) {
-  itemEntities(filter: $filter, sorting: $sorting) {
-    id
-    name
-    offer
-    price
-    type
-    status
-    image_data
-    category {
-      id
-      isActive
-      name
-      category_image
-      clientView
-    }
-    foodtype {
-      id
-      name
-    }
-    foodsize {
-      id
-      name
-    }
-    createdby {
-      id
-      role
-    }
-    updatedby {
-      id
-      role
-    }
-  }
-}
-    `;
-
-  @Injectable({
-    providedIn: 'root'
-  })
-  export class GetItemEntitiesGQL extends Apollo.Query<GetItemEntitiesQuery, GetItemEntitiesQueryVariables> {
-    override document = GetItemEntitiesDocument;
-    
-    constructor(apollo: Apollo.Apollo) {
-      super(apollo);
-    }
-  }
-export const CreateManyItemEntitiesDocument = gql`
-    mutation CreateManyItemEntities($input: CreateManyItemEntitiesInput!) {
-  createManyItemEntities(input: $input) {
-    id
-  }
-}
-    `;
-
-  @Injectable({
-    providedIn: 'root'
-  })
-  export class CreateManyItemEntitiesGQL extends Apollo.Mutation<CreateManyItemEntitiesMutation, CreateManyItemEntitiesMutationVariables> {
-    override document = CreateManyItemEntitiesDocument;
-    
-    constructor(apollo: Apollo.Apollo) {
-      super(apollo);
-    }
-  }
-export const UpdateItemEntityDocument = gql`
-    mutation UpdateItemEntity($input: UpdateOneItemEntityInput!) {
-  updateOneItemEntity(input: $input) {
-    id
-    name
-    image_data
-    offer
-    price
-    status
-    type
-    foodsize {
-      id
-    }
-    foodtype {
-      id
-    }
-    category {
-      id
-      name
-    }
-    updatedby {
-      id
-    }
-  }
-}
-    `;
-
-  @Injectable({
-    providedIn: 'root'
-  })
-  export class UpdateItemEntityGQL extends Apollo.Mutation<UpdateItemEntityMutation, UpdateItemEntityMutationVariables> {
-    override document = UpdateItemEntityDocument;
-    
-    constructor(apollo: Apollo.Apollo) {
-      super(apollo);
-    }
-  }
-export const DeleteOneItemEntityDocument = gql`
-    mutation DeleteOneItemEntity($input: DeleteOneItemEntityInput!) {
-  deleteOneItemEntity(input: $input) {
-    id
-  }
-}
-    `;
-
-  @Injectable({
-    providedIn: 'root'
-  })
-  export class DeleteOneItemEntityGQL extends Apollo.Mutation<DeleteOneItemEntityMutation, DeleteOneItemEntityMutationVariables> {
-    override document = DeleteOneItemEntityDocument;
-    
-    constructor(apollo: Apollo.Apollo) {
-      super(apollo);
-    }
-  }
-export const CreateOneFoodTypeDocument = gql`
-    mutation createOneFoodType($input: CreateOneFoodTypeInput!) {
-  createOneFoodType(input: $input) {
-    name
-    id
-  }
-}
-    `;
-
-  @Injectable({
-    providedIn: 'root'
-  })
-  export class CreateOneFoodTypeGQL extends Apollo.Mutation<CreateOneFoodTypeMutation, CreateOneFoodTypeMutationVariables> {
-    override document = CreateOneFoodTypeDocument;
-    
-    constructor(apollo: Apollo.Apollo) {
-      super(apollo);
-    }
-  }
-export const UpdateOneItemEntityDocument = gql`
-    mutation updateOneItemEntity($input: UpdateOneItemEntityInput!) {
-  updateOneItemEntity(input: $input) {
-    name
-    foodtype {
-      id
-      name
-      isActive
-    }
-    category {
-      name
-    }
-  }
-}
-    `;
-
-  @Injectable({
-    providedIn: 'root'
-  })
-  export class UpdateOneItemEntityGQL extends Apollo.Mutation<UpdateOneItemEntityMutation, UpdateOneItemEntityMutationVariables> {
-    override document = UpdateOneItemEntityDocument;
-    
-    constructor(apollo: Apollo.Apollo) {
-      super(apollo);
-    }
-  }
-export const FoodTypesDocument = gql`
-    query foodTypes($filter: FoodTypeFilter!, $sorting: [FoodTypeSort!]) {
-  foodTypes(filter: $filter, sorting: $sorting) {
-    id
-    name
-  }
-}
-    `;
-
-  @Injectable({
-    providedIn: 'root'
-  })
-  export class FoodTypesGQL extends Apollo.Query<FoodTypesQuery, FoodTypesQueryVariables> {
-    override document = FoodTypesDocument;
-    
-    constructor(apollo: Apollo.Apollo) {
-      super(apollo);
-    }
-  }
-export const FoodSizesDocument = gql`
-    query foodSizes($filter: FoodSizeFilter!, $sorting: [FoodSizeSort!]) {
-  foodSizes(filter: $filter, sorting: $sorting) {
-    id
-    name
-  }
-}
-    `;
-
-  @Injectable({
-    providedIn: 'root'
-  })
-  export class FoodSizesGQL extends Apollo.Query<FoodSizesQuery, FoodSizesQueryVariables> {
-    override document = FoodSizesDocument;
+    document = GetAlloffersDocument;
     
     constructor(apollo: Apollo.Apollo) {
       super(apollo);

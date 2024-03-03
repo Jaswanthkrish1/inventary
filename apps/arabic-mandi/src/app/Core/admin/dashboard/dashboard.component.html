@@ -3,7 +3,7 @@
     <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="example-tree">
       <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle style="margin-right: 8px;">
         <ng-container *ngIf="node.header === false">
-        <a [routerLink]="[node.link]"> {{node.label}}</a>
+        <a  [routerLink]="[node.link]"> {{node.label}}</a>
         </ng-container>
       </mat-tree-node>
       <!-- This is the tree node template for expandable nodes -->
@@ -24,7 +24,7 @@
 
   </mat-drawer>
   <mat-drawer-content >
-    <router-outlet ></router-outlet>
+    <router-outlet></router-outlet>
   </mat-drawer-content>
 </mat-drawer-container>
 

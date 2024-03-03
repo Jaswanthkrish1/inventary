@@ -10,6 +10,7 @@ const dashboardRoutes: Routes = [
     path: '',
     component: DashBoardComponent,
     canActivate: [AdminGuard],
+    // data: { breadcrumb: 'DashBoard' },
     children: [
       {
         path: 'item',
@@ -30,7 +31,10 @@ const dashboardRoutes: Routes = [
       {
         path: 'category_view',
         data: { breadcrumb: 'All Categorys' },
-       component: CategoryViewComponent
+        loadChildren: () =>
+          import('../category/category.module').then(
+            (m) => m.AdminCategoryModule
+          ),
       },
     ]
   }

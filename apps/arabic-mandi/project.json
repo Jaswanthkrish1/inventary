@@ -108,6 +108,27 @@
           }
         ]
       }
+    },
+    "generate-admin-types": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "yarn graphql-codegen --config apps/arabic-mandi/src/app/Core/admin/admin_codegen.yml"
+          }
+        ]
+      }
+    },
+    "generate-client-types": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "yarn graphql-codegen --config apps/arabic-mandi/src/app/Core/client/client_codegen.yml"
+          }
+        ]
+      }
     }
+    
   }
 }

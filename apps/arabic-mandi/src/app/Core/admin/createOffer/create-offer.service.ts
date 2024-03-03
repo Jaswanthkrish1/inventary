@@ -3,8 +3,8 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
 import { Observable } from "@apollo/client/utilities";
 
-import { GetItemEntitiesGQL, GetItemEntitiesQueryVariables, CreateManyOfferGQL, CreateManyOffersInput, UserInput, GetAlloffersGQL, GetAlloffersQueryVariables, UpdateOneOfferGQL, UpdateOneOfferInput, UpdateOneOfferMutationVariables, MutationDeleteOneOfferArgs } from "apps/arabic-mandi/src/generate-types";
 import { catchError, of } from "rxjs";
+import { CreateManyOfferGQL, CreateManyOffersInput, GetAlloffersGQL, GetAlloffersQueryVariables, GetItemEntitiesGQL, GetItemEntitiesQueryVariables, UpdateOneOfferGQL, UpdateOneOfferMutationVariables } from "../generate-admin-types";
 
 @Injectable({ providedIn: 'root' })
 export class CreateOfferService {

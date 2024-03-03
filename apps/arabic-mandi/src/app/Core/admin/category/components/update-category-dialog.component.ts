@@ -9,14 +9,10 @@ import {
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { FormBuilder, Validators } from '@angular/forms';
-import {
-  GetFoodCategoriesQuery,
-  UpdateOneFoodCategoryInput,
-  UpdateOneFoodCategoryMutationVariables,
-} from 'apps/arabic-mandi/src/generate-types';
+
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { CategoryService } from '../../../client/category/category.service';
 import { AdminCategoryService } from '../category.service';
+import { GetFoodCategoriesQuery, UpdateOneFoodCategoryInput } from '../../generate-admin-types';
 
 
 @Component({

@@ -1,8 +1,7 @@
 import { CommonModule } from "@angular/common";
-import { AfterViewInit, Component } from "@angular/core";
+import {  Component } from "@angular/core";
 import { comboOffer } from "../../../../structures/structure";
 import { CarouselModule } from 'ngx-bootstrap/carousel';
-declare var $: any; 
 @Component({
     standalone : true,
     imports:[CommonModule,CarouselModule],
@@ -10,7 +9,7 @@ declare var $: any;
     templateUrl: './carousel.component.html',
     styleUrls: ['./carousel.component.scss']
 })
-export class CarouselComponent implements AfterViewInit{
+export class CarouselComponent {
     dataCombo: comboOffer[] = [
         {
           id: 1,
@@ -34,9 +33,4 @@ export class CarouselComponent implements AfterViewInit{
         },
       ];
     constructor(){}
-    ngAfterViewInit(): void {
-        $(document).ready(() => {
-            $('.carousel').carousel();
-          });
-    }
 }

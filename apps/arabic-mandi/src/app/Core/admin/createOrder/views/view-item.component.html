@@ -55,7 +55,7 @@
 
       <ng-container matColumnDef="category">
         <mat-header-cell *matHeaderCellDef>Category</mat-header-cell>
-        <mat-cell *matCellDef="let element">{{ element.category.name }}</mat-cell>
+        <mat-cell *matCellDef="let element">{{ element.category?.name }}</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="price">

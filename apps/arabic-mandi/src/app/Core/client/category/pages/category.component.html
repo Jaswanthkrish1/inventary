@@ -1,7 +1,3 @@
-<head>
-  <!-- Add this in your HTML file, before your script -->
-
-</head>
 
 <body>
   <carousel-app></carousel-app>
@@ -38,18 +34,18 @@
     <div class="GSlider">
       <div class="col" style="display: flex; gap: 10px;">
         <div class="col-md-3" *ngFor="let category of data">
-          <div [ngClass]="{ 'disabled-card': !category.isActive }">
+          <div  [ngClass]="{ 'disabled-card': !category.isActive }">
             <div class="card mb-2" (click)="navigateToDetail(category.id)" style="cursor: pointer">
               <img [src]="category.category_image" class="card-img-top GImg" alt="item" />
               <div class="card-body">
                 <h5 class="card-title">{{ category.name }}</h5>
               </div>
             </div>
-            <button mat-menu-item *ngIf="user?.id" (click)="onCategoryUpdateHandler(category)">
-              <mat-icon class="material-icons-outlined">edit</mat-icon>
-              Update
-            </button>
           </div>
+          <button mat-menu-item *ngIf="user?.id" (click)="onCategoryUpdateHandler(category)">
+            <mat-icon class="material-icons-outlined">edit</mat-icon>
+            Update
+          </button>
         </div>
       </div>
     </div>
@@ -82,7 +78,7 @@
   </section>
 
 
-  <section class="category-section">
+  <section class="category-section" *ngIf="categoryNameOne?.name">
     <h2 fxShow="true" fxHide.gt-sm="true" fxHide.lt-md="false">{{categoryNameOne?.name}}</h2>
     <div class="category-wrapper">
       <div class="category-info" (click)="navigateToDetail(categoryNameOne?.id)" fxShow="true" fxHide.gt-sm="false" fxHide.lt-md="true">
@@ -116,14 +112,15 @@
  
   <section class="section4">
     <div class="image-container">
-      <img class="elements" src="../../../../assets/mainpage/dazzle5.png" alt="">
+      <img class="elements" src="../../../../../assets/mainpage/dazzle5.png" alt="">
+
     </div>
   </section>
   <br fxShow="true" fxHide.gt-sm="true" fxHide.lt-md="false" >
   <br fxShow="true" fxHide.gt-sm="false" fxHide.lt-md="true" >
   <br fxShow="true" fxHide.gt-sm="false" fxHide.lt-md="true" >
 
-  <section class="category-section">
+  <section class="category-section" *ngIf="categoryNameTwo?.name">
     <h2 fxShow="true" fxHide.gt-sm="true" fxHide.lt-md="false">{{categoryNameTwo?.name}}</h2>
     <div class="category-wrapper" >
       <div class="category-info" (click)="navigateToDetail(categoryNameTwo?.id)" fxShow="true" fxHide.gt-sm="false" fxHide.lt-md="true">

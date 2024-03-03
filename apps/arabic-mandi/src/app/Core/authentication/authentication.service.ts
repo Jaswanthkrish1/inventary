@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { environment } from 'apps/arabic-mandi/src/environments/environment';
-import { GetItemEntitiesGQL, GetItemEntitiesQueryVariables } from 'apps/arabic-mandi/src/generate-types';
 import { catchError, of } from 'rxjs';
+import { GetItemEntitiesGQL, GetItemEntitiesQueryVariables } from '../admin/generate-admin-types';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticateService {
@@ -89,14 +89,5 @@ export class AuthenticateService {
     } else {
       return true;
     }
-  }
-
-  findItems(variables: GetItemEntitiesQueryVariables) {
-    return this.GetItemEntitiesGQL.watch(variables).valueChanges.pipe(
-      catchError(() => {
-        return of({ data: null });
-      })
-    );
-  }
-  
+  }  
 }

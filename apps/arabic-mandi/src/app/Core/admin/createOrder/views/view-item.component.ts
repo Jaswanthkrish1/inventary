@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
 import { MatPaginator, MatPaginatorModule } from "@angular/material/paginator";
-import { DeleteOneItemEntityInput, GetItemEntitiesQueryVariables } from "apps/arabic-mandi/src/generate-types";
+import { DeleteOneItemEntityInput, GetItemEntitiesQueryVariables } from "../../generate-admin-types";
 import { BehaviorSubject, Subscription, debounceTime, switchMap } from "rxjs";
 import { CreateOrderService } from "../create-order.service";
 import { CreateOfferService } from "../../createOffer/create-offer.service";

@@ -1,4 +1,3 @@
-import { FoodCategoryInput, FoodSizeInput, FoodTypeInput, InputMaybe, UserInput } from "apps/arabic-mandi/src/generate-types";
 
 export interface comboOffer {
   id: number,

@@ -12,7 +12,6 @@ const itemRoutes: Routes = [
     canActivate: [AdminGuard],
     component: ViewItemComponent,
   },
-
   {
     path: 'create_item',
     component: CreateOrderComponent,

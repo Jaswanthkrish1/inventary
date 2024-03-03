@@ -8,6 +8,7 @@ import { MaterialModule } from '../../material.module';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatStepperModule } from '@angular/material/stepper';
 import { UpdateItemComponentDialog } from './components/update-order-dailog.component';
+import { CreateOrderService } from './create-order.service';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,6 @@ import { UpdateItemComponentDialog } from './components/update-order-dailog.comp
     MatStepperModule,
   ],
   exports: [],
-  providers: [],
+  providers: [ CreateOrderService],
 })
 export class CreateOrderModule {}

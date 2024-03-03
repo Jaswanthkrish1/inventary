@@ -1,0 +1,9 @@
+overwrite: true
+schema: './schema.gql'
+documents: 'apps/arabic-mandi/src/app/Core/client/**/*.graphql'
+generates: 
+     apps/arabic-mandi/src/app/Core/client/generate-client-types.ts:
+        plugins: 
+         - 'typescript'
+         - 'typescript-operations'
+         - 'typescript-apollo-angular'

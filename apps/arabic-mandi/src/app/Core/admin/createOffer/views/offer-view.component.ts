@@ -4,8 +4,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { MatPaginator, MatPaginatorModule } from "@angular/material/paginator";
 import { BehaviorSubject, Subscription, debounceTime, switchMap } from "rxjs";
 import { MatTableDataSource } from "@angular/material/table";
-import { GetAlloffersQueryVariables, UpdateOneOfferMutationVariables } from "apps/arabic-mandi/src/generate-types";
-import { CommonService } from "../../adminCommonsService.service";
+import { AdminCommonService } from "../../adminCommonsService.service";
 import { Router, RouterLink } from "@angular/router";
 import { MatDialog } from "@angular/material/dialog";
 import { OfferDetailsDailogComponent } from "../components/offer-details-dailog.component";
@@ -13,6 +12,7 @@ import { CommonModule } from "@angular/common";
 import { MaterialModule } from "../../../material.module";
 import { CoreModule } from "@angular/flex-layout";
 import { ReactiveFormsModule } from "@angular/forms";
+import { GetAlloffersQueryVariables, UpdateOneOfferMutationVariables } from "../../generate-admin-types";
 
 @Component({
   selector: 'offer-view',
@@ -50,7 +50,7 @@ export class OfferViewComponent implements AfterViewInit, OnDestroy {
     private offerService: CreateOfferService,
     private _router: Router,
     private _dialog: MatDialog,
-    private _commonService: CommonService,
+    private _commonService: AdminCommonService,
   ) { }
 
   onStatusChange(event: any, element: any) {
@@ -113,7 +113,7 @@ export class OfferViewComponent implements AfterViewInit, OnDestroy {
   UpdateHandlerTable(element: any) {
     this._commonService.setData(element);
     // Navigate to the update page
-    this._router.navigate(["admin/offer/update_item"]);
+    this._router.navigate(["admin/dashboard/offer/update_item"]);
   }
 
   offerItemViewHandler(element: any){

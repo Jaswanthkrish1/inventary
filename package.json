@@ -9,6 +9,8 @@
     "lint": "nx lint",
     "test": "nx test",
     "generate-types": "nx generate-types",
+    "generate-admin-types": "nx generate-admin-types",
+    "generate-client-types": "nx generate-client-types",
     "start-static": "node .static-xlsx/xlsxserver.js"
   },
   "private": true,

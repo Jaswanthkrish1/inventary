@@ -1,4 +1,21 @@
-<section class="mat-elevation-z8 table-Over-Flow-Globle ">
+
+<div style="display: flex; justify-content: space-around;"  >
+  <div >
+    <h2>
+      All Categorys
+    </h2>
+  </div>
+  <div>
+    <button mat-flat-button color="primary" (click)="openDailog()">
+      Create
+    </button>
+    &nbsp;
+    <!-- <button mat-flat-button color="primary" (click)="reload()">
+      <mat-icon>sync</mat-icon>
+    </button> -->
+  </div>
+</div>
+<section  class="mat-elevation-z8 table-Over-Flow-Globle ">
   <table mat-table [dataSource]="dataSource">
  <!-- Item image Column -->
     <ng-container matColumnDef="image">

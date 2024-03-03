@@ -1,52 +1,63 @@
 import { Injectable } from "@angular/core";
 import { MatSnackBar } from "@angular/material/snack-bar";
-import { v4 as uuidv4 } from 'uuid';
 
-import {
-  GetFilterCategoriesForViewGQL,
- GetFilterCategoriesForViewQueryVariables,
- UpdateOneFoodCategoryGQL, UpdateOneFoodCategoryInput,
-} from 'apps/arabic-mandi/src/generate-types';
-import { CreateOneFoodCategoryGQL, CreateOneFoodCategoryInput, GetItemEntitiesGQL, GetItemEntitiesQueryVariables } from "apps/arabic-mandi/src/generate-types";
+import { UpdateOneFoodCategoryClientGQL, UpdateOneFoodCategoryInput, GetFoodCategoriesClientQueryVariables, GetFoodCategoriesClientGQL, UserInput, GetItemEntitiesClientViewGQL } from '../generate-client-types';
+import { GetItemEntitiesClientGQL, GetItemEntitiesClientQueryVariables } from "../generate-client-types";
 import { catchError, map, of, Observable } from "rxjs";
+import { AuthenticateService } from "../../authentication/authentication.service";
 
 @Injectable({ providedIn: 'root' })
 export class CategoryService {
   constructor(
-    private _getItemEntitiesGQL: GetItemEntitiesGQL,
-    private createOneCategory: CreateOneFoodCategoryGQL,
-    private UpdateOneFoodCategoryGQL: UpdateOneFoodCategoryGQL,
-    private _getFilterCategoriesForView: GetFilterCategoriesForViewGQL,
-    
+    private _getItemEntitiesClientGQL: GetItemEntitiesClientGQL,
+    private _getItemEntitiesClientViewGQL: GetItemEntitiesClientViewGQL,
+    private getFoodCategoriesGql: GetFoodCategoriesClientGQL,
+    private _updateOneFoodCategoryClientGQL: UpdateOneFoodCategoryClientGQL,
+    private _auth: AuthenticateService,
     private _snackBar: MatSnackBar,
   ) { }
- 
-  find(variables: GetItemEntitiesQueryVariables) {
-    return this._getItemEntitiesGQL.watch(variables).valueChanges.pipe(
+
+  find(variables: GetItemEntitiesClientQueryVariables) {
+    return this._getItemEntitiesClientGQL.watch(variables).valueChanges.pipe(
+      catchError(() => {
+        return of({ data: null });
+      })
+    );
+  }
+  findItemForView(variables: GetItemEntitiesClientQueryVariables) {
+    return this._getItemEntitiesClientViewGQL.watch(variables).valueChanges.pipe(
       catchError(() => {
         return of({ data: null });
       })
     );
   }
 
-  getFilterCategorys(variables: GetFilterCategoriesForViewQueryVariables){
-    return this._getFilterCategoriesForView.watch(variables).valueChanges.pipe(
+  FoodCategoryfind(variables: GetFoodCategoriesClientQueryVariables) {
+    return this.getFoodCategoriesGql.watch(variables).valueChanges.pipe(
       catchError(() => {
         return of({ data: null });
       })
     );
   }
 
-  addSingleCategory(input: CreateOneFoodCategoryInput): Observable<any> {
-    return this.createOneCategory
-      .mutate({ input })
-      .pipe(map(({ data }) => data));
-  }
 
-  updateSingleCategory(variables: UpdateOneFoodCategoryInput): Observable<any>{
-    return this.UpdateOneFoodCategoryGQL.mutate({
+  updateSingleCategory(variables: UpdateOneFoodCategoryInput): Observable<any> {
+    return this._updateOneFoodCategoryClientGQL.mutate({
       input: variables
-    }).pipe(map(({ data }) => data)); 
+    }).pipe(map(({ data }) => data));
+  }
+
+  // get user
+  getCurrentUser(): UserInput | null {
+    const user = localStorage.getItem(this._auth.CURRENT_USER_KEY);
+    if (user) {
+      const currentUser = JSON.parse(user);
+      const userService: UserInput = {
+        id: currentUser.id,
+      };
+      return userService;
+    }
+    return null;
   }
 
   encodeId(id: any): string {

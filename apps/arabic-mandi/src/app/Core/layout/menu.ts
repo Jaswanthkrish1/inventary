@@ -15,7 +15,7 @@ export const MENUS: IMenu[] = [
   {
     label: 'DashBoard',
     icon: 'dashboard',
-    link: 'admin/dashboard',
+    link: 'admin/dashboard/category_view',
     header: false,
     permissions: ['admin']
   },
@@ -61,7 +61,7 @@ export const MENUS: IMenu[] = [
       {
         label: 'View Offers',
         icon: 'remove_red_eye',
-        link: 'admin/offer/View_Offers',
+        link: 'admin/dashboard/offer/View_Offers',
         header: false,
         permissions: ['admin']
       }

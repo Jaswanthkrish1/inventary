@@ -1,16 +1,15 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { ViewStructureInput, comboOffer } from '../../structures/structure';
+import { Component, OnInit } from '@angular/core';
+import { ViewStructureInput  } from '../../../structures/structure';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, Subscription, debounceTime, switchMap } from 'rxjs';
 import { trigger, transition, style, animate } from '@angular/animations';
-import { GetFoodCategoriesQueryVariables, GetItemEntitiesQueryVariables } from 'apps/arabic-mandi/src/generate-types';
-import { CreateOrderService } from '../../admin/createOrder/create-order.service';
+import { GetFoodCategoriesClientQueryVariables, GetItemEntitiesClientQueryVariables } from '../../generate-client-types';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
-import { UpdateCategoryComponentDialog } from '../../admin/category/components/update-category-dialog.component';
-import { CategoryService } from './category.service';
-import { FoodDetails } from './pages/food-details.component';
-declare var $: any;
+import { UpdateCategoryComponentDialog } from '../../../admin/category/components/update-category-dialog.component';
+import { CategoryService } from '../category.service';
+import { FoodDetails } from '../components/food-details.component';
+
 @Component({
   selector: 'food-category',
   templateUrl: './category.component.html',
@@ -36,7 +35,7 @@ declare var $: any;
     ]),
   ],
 })
-export class CategoryComponent implements OnInit, AfterViewInit {
+export class CategoryComponent implements OnInit {
   sub: Subscription;
   data: any[] = [];
   viewArrayOne: ViewStructureInput[] = [];
@@ -48,7 +47,6 @@ export class CategoryComponent implements OnInit, AfterViewInit {
     private route: ActivatedRoute,
     private _snackBar: MatSnackBar,
     private _dialog: MatDialog,
-    private _createService: CreateOrderService,
     private _categoryService: CategoryService,
 
   ) {
@@ -56,16 +54,16 @@ export class CategoryComponent implements OnInit, AfterViewInit {
   }
 
   private subs = new Subscription();
-  protected user:any
-  private categoriesdataSetChange$ = new BehaviorSubject(<
-    GetFoodCategoriesQueryVariables
+  protected user: any
+  private $categoriesdataSetChange = new BehaviorSubject(<
+    GetFoodCategoriesClientQueryVariables
     >{
       filter: {},
       sorting: [],
       // paging: { limit: 10, offset: 0 },
     });
   private $dataSetChange = new BehaviorSubject(<
-    GetItemEntitiesQueryVariables
+    GetItemEntitiesClientQueryVariables
     >{
       filter: {},
       sorting: [],
@@ -73,20 +71,31 @@ export class CategoryComponent implements OnInit, AfterViewInit {
     });
   ngOnInit() {
     this.subs.add(
-      this.categoriesdataSetChange$
+      this.$categoriesdataSetChange
         .pipe(
           debounceTime(500),
-          switchMap((variables) => this._createService.find(variables))
+          switchMap((variables) => {
+            if (this._categoryService.getCurrentUser() === null) {
+              const filter = {
+                isActive: { is: true }
+              }
+              // Merge the filter into the existing variables
+              const newVariables = { ...variables, filter };
+              // Call the find method with the updated variables
+              return this._categoryService.FoodCategoryfind(newVariables);
+            } else {
+              return this._categoryService.FoodCategoryfind(variables);
+            }
+          })
         ).subscribe(({ data }) => {
           if (data?.foodCategories) {
-            const user = this._createService.getCurrentUser();
-            if(user?.id){
+            const user = this._categoryService.getCurrentUser();
+            if (user?.id) {
               this.user = user;
               this.data = data.foodCategories;
-              console.log(user)
-            }else{
-              this.data = data.foodCategories;
-            } 
+            } else {
+              this.data = data.foodCategories?.filter((v) => v.isActive);
+            }
           } else {
             this._snackBar.open("Something Wrong While getting FoodCategory Data");
             return; // Return early to avoid unnecessary processing
@@ -143,8 +152,6 @@ export class CategoryComponent implements OnInit, AfterViewInit {
         })
     );
   }
-
-
   onCategoryUpdateHandler(data: any) {
     const dialogRef = this._dialog.open(UpdateCategoryComponentDialog, {
       data: data,
@@ -162,12 +169,5 @@ export class CategoryComponent implements OnInit, AfterViewInit {
   navigateToDetail(id: any) {
     const encodedId = this._categoryService.encodeId(id);
     this.router.navigate(['food', encodedId], { relativeTo: this.route });
-  }
-
-  ngAfterViewInit(): void {
-    setTimeout(() => {
-      const carouselElement =  $('#myCarousel') as any;
-      carouselElement.carousel({ interval: 1000 });
-    }, 100);
   }
 }

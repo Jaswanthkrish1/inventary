@@ -1,13 +1,15 @@
 import { Injectable } from "@angular/core";
 import { MatSnackBar } from "@angular/material/snack-bar";
-import { GetFoodCategoriesGQL, GetFoodCategoriesQueryVariables, UpdateOneFoodCategoryGQL, UpdateOneFoodCategoryInput, UpdateOneFoodCategoryMutationVariables } from "apps/arabic-mandi/src/generate-types";
 import { Observable, catchError, map, of } from "rxjs";
+import { GetFoodCategoriesGQL, UpdateOneFoodCategoryGQL, GetFoodCategoriesQueryVariables, UpdateOneFoodCategoryMutationVariables, UpdateOneFoodCategoryInput, CreateOneFoodCategoryGQL } from "../generate-admin-types";
+import { CreateOneFoodCategoryInput } from "../generate-admin-types";
 
 @Injectable({ providedIn: 'root' })
 export class AdminCategoryService {
   constructor(
     private _getFoodCategoriesGQL: GetFoodCategoriesGQL,
     private _snackBar: MatSnackBar,
+    private createOneCategory: CreateOneFoodCategoryGQL,
     private _updateOneFoodCategoryGQL: UpdateOneFoodCategoryGQL
   ) { }
 
@@ -36,6 +38,12 @@ export class AdminCategoryService {
         }
       );
     });
+  }
+
+  addSingleCategory(input: CreateOneFoodCategoryInput): Observable<any> {
+    return this.createOneCategory
+      .mutate({ input })
+      .pipe(map(({ data }) => data));
   }
   updateSingleCategory(variables: UpdateOneFoodCategoryInput): Observable<any> {
     return this._updateOneFoodCategoryGQL.mutate({

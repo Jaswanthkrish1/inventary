@@ -1,5 +1,5 @@
 // graphql.config.ts
-
+import { CodegenConfig } from '@graphql-codegen/cli'
 import { join } from 'path';
 import { environment } from '../environment/environment';
 import { registerAs } from '@nestjs/config';
@@ -21,5 +21,6 @@ export const graphqlOptions: unknown = {
   resolvers: {},
 
 };
+
 export const graphqlConfig = registerAs('graphql', () => graphqlOptions);
 

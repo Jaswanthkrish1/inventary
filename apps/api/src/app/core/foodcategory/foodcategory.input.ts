@@ -12,6 +12,7 @@ export class FoodCategoryInput {
   id?: number;
 
   @Field({ nullable: true })
+  @IsOptional()
   category_image?: string;
 
   @Field({ nullable: true })
@@ -26,6 +27,4 @@ export class FoodCategoryInput {
 export class CreateFoodCategoryInput extends FoodCategoryInput {}
 
 @InputType()
-export class UpdateFoodCategoryInput extends FoodCategoryInput {
-
-}
+export class UpdateFoodCategoryInput extends FoodCategoryInput {}

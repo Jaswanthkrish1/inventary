@@ -1,0 +1,38 @@
+
+# category muations 
+
+mutation updateOneFoodCategoryClient($input: UpdateOneFoodCategoryInput!){
+  updateOneFoodCategory(input: $input){
+    id
+    category_image
+    isActive
+    name
+    clientView
+  }
+}
+
+
+# category querys 
+
+query GetFoodCategoriesClient(
+  $filter: FoodCategoryFilter
+  $sorting: [FoodCategorySort!]
+) {
+  foodCategories(filter: $filter, sorting: $sorting) {
+    id
+    name
+    category_image
+    isActive
+    clientView
+    items{
+      id
+      name
+      offer
+      price
+      type
+      status
+      image_data
+    }
+  }
+}
+

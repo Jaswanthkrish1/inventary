@@ -16,7 +16,6 @@ mutation CreateOneFoodCategory($input: CreateOneFoodCategoryInput!) {
   }
 }
 # category querys and muations 
-
 mutation updateOneFoodCategory($input: UpdateOneFoodCategoryInput!){
   updateOneFoodCategory(input: $input){
     id
@@ -37,15 +36,6 @@ query GetFoodCategories(
     category_image
     isActive
     clientView
-    items{
-      id
-      name
-      offer
-      price
-      type
-      status
-      image_data
-    }
   }
 }
 
@@ -59,14 +49,6 @@ query GetFilterCategoriesForView(
     category_image
     isActive
     clientView
-    items{
-      id
-      name
-      offer
-      price
-      type
-      status
-      image_data
-    }
   }
 }
+

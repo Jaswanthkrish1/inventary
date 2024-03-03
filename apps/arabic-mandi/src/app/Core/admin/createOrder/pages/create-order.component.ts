@@ -25,7 +25,7 @@ import {
   GetFoodCategoriesQuery,
   GetFoodCategoriesQueryVariables,
   UserInput,
-} from 'apps/arabic-mandi/src/generate-types';
+} from '../../generate-admin-types';
 import {
   BehaviorSubject,
   Subscription,
@@ -34,6 +34,7 @@ import {
 } from 'rxjs';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { Router } from '@angular/router';
+import { UpdateDraftTableComponentDailog } from '../components/update-draft-item.componet';
 interface MenuItem {
   category: string;
   gst: null | string;
@@ -70,13 +71,13 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
       sorting: [],
       // paging: { limit: 10, offset: 0 },
     });
-    private foodSizedataSetChange$ = new BehaviorSubject(<
-      FoodSizesQueryVariables
-      >{
-          filter: {},
-          sorting: [],
-          // paging: { limit: 10, offset: 0 },
-      });
+  private foodSizedataSetChange$ = new BehaviorSubject(<
+    FoodSizesQueryVariables
+    >{
+      filter: {},
+      sorting: [],
+      // paging: { limit: 10, offset: 0 },
+    });
   private selectedCategoryId: number | null = null;
   private selectedFoodtypeId: number | null = null;
   private selectedFoodSizeId: number | null = null;
@@ -226,10 +227,9 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
         const foodCategory: FoodCategoryInput = {
           id: draftItem.cId,
         };
-        const foodSize : FoodSizeInput = {
+        const foodSize: FoodSizeInput = {
           id: draftItem.sId
         }
-
         const foodtype: FoodTypeInput = {
           id: draftItem.fId,
         }
@@ -245,14 +245,14 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
         };
         return createItemInput;
       });
-       this._createService.updateManyItems(this.draftSave);
+      this._createService.updateManyItems(this.draftSave);
       this.stepper.reset();
       this.dataSource = [];
       this.draftItems = [];
-      location.reload();
+      // location.reload();
 
     } else {
-      // impliment the user is Notavilable
+      // impliment the user is Un avilable
     }
   }
 
@@ -265,7 +265,7 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
     this.slideValue = event.checked;
   }
 
-  /* combining all forms data in combined data , that show represent in table  */
+  /* combining all forms data into draft , that show represent in table  */
   onSaveToDraftHandler() {
     if (
       this.firstFormGroup.valid &&
@@ -276,18 +276,21 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
         id: this.nextId++,
         type: this.slideValue,
         fId: this.selectedFoodtypeId,
+        cId: this.selectedCategoryId,
         sId: this.selectedFoodSizeId,
+        cName: this.categoryItem,
         ...this.firstCategory.value,
         ...this.firstFormGroup.value,
         ...this.secondFormGroup.value,
       };
+      console.log(combinedData)
       const existingItemIndex = this.draftItems.findIndex(
         (item) => item.id === combinedData.id
       );
       if (existingItemIndex !== -1) {
         // Update existing item
         this.draftItems[existingItemIndex] = combinedData;
-        this._snackBar.open('Draft item has been Updated');
+        this._snackBar.open('Draft item has been updated');
       } else {
         this.draftItems.push(combinedData);
         this._snackBar.open('New Draft item has been added');
@@ -306,43 +309,33 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
 
   /* set form with perticular static data inside the table to update the data  */
   onSetFormUpdateHandler(data: any) {
-    this.resetFormData();
-    this.updateStatus = true;
-    this.submitStatus = false;
-    if (data) {
-      this.ItemId = data.id;
-      this.firstFormGroup.setValue({
-        name: data.name,
-        size: data.size
-      });
-      this.firstCategory.setValue({
-        InitialCategory: data.InitialCategory,
-        initialFoodtype: data.initialFoodtype
-      });
-      this.secondFormGroup.setValue({
-        price: data.price,
-        img: data.img,
-        gst: data.gst,
-      });
-    }
+    // Assigning the array item id to the local variable
+    this.ItemId = data.id;
+    const dialogRef = this._dialog.open(UpdateDraftTableComponentDailog, {
+      data: { data: data, foodtype: this.FoodtypeSet, foodCategory: this.dataSet, foodSize: this.foodSizeSet },
+    });
+    dialogRef.afterClosed().subscribe(v => {
+      this.onDailogItemUpdateHandler(v)
+    })
   }
-
-  /* Update handler  which is responce to handile the data in static way */
-  onItemUpdateHandler() {
+  onDailogItemUpdateHandler(data: any) {
     if (
-      this.firstFormGroup.valid &&
-      this.secondFormGroup.valid &&
-      this.firstCategory.valid
+      data
     ) {
+      const matchingCategory = this.dataSet.find((res: any) => res?.id === data.category);
+      const matchingFoodType = this.FoodtypeSet.find((res: any) => res?.id === data.foodtype);
       const combinedData = {
         id: this.ItemId,
-        type: this.slideValue,
-        cId: this.selectedCategoryId,
-        fId: this.selectedFoodtypeId,
-        sId: this.selectedFoodSizeId,
-        ...this.firstCategory.value,
-        ...this.firstFormGroup.value,
-        ...this.secondFormGroup.value,
+        type: data.type,
+        cId: data.category,
+        fId: data.foodtype,
+        sId: data.size,
+        img: data.img,
+        price: data.price,
+        size: data.size,
+        name: data.name,
+        foodtype: matchingFoodType?.name,
+        cName: matchingCategory?.name,
       };
       const existingItemIndex = this.draftItems.findIndex(
         (item) => item.id === combinedData.id
@@ -352,13 +345,45 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
         this.draftItems[existingItemIndex] = combinedData;
         this.dataSource = this.draftItems;
         this._snackBar.open('Item has been Updated');
-        this.resetFormData();
-        this.stepper.reset();
-        this.updateStatus = false;
-        this.submitStatus = true;
+
+      } else {
+        this._snackBar.open("error")
       }
     }
   }
+  // /* Update handler  which is responce to handile the data in static way */
+  // onItemUpdateHandler() {
+  //   if (
+  //     this.firstFormGroup.valid &&
+  //     this.secondFormGroup.valid &&
+  //     this.firstCategory.valid
+  //   ) {
+  //     const combinedData = {
+  //       id: this.ItemId,
+  //       type: this.slideValue,
+  //       cId: this.selectedCategoryId,
+  //       fId: this.selectedFoodtypeId,
+  //       sId: this.selectedFoodSizeId,
+  //       cName: this.categoryItem,
+  //       ...this.firstCategory.value,
+  //       ...this.firstFormGroup.value,
+  //       ...this.secondFormGroup.value,
+  //     };
+  //     const existingItemIndex = this.draftItems.findIndex(
+  //       (item) => item.id === combinedData.id
+  //     );
+  //     if (existingItemIndex !== -1) {
+  //       // Update existing item
+  //       this.draftItems[existingItemIndex] = combinedData;
+  //       this.dataSource = this.draftItems;
+  //       this._snackBar.open('Item has been Updated');
+  //       this.resetFormData();
+  //       this.stepper.reset();
+  //       this.updateStatus = false;
+  //       this.submitStatus = true;
+  //     }
+  //   }
+  // }
   /* delete static data based on main item data */
   onDeleteHandler(data: MenuItem) {
     const index = this.draftItems.indexOf(data);
@@ -386,14 +411,16 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
     this.initialFoodtype = data?.name;
   }
 
-  // to fich 
+  // to fitch 
   onSelectFoodsize(data: any) {
     this.selectedFoodSizeId = data?.id;
   }
   /* To fitch the category to first category form */
   onSelectCategory(data: any) {
+    this.firstCategory.get('InitialCategory')?.setValue(data.name)
     this.selectedCategoryId = data?.id;
     this.categoryItem = data?.name;
+    console.log(this.selectedCategoryId)
   }
 
   /* redusing dimenctions of the img and converting file data into 64byte storing in formcontrol */
@@ -442,8 +469,6 @@ export class CreateOrderComponent implements OnInit, OnDestroy {
     // Change the condition based on your desired screen width
     this.isHorizontal = window.innerWidth > 768;
   }
-
-
   ngOnDestroy(): void {
     this.subs.unsubscribe();
   }

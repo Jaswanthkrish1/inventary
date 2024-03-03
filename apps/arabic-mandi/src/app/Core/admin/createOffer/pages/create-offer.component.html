@@ -19,7 +19,24 @@
       <mat-label>Total Cost After Discount</mat-label>
       <input matInput id="totalCostAfterDiscount" formControlName="totalCostAfterDiscount" type="number" readonly />
     </mat-form-field>
-    <div>
+
+    <br>
+    <a class="btn btn-primary btn-sm " (click)="ItemOfferDailogHandlar()" role="button">
+      {{ selectedItems && selectedItems.length > 0 ? 'UpdateItem' : 'SelectItem' }}</a>
+    <br>
+    <button mat-raised-button #paginator color="primary" type="submit">AddToList</button>
+
+  </form>
+  <div style="
+  position: absolute;
+  bottom: 142px;
+  left: 40%;
+  right: 50%;">
+    <button mat-raised-button [matMenuTriggerFor]="menu" *ngIf="selectedItems.length > 0"
+      [matBadge]="selectedItems.length" matBadgePosition="before" matBadgeColor="warn">
+      <mat-icon>view_list</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
       <mat-list>
         <mat-list-item *ngFor="let selectedItem of selectedItems">
           <div fxLayout="row" fxGap="8px" style="justify-content: space-between;">
@@ -29,14 +46,8 @@
           </div>
         </mat-list-item>
       </mat-list>
-    </div>
-    <br>
-    <a class="btn btn-primary btn-sm " (click)="ItemOfferDailogHandlar()" role="button">
-      {{ selectedItems && selectedItems.length > 0 ? 'UpdateItem' : 'SelectItem' }}</a>
-    <br>
-    <button mat-raised-button #paginator color="primary" type="submit">AddToList</button>
-
-  </form>
+    </mat-menu>
+  </div>
   <br>
 </div>
 <br>
@@ -46,7 +57,7 @@
 </div>
 <br>
 <section class="mat-elevation-z8 table-Over-Flow-Globle" *ngIf="offerData.length">
-  <table mat-table [dataSource]="dataSource" >
+  <table mat-table [dataSource]="dataSource">
 
     <!-- Offer Name Column -->
     <ng-container matColumnDef="offerName">
@@ -58,9 +69,22 @@
     <ng-container matColumnDef="listOfItems">
       <mat-header-cell *matHeaderCellDef> <mat-icon>list</mat-icon> </mat-header-cell>
       <mat-cell *matCellDef="let element">
-        <div style="display: grid;">
-          <span *ngFor="let item of element.listOfItems">{{ item.name }}={{ item.quantity }},</span>
-        </div>
+
+        <mat-menu #menu="matMenu">
+          <mat-list>
+            <mat-list-item *ngFor="let item of element.listOfItems">
+              <div fxLayout="row" fxGap="8px" style="justify-content: space-between;">
+                <span style="overflow: hidden; text-overflow: ellipsis;">{{ item.name }}</span>
+                <span>:</span>
+                <span> {{ item.quantity }}</span>
+              </div>
+            </mat-list-item>
+          </mat-list>
+        </mat-menu>
+        <button mat-raised-button [matMenuTriggerFor]="menu" *ngIf="element.listOfItems.length > 0"
+          [matBadge]="element.listOfItems.length" matBadgePosition="before" matBadgeColor="warn">
+          <mat-icon>view_list</mat-icon>
+        </button>
       </mat-cell>
     </ng-container>
 

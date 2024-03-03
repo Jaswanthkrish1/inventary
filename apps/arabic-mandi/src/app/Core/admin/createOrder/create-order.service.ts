@@ -20,7 +20,7 @@ import {
   GetItemEntitiesGQL,
   
 
-} from 'apps/arabic-mandi/src/generate-types';
+} from '../generate-admin-types';
 import { Observable, catchError, map, of } from 'rxjs';
 import { AuthenticateService } from '../../authentication/authentication.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -73,11 +73,7 @@ export class CreateOrderService {
     );
   }
 
-  addSingleCategory(input: CreateOneFoodCategoryInput): Observable<any> {
-    return this.createOneCategory
-      .mutate({ input })
-      .pipe(map(({ data }) => data));
-  }
+
 
   // Item or order Querys and mutations
 

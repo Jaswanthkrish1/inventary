@@ -3,13 +3,15 @@ import { AfterViewInit, Component, ViewChild } from "@angular/core";
 import { MaterialModule } from "../../../material.module";
 import { CoreModule } from "@angular/flex-layout";
 import { AdminCategoryService } from "../category.service";
-import { BehaviorSubject, Subscription, debounce, debounceTime, switchMap } from "rxjs";
-import { GetFoodCategoriesQueryVariables, UpdateFoodCategoryInput, UpdateOneFoodCategoryInput, UpdateOneFoodCategoryMutationVariables } from "apps/arabic-mandi/src/generate-types";
+import { BehaviorSubject, Subscription, debounce, debounceTime, from, switchMap } from "rxjs";
 import { MatTableDataSource } from "@angular/material/table";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatDialog } from "@angular/material/dialog";
 import { UpdateCategoryComponentDialog } from "../components/update-category-dialog.component";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { CreateCategoryComponentDialog } from "../components/create-category-dialog.component";
+import { AdminCommonService } from "../../adminCommonsService.service";
+import { GetFoodCategoriesQueryVariables, UpdateOneFoodCategoryMutationVariables } from "../../generate-admin-types";
 
 @Component({
     templateUrl: './view-category.component.html',
@@ -22,11 +24,9 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 })
 export class CategoryViewComponent implements AfterViewInit {
     private subs = new Subscription
-    public displayedColumns: string[] = ['status','view', 'image', 'name', 'actions'];
+    public displayedColumns: string[] = ['status', 'view', 'image', 'name', 'actions'];
     public dataSource!: MatTableDataSource<any>;
     @ViewChild(MatPaginator) paginator!: MatPaginator;
-
-
     private getAllCatgeoryDataSetChange$ = new BehaviorSubject(<
         GetFoodCategoriesQueryVariables
         >{
@@ -37,7 +37,8 @@ export class CategoryViewComponent implements AfterViewInit {
     constructor(
         protected _adminCategoryService: AdminCategoryService,
         private _dialog: MatDialog,
-        private _snackbar: MatSnackBar
+        private _snackbar: MatSnackBar,
+        private _commonService: AdminCommonService
     ) { }
 
     ngAfterViewInit() { this.getAllCategory() }
@@ -122,4 +123,18 @@ export class CategoryViewComponent implements AfterViewInit {
             })
         }
     }
+    openDailog() {
+        const ref_dailog = this._dialog.open(CreateCategoryComponentDialog);
+        ref_dailog.afterClosed().subscribe((v) => {
+            if (v) {
+                setTimeout(() => {
+                    this.getAllCategory()
+                    setTimeout(() => {
+                        this._commonService.reloadComponent();
+                    }, 1000)
+                }, 1000)
+            }
+        })
+    }
+
 }

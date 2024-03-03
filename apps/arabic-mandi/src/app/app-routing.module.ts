@@ -38,7 +38,6 @@ const appRoutes: Routes = [
       {
         path: 'contact',
         data: { breadcrumb: 'Contact' },
-
         loadChildren: () =>
           import('./Core/client/contact/contact.module').then(
             (m) => m.ContactModule
@@ -66,7 +65,6 @@ const appRoutes: Routes = [
       },
       {
         path: 'admin',
-        data: { breadcrumb: 'Admin' },
         canActivate: [AuthenticationGuard],
         loadChildren: () =>
           import('./Core/admin/admin.module').then(

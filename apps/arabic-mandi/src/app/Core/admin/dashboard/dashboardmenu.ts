@@ -15,10 +15,26 @@ export interface AdminMenu {
     {
       label: 'DashBoard',
       icon: 'dashboard',
-      link: 'admin/dashboard',
+      link: 'category_view',
       header: false,
       permissions: ['admin']
     },
+    {
+      label: 'Category',
+      icon: 'add_circle',
+      // link: 'admin/add_item/view_item',
+      header: false,
+      permissions: ['admin'],
+      child: [
+        {
+          label: 'ViewCategorys',
+          icon: 'remove_red_eye',
+          link: 'category_view',
+          header: false,
+          permissions: ['admin']
+        }, 
+      ]
+  },
     {
         label: 'Items',
         icon: 'add_circle',

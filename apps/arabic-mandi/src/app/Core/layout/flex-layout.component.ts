@@ -1,16 +1,13 @@
 import { Component, Renderer2, ViewChild } from '@angular/core';
 import { IMenu, MENUS } from './menu';
 import { AuthenticateService } from '../authentication/authentication.service';
-import { MatSidenav } from '@angular/material/sidenav';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatMenuTrigger } from '@angular/material/menu';
-import { BreadcrumbService } from 'xng-breadcrumb';
 import { FormControl } from '@angular/forms';
-import { BehaviorSubject, Subscription, catchError, debounceTime, switchMap } from 'rxjs';
-import { GetItemEntitiesQueryVariables } from 'apps/arabic-mandi/src/generate-types';
+import { BehaviorSubject, Subscription, debounceTime, switchMap } from 'rxjs';
 import { CategoryService } from '../client/category/category.service';
-import { NotificationService } from '../tools/notification/notification.service';
+import { GetItemEntitiesClientQueryVariables } from '../client/generate-client-types';
 @Component({
   selector: 'flex-layout',
   templateUrl: './flex-layout.component.html',
@@ -28,7 +25,7 @@ export class FlexLayoutComponent {
   protected _defaultUser: any;
   protected dataSource: any[] = [];
   private getAllEntitiesDataSetChange$ = new BehaviorSubject(<
-    GetItemEntitiesQueryVariables
+    GetItemEntitiesClientQueryVariables
     >{
       filter: {},
       sorting: [],
@@ -41,8 +38,7 @@ export class FlexLayoutComponent {
   hasData: boolean = false;
   selectedIndex = -1; // Index of the currently selected option
   displayOption = false;
-
-
+  CategoriesList: any[] = [];
 
   constructor(
     private _auth: AuthenticateService,
@@ -70,7 +66,7 @@ export class FlexLayoutComponent {
     let data: any[] = []
     this.subs.add(
       this.globalSearchItems.valueChanges.subscribe((r) => {
-      this. displayOption = true;
+        this.displayOption = true;
         if (data.length === 0) {
           data = this.dataSource;
         }
@@ -94,39 +90,61 @@ export class FlexLayoutComponent {
   }
   selectOption(item: any) {
     this.navigateToAnotherPage(item)
-    this.globalSearchItems.setValue(item.name); // Set the value of the search bar to the clicked item's name
-    setTimeout( ( )=>{
-      this.globalSearchItems.setValue(''); // Set the value of the search bar to the clicked item's name
-    },1000)
+    if (item?.id) {
+      this.globalSearchItems.setValue('');
+    } else {
+      this.globalSearchItems.setValue(item.name); // Set the value of the search bar to the clicked item's name
+      setTimeout(() => {
+        this.globalSearchItems.setValue(''); // Set the value of the search bar to the clicked item's name
+      }, 1000)
+    }
+
   }
 
   private navigateToAnotherPage(item: any) {
-    const encodedId = this._categoryService.encodeId(item?.category?.id)
-    this. displayOption = false;
-    this._router.navigate(['/home/food', encodedId], { relativeTo: this.route });
+    if (item?.id && item?.isActive) {
+      const encodedId = this._categoryService.encodeId(item?.id)
+      this.displayOption = false;
+      this._router.navigate(['/home/food', encodedId], { relativeTo: this.route });
+    } else {
+      const encodedId = this._categoryService.encodeId(item?.category?.id)
+      this.displayOption = false;
+      this._router.navigate(['/home/food', encodedId], { relativeTo: this.route });
+    }
   }
 
   onKeyDown(event: KeyboardEvent) {
+    if (!this.filteredData.length && this.globalSearchItems.value !== '') {
+      this.upDown(event, this.CategoriesList)
+    } else {
+      this.upDown(event, this.filteredData)
+    }
+  }
+  private upDown(event: KeyboardEvent, arr: any) {
     if (event.key === 'ArrowUp') {
       event.preventDefault(); // Prevent scrolling the page
       this.selectedIndex = Math.max(this.selectedIndex - 1, 0); // Move selection up
     } else if (event.key === 'ArrowDown') {
       event.preventDefault(); // Prevent scrolling the page
-      this.selectedIndex = Math.min(this.selectedIndex + 1, this.filteredData.length - 1); // Move selection down
+      this.selectedIndex = Math.min(this.selectedIndex + 1, arr.length - 1); // Move selection down
     } else if (event.key === 'Enter' && this.selectedIndex !== -1) {
       // Select the item if Enter is pressed
-      this.selectOption(this.filteredData[this.selectedIndex]);
+      this.selectOption(arr[this.selectedIndex]);
     }
   }
 
   private getCommonItemData() {
     this.getAllEntitiesDataSetChange$.pipe(
       debounceTime(500),
-      switchMap((variable) => this._auth.findItems(variable))
+      switchMap((variable) => this._categoryService.find(variable))
 
     ).subscribe(({ data }) => {
       if (data?.itemEntities) {
         this.dataSource = data?.itemEntities;
+        this.CategoriesList = data?.itemEntities.filter((item) => item.category?.isActive).map(c => { return c.category })
+        const uniqueCategoryNames = new Set(this.CategoriesList);
+        const uniqueCategoriesList = Array.from(uniqueCategoryNames);
+        this.CategoriesList = uniqueCategoriesList;
       }
     }, (catchError) => {
       this._snakBar.open("error While Getting Information", catchError)

@@ -93,18 +93,22 @@
   <div class="background">
     <div *ngIf="filteredData.length > 0 && globalSearchItems.value !== ''" class="searchBar">
       <mat-option *ngFor="let item of filteredData; let i = index" [class.selected]="i === selectedIndex"
-      (click)="selectOption(item)">{{ item.name }}</mat-option>
+      (click)="selectOption(item)">{{ item.name }} &nbsp; / &nbsp; {{item.category.name}} &nbsp;<img *ngIf="item?.image_data" [src]="item.image_data" alt="alt" height="20px" width="20px" > </mat-option>
     </div>
-    <mat-option *ngIf="!filteredData.length  && globalSearchItems.value !== '' " class="searchBar">
-      No data
-    </mat-option>
+    <div *ngIf="!filteredData.length && globalSearchItems.value !== ''" class="grid-container">
+      <mat-option class="mat-option" *ngFor="let list of CategoriesList; let i = index" [class.selected]="i === selectedIndex" (click)="selectOption(list)">
+        {{ list.name }}
+      </mat-option>
+    </div>
   </div>
 </header>
 
 <body>
   <div fxLayout="column" fxLayoutAlign="center stretch" style="min-height: calc(100vh - 100px);">
     <div class="content">
-      <router-outlet></router-outlet>
+      <router-outlet>
+        <!-- <app-breadcrumbs></app-breadcrumbs> -->
+      </router-outlet>
       <section class="rights">
         <Copy-Rights></Copy-Rights>
       </section>

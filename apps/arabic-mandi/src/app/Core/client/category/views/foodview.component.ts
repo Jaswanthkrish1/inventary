@@ -6,13 +6,13 @@ import {
   ChangeDetectorRef,
 } from '@angular/core';
 import { FoodItem, StaticFoodItem, ViewStructureInput } from '../../../structures/structure';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { BehaviorSubject, Subscription, debounceTime, switchMap } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
-import { FoodDetails } from '../pages/food-details.component';
+import { FoodDetails } from '../components/food-details.component';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { CategoryService } from '../category.service';
-import { CreateItemInput, CreateOneItemEntityInput, GetItemEntitiesQueryVariables } from 'apps/arabic-mandi/src/generate-types';
+import { CreateItemInput, GetItemEntitiesClientQueryVariables } from '../../generate-client-types';
 @Component({
   selector: 'food-foodview',
   templateUrl: './foodview.component.html',
@@ -26,7 +26,7 @@ import { CreateItemInput, CreateOneItemEntityInput, GetItemEntitiesQueryVariable
     ]),
   ],
 })
-export class FoodComponent implements  OnDestroy {
+export class FoodComponent implements OnDestroy {
   public sub: Subscription;
   public selectedFoodItem: any;
   public itemName: any;
@@ -36,13 +36,12 @@ export class FoodComponent implements  OnDestroy {
   public selectedType: string = '';
   public dataSource: any[] = [];
   private $dataSetChange = new BehaviorSubject(<
-    GetItemEntitiesQueryVariables
+    GetItemEntitiesClientQueryVariables
     >{
       filter: {},
       sorting: [],
       //   paging: { limit: 10, offset: 0 },
     });
-
 
   foodTypes: string[] = [];
   structuredFoodType: { [key: string]: FoodItem[] } = {};
@@ -58,10 +57,10 @@ export class FoodComponent implements  OnDestroy {
     this.sub.add(
       this.route.paramMap.subscribe((params) => {
         const key = params.get('category');
-        this.itemName = key;
         if (key) {
           this.loading = true;
           const encodedId = this._categoryService.decodeId(key);
+          this.dataSource = []
           this.getFoods(encodedId);
         }
       })
@@ -72,7 +71,7 @@ export class FoodComponent implements  OnDestroy {
     this.selectedFoodItem = data;
     this._dialog.open(FoodDetails, {
       width: '500px',
-      data: data ,
+      data: data,
     });
   }
 
@@ -88,16 +87,16 @@ export class FoodComponent implements  OnDestroy {
         debounceTime(500),
         switchMap(variable => {
           // Create a new filter object based on the category key
-          const filter = { category: { id: { eq: id } } };
+          const filter = { category: { id: { eq: id }, isActive: { is: true} } };
           // Merge the filter into the existing variables
           const newVariables = { ...variable, filter };
           // Call the find method with the updated variables
-          return this._categoryService.find(newVariables);
+          return this._categoryService.findItemForView(newVariables);
         })
       ).subscribe(({ data }) => {
         if (data?.itemEntities) {
           this.dataSource = data?.itemEntities;
-          this.itemName = this.dataSource[0].category.name;
+          this.itemName = this.dataSource[0].category?.name;
           this.staticStructuredFoodType = this.dataSource.reduce((acc, item) => {
             if (!acc[item.foodtype?.name]) {
               acc[item.foodtype?.name] = [];
@@ -114,9 +113,9 @@ export class FoodComponent implements  OnDestroy {
         this.loading = false;
       } else {
         this.loading = false;
-        this._router.navigate(['/'])
+        this._router.navigateByUrl('/')
       }
-    },2000)
+    }, 2000)
   }
 
 
@@ -132,5 +131,6 @@ export class FoodComponent implements  OnDestroy {
 
   ngOnDestroy(): void {
     this.sub.unsubscribe();
+    this.dataSource = []
   }
 }

@@ -12,7 +12,6 @@ import { InMemoryCache } from '@apollo/client/cache';
 import { HttpClientModule } from '@angular/common/http';
 import { MaterialModule } from './Core/material.module';
 import { LayoutFlexModule } from './Core/layout/layout.module';
-import { BreadcrumbModule, BreadcrumbService } from 'xng-breadcrumb';
 const uri = 'http://localhost:3000/api/graphql'
 @NgModule({
   declarations: [AppComponent],
@@ -40,6 +39,7 @@ const uri = 'http://localhost:3000/api/graphql'
       },
       deps: [HttpLink],
     },
+    
   ],
   exports: [RouterModule],
   bootstrap: [AppComponent],

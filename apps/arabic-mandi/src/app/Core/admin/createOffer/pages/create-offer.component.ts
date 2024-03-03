@@ -2,14 +2,14 @@ import { AfterViewInit, ChangeDetectionStrategy, Component, OnChanges, OnDestroy
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { CreateOfferService } from "../create-offer.service";
 import { BehaviorSubject, Subscription, debounceTime, switchMap } from "rxjs";
-import { GetItemEntitiesQueryVariables, CreateManyOffersInput, CreateOfferInput, OfferItemInput } from "apps/arabic-mandi/src/generate-types";
 import { MatDialog } from "@angular/material/dialog";
 import { OfferItemComponentDialog } from "../components/combo-offer-dailog.component";
 import { MatSnackBar, MatSnackBarConfig } from "@angular/material/snack-bar";
 import { MatTableDataSource } from "@angular/material/table";
 import { MatPaginator } from "@angular/material/paginator";
 import { ChangeDetectorRef } from '@angular/core';
-import { CommonService } from "../../adminCommonsService.service";
+import { AdminCommonService } from "../../adminCommonsService.service";
+import { GetItemEntitiesQueryVariables, OfferItemInput, CreateOfferInput, CreateManyOffersInput } from "../../generate-admin-types";
 export class OfferForm {
   offerName: string;
   listOfItems: any[];
@@ -38,7 +38,7 @@ export class CreateOfferComponent implements OnInit, AfterViewInit, OnDestroy {
   private dataSourceItems!: any;
   public checked: boolean = false;
   public dataSource!: MatTableDataSource<any>;
-  public selectedItems!: any[];
+  public selectedItems: any[] = [];
   public offerData: any[] = [];
   public displayedColumns: string[] = ['offerName', 'listOfItems', "price", 'specialDiscount', 'totalCostAfterDiscount', 'delete'];
   private dataSetChange$ = new BehaviorSubject(<
@@ -54,7 +54,7 @@ export class CreateOfferComponent implements OnInit, AfterViewInit, OnDestroy {
     private _dialog: MatDialog,
     private _snackbar: MatSnackBar,
     private cdr: ChangeDetectorRef,
-    private commonService: CommonService,
+    private commonService: AdminCommonService,
     private offerService: CreateOfferService) { }
   
   ngAfterViewInit(): void {

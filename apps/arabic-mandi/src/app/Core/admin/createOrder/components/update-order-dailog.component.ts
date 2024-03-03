@@ -18,7 +18,7 @@ import {
     FoodSizesQueryVariables,
     FoodSizesQuery,
     FoodSizeInput
-} from 'apps/arabic-mandi/src/generate-types';
+} from '../../generate-admin-types';
 import { CreateOrderService } from '../create-order.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
@@ -140,26 +140,22 @@ export class UpdateItemComponentDialog implements OnInit, OnDestroy {
                     switchMap((variables) => this._createService.find(variables))
                 )
                 .subscribe(({ data }) => {
-                    if (!this.data?.name) {
-                        this._snackBar.open("Something Wrong While getting Category Data");
-                        return; // Return early to avoid unnecessary processing
-                    }
-
                     if (!data?.foodCategories) {
+                        this._snackBar.open("Something Wrong While getting Category Data");
                         return; // Return early if no food categories are available
                     }
-                    const category = data.foodCategories;
+                    const category = data?.foodCategories;
                     const foodType = this.data.foodtype?.id;
                     const matchingFoodType = this.foodTypes.find(res => res?.id === foodType);
                     const matchingFoodSize = this.foodSizes.find(res => res?.id === foodType);
-                    const itemCategory = this.data.category.name.toLowerCase();
+                    const itemCategory = this.data.category.name.toLowerCase() ?? '';
                     const matchingCategory = data.foodCategories.find(res => res.name.toLowerCase() === itemCategory);
                     this.slideValue = this.data.type;
                     this.imageUrl = this.data.image_data;
                     this.status = this.data.status;
                     this.updatedItem.patchValue({
                         foodtype: matchingFoodType?.name,
-                        category: matchingCategory?.name.toString(),
+                        category: (matchingCategory?.name ?? ' ').toString(),
                         size: matchingFoodSize?.id,
                         name: this.data.name,
                         offer: this.data.offer,
@@ -221,26 +217,25 @@ export class UpdateItemComponentDialog implements OnInit, OnDestroy {
     }
 
     onSubmitHandler() {
-        
+
         const formdata = this.updatedItem.value;
         const selectedCategoryName = formdata.category?.toString().toLowerCase();
         const category = this.dataSet.find(category => category.name.toLowerCase() === selectedCategoryName);
         const foodTypeName: string = this.updatedItem.get('foodtype')?.value || '';
         const foodSizeId: number = this.updatedItem.get('size')?.value || 0;
-        if ( foodTypeName != '' && foodSizeId != 0 ) {
+        if (foodTypeName != '' && foodSizeId != 0) {
             const foodType = this.foodTypes.find(foodtype => foodtype?.name.toLowerCase().replace(/\s/g, '') === foodTypeName.toLowerCase().replace(/\s/g, ''))
             // const foodSize = this.foodSizes.find(foodsize => foodsize?.id === foodSizeId);
 
             if (this.updatedItem.valid) {
                 const foodCategoryInput: FoodCategoryInput = {
                     id: category?.id,
-                    name: category?.name,
                 }
                 const foodTypesInput: FoodTypeInput = {
                     id: foodType?.id
                 }
                 const foodSizeInput: FoodSizeInput = {
-                    id: formdata?.size,
+                    id: formdata?.size, // form data carryingid as sizes
                 }
                 const updatedByUserId: UserInput | null = this._createService.getCurrentUser();
                 if (updatedByUserId && updatedByUserId.id) {

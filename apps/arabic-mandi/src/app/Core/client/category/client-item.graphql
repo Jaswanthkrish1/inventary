@@ -1,0 +1,44 @@
+#Query for getting all data
+query GetItemEntitiesClient($filter: ItemEntityFilter!, $sorting: [ItemEntitySort!]) {
+  itemEntities(filter: $filter, sorting: $sorting) {
+            name
+            offer
+            price
+            type
+            status
+            image_data
+            category {
+              id
+              isActive
+              name
+              category_image
+              clientView
+            },
+            foodtype{
+              name
+            },
+            foodsize{
+              name
+            },
+  }
+}
+query GetItemEntitiesClientView($filter: ItemEntityFilter!, $sorting: [ItemEntitySort!]) {
+  itemEntities(filter: $filter, sorting: $sorting) {
+            name
+            offer
+            price
+            type
+            status
+            image_data
+            category {
+              name
+              isActive
+            },
+            foodtype{
+              name
+            },
+            foodsize{
+              name
+            }
+  }
+}

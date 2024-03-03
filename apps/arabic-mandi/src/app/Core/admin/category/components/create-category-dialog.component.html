@@ -14,23 +14,22 @@
                     align-items: center;">
                     <form [formGroup]="newCategory">
                         <mat-form-field>
-                            <mat-label> Category Name</mat-label>
-                            <input matInput formControlName="category_name" placeholder="name">
+                          <mat-label>Category Name</mat-label>
+                          <input matInput formControlName="category_name" placeholder="Name">
+                          <mat-error *ngIf="newCategory.get('category_name')?.invalid">Category name is required</mat-error>
                         </mat-form-field>
                         <br>
-                        <mat-label>Category Image</mat-label>
+                        <img *ngIf="newCategory.get('category_image')?.value" [src]="newCategory.get('category_image')?.value"
+                        alt="Selected Image" style="max-width: 100%; max-height: 100px;" aria-required="true">
                         <div>
-                            <div>
-                                <img *ngIf="newCategory.get('category_image')?.value" [src]="newCategory.get('category_image')?.value"
-                                    alt="Selected Image" style="max-width: 100%; max-height: 200px;">
-                            </div>
-                            <input type="file" accept=".jpg,.jpeg,.png" id="imageUpload"
-                                (change)="onFileSelected($event)" value="">
+                          <label for="imageUpload">Category Image</label>
+                          <br>
+                          <input formControlName="category_image" type="file" accept=".jpg,.jpeg,.png" id="imageUpload" (change)="onFileSelected($event)">
+                          <mat-error *ngIf="newCategory.get('category_image')?.invalid">Image is required</mat-error>
                         </div>
                         <br>
-                        <button mat-raised-button color="warn" (click)="onSubmitHandler(newCategory.value)">Add
-                            Category</button>
-                    </form>
+                        <button mat-raised-button color="primary" (click)="onSubmitHandler(newCategory.value)" >Add Category</button>
+                      </form>
                 </section>
             </div>
         </div>

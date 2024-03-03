@@ -9,7 +9,6 @@ const adminRoutes: Routes = [
     children: [
       {
         path: 'dashboard',
-        data: { breadcrumb: 'DashBoard' },
         loadChildren: () =>
           import('./dashboard/dashboard.module').then(
             (m) => m.DashBoardModule

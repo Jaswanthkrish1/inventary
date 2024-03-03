@@ -7,217 +7,219 @@
       <h3>Create Item</h3>
     </div>
     <div>
-      <button mat-flat-button color="primary" routerLink="/admin/item">View All</button>
+      <button mat-flat-button color="primary" routerLink="/admin/dashboard/item">View All</button>
     </div>
   </section>
   <br>
   <section class="table-Over-Flow-Globle">
-  <div class="foodtype_div_outer">
-    <div>
-      <form [formGroup]="firstCategory">
-        <mat-form-field>
-          <mat-label>Category</mat-label>
-          <mat-select placeholder="Favorite food" formControlName="InitialCategory" required>
-            <mat-option *ngFor="let categoryType of dataSet" [value]="categoryType.name"
-              (onSelectionChange)="onSelectCategory(categoryType)">
-              {{ categoryType.name }}
-            </mat-option>
-          </mat-select>
-          <mat-error *ngIf="firstCategory.get('InitialCategory')?.hasError('required')">
-            Please Select Category
-          </mat-error>
-        </mat-form-field>
-        <button mat-raised-button matTooltip="Add New Category " (click)="createCategoryHandlerDailog()"
-          matTooltipPosition="after" style="margin-left: 5px;">
-          <mat-icon>add</mat-icon>
-        </button>
-    <br>
-        <mat-form-field>
-          <mat-label>FoodType</mat-label>
-          <mat-select placeholder="Favorite foodtype" formControlName="initialFoodtype" required>
-            <mat-option *ngFor="let foodType of FoodtypeSet" [value]="foodType.name"
-              (onSelectionChange)="onSelectFoodtype(foodType)">
-              {{ foodType.name }}
-            </mat-option>
-          </mat-select>
-          <mat-error *ngIf="firstCategory.get('initialFoodtype')?.hasError('required')">
-            Please Select footype
-          </mat-error>
-        </mat-form-field>
-      </form>
+    <div class="foodtype_div_outer">
+      <div>
+        <form [formGroup]="firstCategory">
+          <mat-form-field>
+            <mat-label>Category</mat-label>
+            <mat-select placeholder="Favorite food" formControlName="InitialCategory" required>
+              <mat-option *ngFor="let categoryType of dataSet" [value]="categoryType.name"
+                (onSelectionChange)="onSelectCategory(categoryType)">
+                {{ categoryType.name }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="firstCategory.get('InitialCategory')?.hasError('required')">
+              Please Select Category
+            </mat-error>
+          </mat-form-field>
+          <button mat-raised-button matTooltip="Add New Category " (click)="createCategoryHandlerDailog()"
+            matTooltipPosition="after" style="margin-left: 5px;">
+            <mat-icon>add</mat-icon>
+          </button>
+          <br>
+          <mat-form-field>
+            <mat-label>FoodType</mat-label>
+            <mat-select placeholder="Favorite foodtype" formControlName="initialFoodtype" required>
+              <mat-option *ngFor="let foodType of FoodtypeSet" [value]="foodType.name"
+                (onSelectionChange)="onSelectFoodtype(foodType)">
+                {{ foodType.name }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="firstCategory.get('initialFoodtype')?.hasError('required')">
+              Please Select footype
+            </mat-error>
+          </mat-form-field>
+        </form>
 
-      <!-- <mat-select required>
+        <!-- <mat-select required>
     <mat-option *ngFor="let categoryType of dataSet" [value]="categoryType.name"
       (onSelectionChange)="onSelectCategory(categoryType)">
       {{ categoryType.name }}
     </mat-option>
   </mat-select> -->
-    </div>
-    <div class="foodtype_div_inner">
-      <div>
-        <mat-label>Food Type</mat-label>
-        <mat-slide-toggle color="primary" (change)="onSlideToggleChange($event)">
-          {{ slideValue ? 'Veg' : 'Non-Veg' }}
-        </mat-slide-toggle>
-        <!-- Button to demonstrate color change -->
-        <img *ngIf="!slideValue" src="../../../../../assets/icon_veg_nonveg/icons8-non-veg-30.png"
-          alt="Vegetables Image" style="width: 24px; height: 24px; margin-left: 8px;">
+      </div>
+      <div class="foodtype_div_inner">
+        <div>
+          <mat-label>Food Type</mat-label>
+          <mat-slide-toggle color="primary" (change)="onSlideToggleChange($event)">
+            {{ slideValue ? 'Veg' : 'Non-Veg' }}
+          </mat-slide-toggle>
+          <!-- Button to demonstrate color change -->
+          <img *ngIf="!slideValue" src="../../../../../assets/icon_veg_nonveg/icons8-non-veg-30.png"
+            alt="Vegetables Image" style="width: 24px; height: 24px; margin-left: 8px;">
 
-        <img *ngIf="slideValue" src="../../../../../assets/icon_veg_nonveg/icons8-veg-32.png" alt="Meat Image"
-          style="width: 24px; height: 24px; margin-left: 8px;">
-      </div>
-      <div>
-        <!-- Add any Button -->
+          <img *ngIf="slideValue" src="../../../../../assets/icon_veg_nonveg/icons8-veg-32.png" alt="Meat Image"
+            style="width: 24px; height: 24px; margin-left: 8px;">
+        </div>
+        <div>
+          <!-- Add any Button -->
+        </div>
       </div>
     </div>
-  </div>
-  <br>
-  <mat-stepper linear [orientation]="isHorizontal ? 'horizontal' : 'vertical'" #stepper>
-    <mat-step [stepControl]="firstFormGroup">
-      <form [formGroup]="firstFormGroup">
-        <ng-template matStepLabel>Item Name</ng-template>
-        <br />
-        <mat-form-field>
-          <mat-label>Name</mat-label>
-          <input matInput formControlName="name" placeholder="Name" />
-          <!-- <mat-error *ngIf="firstFormGroup.get('name')?.hasError('required')">
+    <br>
+    <mat-stepper linear [orientation]="isHorizontal ? 'horizontal' : 'vertical'" #stepper>
+      <mat-step [stepControl]="firstFormGroup">
+        <form [formGroup]="firstFormGroup">
+          <ng-template matStepLabel>Item Name</ng-template>
+          <br />
+          <mat-form-field>
+            <mat-label>Name</mat-label>
+            <input matInput formControlName="name" placeholder="Name" />
+            <!-- <mat-error *ngIf="firstFormGroup.get('name')?.hasError('required')">
           This field is required.
         </mat-error> -->
-        </mat-form-field>
-        <br />
-       
-        <mat-form-field>
-          <mat-label>Quantity</mat-label>
-          <mat-select placeholder="Quantity" formControlName="size" required>
-            <mat-option *ngFor="let foodSize of foodSizeSet" [value]="foodSize?.id"
-              (onSelectionChange)="onSelectFoodsize(foodSize)">
-              {{ foodSize.name }}
-            </mat-option>
-          </mat-select>
-          <mat-error *ngIf="firstFormGroup.get('size')?.hasError('required')">
-            Please Select foodSize
-          </mat-error>
-        </mat-form-field>
-        <br>
-        <div>
-          <button mat-button matStepperNext>Next</button>
-        </div>
-      </form>
-    </mat-step>
-    <mat-step [stepControl]="secondFormGroup">
-      <form [formGroup]="secondFormGroup">
-        <ng-template matStepLabel>Price & Attach Image</ng-template>
-        <br />
-        <mat-form-field>
-          <mat-label>Price</mat-label>
-          <input matInput type="number" formControlName="price" maxlength="5" placeholder="Price" value="" required>
-        </mat-form-field>
-        <br />
-        <mat-label>Image</mat-label>
-        <div>
+          </mat-form-field>
+          <br />
+
+          <mat-form-field>
+            <mat-label>Quantity</mat-label>
+            <mat-select placeholder="Quantity" formControlName="size" required>
+              <mat-option *ngFor="let foodSize of foodSizeSet" [value]="foodSize?.id"
+                (onSelectionChange)="onSelectFoodsize(foodSize)">
+                {{ foodSize.name }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="firstFormGroup.get('size')?.hasError('required')">
+              Please Select foodSize
+            </mat-error>
+          </mat-form-field>
+          <br>
           <div>
-            <img *ngIf="secondFormGroup.get('img')?.value" [src]="secondFormGroup.get('img')?.value"
-              alt="Selected Image" style="max-width: 100%; max-height: 200px;">
+            <button mat-button matStepperNext>Next</button>
           </div>
-          <input type="file" accept=".jpg,.jpeg," id="imageUpload" (change)="onFileSelected($event)" value="">
-        </div>
-        <br />
-        <br />
+        </form>
+      </mat-step>
+      <mat-step [stepControl]="secondFormGroup">
+        <form [formGroup]="secondFormGroup">
+          <ng-template matStepLabel>Price & Attach Image</ng-template>
+          <br />
+          <mat-form-field>
+            <mat-label>Price</mat-label>
+            <input matInput type="number" formControlName="price" maxlength="5" placeholder="Price" value="" required>
+          </mat-form-field>
+          <br />
+          <mat-label>Image</mat-label>
+          <div>
+            <div>
+              <img *ngIf="secondFormGroup.get('img')?.value" [src]="secondFormGroup.get('img')?.value"
+                alt="Selected Image" style="max-width: 100%; max-height: 200px;">
+            </div>
+            <input type="file" accept=".jpg,.jpeg," id="imageUpload" (change)="onFileSelected($event)" value="">
+          </div>
+          <br />
+          <br />
           <div>
             <br>
             <button mat-button matStepperPrevious>Back</button>
-            <button mat-button *ngIf="updateStatus" (click)="onItemUpdateHandler()">Update</button>
-            <button mat-raised-button color="warn" *ngIf="submitStatus" (click)="onSaveToDraftHandler()">Save To Draft</button>
+            <!-- <button mat-raised-button *ngIf="updateStatus" (click)="onItemUpdateHandler()">Update</button> -->
+            <button mat-raised-button color="warn" *ngIf="submitStatus" (click)="onSaveToDraftHandler()">Save To
+              Draft</button>
           </div>
-      </form>
-    </mat-step>
-  </mat-stepper>
-  <br>
-  <div class="table_outer">
-    <div class="heading_section2">
-      <h3 *ngIf="draftItems?.length">Draft Table </h3>
-      <button class="flex-end" *ngIf="draftItems?.length" mat-raised-button (click)="onDraftTableHandler()" color="primary">
-        <mat-icon class="material-icons-outlined">save</mat-icon>
-        Save
-      </button>
-    </div>
+        </form>
+      </mat-step>
+    </mat-stepper>
     <br>
-    <section class="table-Over-Flow-Globle">
+    <div class="table_outer">
+      <div class="heading_section2">
+        <h3 *ngIf="draftItems?.length">Draft Table </h3>
+        <button class="flex-end" *ngIf="draftItems?.length" mat-raised-button (click)="onDraftTableHandler()"
+          color="primary">
+          <mat-icon class="material-icons-outlined">save</mat-icon>
+          Save
+        </button>
+      </div>
+      <br>
+      <section class="table-Over-Flow-Globle">
 
-      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" *ngIf="draftItems?.length">
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" *ngIf="draftItems?.length">
 
-        <!-- image column-->
-        <ng-container matColumnDef="image">
-          <th mat-header-cell *matHeaderCellDef>Image</th>
-          <td mat-cell *matCellDef="let element">
-            <img *ngIf="element.img" [src]="element.img" alt="Image" style="max-width: 100px; max-height: 100px;">
-          </td>
-        </ng-container>
+          <!-- image column-->
+          <ng-container matColumnDef="image">
+            <th mat-header-cell *matHeaderCellDef>Image</th>
+            <td mat-cell *matCellDef="let element">
+              <img *ngIf="element.img" [src]="element.img" alt="Image" style="max-width: 50px; max-height: 50px;">
+            </td>
+          </ng-container>
 
-        <!-- Category Column -->
+          <!-- Category Column -->
 
-        <ng-container matColumnDef="category">
-          <th mat-header-cell *matHeaderCellDef>Category</th>
-          <td mat-cell *matCellDef="let element">{{ element.InitialCategory }}</td>
-        </ng-container>
+          <ng-container matColumnDef="category">
+            <th mat-header-cell *matHeaderCellDef>Category</th>
+            <td mat-cell *matCellDef="let element">{{ element.cName }}</td>
+          </ng-container>
 
-        <!-- Name Column -->
+          <!-- Name Column -->
 
-        <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef>Name</th>
-          <td mat-cell *matCellDef="let element">{{ element.name }}</td>
-        </ng-container>
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef>Name</th>
+            <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+          </ng-container>
 
-        <!-- Price Column -->
+          <!-- Price Column -->
 
-        <ng-container matColumnDef="price">
-          <th mat-header-cell *matHeaderCellDef>Price</th>
-          <td mat-cell *matCellDef="let element">{{ element.price }}</td>
-        </ng-container>
+          <ng-container matColumnDef="price">
+            <th mat-header-cell *matHeaderCellDef>Price</th>
+            <td mat-cell *matCellDef="let element">{{ element.price }}</td>
+          </ng-container>
 
-        <ng-container matColumnDef="type">
-          <th mat-header-cell *matHeaderCellDef>type</th>
-          <td mat-cell *matCellDef="let element">
-            <img *ngIf="element.type" src="../../../../../assets/icon_veg_nonveg/icons8-veg-32.png" alt="Meat Image"
-              style="width: 24px; height: 24px; margin-left: 8px;">
-            <img *ngIf="!element.type" src="../../../../../assets/icon_veg_nonveg/icons8-non-veg-30.png"
-              alt="Vegetables Image" style="width: 24px; height: 24px; margin-left: 8px;">
-          </td>
-        </ng-container>
+          <ng-container matColumnDef="type">
+            <th mat-header-cell *matHeaderCellDef>type</th>
+            <td mat-cell *matCellDef="let element">
+              <img *ngIf="element.type" src="../../../../../assets/icon_veg_nonveg/icons8-veg-32.png" alt="Meat Image"
+                style="width: 24px; height: 24px; margin-left: 8px;">
+              <img *ngIf="!element.type" src="../../../../../assets/icon_veg_nonveg/icons8-non-veg-30.png"
+                alt="Vegetables Image" style="width: 24px; height: 24px; margin-left: 8px;">
+            </td>
+          </ng-container>
 
-        <ng-container matColumnDef="foodtype">
-          <th mat-header-cell *matHeaderCellDef>FDtype</th>
-          <td mat-cell *matCellDef="let element">{{ element.price}}</td>
-        </ng-container>
+          <ng-container matColumnDef="foodtype">
+            <th mat-header-cell *matHeaderCellDef>FDtype</th>
+            <td mat-cell *matCellDef="let element">{{ element.foodtype}}</td>
+          </ng-container>
 
-        <ng-container matColumnDef="size">
-          <th mat-header-cell *matHeaderCellDef>Quantity</th>
-          <td mat-cell *matCellDef="let element">{{ element.size}}</td>
-        </ng-container>
+          <ng-container matColumnDef="size">
+            <th mat-header-cell *matHeaderCellDef>Quantity</th>
+            <td mat-cell *matCellDef="let element">{{ element.size}}</td>
+          </ng-container>
 
-        <ng-container matColumnDef="actions">
-          <th mat-header-cell *matHeaderCellDef>Actions</th>
-          <td mat-cell *matCellDef="let element">
-            <button mat-icon-button [matMenuTriggerFor]="menu">
-              <mat-icon class="material-icons-outlined">more_horiz</mat-icon>
-            </button>
-            <mat-menu #menu="matMenu" class="condensed-menu">
-              <button mat-menu-item (click)="onSetFormUpdateHandler(element)">
-                <mat-icon class="material-icons-outlined">edit</mat-icon>
-                Update
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>Actions</th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon class="material-icons-outlined">more_horiz</mat-icon>
               </button>
-              <button mat-menu-item (click)="onDeleteHandler(element)" color="warn">
-                <mat-icon class="material-icons-outlined">delete</mat-icon>
-                Delete
-              </button>
-            </mat-menu>
-          </td>
-        </ng-container>
+              <mat-menu #menu="matMenu" class="condensed-menu">
+                <button mat-menu-item (click)="onSetFormUpdateHandler(element)">
+                  <mat-icon class="material-icons-outlined">edit</mat-icon>
+                  Update
+                </button>
+                <button mat-menu-item (click)="onDeleteHandler(element)" color="warn">
+                  <mat-icon class="material-icons-outlined">delete</mat-icon>
+                  Delete
+                </button>
+              </mat-menu>
+            </td>
+          </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-      </table>
-    </section>
-  </div>
-</section>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+      </section>
+    </div>
+  </section>
 </section>

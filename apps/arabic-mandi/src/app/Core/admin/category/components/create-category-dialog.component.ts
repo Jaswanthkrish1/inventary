@@ -8,21 +8,21 @@ import {
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import {
-  CreateFoodCategoryInput,
-  CreateOneFoodCategoryInput,
-  GetFoodCategoriesQuery,
-} from 'apps/arabic-mandi/src/generate-types';
-import { CreateOrderService } from '../../createOrder/create-order.service';
+
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CoreModule } from '@angular/flex-layout';
 import { MaterialModule } from '../../../material.module';
 import { CommonModule } from '@angular/common';
+import { CreateFoodCategoryInput, CreateOneFoodCategoryInput, GetFoodCategoriesQuery } from '../../generate-admin-types';
+import { AdminCategoryService } from '../../../admin/category/category.service';
 
 
 @Component({
   selector: 'food-create-dailog-view',
   templateUrl: './create-category-dialog.component.html',
+  styles: [`
+  
+  `],
   standalone: true,
   imports: [
     CommonModule,
@@ -40,7 +40,6 @@ export class CreateCategoryComponentDialog implements OnDestroy {
     category_image: ['', Validators.required]
   });
   public dataSet!: GetFoodCategoriesQuery['foodCategories'];
-
   @Output() categoryCreated = new EventEmitter<void>();
 
   constructor(
@@ -48,7 +47,7 @@ export class CreateCategoryComponentDialog implements OnDestroy {
     @Inject(MAT_DIALOG_DATA)
     public data: any,
     private readonly _fb: FormBuilder,
-    private _createService: CreateOrderService,
+    private _createService: AdminCategoryService,
     private _snackBar: MatSnackBar
   ) {
   }
@@ -88,7 +87,7 @@ export class CreateCategoryComponentDialog implements OnDestroy {
   }
 
   onSubmitHandler(data: any) {
-    console.log(data)
+    // console.log(data)
     if (this.newCategory.valid) {
       const foodcategory: CreateFoodCategoryInput = {
         name: data.category_name,
