@@ -11,19 +11,19 @@
 
     <div fxShow="true" fxHide.gt-sm="false" fxHide.lt-md="true">
       <button class="profile-icon-container" mat-icon-button [matMenuTriggerFor]="menu">
-        <img *ngIf="!_userData?.profile_img" src="../../../assets/carousel/bg1.jpeg" alt="User Image"
+        <img *ngIf="!_userData?.profile_img" src="../../../favicon.ico" alt="User Image"
           class="user-image" />
         <img *ngIf="_userData?.profile_img" [src]="_userData?.profile_img" alt="User Image" class="user-image" />
       </button>
       <mat-menu #menu="matMenu">
         <button class="profile-icon-container" mat-icon-button>
-          <img *ngIf="!_userData?.profile_img" src="../../../assets/carousel/bg1.jpeg" alt="User Image"
+          <img *ngIf="!_userData?.profile_img" src="../../../favicon.ico" alt="User Image"
             class="user-image" />
           <img *ngIf="_userData?.profile_img" [src]="_userData?.profile_img" alt="User Image" class="user-image" />
         </button>
         <!-- <button mat-menu-item>Profile</button> -->
         <h3 mat-menu-item *ngIf="isCurrentUserAvailable()" readonly>WellCome {{_userData?.name}}</h3>
-        <button mat-menu-item (click)="login()" *ngIf="!isCurrentUserAvailable()">Login_Admin</button>
+        <button mat-menu-item (click)="login()" *ngIf="!isCurrentUserAvailable()">Admin</button>
         <button mat-menu-item (click)="logOut()" *ngIf="isCurrentUserAvailable()">Logout</button>
         <!-- Add more menu items as needed -->
       </mat-menu>
@@ -34,7 +34,7 @@
       </button>
       <mat-menu #menu="matMenu">
         <button class="profile-icon-container" mat-icon-button>
-          <img *ngIf="!_userData?.profile_img" src="../../../assets/carousel/bg1.jpeg" alt="User Image"
+          <img *ngIf="!_userData?.profile_img" src="../../../favicon.ico" alt="User Image"
             class="user-image" />
           <img *ngIf="_userData?.profile_img" [src]="_userData?.profile_img" alt="User Image" class="user-image" />
         </button>
