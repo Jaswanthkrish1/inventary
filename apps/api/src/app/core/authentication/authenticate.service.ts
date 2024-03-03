@@ -1,6 +1,6 @@
-import {  Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 
-import { InjectRepository ,} from '@nestjs/typeorm';
+import { InjectRepository, } from '@nestjs/typeorm';
 import { Repository, } from 'typeorm';
 
 import { Authenticate } from './authenticate.entity';
@@ -14,7 +14,7 @@ export class AuthenticateService {
     private userRepository: Repository<User>,
     @InjectRepository(Authenticate)
     private authRepository: Repository<Authenticate>,
-  ) {}
+  ) { }
 
   async login(username: string, password: string): Promise<any> {
     // Find the user by username
@@ -25,10 +25,10 @@ export class AuthenticateService {
       const authId = auth.id;
       const user = await this.userRepository.findOne({ where: { auth: { id: authId } } });
       console.log(user)
-      const payload = { username: auth.username, id: user.id, role: user.role, status:user.status  };
+      const payload = { username: auth.username, id: user.id, role: user.role, status: user.status, name: user.name, profile_img: user?.profile_img };
       // Generate and return a JWT token
       const token = await this.jwtService.signAsync(payload)
-      const userobject ={ payload, token }
+      const userobject = { payload, token }
       return userobject;
     }
     // Invalid credentials
@@ -37,7 +37,7 @@ export class AuthenticateService {
 
   async registerUser(username: string, password: string, role: string): Promise<User> {
     // Check if the username is already taken
-    const existingAuth = await this.authRepository.findOne({where:{ username }});
+    const existingAuth = await this.authRepository.findOne({ where: { username } });
     if (existingAuth) {
       throw new Error('Username is already taken.');
     }
@@ -61,7 +61,7 @@ export class AuthenticateService {
     } catch (error) {
       return false;
     }
- }
+  }
 
 
 }

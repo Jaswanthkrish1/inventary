@@ -2,6 +2,8 @@ import { Field, InputType, Int } from '@nestjs/graphql';
 import { IsString, IsNumber, IsOptional, IsBoolean } from 'class-validator';
 import { FoodCategoryInput } from '../foodcategory/foodcategory.input';
 import { UserInput } from '../user/user.input';
+import { FoodTypeInput } from '../foodcategory/foodType/foodtype.input';
+import { FoodSizeInput } from '../foodcategory/foodsize/foodsize.input';
 
 @InputType({ isAbstract: true })
 export abstract class ItemInput {
@@ -28,6 +30,17 @@ export abstract class ItemInput {
   @Field({ nullable: true })
   @IsBoolean()
   type?: boolean;
+
+  @Field(() => FoodTypeInput, { nullable: true })
+  @IsOptional()
+  @IsNumber()
+  foodtype?: FoodTypeInput;
+  
+  @Field(() => FoodSizeInput, { nullable: true })
+  @IsOptional()
+  @IsNumber()
+  foodsize?: FoodSizeInput;
+
 }
 
 @InputType()

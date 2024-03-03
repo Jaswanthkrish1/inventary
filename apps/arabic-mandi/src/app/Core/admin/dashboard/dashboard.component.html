@@ -1,12 +1,9 @@
 <mat-drawer-container>
-  <mat-drawer mode="side" opened>
+  <mat-drawer mode="side" opened fxShow="true" fxHide.lt-md="true" class="sidebar">
     <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="example-tree">
-      <!-- This is the tree node template for leaf nodes -->
-      <!-- There is inline padding applied to this node using styles.
-              This padding value depends on the mat-icon-button width. -->
       <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle style="margin-right: 8px;">
         <ng-container *ngIf="node.header === false">
-        <a [routerLink]="[node.link]"> {{node.label}}</a>
+        <a  [routerLink]="[node.link]"> {{node.label}}</a>
         </ng-container>
       </mat-tree-node>
       <!-- This is the tree node template for expandable nodes -->
@@ -19,8 +16,6 @@
           </button>
           {{node.label}}
         </div>
-        <!-- There is inline padding applied to this div using styles.
-                    This padding value depends on the mat-icon-button width.  -->
         <div [class.example-tree-invisible]="!treeControl.isExpanded(node)" role="group">
           <ng-container matTreeNodeOutlet></ng-container>
         </div>
@@ -28,7 +23,8 @@
     </mat-tree>
 
   </mat-drawer>
-  <mat-drawer-content style="height: 100vh;">
-    <router-outlet ></router-outlet>
+  <mat-drawer-content >
+    <router-outlet></router-outlet>
   </mat-drawer-content>
 </mat-drawer-container>
+

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CategoryComponent } from './category.component';
-import { FoodComponent } from './components/foodview.component';
+import { CategoryComponent } from './pages/category.component';
+import { FoodComponent } from './views/foodview.component';
 
 const routes: Routes = [
   {
@@ -9,7 +9,10 @@ const routes: Routes = [
     component: CategoryComponent,
     children: [],
   },
-  { path: 'food/:category', component: FoodComponent },
+  {
+     path: 'food/:category',
+     data: { breadcrumb: 'food' },
+     component: FoodComponent },
 
   { path: '', redirectTo: 'home', pathMatch: 'full' },
 ];

@@ -1,15 +1,15 @@
 import { AfterViewInit, Component, Inject } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from "@angular/material/dialog";
-import { CommonService } from "../../adminCommonsService.service";
+import { AdminCommonService } from "../../adminCommonsService.service";
 import { OfferForm } from "../pages/create-offer.component";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { OfferItemComponentDialog } from "./combo-offer-dailog.component";
 import { Router } from "@angular/router";
 import { CreateOfferService } from "../create-offer.service";
-import { GetItemEntitiesQueryVariables, OfferItemInput, UpdateOneOfferInput, UpdateOneOfferMutationVariables } from "apps/arabic-mandi/src/generate-types";
 import { BehaviorSubject } from "rxjs";
 import { Subscription, debounceTime, switchMap } from "rxjs";
+import { GetItemEntitiesQueryVariables, OfferItemInput, UpdateOneOfferInput, UpdateOneOfferMutationVariables } from "../../generate-admin-types";
 
 
 @Component({
@@ -59,7 +59,7 @@ import { Subscription, debounceTime, switchMap } from "rxjs";
 export class UpdateOfferDailogComponent implements AfterViewInit {
   constructor(
     private readonly _fb: FormBuilder,
-    private commonService: CommonService,
+    private commonService: AdminCommonService,
     private _dialog: MatDialog,
     private _router: Router,
     private _snackbar: MatSnackBar,
@@ -102,7 +102,7 @@ export class UpdateOfferDailogComponent implements AfterViewInit {
     this.commonService.data$.subscribe(
       d => {
         if (d === null) {
-          this._router.navigate(['admin/offer/View_Offers'])
+          this._router.navigate(['admin/dashboard/offer/View_Offers'])
         } else {
           this.subs.add(
             this.dataSetChange$
@@ -225,7 +225,7 @@ export class UpdateOfferDailogComponent implements AfterViewInit {
       this._createService.updateOneOffer(data).subscribe(status => {
         if (status) {
           setTimeout(() => {
-            this._router.navigateByUrl('admin/offer/View_Offers').then(() => {
+            this._router.navigateByUrl('admin/dashboard/offer/View_Offers').then(() => {
               // Reload the page after navigation
               location.reload();
             });

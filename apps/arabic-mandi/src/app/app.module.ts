@@ -24,7 +24,6 @@ const uri = 'http://localhost:3000/api/graphql'
     MaterialModule,
     LayoutFlexModule,
     AuthenticationModule,
-
   ],
 
   providers: [
@@ -40,6 +39,7 @@ const uri = 'http://localhost:3000/api/graphql'
       },
       deps: [HttpLink],
     },
+    
   ],
   exports: [RouterModule],
   bootstrap: [AppComponent],

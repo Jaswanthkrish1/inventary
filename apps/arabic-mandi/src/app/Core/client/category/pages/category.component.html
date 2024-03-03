@@ -1,0 +1,150 @@
+
+<body>
+  <carousel-app></carousel-app>
+
+  <!-- slider -->
+  <section class="section2">
+    <div class="">
+      <div class="e-con-inner">
+        <div class="section2-e-con-inner-inner">
+          <div class="">
+            <div class="">
+              <h2 class="">What is Arabic Mandi</h2>
+            </div>
+          </div>
+        </div>
+        <div class="">
+          <div class="">
+            <div class="section2-inner-text">
+              <div class="elementor-text-editor elementor-clearfix">
+                Mandi, a rice dish that whispers stories of spice-laden caravans
+                and culinary traditions, where each grain tells tales of
+                centuries past, and every bite is a cultural journey
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="row container-fluid" [@fadeIn1]>
+    <h1>Explore....Hear</h1>
+    <div class="GSlider">
+      <div class="col" style="display: flex; gap: 10px;">
+        <div class="col-md-3" *ngFor="let category of data">
+          <div  [ngClass]="{ 'disabled-card': !category.isActive }">
+            <div class="card mb-2" (click)="navigateToDetail(category.id)" style="cursor: pointer">
+              <img [src]="category.category_image" class="card-img-top GImg" alt="item" />
+              <div class="card-body">
+                <h5 class="card-title">{{ category.name }}</h5>
+              </div>
+            </div>
+          </div>
+          <button mat-menu-item *ngIf="user?.id" (click)="onCategoryUpdateHandler(category)">
+            <mat-icon class="material-icons-outlined">edit</mat-icon>
+            Update
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="section2">
+    <div class="">
+      <div class="e-con-inner">
+        <div class="">
+          <div class="">
+            <div class="section2-inner-text">
+              <div class="elementor-text-editor elementor-clearfix">
+                Mandi is a traditional Arabian rice dish known for its delicious
+                flavors and aromatic spices. It's a popular dish in many Middle
+                Eastern and South Asian countries, particularly in the Arabian
+                Peninsula, Yemen, and parts of the Indian subcontinent.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="section2-e-con-inner-inner">
+          <div class=" ">
+            <div class="">
+              <h2 class="">Teste the soul of Arabian Mandi</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="category-section" *ngIf="categoryNameOne?.name">
+    <h2 fxShow="true" fxHide.gt-sm="true" fxHide.lt-md="false">{{categoryNameOne?.name}}</h2>
+    <div class="category-wrapper">
+      <div class="category-info" (click)="navigateToDetail(categoryNameOne?.id)" fxShow="true" fxHide.gt-sm="false" fxHide.lt-md="true">
+        <!-- Image with category name -->
+        <img *ngIf="!categoryNameOne?.category_image" src="../../../../assets/Combo/combo.jpg" alt="Category Image">
+        <img *ngIf="categoryNameOne?.category_image" [src]="categoryNameOne?.category_image" alt="Category Image">
+        <h2>{{categoryNameOne?.name}}</h2>
+      </div>
+      <div class="items-wrapper">
+        <!-- Items with category items -->
+        <div *ngFor="let item of viewArrayOne">
+          <div class="item" *ngIf="item?.status">
+            <img *ngIf="!item?.image_data" src="../../../../assets/defaultimg.png" alt="Category Image">
+            <img *ngIf="item?.image_data" [src]="item?.image_data" alt="Category Image">
+            <div class="item-details">
+              <h3>{{item?.name}}</h3>
+              <span style="display: none;"> {{item?.offer}}</span>
+              <span>&#8377;{{item?.price}} </span>
+              <h5 (click)="openDilog(item)" style="cursor: pointer;">Explore...</h5>
+            </div>
+          </div>
+        </div>
+        <!-- Add more item divs as needed -->
+      </div>
+    </div>
+  </section>
+  <br fxShow="true" fxHide.gt-sm="false" fxHide.lt-md="true" >
+  <br fxShow="true" fxHide.gt-sm="false" fxHide.lt-md="true" >
+
+  <br fxShow="true" fxHide.gt-sm="true" fxHide.lt-md="false">
+ 
+  <section class="section4">
+    <div class="image-container">
+      <img class="elements" src="../../../../../assets/mainpage/dazzle5.png" alt="">
+
+    </div>
+  </section>
+  <br fxShow="true" fxHide.gt-sm="true" fxHide.lt-md="false" >
+  <br fxShow="true" fxHide.gt-sm="false" fxHide.lt-md="true" >
+  <br fxShow="true" fxHide.gt-sm="false" fxHide.lt-md="true" >
+
+  <section class="category-section" *ngIf="categoryNameTwo?.name">
+    <h2 fxShow="true" fxHide.gt-sm="true" fxHide.lt-md="false">{{categoryNameTwo?.name}}</h2>
+    <div class="category-wrapper" >
+      <div class="category-info" (click)="navigateToDetail(categoryNameTwo?.id)" fxShow="true" fxHide.gt-sm="false" fxHide.lt-md="true">
+        <!-- Image with category name -->
+        <img src="../../../../assets/Combo/combo.jpg" alt="Category Image">
+        <h2>{{categoryNameTwo?.name}}</h2>
+      </div>
+      <div class="items-wrapper">
+        <!-- Items with category items -->
+        <div *ngFor="let item of viewArrayTwo">
+          <div class="item" *ngIf="item?.status">
+            <img *ngIf="!item?.image_data" src="../../../../assets/defaultimg.png" alt="Category Image">
+            <img *ngIf="item?.image_data" [src]="item?.image_data" alt="Category Image">
+            <div class="item-details">
+              <h3 class="text">{{item?.name}}</h3>
+              <span style="display: none;"> {{item?.offer}}</span>
+              <span>&#8377;{{item?.price}} </span>
+              <h5 (click)="openDilog(item)" style="cursor: pointer;">Explore...</h5>
+            </div>
+          </div>
+        </div>
+        <!-- Add more item divs as needed -->
+      </div>
+    </div>
+  </section>
+
+</body>

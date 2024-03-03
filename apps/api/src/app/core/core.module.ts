@@ -8,12 +8,10 @@ import {
 } from '@nestjs-query/query-graphql';
 import { NestjsQueryTypeOrmModule } from '@nestjs-query/query-typeorm';
 import { User } from './user/user.entity';
-import { JwtModule, JwtModuleOptions, JwtService } from '@nestjs/jwt';
-import { PassportModule } from '@nestjs/passport';
+import { JwtModule, JwtModuleOptions } from '@nestjs/jwt';
 
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { CreateUserInput, UpdateUserInput } from './user/user.input';
-import { config } from '../../config/config';
 import { AuthController } from './authentication/authenticate.controller';
 import { Authenticate } from './authentication/authenticate.entity';
 import { AuthenticateService } from './authentication/authenticate.service';
@@ -21,11 +19,15 @@ import { ItemEntity } from './item/item.entity';
 import { FoodCategory } from './foodcategory/foodcategory.entity';
 import { CreateItemInput, UpdateItemInput } from './item/item.input';
 import {
-  CreateFoodCategoryInputInput,
-  UpdateFoodCategoryInputInput,
+  CreateFoodCategoryInput,
+  UpdateFoodCategoryInput,
 } from './foodcategory/foodcategory.input';
 import { Offer } from './item/comboitem/combo.entity';
 import { CreateOfferInput, UpdateOfferInput } from './item/comboitem/combo.input';
+import { FoodType } from './foodcategory/foodType/foodtype.entity';
+import { CreateFoodTypeInput, UpdateFoodTypeInput } from './foodcategory/foodType/foodtype.input';
+import { FoodSize } from './foodcategory/foodsize/foodsize.entity';
+import { CreateFoodSizeInput, UpdateFoodSizeInput } from './foodcategory/foodsize/foodsize.input';
 
 @Module({
   imports: [
@@ -47,6 +49,8 @@ import { CreateOfferInput, UpdateOfferInput } from './item/comboitem/combo.input
           Authenticate,
           ItemEntity,
           FoodCategory,
+          FoodType,
+          FoodSize,
           Offer
         ]),
       ],
@@ -56,10 +60,11 @@ import { CreateOfferInput, UpdateOfferInput } from './item/comboitem/combo.input
           EntityClass: User,
           CreateDTOClass: CreateUserInput,
           UpdateDTOClass: UpdateUserInput,
-          enableTotalCount: true,
-          create: { many: { disabled: false }, one: { disabled: false } },
-          update: { many: { disabled: false }, one: { disabled: false } },
-          delete: { many: { disabled: false }, one: { disabled: false } },
+          // enableTotalCount: true,
+          pagingStrategy: PagingStrategies.NONE,
+          create: { many: { disabled: true }, one: { disabled: false } },
+          update: { many: { disabled: true }, one: { disabled: false } },
+          delete: { many: { disabled: true }, one: { disabled: true } },
           read: { many: { disabled: false }, one: { disabled: false } },
         },
         {
@@ -77,13 +82,37 @@ import { CreateOfferInput, UpdateOfferInput } from './item/comboitem/combo.input
         {
           DTOClass: FoodCategory,
           EntityClass: FoodCategory,
-          CreateDTOClass: CreateFoodCategoryInputInput,
-          UpdateDTOClass: UpdateFoodCategoryInputInput,
+          CreateDTOClass: CreateFoodCategoryInput,
+          UpdateDTOClass: UpdateFoodCategoryInput,
+          // enableTotalCount: true,
+          pagingStrategy: PagingStrategies.NONE,
+          create: { many: { disabled: true }, one: { disabled: false } },
+          update: { many: { disabled: true }, one: { disabled: false } },
+          delete: { many: { disabled: true }, one: { disabled: false } },
+          read: { many: { disabled: false }, one: { disabled: false } },
+        },
+        {
+          DTOClass: FoodSize,
+          EntityClass: FoodSize,
+          CreateDTOClass: CreateFoodSizeInput,
+          UpdateDTOClass: UpdateFoodSizeInput,
           // enableTotalCount: true,
           pagingStrategy: PagingStrategies.NONE,
           create: { many: { disabled: true }, one: { disabled: false } },
           update: { many: { disabled: true }, one: { disabled: false } },
           delete: { many: { disabled: true }, one: { disabled: true } },
+          read: { many: { disabled: false }, one: { disabled: false } },
+        },
+        {
+          DTOClass: FoodType,
+          EntityClass: FoodType,
+          CreateDTOClass: CreateFoodTypeInput,
+          UpdateDTOClass: UpdateFoodTypeInput,
+          // enableTotalCount: true,
+          pagingStrategy: PagingStrategies.NONE,
+          create: { many: { disabled: true }, one: { disabled: false } },
+          update: { many: { disabled: true }, one: { disabled: false } },
+          delete: { many: { disabled: true }, one: { disabled: false } },
           read: { many: { disabled: false }, one: { disabled: false } },
         },
         {

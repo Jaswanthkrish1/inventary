@@ -1,0 +1,121 @@
+<div class="modal fade show" tabindex="-1" aria-labelledby="foodDetailsModalLabel"
+    style="display: block; background: rgba(0, 0, 0, 0.5);">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="foodDetailsModalLabel">Update Draft Item</h5>
+                <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()"></button>
+            </div>
+            <div class="modal-body">
+                <section style="flex-direction: row;
+                    box-sizing: border-box;
+                    display: flex;
+                    place-content: center space-between;
+                    align-items: center;">
+                    <form [formGroup]="updatedDraftItem" >
+                        <div>
+                            <div>
+                                <mat-form-field>
+                                    <mat-label> Name</mat-label>
+                                    <input matInput formControlName="name" placeholder="name">
+                                    <mat-error *ngIf="updatedDraftItem.get('name')?.hasError('required')">
+                                        Please Add Name.
+                                    </mat-error>
+                                </mat-form-field>
+                                
+                                <mat-form-field>
+                                    <mat-label>Category</mat-label>
+                                    <mat-select placeholder="Favorite food" formControlName="category" required>
+                                        <mat-option *ngFor="let categoryType of data?.foodCategory" [value]="categoryType?.id">
+                                            {{ categoryType.name }}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="updatedDraftItem.get('category')?.hasError('required')">
+                                        Please Select Category.
+                                    </mat-error>
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <mat-label>FoodType</mat-label>
+                                    <mat-select placeholder="Favorite food" formControlName="foodtype" required>
+                                        <mat-option *ngFor="let foodType of data?.foodtype" [value]="foodType?.id">
+                                            {{ foodType?.name }}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="updatedDraftItem.get('foodtype')?.hasError('required')">
+                                        Please Select FoodType.
+                                    </mat-error>
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <mat-label>Quantity</mat-label>
+                                    <mat-select placeholder="Food Quantity" formControlName="size" required>
+                                        <mat-option *ngFor="let size of data?.foodSize" [value]="size?.id">
+                                            {{ size.name }}
+                                        </mat-option>
+                                    </mat-select>
+                                    <!-- Display error message if size is required -->
+                                    <mat-error *ngIf="updatedDraftItem.get('size')?.hasError('required')">
+                                        Please select a quantity.
+                                    </mat-error>
+                                </mat-form-field>
+                               
+                            </div>
+                            <div>
+                                
+                                <mat-form-field>
+                                    <mat-label> Price</mat-label>
+                                    <input matInput type="number" formControlName="price" placeholder="price">
+                                    <mat-error *ngIf="updatedDraftItem.get('price')?.hasError('required')">
+                                        Please Select Category.
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div>
+                                <div>
+                                    <img *ngIf="imageUrl" [src]="imageUrl" alt="Selected Image"
+                                        style="max-width: 100px; max-height: 100px;">
+                                    <button mat-icon-button color="warn" *ngIf="imageUrl" (click)="removeImage()" style="left: -40px;
+                                    top: -30px;
+                                    background: inherit;
+                                    color: aliceblue;
+                                    box-shadow: -3px 5px 0px 0px black;">
+                                        <mat-icon>close</mat-icon>
+                                    </button>
+                                </div>
+                                <input type="file" accept=".jpg,.jpeg,.png" id="imageUpload"
+                                    (change)="handleFileInput($event)">
+                            </div>
+                            <section style="display: flex;">
+                                <div style="display: flex; justify-content: space-between;">
+                                    <div>
+                                        <mat-label>Food Type :</mat-label>
+                                        <mat-slide-toggle color="primary" (change)="onTypeToggleChange($event)"
+                                            formControlName="type">
+                                            {{ slideValue ? ' | Veg | ' : ' | Non-Veg |' }}
+                                            <img *ngIf="!slideValue"
+                                                src="../../../../../assets/icon_veg_nonveg/icons8-non-veg-30.png"
+                                                alt="Vegetables Image"
+                                                style="width: 24px; height: 24px; margin-left: 8px;">
+
+                                            <img *ngIf="slideValue"
+                                                src="../../../../../assets/icon_veg_nonveg/icons8-veg-32.png"
+                                                alt="Meat Image" style="width: 24px; height: 24px; margin-left: 8px;">
+                                        </mat-slide-toggle>
+                                        <!-- Button to demonstrate color change -->
+
+                                    </div>
+                                    <div>
+                                        <!-- Add any Button -->
+                                    </div>
+                                </div>
+                               
+                                <br>
+                            </section>
+                            <br>
+                            <button mat-raised-button color="warn" (click)="onSubmitHandler()">Update</button>
+                        </div>
+                    </form>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>

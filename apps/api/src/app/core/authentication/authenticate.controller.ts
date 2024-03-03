@@ -4,7 +4,6 @@ import { Controller, Post, Body, HttpStatus, Res, Get, Param } from '@nestjs/com
 
 import { AuthDTO, UserRegistrationDto } from './auth.dto';
 import { AuthenticateService } from './authenticate.service';
-import { get } from 'http';
 
 
 

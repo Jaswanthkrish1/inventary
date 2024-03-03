@@ -2,17 +2,16 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CreateOrderComponent } from './pages/create-order.component';
 import { AdminGuard } from '../admin.guard';
-import { ViewOrderComponent } from './pages/view-order.component';
 import { UpdateOrderComponent } from './pages/update-order.component';
+import { ViewItemComponent } from './views/view-item.component';
 
-const appRoutes: Routes = [
+const itemRoutes: Routes = [
   {
     path: '',
     pathMatch: 'full',
     canActivate: [AdminGuard],
-    component: ViewOrderComponent,
+    component: ViewItemComponent,
   },
-
   {
     path: 'create_item',
     component: CreateOrderComponent,
@@ -26,7 +25,7 @@ const appRoutes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(appRoutes)],
+  imports: [RouterModule.forChild(itemRoutes)],
   exports: [RouterModule],
 })
 export class OrderRoutingModule {}

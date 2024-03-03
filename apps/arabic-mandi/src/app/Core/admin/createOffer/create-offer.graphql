@@ -1,17 +1,4 @@
-query GetItemEntities(
-  $filter: ItemEntityFilter! = {}
-  $sorting: [ItemEntitySort!]
-) {
-  itemEntities(filter: $filter, sorting: $sorting) {
-        id
-        name
-        status
-        category{
-          id
-          name
-        }
-  }
-}
+
 
 mutation updateOneOffer($input: UpdateOneOfferInput!) {
  updateOneOffer(input: $input) {

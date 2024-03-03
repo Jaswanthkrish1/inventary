@@ -11,9 +11,16 @@ import {
   UpdateItemEntityGQL,
   UpdateOneItemEntityInput,
   DeleteOneItemEntityGQL,
-  DeleteOneItemEntityInput
+  DeleteOneItemEntityInput,
+  FoodTypesQueryVariables,
+  FoodTypesGQL,
+  FoodSizesGQL,
+  FoodSizesQueryVariables,
+  GetItemEntitiesQueryVariables,
+  GetItemEntitiesGQL,
+  
 
-} from 'apps/arabic-mandi/src/generate-types';
+} from '../generate-admin-types';
 import { Observable, catchError, map, of } from 'rxjs';
 import { AuthenticateService } from '../../authentication/authentication.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -27,7 +34,10 @@ export class CreateOrderService {
     private updateItemEntityGQL: UpdateItemEntityGQL,
     private _auth: AuthenticateService,
     private _snackBar: MatSnackBar,
-    private  DeleteOneItemEntityGQL: DeleteOneItemEntityGQL
+    private  DeleteOneItemEntityGQL: DeleteOneItemEntityGQL,
+    private GetItemEntitiesGQL: GetItemEntitiesGQL,
+    private FoodTypesGQL: FoodTypesGQL,
+    private FoodSizesGQL: FoodSizesGQL,
   ) { }
   // category quries and mutations
   find(variables: GetFoodCategoriesQueryVariables) {
@@ -37,12 +47,33 @@ export class CreateOrderService {
       })
     );
   }
-
-  addSingleCategory(input: CreateOneFoodCategoryInput): Observable<any> {
-    return this.createOneCategory
-      .mutate({ input })
-      .pipe(map(({ data }) => data));
+  
+  findItems(variables: GetItemEntitiesQueryVariables) {
+    return this.GetItemEntitiesGQL.watch(variables).valueChanges.pipe(
+      catchError(() => {
+        return of({ data: null });
+      })
+    );
   }
+
+
+  findFoodType(variables: FoodTypesQueryVariables) {
+    return this.FoodTypesGQL.watch(variables).valueChanges.pipe(
+      catchError(() => {
+        return of({ data: null });
+      })
+    );
+  }
+
+  findFoodSize(variables: FoodSizesQueryVariables) {
+    return this.FoodSizesGQL.watch(variables).valueChanges.pipe(
+      catchError(() => {
+        return of({ data: null });
+      })
+    );
+  }
+
+
 
   // Item or order Querys and mutations
 
@@ -56,7 +87,6 @@ export class CreateOrderService {
       ({ data }) => {
         this._snackBar.open("Items has been added")
         // Handle success, 'data' contains the response from the server
-        // console.log('Updated items:', data);
       },
       (error) => {
         // Handle error

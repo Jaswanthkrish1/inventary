@@ -7,22 +7,25 @@ import { CreateOfferService } from './create-offer.service';
 import { OfferRoutingModule } from './create-offer.route.module';
 import { CreateOfferComponent } from './pages/create-offer.component';
 import { OfferItemComponentDialog } from './components/combo-offer-dailog.component';
-import { OfferViewComponent } from './pages/offer-view.component';
+import { OfferViewComponent } from './views/offer-view.component';
 import { UpdateOfferDailogComponent } from './components/update-offer.component';
+import { OfferDetailsDailogComponent } from './components/offer-details-dailog.component';
 
 @NgModule({
   declarations: [
     CreateOfferComponent,
     OfferItemComponentDialog,
-    OfferViewComponent,
-    UpdateOfferDailogComponent
+    UpdateOfferDailogComponent,
+    OfferDetailsDailogComponent
   ],
   imports: [
     CommonModule,
     MaterialModule,
     CoreModule,
     MatSnackBarModule,
-    OfferRoutingModule
+    OfferRoutingModule,
+    OfferViewComponent,
+
   ],
   exports: [],
   providers: [CreateOfferService],

@@ -15,6 +15,8 @@ import { Field, ObjectType } from '@nestjs/graphql';
 import {
   FilterableField, FilterableRelation,
 } from '@nestjs-query/query-graphql';
+import { FoodType } from '../foodcategory/foodType/foodtype.entity';
+import { FoodSize } from '../foodcategory/foodsize/foodsize.entity';
 @FilterableRelation('createdby', () => User, {
   nullable: true,
   disableRemove: true,
@@ -26,6 +28,17 @@ import {
   disableUpdate: true,
 })
 @FilterableRelation('category', () => FoodCategory, {
+  nullable: true,
+  disableRemove: true,
+  disableUpdate: true,
+  allowFiltering: true
+})
+@FilterableRelation('foodtype', () => FoodType, {
+  nullable: true,
+  disableRemove: true,
+  disableUpdate: true,
+})
+@FilterableRelation('foodsize', () => FoodSize, {
   nullable: true,
   disableRemove: true,
   disableUpdate: true,
@@ -43,7 +56,7 @@ export class ItemEntity {
   @Field()
   name?: string;
 
-  @Column({ type: 'text', nullable: true})
+  @Column({ type: 'mediumtext', nullable: true})
   @Field({ nullable: true })
   image_data?: string;
 
@@ -54,6 +67,16 @@ export class ItemEntity {
   @JoinColumn({ name: 'category' })
   @Field(() => FoodCategory, { nullable: true })
   category?: FoodCategory;
+
+  @ManyToOne(() => FoodType, { nullable: true })
+  @JoinColumn({ name: 'foodtype' })
+  @Field(() => FoodType, { nullable: true })
+  foodtype?: FoodType;
+
+  @ManyToOne(() => FoodSize, { nullable: true })
+  @JoinColumn({ name: 'foodsize' })
+  @Field(() => FoodSize, { nullable: true })
+  foodsize?: FoodSize;
 
   @Column({ default: true })
   @FilterableField()

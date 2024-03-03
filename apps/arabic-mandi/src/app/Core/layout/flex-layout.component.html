@@ -4,77 +4,120 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
   <title>Arabic Mandi</title>
-
 </head>
+<header class="fixed-top">
+  <mat-toolbar color="acent" class="mat-toolbar-single-row">
 
-<body>
-  <header class="fixed-top">
-    <mat-toolbar color="acent">
-      <div fxShow="true" fxHide.gt-sm="false">
-        <!-- <button class="icon-container" mat-icon-button (click)="sidenav.toggle()"> -->
-        <button class="icon-container" mat-icon-button>
-          <img src="../../../assets/carousel/bg1.jpeg" alt="User Image" class="user-image" />
+    <div fxShow="true" fxHide.gt-sm="false" fxHide.lt-md="true">
+      <button class="profile-icon-container" mat-icon-button [matMenuTriggerFor]="menu">
+        <img *ngIf="!_userData?.profile_img" src="../../../assets/carousel/bg1.jpeg" alt="User Image"
+          class="user-image" />
+        <img *ngIf="_userData?.profile_img" [src]="_userData?.profile_img" alt="User Image" class="user-image" />
+      </button>
+      <mat-menu #menu="matMenu">
+        <button class="profile-icon-container" mat-icon-button>
+          <img *ngIf="!_userData?.profile_img" src="../../../assets/carousel/bg1.jpeg" alt="User Image"
+            class="user-image" />
+          <img *ngIf="_userData?.profile_img" [src]="_userData?.profile_img" alt="User Image" class="user-image" />
         </button>
-      </div>
+        <!-- <button mat-menu-item>Profile</button> -->
+        <h3 mat-menu-item *ngIf="isCurrentUserAvailable()" readonly>WellCome {{_userData?.name}}</h3>
+        <button mat-menu-item (click)="login()" *ngIf="!isCurrentUserAvailable()">Login_Admin</button>
+        <button mat-menu-item (click)="logOut()" *ngIf="isCurrentUserAvailable()">Logout</button>
+        <!-- Add more menu items as needed -->
+      </mat-menu>
+    </div>
+    <div fxShow="true" fxHide.gt-sm="true" fxHide.lt-md="false">
+      <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button class="profile-icon-container" mat-icon-button>
+          <img *ngIf="!_userData?.profile_img" src="../../../assets/carousel/bg1.jpeg" alt="User Image"
+            class="user-image" />
+          <img *ngIf="_userData?.profile_img" [src]="_userData?.profile_img" alt="User Image" class="user-image" />
+        </button>
+        <!-- <button mat-menu-item>Profile</button> -->
+        <h3 mat-menu-item *ngIf="isCurrentUserAvailable()" readonly>WellCome {{_userData?.name}}</h3>
+        <button mat-menu-item (click)="login()" *ngIf="!isCurrentUserAvailable()">Login_Admin</button>
+        <button mat-menu-item (click)="logOut()" *ngIf="isCurrentUserAvailable()">Logout</button>
+        <!-- Add more menu items as needed -->
+      </mat-menu>
+    </div>
+    <span class="example-spacer"></span>
+    <div class="custom-search" fxHide.lt-md="false">
+      <!-- <input matInput type="search" placeholder="Search" [formControl]="globalSearchItems"> -->
+      <input matInput type="search" placeholder="Search" [formControl]="globalSearchItems" (keydown)="onKeyDown($event)">
+    </div>
+    <span class="example-spacer"></span>
+    <div fxShow="true" fxHide.lt-md="true">
+      <ng-container *ngFor="let item of menuItems">
+        <a *ngIf="!item.child && item.permissions && item.permissions.includes(_userRole)" mat-button
+          [routerLink]="[item.link]">
+          <ng-container *ngIf="item.header !== false; else regular">
+            <h1 class="title">{{ item.label }}</h1>
+          </ng-container>
+          <ng-template #regular>
+            {{ item.label }}
+          </ng-template>
+        </a>
 
-      <span class="example-spacer"></span>
-
-      <div fxShow="true" fxHide.lt-md="true">
-        <ng-container *ngFor="let item of menuItems">
-          <a *ngIf="!item.child && item.permissions && item.permissions.includes(userRole)" mat-button
-            [routerLink]="[item.link]">
+        <!-- <ng-container *ngIf="item.child && item.permissions && item.permissions.includes(_userRole)">
+          <button mat-button [matMenuTriggerFor]="childMenu">
             <ng-container *ngIf="item.header !== false; else regular">
               <h1 class="title">{{ item.label }}</h1>
             </ng-container>
             <ng-template #regular>
               {{ item.label }}
             </ng-template>
-          </a>
+          </button>
 
-          <ng-container *ngIf="item.child && item.permissions && item.permissions.includes(userRole)">
-            <button mat-button [matMenuTriggerFor]="childMenu">
-              <ng-container *ngIf="item.header !== false; else regular">
-                <h1 class="title">{{ item.label }}</h1>
-              </ng-container>
-              <ng-template #regular>
-                {{ item.label }}
-              </ng-template>
-            </button>
+          <mat-menu #childMenu="matMenu">
+            <ng-container *ngFor="let childItem of item.child">
+              <button mat-menu-item [routerLink]="[childItem.link]"
+                *ngIf="childItem.permissions && childItem.permissions.includes(_userRole)">
+                <mat-icon>{{ childItem.icon }}</mat-icon>
+                <div>{{ childItem.label }}</div>
+              </button>
+            </ng-container>
+          </mat-menu>
+        </ng-container> -->
+      </ng-container>
+    </div>
+    <span class="example-spacer" fxHide.gt-sm="true"></span>
+    <h1 class="title" fxShow="true" fxHide.gt-sm="true">Arabic Mandi</h1>
+    <span class="example-spacer" fxHide.gt-sm="false"></span>
 
-            <mat-menu #childMenu="matMenu">
-              <ng-container *ngFor="let childItem of item.child">
-                <button mat-menu-item [routerLink]="[childItem.link]"
-                  *ngIf="childItem.permissions && childItem.permissions.includes(userRole)">
-                  <mat-icon>{{ childItem.icon }}</mat-icon>
-                  <div>{{ childItem.label }}</div>
-                </button>
-              </ng-container>
-            </mat-menu>
-          </ng-container>
-        </ng-container>
-      </div>
-      <span class="example-spacer"></span>
-      <h1 class="title" fxShow="true" fxHide.gt-sm="true">Arabic Mandi</h1>
+  </mat-toolbar>
+  <div class="background">
+    <div *ngIf="filteredData.length > 0 && globalSearchItems.value !== ''" class="searchBar">
+      <mat-option *ngFor="let item of filteredData; let i = index" [class.selected]="i === selectedIndex"
+      (click)="selectOption(item)">{{ item.name }} &nbsp; / &nbsp; {{item.category.name}} &nbsp;<img *ngIf="item?.image_data" [src]="item.image_data" alt="alt" height="20px" width="20px" > </mat-option>
+    </div>
+    <div *ngIf="!filteredData.length && globalSearchItems.value !== ''" class="grid-container">
+      <mat-option class="mat-option" *ngFor="let list of CategoriesList; let i = index" [class.selected]="i === selectedIndex" (click)="selectOption(list)">
+        {{ list.name }}
+      </mat-option>
+    </div>
+  </div>
+</header>
 
-      <button mat-icon-button (click)="logOut()" *ngIf="isCurrentUserAvailable()">
-        <mat-icon>logout</mat-icon>
-
-      </button>
-    </mat-toolbar>
-  </header>
-  <div class="content ">
-    <router-outlet>
-     </router-outlet>
-     <section class="rights">
-      <Copy-Rights></Copy-Rights> 
-     </section>
+<body>
+  <div fxLayout="column" fxLayoutAlign="center stretch" style="min-height: calc(100vh - 100px);">
+    <div class="content">
+      <router-outlet>
+        <!-- <app-breadcrumbs></app-breadcrumbs> -->
+      </router-outlet>
+      <section class="rights">
+        <Copy-Rights></Copy-Rights>
+      </section>
+    </div>
   </div>
 </body>
-
+<span class="example-spacer"></span>
 <footer class="fixed-bottom">
-  <mat-toolbar color="warn" fxLayout="row" fxLayoutAlign="space-between center">
+  <mat-toolbar color="warn" fxLayout="row" fxLayoutAlign="space-around center">
     <ng-container *ngFor="let item of menuItems">
       <ng-container *ngIf="hasPermission(item.permissions)">
         <button mat-icon-button class="example-icon" [routerLink]="[item.link]"
@@ -122,7 +165,6 @@
         <span class="button-label">View</span>
       </div>
     </button>
-    <!-- Mat-menu for additional items -->
     <mat-menu #moreMenu="matMenu">
       <ng-container *ngFor="let subItem of menuItems">
         <button mat-menu-item [routerLink]="[subItem.link]"
@@ -133,8 +175,6 @@
       </ng-container>
     </mat-menu>
   </mat-toolbar>
-  <section class="rights">
-   <Copy-Rights></Copy-Rights> 
-  </section> 
 </footer>
+
 </html>

@@ -7,10 +7,20 @@ input BooleanFieldComparison {
   isNot: Boolean
 }
 
-"""Cursor for paging through collections"""
-scalar ConnectionCursor
+input CreateFoodCategoryInput {
+  category_image: String
+  clientView: Boolean
+  id: Float
+  isActive: Boolean
+  name: String
+}
 
-input CreateFoodCategoryInputInput {
+input CreateFoodSizeInput {
+  id: Float
+  name: String
+}
+
+input CreateFoodTypeInput {
   id: Float
   name: String
 }
@@ -18,6 +28,8 @@ input CreateFoodCategoryInputInput {
 input CreateItemInput {
   category: FoodCategoryInput
   createdby: UserInput
+  foodsize: FoodSizeInput
+  foodtype: FoodTypeInput
   image_data: String
   name: String
   offer: String
@@ -35,11 +47,6 @@ input CreateManyOffersInput {
   offers: [CreateOfferInput!]!
 }
 
-input CreateManyUsersInput {
-  """Array of records to create"""
-  users: [CreateUserInput!]!
-}
-
 input CreateOfferInput {
   createdby: UserInput
   discount: Float
@@ -52,7 +59,17 @@ input CreateOfferInput {
 
 input CreateOneFoodCategoryInput {
   """The record to create"""
-  foodCategory: CreateFoodCategoryInputInput!
+  foodCategory: CreateFoodCategoryInput!
+}
+
+input CreateOneFoodSizeInput {
+  """The record to create"""
+  foodSize: CreateFoodSizeInput!
+}
+
+input CreateOneFoodTypeInput {
+  """The record to create"""
+  foodType: CreateFoodTypeInput!
 }
 
 input CreateOneItemEntityInput {
@@ -73,23 +90,10 @@ input CreateOneUserInput {
 input CreateUserInput {
   createdBy: String
   id: Float
+  name: String
+  profile_img: String
   role: String
-  status: Boolean! = true
   updatedBy: String
-}
-
-input CursorPaging {
-  """Paginate after opaque cursor"""
-  after: ConnectionCursor
-
-  """Paginate before opaque cursor"""
-  before: ConnectionCursor
-
-  """Paginate first"""
-  first: Int
-
-  """Paginate last"""
-  last: Int
 }
 
 input DeleteManyItemEntitiesInput {
@@ -107,9 +111,14 @@ type DeleteManyResponse {
   deletedCount: Int!
 }
 
-input DeleteManyUsersInput {
-  """Filter to find records to delete"""
-  filter: UserDeleteFilter!
+input DeleteOneFoodCategoryInput {
+  """The id of the record to delete."""
+  id: ID!
+}
+
+input DeleteOneFoodTypeInput {
+  """The id of the record to delete."""
+  id: ID!
 }
 
 input DeleteOneItemEntityInput {
@@ -122,18 +131,17 @@ input DeleteOneOfferInput {
   id: ID!
 }
 
-input DeleteOneUserInput {
-  """The id of the record to delete."""
-  id: ID!
-}
-
 type FoodCategory {
+  category_image: String
+  clientView: Boolean!
   id: Float!
   isActive: Boolean!
+  items: ItemEntity
   name: String!
 }
 
 type FoodCategoryAggregateGroupBy {
+  clientView: Boolean
   id: Float
   isActive: Boolean
   name: String
@@ -144,21 +152,46 @@ type FoodCategoryAvgAggregate {
 }
 
 type FoodCategoryCountAggregate {
+  clientView: Int
   id: Int
   isActive: Int
   name: Int
 }
 
+type FoodCategoryDeleteResponse {
+  category_image: String
+  clientView: Boolean
+  id: Float
+  isActive: Boolean
+  items: ItemEntity
+  name: String
+}
+
 input FoodCategoryFilter {
   and: [FoodCategoryFilter!]
+  clientView: BooleanFieldComparison
   id: NumberFieldComparison
   isActive: BooleanFieldComparison
+  items: FoodCategoryFilterItemEntityFilter
   name: StringFieldComparison
   or: [FoodCategoryFilter!]
 }
 
+input FoodCategoryFilterItemEntityFilter {
+  and: [FoodCategoryFilterItemEntityFilter!]
+  id: NumberFieldComparison
+  name: StringFieldComparison
+  offer: StringFieldComparison
+  or: [FoodCategoryFilterItemEntityFilter!]
+  status: BooleanFieldComparison
+  type: BooleanFieldComparison
+}
+
 input FoodCategoryInput {
+  category_image: String
+  clientView: Boolean
   id: Float
+  isActive: Boolean
   name: String
 }
 
@@ -179,6 +212,7 @@ input FoodCategorySort {
 }
 
 enum FoodCategorySortFields {
+  clientView
   id
   isActive
   name
@@ -188,9 +222,139 @@ type FoodCategorySumAggregate {
   id: Float
 }
 
+type FoodSize {
+  id: Float!
+  isActive: Boolean!
+  name: String!
+}
+
+type FoodSizeAggregateGroupBy {
+  id: Float
+  isActive: Boolean
+  name: String
+}
+
+type FoodSizeAvgAggregate {
+  id: Float
+}
+
+type FoodSizeCountAggregate {
+  id: Int
+  isActive: Int
+  name: Int
+}
+
+input FoodSizeFilter {
+  and: [FoodSizeFilter!]
+  id: NumberFieldComparison
+  isActive: BooleanFieldComparison
+  name: StringFieldComparison
+  or: [FoodSizeFilter!]
+}
+
+input FoodSizeInput {
+  id: Float
+  name: String
+}
+
+type FoodSizeMaxAggregate {
+  id: Float
+  name: String
+}
+
+type FoodSizeMinAggregate {
+  id: Float
+  name: String
+}
+
+input FoodSizeSort {
+  direction: SortDirection!
+  field: FoodSizeSortFields!
+  nulls: SortNulls
+}
+
+enum FoodSizeSortFields {
+  id
+  isActive
+  name
+}
+
+type FoodSizeSumAggregate {
+  id: Float
+}
+
+type FoodType {
+  id: Float!
+  isActive: Boolean!
+  name: String!
+}
+
+type FoodTypeAggregateGroupBy {
+  id: Float
+  isActive: Boolean
+  name: String
+}
+
+type FoodTypeAvgAggregate {
+  id: Float
+}
+
+type FoodTypeCountAggregate {
+  id: Int
+  isActive: Int
+  name: Int
+}
+
+type FoodTypeDeleteResponse {
+  id: Float
+  isActive: Boolean
+  name: String
+}
+
+input FoodTypeFilter {
+  and: [FoodTypeFilter!]
+  id: NumberFieldComparison
+  isActive: BooleanFieldComparison
+  name: StringFieldComparison
+  or: [FoodTypeFilter!]
+}
+
+input FoodTypeInput {
+  id: Float
+  name: String
+}
+
+type FoodTypeMaxAggregate {
+  id: Float
+  name: String
+}
+
+type FoodTypeMinAggregate {
+  id: Float
+  name: String
+}
+
+input FoodTypeSort {
+  direction: SortDirection!
+  field: FoodTypeSortFields!
+  nulls: SortNulls
+}
+
+enum FoodTypeSortFields {
+  id
+  isActive
+  name
+}
+
+type FoodTypeSumAggregate {
+  id: Float
+}
+
 type ItemEntity {
   category: FoodCategory
   createdby: User
+  foodsize: FoodSize
+  foodtype: FoodType
   id: Float!
   image_data: String
   name: String!
@@ -234,6 +398,8 @@ input ItemEntityDeleteFilter {
 type ItemEntityDeleteResponse {
   category: FoodCategory
   createdby: User
+  foodsize: FoodSize
+  foodtype: FoodType
   id: Float
   image_data: String
   name: String
@@ -248,6 +414,8 @@ input ItemEntityFilter {
   and: [ItemEntityFilter!]
   category: ItemEntityFilterFoodCategoryFilter
   createdby: ItemEntityFilterUserFilter
+  foodsize: ItemEntityFilterFoodSizeFilter
+  foodtype: ItemEntityFilterFoodTypeFilter
   id: NumberFieldComparison
   name: StringFieldComparison
   offer: StringFieldComparison
@@ -259,10 +427,27 @@ input ItemEntityFilter {
 
 input ItemEntityFilterFoodCategoryFilter {
   and: [ItemEntityFilterFoodCategoryFilter!]
+  clientView: BooleanFieldComparison
   id: NumberFieldComparison
   isActive: BooleanFieldComparison
   name: StringFieldComparison
   or: [ItemEntityFilterFoodCategoryFilter!]
+}
+
+input ItemEntityFilterFoodSizeFilter {
+  and: [ItemEntityFilterFoodSizeFilter!]
+  id: NumberFieldComparison
+  isActive: BooleanFieldComparison
+  name: StringFieldComparison
+  or: [ItemEntityFilterFoodSizeFilter!]
+}
+
+input ItemEntityFilterFoodTypeFilter {
+  and: [ItemEntityFilterFoodTypeFilter!]
+  id: NumberFieldComparison
+  isActive: BooleanFieldComparison
+  name: StringFieldComparison
+  or: [ItemEntityFilterFoodTypeFilter!]
 }
 
 input ItemEntityFilterUserFilter {
@@ -316,21 +501,23 @@ input ItemEntityUpdateFilter {
 type Mutation {
   createManyItemEntities(input: CreateManyItemEntitiesInput!): [ItemEntity!]!
   createManyOffers(input: CreateManyOffersInput!): [Offer!]!
-  createManyUsers(input: CreateManyUsersInput!): [User!]!
   createOneFoodCategory(input: CreateOneFoodCategoryInput!): FoodCategory!
+  createOneFoodSize(input: CreateOneFoodSizeInput!): FoodSize!
+  createOneFoodType(input: CreateOneFoodTypeInput!): FoodType!
   createOneItemEntity(input: CreateOneItemEntityInput!): ItemEntity!
   createOneOffer(input: CreateOneOfferInput!): Offer!
   createOneUser(input: CreateOneUserInput!): User!
   deleteManyItemEntities(input: DeleteManyItemEntitiesInput!): DeleteManyResponse!
   deleteManyOffers(input: DeleteManyOffersInput!): DeleteManyResponse!
-  deleteManyUsers(input: DeleteManyUsersInput!): DeleteManyResponse!
+  deleteOneFoodCategory(input: DeleteOneFoodCategoryInput!): FoodCategoryDeleteResponse!
+  deleteOneFoodType(input: DeleteOneFoodTypeInput!): FoodTypeDeleteResponse!
   deleteOneItemEntity(input: DeleteOneItemEntityInput!): ItemEntityDeleteResponse!
   deleteOneOffer(input: DeleteOneOfferInput!): OfferDeleteResponse!
-  deleteOneUser(input: DeleteOneUserInput!): UserDeleteResponse!
   updateManyItemEntities(input: UpdateManyItemEntitiesInput!): UpdateManyResponse!
   updateManyOffers(input: UpdateManyOffersInput!): UpdateManyResponse!
-  updateManyUsers(input: UpdateManyUsersInput!): UpdateManyResponse!
   updateOneFoodCategory(input: UpdateOneFoodCategoryInput!): FoodCategory!
+  updateOneFoodSize(input: UpdateOneFoodSizeInput!): FoodSize!
+  updateOneFoodType(input: UpdateOneFoodTypeInput!): FoodType!
   updateOneItemEntity(input: UpdateOneItemEntityInput!): ItemEntity!
   updateOneOffer(input: UpdateOneOfferInput!): Offer!
   updateOneUser(input: UpdateOneUserInput!): User!
@@ -495,20 +682,6 @@ input OfferUpdateFilter {
   totalPrice: NumberFieldComparison
 }
 
-type PageInfo {
-  """The cursor of the last returned record."""
-  endCursor: ConnectionCursor
-
-  """true if paging forward and there are more records."""
-  hasNextPage: Boolean
-
-  """true if paging backwards and there are more records."""
-  hasPreviousPage: Boolean
-
-  """The cursor of the first returned record."""
-  startCursor: ConnectionCursor
-}
-
 type Query {
   foodCategories(
     """Specify to filter the records returned."""
@@ -521,6 +694,28 @@ type Query {
     """The id of the record to find."""
     id: ID!
   ): FoodCategory
+  foodSize(
+    """The id of the record to find."""
+    id: ID!
+  ): FoodSize
+  foodSizes(
+    """Specify to filter the records returned."""
+    filter: FoodSizeFilter! = {}
+
+    """Specify to sort results."""
+    sorting: [FoodSizeSort!]! = []
+  ): [FoodSize!]!
+  foodType(
+    """The id of the record to find."""
+    id: ID!
+  ): FoodType
+  foodTypes(
+    """Specify to filter the records returned."""
+    filter: FoodTypeFilter! = {}
+
+    """Specify to sort results."""
+    sorting: [FoodTypeSort!]! = []
+  ): [FoodType!]!
   getItems: [ItemEntity!]!
   itemEntities(
     """Specify to filter the records returned."""
@@ -552,12 +747,9 @@ type Query {
     """Specify to filter the records returned."""
     filter: UserFilter! = {}
 
-    """Limit or page results."""
-    paging: CursorPaging! = {first: 10}
-
     """Specify to sort results."""
     sorting: [UserSort!]! = []
-  ): UserConnection!
+  ): [User!]!
 }
 
 """Sort Directions"""
@@ -589,7 +781,21 @@ input StringFieldComparison {
   notLike: String
 }
 
-input UpdateFoodCategoryInputInput {
+input UpdateFoodCategoryInput {
+  category_image: String
+  clientView: Boolean
+  id: Float
+  isActive: Boolean
+  name: String
+}
+
+input UpdateFoodSizeInput {
+  id: Float
+  isActive: Boolean
+  name: String
+}
+
+input UpdateFoodTypeInput {
   id: Float
   isActive: Boolean
   name: String
@@ -597,6 +803,8 @@ input UpdateFoodCategoryInputInput {
 
 input UpdateItemInput {
   category: FoodCategoryInput
+  foodsize: FoodSizeInput
+  foodtype: FoodTypeInput
   image_data: String
   name: String
   offer: String
@@ -627,14 +835,6 @@ type UpdateManyResponse {
   updatedCount: Int!
 }
 
-input UpdateManyUsersInput {
-  """Filter used to find fields to update"""
-  filter: UserUpdateFilter!
-
-  """The update to apply to all records found using the filter"""
-  update: UpdateUserInput!
-}
-
 input UpdateOfferInput {
   discount: Float
   items: [OfferItemInput!]
@@ -650,7 +850,23 @@ input UpdateOneFoodCategoryInput {
   id: ID!
 
   """The update to apply."""
-  update: UpdateFoodCategoryInputInput!
+  update: UpdateFoodCategoryInput!
+}
+
+input UpdateOneFoodSizeInput {
+  """The id of the record to update"""
+  id: ID!
+
+  """The update to apply."""
+  update: UpdateFoodSizeInput!
+}
+
+input UpdateOneFoodTypeInput {
+  """The id of the record to update"""
+  id: ID!
+
+  """The update to apply."""
+  update: UpdateFoodTypeInput!
 }
 
 input UpdateOneItemEntityInput {
@@ -680,6 +896,8 @@ input UpdateOneUserInput {
 input UpdateUserInput {
   createdBy: String
   id: Float
+  name: String
+  profile_img: String
   role: String
   status: Boolean! = true
   updatedBy: String
@@ -687,6 +905,8 @@ input UpdateUserInput {
 
 type User {
   id: Float!
+  name: String
+  profile_img: String
   role: String!
   status: Boolean!
 }
@@ -701,43 +921,10 @@ type UserAvgAggregate {
   id: Float
 }
 
-type UserConnection {
-  """Array of edges."""
-  edges: [UserEdge!]!
-
-  """Paging information"""
-  pageInfo: PageInfo!
-
-  """Fetch total count of records"""
-  totalCount: Int!
-}
-
 type UserCountAggregate {
   id: Int
   role: Int
   status: Int
-}
-
-input UserDeleteFilter {
-  and: [UserDeleteFilter!]
-  id: NumberFieldComparison
-  or: [UserDeleteFilter!]
-  role: StringFieldComparison
-  status: BooleanFieldComparison
-}
-
-type UserDeleteResponse {
-  id: Float
-  role: String
-  status: Boolean
-}
-
-type UserEdge {
-  """Cursor for this node."""
-  cursor: ConnectionCursor!
-
-  """The node containing the User"""
-  node: User!
 }
 
 input UserFilter {
@@ -751,8 +938,9 @@ input UserFilter {
 input UserInput {
   createdBy: String
   id: Float
+  name: String
+  profile_img: String
   role: String
-  status: Boolean! = true
   updatedBy: String
 }
 
@@ -780,12 +968,4 @@ enum UserSortFields {
 
 type UserSumAggregate {
   id: Float
-}
-
-input UserUpdateFilter {
-  and: [UserUpdateFilter!]
-  id: NumberFieldComparison
-  or: [UserUpdateFilter!]
-  role: StringFieldComparison
-  status: BooleanFieldComparison
 }

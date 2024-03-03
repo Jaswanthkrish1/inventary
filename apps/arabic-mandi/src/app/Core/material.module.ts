@@ -40,7 +40,6 @@ import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatStepperModule } from '@angular/material/stepper';
-
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const MODULES: any[] = [
   LayoutModule,
@@ -79,6 +78,7 @@ const MODULES: any[] = [
   MatDialogModule,
   MatTooltipModule,
   MatBadgeModule,
+  
 ];
 
 @NgModule({

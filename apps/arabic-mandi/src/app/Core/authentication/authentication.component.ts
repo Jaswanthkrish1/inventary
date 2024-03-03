@@ -13,6 +13,7 @@ export class AuthenticationComponent {
   private subs = new Subscription();
 
   loginForm: FormGroup;
+  hide: boolean = true;
 
   constructor(private fb: FormBuilder, private readonly _router: Router, private _auth: AuthenticateService) {
     this.loginForm = this.fb.group({

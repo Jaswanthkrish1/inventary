@@ -1,17 +1,16 @@
 import { Injectable } from "@angular/core";
-import { UserInput } from "apps/arabic-mandi/src/generate-types";
+import { UserInput } from "../admin/generate-admin-types";
 import { AuthenticateService } from "../authentication/authentication.service";
 import { BehaviorSubject, Subject } from "rxjs";
+import { ActivatedRoute, Router } from "@angular/router";
 
 @Injectable ({ providedIn: 'root' })
-export class CommonService {
-    constructor(private _auth: AuthenticateService ){
+export class AdminCommonService {
+    constructor(private _auth: AuthenticateService,private router: Router, private route: ActivatedRoute ){
  }
 
  private dataSubject = new BehaviorSubject<any>(null);
 public data$ = this.dataSubject.asObservable();
-
-
 
  getCurrentUser(): UserInput | null {
   const user = localStorage.getItem(this._auth.CURRENT_USER_KEY);
@@ -25,10 +24,15 @@ public data$ = this.dataSubject.asObservable();
   return null;
 }
 
-
-
 setData(data: any): void {
   this.dataSubject.next(data);
+}
+
+ reloadComponent(): void {
+  const currentUrl = this.router.url;
+  this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+    this.router.navigate([currentUrl]);
+  });
 }
 
 }

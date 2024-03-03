@@ -1,0 +1,21 @@
+<!-- food-details.component.html -->
+<div class="modal fade show" tabindex="-1" aria-labelledby="foodDetailsModalLabel"
+  style="display: block; background: rgba(0, 0, 0, 0.5);">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="foodDetailsModalLabel">Food Item Details</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()"></button>
+      </div>
+      <div class="modal-body">
+        <img *ngIf="selectedFoodItem?.image_data"  [src]="selectedFoodItem?.image_data" style="width: 50%; height: 50%; object-fit: cover;">
+        <img *ngIf="!selectedFoodItem?.image_data" src="../../../../../assets/defaultimg.png" style="width: 50%; height: 50%; object-fit: cover;">
+
+        <div class="modal-body_inner">
+        <h4>{{ selectedFoodItem?.name }}</h4>
+        <p>Price: ${{ selectedFoodItem?.price }}</p>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>

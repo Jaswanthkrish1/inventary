@@ -1,0 +1,29 @@
+
+query GetAlloffers( $filter: OfferFilter! = {} $sorting: [OfferSort!]! = [] ){
+  offers(filter: $filter,sorting: $sorting){
+    id
+    name
+    discount
+    status
+    totalPrice
+    price
+    items{
+      quantity
+      name
+      id
+      selected
+      status
+      category{
+        id
+        name
+      }
+    }
+    createdby{
+      id
+    }
+    updatedby{
+      id
+    }
+  }
+}
+

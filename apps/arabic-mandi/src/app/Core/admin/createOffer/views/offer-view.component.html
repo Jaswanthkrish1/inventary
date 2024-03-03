@@ -1,0 +1,60 @@
+<div>
+  <div>
+      <h3>All Offer's</h3>
+  </div>
+
+</div>
+<section class="table-Over-Flow-Globle mat-elevation-z8">
+<table mat-table [dataSource]="dataSource">
+
+  <ng-container matColumnDef="status">
+    <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      <mat-slide-toggle [checked]="element.status" (change)="onStatusChange($event, element)"></mat-slide-toggle>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Offer Name Column -->
+  <ng-container matColumnDef="offerName">
+    <mat-header-cell *matHeaderCellDef> <mat-icon> local_offer</mat-icon> </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+  </ng-container>
+
+  <!-- List of Items Column -->
+  <ng-container matColumnDef="listOfItems">
+    <mat-header-cell *matHeaderCellDef> <mat-icon>list</mat-icon> </mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      <div style="display: grid;">
+         <a (click)="offerItemViewHandler(element)" style="cursor: pointer;">View</a>
+        <!-- <span *ngFor="let item of element.items">{{ item.category.name }}={{ item.quantity }}</span> -->
+      </div>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Price Column -->
+  <ng-container matColumnDef="price">
+    <mat-header-cell *matHeaderCellDef> AC<mat-icon> attach_money</mat-icon> </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.price}} </mat-cell>
+  </ng-container>
+
+  <!-- Total Cost After Discount Column -->
+  <ng-container matColumnDef="totalCostAfterDiscount">
+    <mat-header-cell *matHeaderCellDef> TC<mat-icon> attach_money</mat-icon></mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.totalPrice}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef>Actions</th>
+    <td mat-cell *matCellDef="let element">
+      <button mat-menu-item (click)="UpdateHandlerTable(element)">
+        <mat-icon class="material-icons-outlined">edit</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <!-- Header Rows -->
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+</table>
+  <mat-paginator #paginator style="width: initial;" [pageSizeOptions]="[10]"></mat-paginator>
+</section>

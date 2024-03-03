@@ -19,8 +19,8 @@
           "apps/arabic-mandi/src/favicon.ico",
           "apps/arabic-mandi/src/assets"
         ],
-        "styles": ["./node_modules/leaflet/dist/leaflet.css","apps/arabic-mandi/src/styles.scss"],
-        "scripts": []
+        "styles": ["./node_modules/leaflet/dist/leaflet.css","node_modules/bootstrap/dist/css/bootstrap.min.css","apps/arabic-mandi/src/styles.scss"],
+        "scripts": ["node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"]
       },
       "configurations": {
         "production": {
@@ -108,6 +108,27 @@
           }
         ]
       }
+    },
+    "generate-admin-types": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "yarn graphql-codegen --config apps/arabic-mandi/src/app/Core/admin/admin_codegen.yml"
+          }
+        ]
+      }
+    },
+    "generate-client-types": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "yarn graphql-codegen --config apps/arabic-mandi/src/app/Core/client/client_codegen.yml"
+          }
+        ]
+      }
     }
+    
   }
 }

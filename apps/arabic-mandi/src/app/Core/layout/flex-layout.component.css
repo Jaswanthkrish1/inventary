@@ -1,3 +1,11 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
 .companyName {
   font-size: 150%;
 }
@@ -14,7 +22,7 @@ div {
 
 a {
   text-decoration: none;
-  font-size: 110%;
+  /* font-size: 110%; */
   white-space: normal;
 }
 
@@ -47,22 +55,39 @@ button {
 
 
 .content {
+  overflow-y: auto;
   min-height: 100vh;
-  margin-top: 60px;
-  margin-bottom: 60px;
-  padding: 10px 0.2rem 0.2rem;
+  /* padding-top: 60px;
+  padding-bottom: 40px;
+  padding: 10px 0.2rem 0.2rem; */
   max-width: 100%;
 }
 
 .user-image {
-  width: 40px;
-  /* Set the desired width for the image */
-  height: 40px;
-  /* Set the desired height for the image */
+  width: 100%; /* Ensure the image fills the container */
+  height: 100%; /* Ensure the image fills the container */
+  object-fit: cover;
   border-radius: 50%;
-  /* Makes the image circular */
-  margin-left: 8px;
   /* Adjust the margin to separate the icon and image */
+}
+
+.profile-icon-container {
+  position: relative;
+  width: 80px;
+  height: 70px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.mat-toolbar-single-row {
+  display: flex;
+  box-sizing: border-box;
+  padding: 0 0px;
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  white-space: nowrap;
+  font-size: medium;
 }
 
 .fixed-top {
@@ -74,8 +99,96 @@ button {
   box-shadow: 0px -3px 5px rgba(55, 55, 55, 0.5);
 }
 
+.custom-search {
+  display: flex;
+  align-items: center;
+}
+
+.custom-search input {
+  border: 1px solid #ccc;
+  border-radius: 2rem;
+  padding: 2px;
+  margin-left: 8px;
+  outline: none;
+}
+
+.custom-search button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.background {
+  background-color: aliceblue; /* Set background color for the entire container */
+}
+
+.searchBar {
+  float: left;
+  white-space: pre-wrap;
+  overflow: hidden;
+  width: -moz-fit-content;
+  width: -webkit-fill-available;
+  padding-right: 100px;
+  background: white;
+  /* padding-left: 100px; */
+}
+
+.searchOption:hover {
+  background-color: #312929;
+}
+
+.selected {
+  background-color:rgb(255 118 118 / 14%);;
+  color: #060404;
+}
+
+.mat-toolbar.mat-warn {
+  --mat-toolbar-container-background-color: rgb(0 0 0 / 70%);;
+  --mat-toolbar-container-text-color: white;
+}
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Adjust column width as needed */
+  gap: 10px; /* Adjust gap between grid items as needed */
+  padding: 40px;
+}
+
+.mat-option {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 0px 7px 0px;
+    border-radius: 10px;
+  /* background-image: url("../../../assets/defaultimg.png"); */
+  object-fit: cover;
+  height: 50px; /* Adjust height of grid items as needed */
+  cursor: pointer;
+}
+
 
 @media (max-width: 480px) {
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 2fr)); /* Adjust column width as needed */
+    gap: 10px; /* Adjust gap between grid items as needed */
+  }
+  .mat-option {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 0px 7px 0px;
+      border-radius: 10px;
+    /* background-image: url("../../../assets/defaultimg.png"); */
+    height: 50px; /* Adjust height of grid items as needed */
+    cursor: pointer;
+  }
+  .custom-search input {
+    margin-left: 0px;
+  }
+  .title {
+    font-size: 1rem;
+    color: var(--primary);
+  }
   .fixed-top {
     overflow: hidden;
     background-color: #333;
@@ -88,20 +201,21 @@ button {
 
   .fixed-bottom {
     overflow: hidden;
-    background-color: #333;
+    /* background-color: #333; */
     position: fixed;
     bottom: 0;
     width: 100%;
     z-index: 1000;
-    box-shadow: 0px -6px 8px rgba(0, 0, 0, 0.5);
+    border-radius: 50px 50px 10px 10px;
+    height: 60px;
+    /* box-shadow: 0px -6px 8px rgba(0, 0, 0, 0.5); */
   }
 
   .content {
     min-height: 100vh;
-    margin-top: 60px;
-    margin-bottom: 60px;
-    margin-bottom: 60px;
+    /* padding-bottom: 3rem;
     padding: 10px 0.2rem 0.2rem;
+    padding-bottom: calc(30vw - 30px); */
     max-width: 100%;
   }
   .rights {
@@ -151,20 +265,47 @@ button {
   margin-top: -8px;
 }
 
-
+@media (min-width: 1051px) {
+  .custom-search input {
+    border: 1px solid #ccc;
+    border-radius: 2rem;
+    padding: 2px;
+    margin-left: 8px;
+    outline: none;
+    width: 15rem;
+  }
+}
 @media (min-width: 480px) and (max-width: 1050px) {
 
+  /* .mat-toolbar-single-row {
+    display: flex;
+    position: relative;
+    box-sizing: border-box;
+    width: 100%;
+    justify-content: space-around;
+    align-items: center;
+    white-space: nowrap;
+    font-size: medium;
+  } */
   .mat-toolbar-single-row {
     display: flex;
     box-sizing: border-box;
-    padding: 0 16px;
+    padding: 0 0px;
     width: 100%;
     flex-direction: row;
     align-items: center;
     white-space: nowrap;
     font-size: medium;
   }
-
+  
+  .custom-search input {
+    border: 1px solid #ccc;
+    border-radius: 2rem;
+    padding: 2px;
+    margin-left: 8px;
+    outline: none;
+    width: 15rem;
+  }
   .fixed-top {
     overflow: hidden;
     background-color: #333;
@@ -176,22 +317,19 @@ button {
 
   .fixed-bottom {
     overflow: hidden;
-    background-color: #333;
     position: fixed;
     bottom: 0;
     width: 100%;
     z-index: 1000;
+    border-radius: 50px 50px 10px 10px;
+    height: 60px;
   }
+  
 
   .content {
-    min-height: 100vh;
-    margin-top: 60px;
-    margin-bottom: 60px;
-    padding: 10px 0.5rem 0.5rem;
-    max-width: 100%;
+      box-sizing: border-box;
+      min-height: calc(100vh - 100px); 
   }
-
-
 }
 
 .example-icon {

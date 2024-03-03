@@ -11,14 +11,20 @@ export class FoodCategoryInput {
   @IsNumber()
   id?: number;
 
-}
-@InputType()
-export class CreateFoodCategoryInputInput extends FoodCategoryInput {}
+  @Field({ nullable: true })
+  @IsOptional()
+  category_image?: string;
 
-@InputType()
-export class UpdateFoodCategoryInputInput extends FoodCategoryInput {
- 
   @Field({ nullable: true })
   @IsBoolean()
   isActive?: boolean;
+
+  @Field({ nullable: true })
+  @IsBoolean()
+  clientView?: boolean;
 }
+@InputType()
+export class CreateFoodCategoryInput extends FoodCategoryInput {}
+
+@InputType()
+export class UpdateFoodCategoryInput extends FoodCategoryInput {}

@@ -2,14 +2,14 @@ import { AfterViewInit, ChangeDetectionStrategy, Component, OnChanges, OnDestroy
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { CreateOfferService } from "../create-offer.service";
 import { BehaviorSubject, Subscription, debounceTime, switchMap } from "rxjs";
-import { GetItemEntitiesQueryVariables, CreateManyOffersInput, CreateOfferInput, OfferItemInput } from "apps/arabic-mandi/src/generate-types";
 import { MatDialog } from "@angular/material/dialog";
 import { OfferItemComponentDialog } from "../components/combo-offer-dailog.component";
 import { MatSnackBar, MatSnackBarConfig } from "@angular/material/snack-bar";
 import { MatTableDataSource } from "@angular/material/table";
 import { MatPaginator } from "@angular/material/paginator";
 import { ChangeDetectorRef } from '@angular/core';
-import { CommonService } from "../../adminCommonsService.service";
+import { AdminCommonService } from "../../adminCommonsService.service";
+import { GetItemEntitiesQueryVariables, OfferItemInput, CreateOfferInput, CreateManyOffersInput } from "../../generate-admin-types";
 export class OfferForm {
   offerName: string;
   listOfItems: any[];
@@ -31,14 +31,14 @@ export class OfferForm {
   styleUrls: ['./create-offer.component.scss'],
   changeDetection: ChangeDetectionStrategy.Default,
 })
-export class CreateOfferComponent implements OnInit, AfterViewInit {
+export class CreateOfferComponent implements OnInit, AfterViewInit, OnDestroy {
 
   offerForm!: FormGroup;
   offerModel!: OfferForm;
   private dataSourceItems!: any;
   public checked: boolean = false;
   public dataSource!: MatTableDataSource<any>;
-  public selectedItems!: any[];
+  public selectedItems: any[] = [];
   public offerData: any[] = [];
   public displayedColumns: string[] = ['offerName', 'listOfItems', "price", 'specialDiscount', 'totalCostAfterDiscount', 'delete'];
   private dataSetChange$ = new BehaviorSubject(<
@@ -54,8 +54,9 @@ export class CreateOfferComponent implements OnInit, AfterViewInit {
     private _dialog: MatDialog,
     private _snackbar: MatSnackBar,
     private cdr: ChangeDetectorRef,
-    private commonService: CommonService,
+    private commonService: AdminCommonService,
     private offerService: CreateOfferService) { }
+  
   ngAfterViewInit(): void {
     this.updateTable();
   }
@@ -231,7 +232,6 @@ export class CreateOfferComponent implements OnInit, AfterViewInit {
     if (this.offerData) {
       // Map the offerData to create an array of offers
       const data = this.offerData.map((offer: any) => {
-        console.log(offer)
         // Remove __typename from each item in listOfItems
         const removedTypeNameItems = offer.listOfItems.map((item: any) => this.removeTypename(item));
         const items: OfferItemInput[] = removedTypeNameItems.map((offer: any) => {
@@ -270,5 +270,8 @@ export class CreateOfferComponent implements OnInit, AfterViewInit {
       // Call your mutation service with the prepared data
       this.offerService.AddAllOffers(variablesdata);
     }
+  }
+  ngOnDestroy(): void {
+    this.offerData = []
   }
 }

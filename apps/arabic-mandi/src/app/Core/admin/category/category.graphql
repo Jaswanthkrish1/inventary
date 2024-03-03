@@ -1,0 +1,54 @@
+# category Order
+
+query GetFoodCategory($id: ID!) {
+  foodCategory(id: $id) {
+    id
+    name
+  }
+}
+
+
+mutation CreateOneFoodCategory($input: CreateOneFoodCategoryInput!) {
+  createOneFoodCategory(input: $input) {
+    id
+    name
+    category_image
+  }
+}
+# category querys and muations 
+mutation updateOneFoodCategory($input: UpdateOneFoodCategoryInput!){
+  updateOneFoodCategory(input: $input){
+    id
+    category_image
+    isActive
+    name
+    clientView
+  }
+}
+
+query GetFoodCategories(
+  $filter: FoodCategoryFilter
+  $sorting: [FoodCategorySort!]
+) {
+  foodCategories(filter: $filter, sorting: $sorting) {
+    id
+    name
+    category_image
+    isActive
+    clientView
+  }
+}
+
+query GetFilterCategoriesForView(
+  $filter: FoodCategoryFilter
+  $sorting: [FoodCategorySort!]
+) {
+  foodCategories(filter: $filter, sorting: $sorting) {
+    id
+    name
+    category_image
+    isActive
+    clientView
+  }
+}
+
