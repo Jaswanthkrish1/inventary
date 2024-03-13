@@ -105,17 +105,23 @@ export class FoodComponent implements OnDestroy {
             return acc;
           }, {} as { [key: string]: ViewStructureInput[] });
         }
+        setTimeout(() => {
+          this.foodTypes = Object.keys(this.staticStructuredFoodType);
+          if (data?.itemEntities.length != undefined) {
+            this.loading = false;
+          } else {
+            this.loading = false;
+            this._router.navigateByUrl('/')
+          }
+        }, 1000)
+
       })
     )
-    setTimeout(() => {
-      this.foodTypes = Object.keys(this.staticStructuredFoodType);
-      if (this.foodTypes.length > 0) {
-        this.loading = false;
-      } else {
-        this.loading = false;
-        this._router.navigateByUrl('/')
-      }
-    }, 2000)
+    
+  }
+
+  private time(number: 2000): number{
+    return 3000;
   }
 
 

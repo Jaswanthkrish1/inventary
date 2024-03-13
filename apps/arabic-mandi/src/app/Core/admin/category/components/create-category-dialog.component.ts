@@ -91,7 +91,7 @@ export class CreateCategoryComponentDialog implements OnDestroy {
     if (this.newCategory.valid) {
       const foodcategory: CreateFoodCategoryInput = {
         name: data.category_name,
-        category_image: data?.category_image
+        category_image: this.newCategory.get('category_image')?.value
       }
       const input: CreateOneFoodCategoryInput = {
         foodCategory: foodcategory

@@ -127,8 +127,8 @@ export class CategoryViewComponent implements AfterViewInit {
         const ref_dailog = this._dialog.open(CreateCategoryComponentDialog);
         ref_dailog.afterClosed().subscribe((v) => {
             if (v) {
+                this.getAllCategory()
                 setTimeout(() => {
-                    this.getAllCategory()
                     setTimeout(() => {
                         this._commonService.reloadComponent();
                     }, 1000)
