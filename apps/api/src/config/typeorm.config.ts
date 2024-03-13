@@ -23,15 +23,14 @@ import { User } from '../app/core/user/user.entity';
 //   logging: false,
 //   synchronize: true
 // };
-// database config
+// for deployement
 export const typeormOptions: TypeOrmModuleOptions = {
-  // name: 'default',
   type: 'mysql',
-  host: 'inventery-db-jaswanth-db90.a.aivencloud.com', // Provide the hostname directly
-  port: 18378, // Specify the port
-  username: 'avnadmin', // Provide the username directly
-  password: 'AVNS_LcWSTDLvOz8bld53FfY', // Provide the password directly
-  database: 'defaultdb', // Specify the database name
+  host: process.env.DATABASE_HOST || 'inventery-db-jaswanth-db90.a.aivencloud.com',
+  port: parseInt(process.env.DATABASE_PORT, 10) || 18378,
+  username: process.env.DATABASE_USER || 'avnadmin',
+  password: process.env.DATABASE_PASS || 'AVNS_LcWSTDLvOz8bld53FfY',
+  database: process.env.DATABASE_DB || 'defaultdb',
   entities: [ 
     User,
     Authenticate,
@@ -39,13 +38,31 @@ export const typeormOptions: TypeOrmModuleOptions = {
     FoodCategory,
     FoodType,
     FoodSize,
-    Offer],
-  // autoLoadEntities: true,
-  synchronize: true,
-  // logging: false,
+    Offer
+  ],
+  synchronize: true
 };
-
-
+// database config for local connection
+// export const typeormOptions: TypeOrmModuleOptions = {
+//   // name: 'default',
+//   type: 'mysql',
+//   host: 'inventery-db-jaswanth-db90.a.aivencloud.com', // Provide the hostname directly
+//   port: 18378, // Specify the port
+//   username: 'avnadmin', // Provide the username directly
+//   password: 'AVNS_LcWSTDLvOz8bld53FfY', // Provide the password directly
+//   database: 'defaultdb', // Specify the database name
+//   entities: [ 
+//     User,
+//     Authenticate,
+//     ItemEntity,
+//     FoodCategory,
+//     FoodType,
+//     FoodSize,
+//     Offer],
+//   // autoLoadEntities: true,
+//   synchronize: true,
+//   // logging: false,
+// };
 
 export const typeormConfig = registerAs('typeorm', () => typeormOptions);
 

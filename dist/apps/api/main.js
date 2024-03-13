@@ -1676,7 +1676,7 @@ const graphql_config_1 = __webpack_require__(39);
 const jwt_config_1 = __webpack_require__(42);
 const typeorm_config_1 = __webpack_require__(43);
 exports.config = {
-    ignoreEnvFile: true,
+    // ignoreEnvFile: true,
     isGlobal: true,
     load: [typeorm_config_1.typeormConfig, graphql_config_1.graphqlConfig, jwt_config_1.jwtConfig],
 };
@@ -1689,8 +1689,9 @@ exports.config = {
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.graphqlConfig = exports.graphqlOptions = void 0;
+// graphql.config.ts
 const path_1 = __webpack_require__(40);
-const environment_1 = __webpack_require__(41);
+const environment_prod_1 = __webpack_require__(41);
 const config_1 = __webpack_require__(25);
 exports.graphqlOptions = {
     path: 'api/graphql',
@@ -1698,7 +1699,7 @@ exports.graphqlOptions = {
     playground: true,
     installSubscriptionHandlers: true,
     allowBatchedHttpRequests: true,
-    autoSchemaFile: environment_1.environment.processName.search(/primary/) !== -1 ? (0, path_1.join)(process.cwd(), 'schema.gql') : false,
+    autoSchemaFile: environment_prod_1.environment.processName.search(/primary/) !== -1 ? (0, path_1.join)(process.cwd(), 'schema.gql') : false,
     sortSchema: true,
     // driver: ApolloDriver,
     cors: {
@@ -1728,6 +1729,8 @@ exports.environment = {
     production: true,
     processName: process.env.name ?? 'primary',
     url: process.env.URL ?? 'http://localhost:3000',
+    imageUrl: process.env.IMAGE_URL ?? 'http://localhost:3000',
+    oldImageUrl: process.env.OLD_IMAGE_URL ?? 'http://localhost:3000',
 };
 
 
@@ -1777,15 +1780,14 @@ const user_entity_1 = __webpack_require__(8);
 //   logging: false,
 //   synchronize: true
 // };
-// database config
+// for deployement
 exports.typeormOptions = {
-    // name: 'default',
     type: 'mysql',
-    host: 'inventery-db-jaswanth-db90.a.aivencloud.com',
-    port: 18378,
-    username: 'avnadmin',
-    password: 'AVNS_LcWSTDLvOz8bld53FfY',
-    database: 'defaultdb',
+    host: process.env.DATABASE_HOST || 'inventery-db-jaswanth-db90.a.aivencloud.com',
+    port: parseInt(process.env.DATABASE_PORT, 10) || 18378,
+    username: process.env.DATABASE_USER || 'avnadmin',
+    password: process.env.DATABASE_PASS || 'AVNS_LcWSTDLvOz8bld53FfY',
+    database: process.env.DATABASE_DB || 'defaultdb',
     entities: [
         user_entity_1.User,
         authenticate_entity_1.Authenticate,
@@ -1795,10 +1797,29 @@ exports.typeormOptions = {
         foodsize_entity_1.FoodSize,
         combo_entity_1.Offer
     ],
-    // autoLoadEntities: true,
-    synchronize: true,
-    // logging: false,
+    synchronize: true
 };
+// database config for local connection
+// export const typeormOptions: TypeOrmModuleOptions = {
+//   // name: 'default',
+//   type: 'mysql',
+//   host: 'inventery-db-jaswanth-db90.a.aivencloud.com', // Provide the hostname directly
+//   port: 18378, // Specify the port
+//   username: 'avnadmin', // Provide the username directly
+//   password: 'AVNS_LcWSTDLvOz8bld53FfY', // Provide the password directly
+//   database: 'defaultdb', // Specify the database name
+//   entities: [ 
+//     User,
+//     Authenticate,
+//     ItemEntity,
+//     FoodCategory,
+//     FoodType,
+//     FoodSize,
+//     Offer],
+//   // autoLoadEntities: true,
+//   synchronize: true,
+//   // logging: false,
+// };
 exports.typeormConfig = (0, config_1.registerAs)('typeorm', () => exports.typeormOptions);
 
 
