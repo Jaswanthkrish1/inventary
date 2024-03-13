@@ -1,17 +1,17 @@
-ARG BUILD_IMAGE=node:18.12.1-alpine3.17
+
 ARG PROD_IMAGE=node:18.12.1-alpine3.17
 
-# Install Dependencies and build
-FROM ${BUILD_IMAGE} as BUILD
-WORKDIR /app
-COPY ./package.json ./
-COPY ./yarn.lock ./
-COPY ./decorate-angular-cli.js ./
-RUN yarn install --frozen-lockfile
-COPY ./ ./
-ENV NODE_ENV=production
-RUN yarn build api --prod
-RUN yarn build web
+# # Install Dependencies and build, ARG BUILD_IMAGE=node:18.12.1-alpine3.17
+# FROM ${BUILD_IMAGE} as BUILD
+# WORKDIR /app
+# COPY ./package.json ./
+# COPY ./yarn.lock ./
+# COPY ./decorate-angular-cli.js ./
+# RUN yarn install --frozen-lockfile
+# COPY ./ ./
+# ENV NODE_ENV=production
+# RUN yarn build api --prod
+# RUN yarn build web
 
 # Install Production Dependencies
 FROM ${PROD_IMAGE} as DEPENDENCIES
