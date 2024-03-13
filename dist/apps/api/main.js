@@ -1725,7 +1725,7 @@ module.exports = require("path");
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.environment = void 0;
 exports.environment = {
-    production: false,
+    production: true,
     processName: process.env.name ?? 'primary',
     url: process.env.URL ?? 'http://localhost:3000',
 };
