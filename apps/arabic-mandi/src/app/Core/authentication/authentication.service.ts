@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { environment } from 'apps/arabic-mandi/src/environments/environment';
+import { environment } from 'apps/arabic-mandi/src/environments/environment.prod';
 import { catchError, of } from 'rxjs';
 import { GetItemEntitiesGQL, GetItemEntitiesQueryVariables } from '../admin/generate-admin-types';
 

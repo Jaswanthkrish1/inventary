@@ -26,7 +26,7 @@ import { CreateItemInput, GetItemEntitiesClientQueryVariables } from '../../gene
     ]),
   ],
 })
-export class FoodComponent implements OnDestroy {
+export class FoodComponent implements OnDestroy, AfterViewInit {
   public sub: Subscription;
   public selectedFoodItem: any;
   public itemName: any;
@@ -66,6 +66,9 @@ export class FoodComponent implements OnDestroy {
       })
     );
   }
+  ngAfterViewInit(): void {
+
+  }
 
   openDilog(data: any) {
     this.selectedFoodItem = data;
@@ -87,7 +90,7 @@ export class FoodComponent implements OnDestroy {
         debounceTime(500),
         switchMap(variable => {
           // Create a new filter object based on the category key
-          const filter = { category: { id: { eq: id }, isActive: { is: true} } };
+          const filter = { category: { id: { eq: id }, isActive: { is: true } } };
           // Merge the filter into the existing variables
           const newVariables = { ...variable, filter };
           // Call the find method with the updated variables
@@ -96,7 +99,7 @@ export class FoodComponent implements OnDestroy {
       ).subscribe(({ data }) => {
         if (data?.itemEntities) {
           this.dataSource = data?.itemEntities;
-          this.itemName = this.dataSource[0].category?.name;
+
           this.staticStructuredFoodType = this.dataSource.reduce((acc, item) => {
             if (!acc[item.foodtype?.name]) {
               acc[item.foodtype?.name] = [];
@@ -107,23 +110,19 @@ export class FoodComponent implements OnDestroy {
         }
         setTimeout(() => {
           this.foodTypes = Object.keys(this.staticStructuredFoodType);
+          this.itemName = this.dataSource[0].category?.name.toUpperCase();
           if (data?.itemEntities.length != undefined) {
             this.loading = false;
           } else {
             this.loading = false;
             this._router.navigateByUrl('/')
           }
-        }, 1000)
+        }, 2000)
 
       })
     )
-    
-  }
 
-  private time(number: 2000): number{
-    return 3000;
   }
-
 
   // Toggle the selected food type
   toggleFoodType(type: string) {
