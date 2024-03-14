@@ -97,6 +97,7 @@ const foodtype_entity_1 = __webpack_require__(15);
 const foodtype_input_1 = __webpack_require__(33);
 const foodsize_entity_1 = __webpack_require__(16);
 const foodsize_input_1 = __webpack_require__(34);
+//test
 let CoreModule = class CoreModule {
 };
 CoreModule = tslib_1.__decorate([
